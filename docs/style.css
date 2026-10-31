@@ -40,6 +40,38 @@ main {
   padding: 0 1rem;
 }
 
+#channel-switcher {
+  max-width: 960px;
+  margin: 0.75rem auto 0;
+  padding: 0 1rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.channel-tab {
+  padding: 0.4rem 1rem;
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--muted);
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-family: inherit;
+}
+
+.channel-tab:hover {
+  color: var(--fg);
+  border-color: var(--fg);
+}
+
+.channel-tab.active {
+  color: var(--bg);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
 #player-wrap {
   position: relative;
   aspect-ratio: 16 / 9;
