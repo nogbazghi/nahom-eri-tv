@@ -2,6 +2,10 @@
 
 **Depends on:** 005 (page tested), 007 (live on GitHub Pages), 008 (no placeholders left)
 
+## Before launching: known gap
+
+There is currently no contact method on the page (ticket 008/009 — owner decision to launch without one for now). That means nobody can actually request a takedown, which was this design's only safeguard against the "no pre-publish review" trade-off (see design doc, Takedowns section). Launching without fixing this is a real risk, not a formality — worth a deliberate go/no-go, not an assumption.
+
 ## Steps
 
 1. Share the GitHub Pages URL with a small group of viewers and the creators whose videos are featured (per the design doc's non-blocking courtesy-outreach decision — no formal permission needed, just a heads-up).

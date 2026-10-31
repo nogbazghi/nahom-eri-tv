@@ -1,17 +1,17 @@
 # 008: Fill in page content placeholders
 
-**Depends on:** 009 (contact address decided)
+**Depends on:** 009 (done — resolved as "no contact address for now")
 
-## Context
+## Status: done, with a gap carried forward
 
-`docs/index.html` has a placeholder: `<a href="mailto:TODO@example.com">TODO@example.com</a>`.
+Ticket 009 resolved with a decision to launch without any visible contact method, rather than publish a placeholder/broken address. The `mailto:TODO@example.com` line has been removed from `docs/index.html`'s footer entirely (not replaced), and `grep -r "TODO" docs/` now returns nothing.
 
-## Steps
+**This reopens a real gap**, noted in the design doc's Takedowns section: there is currently no way for anyone to request a takedown or correction, which was the pilot's only safeguard given there's no pre-publish content review. Re-open this ticket once a real contact address exists:
 
-1. Open `docs/index.html`, find the `mailto:TODO@example.com` link (currently near the end, in the `<footer>`).
-2. Replace both the `href` and the visible text with the real contact address settled in ticket 009.
-3. If ticket 009 also settled a Tigrinya name for the channel, consider whether to add it to the `<h1>` or `<title>` in `docs/index.html` (optional — not required for launch).
+1. Add `<p>Takedown or correction requests: <a href="mailto:REAL_ADDRESS">REAL_ADDRESS</a></p>` back into `docs/index.html`'s `<footer>`.
+2. Update the design doc's Contact line (Takedowns, moderation, and privacy section) from "currently none" to the real address.
 
 ## Acceptance
 
-- `grep -r "TODO" docs/` returns nothing.
+- `grep -r "TODO" docs/` returns nothing. (met)
+- Tracked as a known gap until a real address is added (see ticket 010's launch-readiness note).

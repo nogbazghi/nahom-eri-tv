@@ -144,7 +144,9 @@ Privacy: the service does not show personal details beyond what the creator publ
 
 Retention: the service stores no viewer data in the pilot. If analytics are added later, they must be aggregate and must not record identities.
 
-Contact: a visible email address on the page for takedown and correction requests. Response target: within 48 hours.
+Contact: **currently none** — the pilot launches with no visible contact method on the page (owner decision, 2026-10-31: no address to publish yet). This is a real gap, not a minor one: it's the only safeguard this design relies on given there's no pre-publish content review (see Privacy, above). The 48-hour response target below cannot be met by anyone who has no way to reach the owner. Add a real address (and reinstate the footer line in `docs/index.html`) before or very soon after soft launch (ticket 008 in `/tickets/`).
+
+Response target once a contact exists: within 48 hours.
 
 ## Editorial stance on politics and sensitive content
 
@@ -195,8 +197,8 @@ Dates are not yet set. See Open questions.
   - **መርዓ ኤርትራ** (*Mer'a Ertra*, "Eritrean Wedding(s)") — plain and descriptive.
   - **ናሆም ኤሪ ቲቪ** (*Nahom Eri TV*, transliterated) — keeps one brand recognizable across both languages.
   - **ኣኼባ መርዓታት** (*Akheba Mer'atat*, roughly "a gathering of weddings") — more evocative, less literal; least confident of the three.
-- [ ] Which contact address goes on the page for takedown requests?
-  Still open — needs a real, working inbox before ticket 008 can close. A role-based address on a registered domain (`takedowns@...`) was proposed, but no domain is registered yet; confirm the actual address to publish.
+- [x] Which contact address goes on the page for takedown requests?
+  **Owner decision (2026-10-31): none for now.** The pilot launches with no contact method rather than a placeholder/broken address. See Takedowns, moderation, and privacy, above, for why this is a real gap, not a formality.
 - [x] If creator outreach happens as a courtesy (M3), is a simple email reply enough to record, given it's no longer a precondition for inclusion?
   **Yes** — a line in the outreach log or the video's `notes` field is enough. It's a relationship-building courtesy, not a compliance record, so it doesn't need a signed form or dedicated tracking.
 - [x] What is the first date for a soft launch?
