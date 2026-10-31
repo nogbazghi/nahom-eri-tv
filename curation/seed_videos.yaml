@@ -1,0 +1,72 @@
+# Pilot bootstrap: hand-picked videos for the Weddings channel.
+#
+# Add one entry per video. fetch_metadata.py fills in title, channel,
+# published date, and duration from the YouTube API — you only need to
+# supply the fields below by hand.
+#
+# - id: dQw4w9WgXcQ
+#   language: Tigrinya
+#   city: Stockholm
+#   tags: [wedding]
+#   channels: [Weddings]
+#   notes: ""
+
+# Found via web search (title/channel only — not confirmed public/embeddable).
+# Run fetch_metadata.py to verify each one and pull real title/channel/duration;
+# it will skip anything private, removed, or not embeddable.
+
+- id: YaQd8H6rdm4
+  language: Tigrinya
+  city: ""
+  tags: [wedding]
+  channels: [Weddings]
+  notes: "Generic 'Eritrean Wedding' title from search — needs verification via fetch_metadata.py"
+
+- id: lF2X4fXeBb0
+  language: Tigrinya
+  city: Toronto
+  tags: [wedding]
+  channels: [Weddings]
+  notes: "Titled 'Eritrean wedding in Toronto' — needs verification via fetch_metadata.py"
+
+- id: G_5U0LNqkPg
+  language: Tigrinya
+  city: ""
+  tags: [wedding]
+  channels: [Weddings]
+  notes: "Named couple (Samsom & Besrat), 2025 — needs verification via fetch_metadata.py"
+
+- id: fZ_6ZZfBAA0
+  language: Tigrinya
+  city: Stockholm
+  tags: [wedding]
+  channels: [Weddings]
+  notes: "Search summary suggests this may be an Isaias & Roma wedding filmed in Stockholm, Sweden — title not independently confirmed, needs verification via fetch_metadata.py"
+
+- id: 5zOUjoKkksc
+  language: Tigrinya
+  city: ""
+  tags: [wedding, music]
+  channels: [Weddings]
+  notes: "Named couple (Robi & Meaza), guayla filmed in the Netherlands, 2026 — needs verification via fetch_metadata.py"
+
+- id: 5L-jjQ2KaaI
+  language: Tigrinya
+  city: Washington
+  tags: [wedding, music]
+  channels: [Weddings]
+  notes: "Guayla performance clip from a 2025 DC wedding, not a full videography reel — needs verification via fetch_metadata.py"
+
+- id: kveqL6-bWAA
+  language: Tigrinya
+  city: ""
+  tags: [wedding, music]
+  channels: [Weddings]
+  notes: "Guayla performance clip (Tedros Kahsay / Xaedu), 2024 — needs verification via fetch_metadata.py"
+
+- id: R5Et-odTT4g
+  language: Tigrinya
+  city: ""
+  tags: [wedding, music]
+  channels: [Weddings]
+  notes: "Named couple's guayla segment (Wedi Gumsa), 2025 — needs verification via fetch_metadata.py"
