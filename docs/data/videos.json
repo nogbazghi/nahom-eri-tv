@@ -2,6 +2,22 @@
   "scheduleStart": "2026-10-31T19:18:56.607835+00:00",
   "videos": [
     {
+      "id": "un4pHBAkIag",
+      "title": "Join me on a country side ride in Eritrea's beautiful mountain landscape.",
+      "channel": "Kebire",
+      "language": "",
+      "city": "",
+      "tags": [
+        "eritrea"
+      ],
+      "published": "2026-01-01",
+      "duration": 1271,
+      "channels": [
+        "Kebire"
+      ],
+      "notes": ""
+    },
+    {
       "id": "YaQd8H6rdm4",
       "title": "Eritrean Wedding",
       "channel": "MelayVideo",
@@ -116,5 +132,14 @@
       ],
       "notes": "API-verified public/embeddable via fetch_metadata.py. Guayla performance (Wedi Gumsa), uploaded by 'DY2 ENTERTAINMENT' \u2014 same channel as 5zOUjoKkksc above; strongest copyright-attribution signal found in research. Not individually screened for copyrighted music; included per owner decision."
     }
-  ]
+  ],
+  "schedules": {
+    "Weddings": {
+      "scheduleStart": "2026-10-31T21:26:15.711346+00:00",
+      "default": true
+    },
+    "Kebire": {
+      "scheduleStart": "2026-10-31T21:26:25.541375+00:00"
+    }
+  }
 }

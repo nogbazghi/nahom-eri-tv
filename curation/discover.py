@@ -41,6 +41,13 @@ RULES = [
     {"channel": "Weddings", "tag": "wedding", "language": "Eritrean", "city": None},
 ]
 
+# Every rule above targets "Weddings" today, so there's exactly one
+# channel's worth of results to merge. If RULES ever targets more than
+# one channel name, this script's merge step (see main()) would need
+# to group videos by their actual `channels` value and call
+# fm.merge_channel once per distinct channel — not needed yet.
+IS_DEFAULT_CHANNEL = True
+
 
 def build_query(rule):
     parts = [rule.get("language"), rule.get("city"), rule["tag"]]
@@ -102,12 +109,6 @@ def main():
     video_ids = list(found_by.keys())
     details = fetch_video_details(video_ids, api_key)
 
-    schedule_start = None
-    if fm.OUTPUT_FILE.exists():
-        with fm.OUTPUT_FILE.open() as f:
-            existing = json.load(f)
-        schedule_start = existing.get("scheduleStart")
-
     videos = []
     for video_id in video_ids:
         item = details.get(video_id)
@@ -138,17 +139,13 @@ def main():
             }
         )
 
-    if schedule_start is None:
-        import datetime
+    # Every rule targets "Weddings" today (see RULES comment above), so
+    # this is one merge for one channel.
+    existing = fm.load_existing()
+    merged = fm.merge_channel(existing, "Weddings", videos, is_default=IS_DEFAULT_CHANNEL)
+    fm.write_output(merged)
 
-        schedule_start = datetime.datetime.now(datetime.timezone.utc).isoformat()
-
-    fm.OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
-    with fm.OUTPUT_FILE.open("w") as f:
-        json.dump({"scheduleStart": schedule_start, "videos": videos}, f, indent=2)
-        f.write("\n")
-
-    print(f"Wrote {len(videos)} videos to {fm.OUTPUT_FILE}")
+    print(f"Wrote {len(videos)} videos to the 'Weddings' channel in {fm.OUTPUT_FILE}")
 
 
 if __name__ == "__main__":
