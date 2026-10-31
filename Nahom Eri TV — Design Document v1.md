@@ -190,14 +190,14 @@ Dates are not yet set. See Open questions.
 
 ## Open questions
 
-- [ ] Will the channel have a name in Tigrinya as well as English?
-  Proposed (candidates, not a native-speaker-verified final choice — confirm spelling/connotation with a Tigrinya speaker before using publicly):
+- [x] Will the channel have a name in Tigrinya as well as English?
+  **Deferred** — not required for pilot launch. Candidates from earlier research, for whenever this gets picked up (none native-speaker-verified yet):
   - **መርዓ ኤርትራ** (*Mer'a Ertra*, "Eritrean Wedding(s)") — plain and descriptive.
   - **ናሆም ኤሪ ቲቪ** (*Nahom Eri TV*, transliterated) — keeps one brand recognizable across both languages.
   - **ኣኼባ መርዓታት** (*Akheba Mer'atat*, roughly "a gathering of weddings") — more evocative, less literal; least confident of the three.
 - [ ] Which contact address goes on the page for takedown requests?
-  Proposed: a role-based address on whatever domain gets registered, e.g. `takedowns@nahomeritv.com` (or `contact@` if one inbox covers both takedowns and general correction requests) — not a personal mailbox, so it survives a future handoff.
-- [ ] If creator outreach happens as a courtesy (M3), is a simple email reply enough to record, given it's no longer a precondition for inclusion?
-  Proposed: yes — a line in the outreach log or the video's `notes` field is enough. It's a relationship-building courtesy, not a compliance record, so it doesn't need a signed form or dedicated tracking.
-- [ ] What is the first date for a soft launch?
-  Proposed: **~2026-11-24** (about 3.5 weeks out), reasoned as roughly 1 week for M1 (hand-pick videos, run the metadata script) + 1–1.5 weeks for M2 (wire up and test the already-scaffolded pilot page on desktop/mobile) + buffer before M3. Treat as a working target to adjust once M1/M2 are actually underway, not a commitment.
+  Still open — needs a real, working inbox before ticket 008 can close. A role-based address on a registered domain (`takedowns@...`) was proposed, but no domain is registered yet; confirm the actual address to publish.
+- [x] If creator outreach happens as a courtesy (M3), is a simple email reply enough to record, given it's no longer a precondition for inclusion?
+  **Yes** — a line in the outreach log or the video's `notes` field is enough. It's a relationship-building courtesy, not a compliance record, so it doesn't need a signed form or dedicated tracking.
+- [x] What is the first date for a soft launch?
+  **~2026-11-24**, as a working target (reasoned from the M1/M2 timing estimate) — adjust once ticket 010 is actually being scheduled, not a hard commitment.
