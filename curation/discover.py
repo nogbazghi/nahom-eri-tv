@@ -11,7 +11,8 @@ the query that first found it, not inferred from its text.
 
 Usage:
     export YOUTUBE_API_KEY=...
-    python discover.py
+    python discover.py                  # from curation/
+    python curation/discover.py         # from the repo root
 """
 
 import json
@@ -19,8 +20,14 @@ import os
 import sys
 import urllib.parse
 import urllib.request
+from pathlib import Path
 
-import fetch_metadata as fm  # reuses parse_duration, load_yaml_list, file paths
+# Make this importable/runnable from either the repo root or curation/
+# itself, since `import fetch_metadata` otherwise only resolves when
+# curation/ is the working directory (or already on sys.path).
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+import fetch_metadata as fm  # noqa: E402  (reuses parse_duration, load_yaml_list, file paths)
 
 SEARCH_URL = "https://www.googleapis.com/youtube/v3/search"
 MIN_VIEWS = 1000
