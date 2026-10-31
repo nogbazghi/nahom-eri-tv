@@ -6,28 +6,34 @@ This is a lightweight plan, not a `write-plan`-style TDD implementation plan —
 
 ## Current state
 
-- Design doc (v1) complete; 4 open questions have proposed answers awaiting confirmation (ticket 009).
-- `curation/seed_videos.yaml`: 8 hand-picked candidates added via web search, none API-verified yet; 4 are guayla music/dance clips worth a second look before publishing (ticket 002).
-- `curation/fetch_metadata.py`: built, not yet run against a real API key.
-- `curation/discover.py` (M4 script): built, not yet run against the real API (ticket 011).
-- `docs/`: static page, player, and shared-broadcast logic built; not yet tested in a browser (ticket 005).
-- Git repo initialized locally (`main`, one commit); no GitHub remote yet (ticket 001).
+- Design doc (v1) complete, all open questions resolved (ticket 009) — including the owner decision to launch with no contact address for now (a known, tracked gap, not an oversight).
+- Pilot lineup is live: 7 verified Weddings videos (ticket 002/004), pushed to GitHub (ticket 001) and served via GitHub Pages at https://nogbazghi.github.io/nahom-eri-tv/ (ticket 007).
+- Page tested end-to-end locally and against live data (ticket 005) — autoplay, credit block, auto-skip, and shared-broadcast resume all confirmed working. No bugs found (ticket 006 stayed empty).
+- `discover.py` (M4) verified working for real (ticket 011), but the pilot still ships on the hand-picked list — the replace-vs-wait decision is still open.
+- **New:** a second design doc, `TV Guide & Multi-Channel — Design Document.md`, added a channel switcher and a second channel (Kebire). Both are built, tested against real data, and live (tickets 013–015). Two follow-ups came out of that work: Kebire's content is thinner than expected (ticket 016) and the header tagline is now stale (ticket 017).
+- Soft launch (ticket 010) has not happened yet — tabled by the owner to do this multi-channel work first.
 
 ## Tickets, in order
 
-| # | Ticket | Milestone | Depends on |
-|---|--------|-----------|------------|
-| 001 | Set up GitHub remote and push | — | — |
-| 002 | Review and trim the hand-picked seed list | M1 | — |
-| 003 | Get a YouTube Data API key | M1 | — |
-| 004 | Run `fetch_metadata.py` and verify the lineup | M1 | 002, 003 |
-| 005 | Test the pilot page locally | M2 | 004 |
-| 006 | Fix player bugs found in 005 | M2 | 005 |
-| 007 | Enable GitHub Pages | M2 | 001, 004 |
-| 008 | Fill in page content placeholders | M2 | 009 |
-| 009 | Confirm design-doc open questions | — | — |
-| 010 | Soft launch | M3 | 005, 007, 008 |
-| 011 | Validate `discover.py` end-to-end | M4 | 003 |
-| 012 | Pick and scope a second channel (placeholder) | M5 | 010 |
+| # | Ticket | Milestone | Status | Depends on |
+|---|--------|-----------|--------|------------|
+| 001 | Set up GitHub remote and push | — | done | — |
+| 002 | Review and trim the hand-picked seed list | M1 | done | — |
+| 003 | Get a YouTube Data API key | M1 | done | — |
+| 004 | Run `fetch_metadata.py` and verify the lineup | M1 | done | 002, 003 |
+| 005 | Test the pilot page locally | M2 | done | 004 |
+| 006 | Fix player bugs found in 005 | M2 | done (no bugs found) | 005 |
+| 007 | Enable GitHub Pages | M2 | done | 001, 004 |
+| 008 | Fill in page content placeholders | M2 | done (no contact address, by owner decision) | 009 |
+| 009 | Confirm design-doc open questions | — | done | — |
+| 010 | Soft launch | M3 | **tabled** | 005, 007, 008 |
+| 011 | Validate `discover.py` end-to-end | M4 | verified; replace-vs-wait decision still open | 003 |
+| 012 | Pick and scope a second channel (placeholder) | M5 | superseded by Kebire (013–016) | 010 |
+| 013 | Migrate data model to multi-channel schedules | — | done | — |
+| 014 | Build the Kebire channel curation script | — | done, thin result | 013 |
+| 015 | Build the channel-switcher UI | — | done | 013 |
+| 016 | Decide what to do about Kebire's thin lineup (1 video) | — | open | 014 |
+| 017 | Update the header tagline for multi-channel | — | open | 015 |
+| 018 | Generalize `discover.py` for multiple search-based channels | — | not yet needed | 013 |
 
-Tickets 001–010 are the path to soft launch. 011 can run any time after a key exists — it doesn't block launch since the pilot ships on the hand-picked list (per the earlier decision that M4 "replaces hand-picking" once it's trusted, not before). 012 is intentionally undetailed until pilot results exist.
+Soft launch (010) is tabled, not blocked — 005/007/008 are all done, so it can resume whenever the owner wants, independent of 016–018.

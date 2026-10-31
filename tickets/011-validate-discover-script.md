@@ -1,10 +1,17 @@
 # 011: Validate discover.py end-to-end
 
+**Status: verified (as a side effect of ticket 013's testing).**
 **Depends on:** 003 (API key)
 
 ## Context
 
 `curation/discover.py` (the M4 automated-discovery script) was written but never run against the real YouTube API.
+
+## Verification result (2026-10-31, run during ticket 013's work)
+
+Ran for real against the live API: it found 47 videos (vs. the 7 hand-picked ones), correctly replaced just the `Weddings` slot in `docs/data/videos.json`, left `Kebire` and the `schedules` map untouched, and preserved `Weddings`' own `scheduleStart`. The merge logic (ticket 013) is confirmed correct.
+
+The **replace-vs-wait decision (step 5 below) was NOT made** — after verifying the merge worked, `fetch_metadata.py` was re-run afterward to restore the hand-picked 7 as the live lineup, since replacing it wasn't this ticket's call to make. That decision is still open.
 
 ## Steps
 
