@@ -1,4 +1,120 @@
 {
-  "scheduleStart": null,
-  "videos": []
+  "scheduleStart": "2026-10-31T19:18:56.607835+00:00",
+  "videos": [
+    {
+      "id": "YaQd8H6rdm4",
+      "title": "Eritrean Wedding",
+      "channel": "MelayVideo",
+      "language": "Tigrinya",
+      "city": "",
+      "tags": [
+        "wedding"
+      ],
+      "published": "2024-07-29",
+      "duration": 1135,
+      "channels": [
+        "Weddings"
+      ],
+      "notes": "API-verified public/embeddable via fetch_metadata.py. Generic 'Eritrean Wedding' title \u2014 not individually content-reviewed; included per owner decision."
+    },
+    {
+      "id": "lF2X4fXeBb0",
+      "title": "Eritrean wedding in Toronto | Yekealo and Natsent 4K Wedding Film",
+      "channel": "Oleh Muzyka Films",
+      "language": "Tigrinya",
+      "city": "Toronto",
+      "tags": [
+        "wedding"
+      ],
+      "published": "2025-02-28",
+      "duration": 403,
+      "channels": [
+        "Weddings"
+      ],
+      "notes": "API-verified public/embeddable via fetch_metadata.py. 'Eritrean wedding in Toronto | Yekealo and Natsent 4K Wedding Film' \u2014 not individually content-reviewed; included per owner decision."
+    },
+    {
+      "id": "G_5U0LNqkPg",
+      "title": "Eritrean wedding 2025 Samsom & Besrat",
+      "channel": "Photo Berhan",
+      "language": "Tigrinya",
+      "city": "",
+      "tags": [
+        "wedding"
+      ],
+      "published": "2025-05-16",
+      "duration": 2383,
+      "channels": [
+        "Weddings"
+      ],
+      "notes": "API-verified public/embeddable via fetch_metadata.py. Named couple (Samsom & Besrat), 2025 \u2014 not individually content-reviewed; included per owner decision."
+    },
+    {
+      "id": "fZ_6ZZfBAA0",
+      "title": "Eritrean Wedding",
+      "channel": "MelayVideo",
+      "language": "Tigrinya",
+      "city": "Stockholm",
+      "tags": [
+        "wedding"
+      ],
+      "published": "2024-07-19",
+      "duration": 815,
+      "channels": [
+        "Weddings"
+      ],
+      "notes": "API-verified public/embeddable via fetch_metadata.py. Possibly an Isaias & Roma wedding filmed in Stockholm \u2014 not individually content-reviewed; included per owner decision."
+    },
+    {
+      "id": "5zOUjoKkksc",
+      "title": "Eritrean Wedding Robi & Meaza, Guayla in Holland 2026 \ud83d\udd25 | Tantan Live Performance",
+      "channel": "DY2 ENTERTAINMENT",
+      "language": "Tigrinya",
+      "city": "",
+      "tags": [
+        "wedding",
+        "music"
+      ],
+      "published": "2026-07-05",
+      "duration": 1339,
+      "channels": [
+        "Weddings"
+      ],
+      "notes": "API-verified public/embeddable via fetch_metadata.py. Guayla performance (Robi & Meaza, Netherlands 2026), uploaded by 'DY2 ENTERTAINMENT' \u2014 same channel as R5Et-odTT4g below. Not individually screened for copyrighted music; included per owner decision."
+    },
+    {
+      "id": "kveqL6-bWAA",
+      "title": "Eritrean Wedding Guayla Mexikaley do (\u1218\u133a\u12ab\u1208\u12ed \u12f6 )   By Tedros Kahsay ( Xaedu ) 2024",
+      "channel": "Tedros Kahsay ( Xaedu )",
+      "language": "Tigrinya",
+      "city": "",
+      "tags": [
+        "wedding",
+        "music"
+      ],
+      "published": "2024-08-11",
+      "duration": 385,
+      "channels": [
+        "Weddings"
+      ],
+      "notes": "API-verified public/embeddable via fetch_metadata.py. Guayla performance uploaded directly by the performer, 'Tedros Kahsay (Xaedu)'. Not individually screened for copyrighted music; included per owner decision."
+    },
+    {
+      "id": "R5Et-odTT4g",
+      "title": "\u1218\u1270\u12d3\u1265\u12ed\u1272, New Eritrean Wedding Guayla 2025 \u12c8\u12f2 \u1309\u121d\u1233, msgna & shewit, Wedi Gumsa.",
+      "channel": "DY2 ENTERTAINMENT",
+      "language": "Tigrinya",
+      "city": "",
+      "tags": [
+        "wedding",
+        "music"
+      ],
+      "published": "2024-12-17",
+      "duration": 1342,
+      "channels": [
+        "Weddings"
+      ],
+      "notes": "API-verified public/embeddable via fetch_metadata.py. Guayla performance (Wedi Gumsa), uploaded by 'DY2 ENTERTAINMENT' \u2014 same channel as 5zOUjoKkksc above; strongest copyright-attribution signal found in research. Not individually screened for copyrighted music; included per owner decision."
+    }
+  ]
 }

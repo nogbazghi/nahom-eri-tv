@@ -20,53 +20,46 @@
   city: ""
   tags: [wedding]
   channels: [Weddings]
-  notes: "Generic 'Eritrean Wedding' title from search — needs verification via fetch_metadata.py"
+  notes: "API-verified public/embeddable via fetch_metadata.py. Generic 'Eritrean Wedding' title — not individually content-reviewed; included per owner decision."
 
 - id: lF2X4fXeBb0
   language: Tigrinya
   city: Toronto
   tags: [wedding]
   channels: [Weddings]
-  notes: "Titled 'Eritrean wedding in Toronto' — needs verification via fetch_metadata.py"
+  notes: "API-verified public/embeddable via fetch_metadata.py. 'Eritrean wedding in Toronto | Yekealo and Natsent 4K Wedding Film' — not individually content-reviewed; included per owner decision."
 
 - id: G_5U0LNqkPg
   language: Tigrinya
   city: ""
   tags: [wedding]
   channels: [Weddings]
-  notes: "Named couple (Samsom & Besrat), 2025 — needs verification via fetch_metadata.py"
+  notes: "API-verified public/embeddable via fetch_metadata.py. Named couple (Samsom & Besrat), 2025 — not individually content-reviewed; included per owner decision."
 
 - id: fZ_6ZZfBAA0
   language: Tigrinya
   city: Stockholm
   tags: [wedding]
   channels: [Weddings]
-  notes: "Search summary suggests this may be an Isaias & Roma wedding filmed in Stockholm, Sweden — title not independently confirmed, needs verification via fetch_metadata.py"
+  notes: "API-verified public/embeddable via fetch_metadata.py. Possibly an Isaias & Roma wedding filmed in Stockholm — not individually content-reviewed; included per owner decision."
 
 - id: 5zOUjoKkksc
   language: Tigrinya
   city: ""
   tags: [wedding, music]
   channels: [Weddings]
-  notes: "Named couple (Robi & Meaza), guayla filmed in the Netherlands, 2026 — needs verification via fetch_metadata.py"
-
-- id: 5L-jjQ2KaaI
-  language: Tigrinya
-  city: Washington
-  tags: [wedding, music]
-  channels: [Weddings]
-  notes: "Guayla performance clip from a 2025 DC wedding, not a full videography reel — needs verification via fetch_metadata.py"
+  notes: "API-verified public/embeddable via fetch_metadata.py. Guayla performance (Robi & Meaza, Netherlands 2026), uploaded by 'DY2 ENTERTAINMENT' — same channel as R5Et-odTT4g below. Not individually screened for copyrighted music; included per owner decision."
 
 - id: kveqL6-bWAA
   language: Tigrinya
   city: ""
   tags: [wedding, music]
   channels: [Weddings]
-  notes: "Guayla performance clip (Tedros Kahsay / Xaedu), 2024 — needs verification via fetch_metadata.py"
+  notes: "API-verified public/embeddable via fetch_metadata.py. Guayla performance uploaded directly by the performer, 'Tedros Kahsay (Xaedu)'. Not individually screened for copyrighted music; included per owner decision."
 
 - id: R5Et-odTT4g
   language: Tigrinya
   city: ""
   tags: [wedding, music]
   channels: [Weddings]
-  notes: "Named couple's guayla segment (Wedi Gumsa), 2025 — needs verification via fetch_metadata.py"
+  notes: "API-verified public/embeddable via fetch_metadata.py. Guayla performance (Wedi Gumsa), uploaded by 'DY2 ENTERTAINMENT' — same channel as 5zOUjoKkksc above; strongest copyright-attribution signal found in research. Not individually screened for copyrighted music; included per owner decision."
