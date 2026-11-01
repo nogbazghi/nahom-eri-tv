@@ -1,0 +1,30 @@
+# Per-channel rules for the automated curation pipeline.
+#
+# type: search  — discover.py runs every query in `queries` through YouTube
+#                 search, restricted to recently-published results, then
+#                 validates matches against the thresholds below.
+# type: channel — kebire_channel.py enumerates every upload from `channel_id`
+#                 (not a search), keeps only ones where `text_filter` appears
+#                 in the title or description, then validates the same way.
+#
+# Thresholds apply uniformly to freshly-discovered candidates AND to
+# previously-stored videos being re-checked on every run (see
+# curation/pipeline.py's validate_record()).
+
+weddings:
+  type: search
+  display_name: Weddings
+  is_default: true
+  queries:
+    - "Tigrinya wedding"
+    - "Eritrean wedding"
+  view_count_min: 1000
+  duration_min_sec: 120
+
+kebire:
+  type: channel
+  display_name: Kebire
+  channel_id: UCz9a7XA9oMmk3CpFnE456bQ
+  text_filter: "#eritrea"
+  view_count_min: 0
+  duration_min_sec: 120

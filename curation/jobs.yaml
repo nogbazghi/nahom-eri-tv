@@ -1,0 +1,6 @@
+# Scripts the scheduled curation job runs automatically (see
+# .github/workflows/curate.yml). fetch_metadata.py is intentionally NOT
+# listed — it's the manual hand-picked-bootstrap helper, not an automated
+# discovery job.
+- discover.py
+- kebire_channel.py
