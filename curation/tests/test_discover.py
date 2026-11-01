@@ -1,9 +1,10 @@
 """Unit tests for discover.py's pure helper functions.
 
-These test the new logic discover.py adds on top of pipeline.py (which has
-its own coverage) — the publishedAfter date window, candidate dedup across
-multiple queries, and dropping already-stored/blocklisted IDs. No network
-calls; search_videos()/run_channel()/main() aren't exercised here.
+These test the logic discover.py adds on top of pipeline.py (which has its
+own coverage, see test_pipeline.py) — the publishedAfter date window,
+candidate dedup across multiple queries, and the search-query language/city
+guess. No network calls; search_videos()/run_channel()/main() aren't
+exercised here.
 """
 
 import datetime
@@ -38,19 +39,6 @@ def test_dedup_candidates_preserves_first_seen_order_across_queries():
 def test_dedup_candidates_handles_empty_lists():
     assert discover.dedup_candidates([]) == []
     assert discover.dedup_candidates([[], []]) == []
-
-
-def test_filter_new_candidates_drops_stored_and_blocklisted():
-    candidates = ["a", "b", "c", "d"]
-    stored_ids = ["b"]
-    blocked_ids = {"d"}
-    result = discover.filter_new_candidates(candidates, stored_ids, blocked_ids)
-    assert result == ["a", "c"]
-
-
-def test_filter_new_candidates_keeps_everything_when_nothing_excluded():
-    result = discover.filter_new_candidates(["a", "b"], [], set())
-    assert result == ["a", "b"]
 
 
 def test_infer_language_city_matches_known_language():

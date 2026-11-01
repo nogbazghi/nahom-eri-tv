@@ -57,13 +57,6 @@ def dedup_candidates(id_lists):
     return seen
 
 
-def filter_new_candidates(candidate_ids, stored_ids, blocked_ids):
-    """Drop candidates already stored for this channel or on the blocklist.
-    Pure — no API calls."""
-    stored_set = set(stored_ids)
-    return [cid for cid in candidate_ids if cid not in stored_set and cid not in blocked_ids]
-
-
 def infer_language_city(query):
     """Best-effort language guess from the query string that found a video,
     per the "tag by the query" decision. Minor field — not exhaustive."""
@@ -88,24 +81,17 @@ def search_videos(query, api_key, published_after_ts):
     return [item["id"]["videoId"] for item in payload.get("items", [])]
 
 
-def stored_videos_for(existing_data, display_name):
-    return [v for v in existing_data.get("videos", []) if v.get("channels") == [display_name]]
-
-
 def run_channel(channel_key, cfg, api_key, blocked_ids, existing_data):
     display_name = cfg["display_name"]
-    stored = stored_videos_for(existing_data, display_name)
+    stored = pipeline.videos_for_channel(existing_data, display_name)
     stored_ids = [v["id"] for v in stored]
 
     after_ts = published_after()
     per_query_results = [search_videos(q, api_key, after_ts) for q in cfg["queries"]]
     candidates = dedup_candidates(per_query_results)
-    candidates = filter_new_candidates(candidates, stored_ids, blocked_ids)
+    candidates = pipeline.filter_new_ids(candidates, stored_ids, blocked_ids)
 
-    rules = {
-        "view_count_min": cfg.get("view_count_min", 0),
-        "duration_min_sec": cfg.get("duration_min_sec", 0),
-    }
+    rules = pipeline.rules_from_config(cfg)
     result = pipeline.compute_run(
         channel_key, display_name, stored, candidates, rules, api_key, blocked_ids
     )

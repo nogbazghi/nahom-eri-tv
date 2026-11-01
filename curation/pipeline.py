@@ -126,6 +126,36 @@ def fetch_video_metadata(video_ids, api_key):
     return results
 
 
+def filter_new_ids(candidate_ids, stored_ids, blocked_ids):
+    """Drop candidate IDs already stored for this channel or on the
+    blocklist. Pure — no API calls. Shared by discover.py (search-based
+    candidates) and kebire_channel.py (a channel's own uploads)."""
+    stored_set = set(stored_ids)
+    return [cid for cid in candidate_ids if cid not in stored_set and cid not in blocked_ids]
+
+
+def video_in_channel(video, display_name):
+    """True if `video`'s channels field names exactly this one channel."""
+    return video.get("channels") == [display_name]
+
+
+def videos_for_channel(existing_data, display_name):
+    """This channel's currently-stored videos (matching on channel
+    membership). Shared by discover.py/kebire_channel.py (to find what to
+    re-validate) and write_channel_result (to find what to replace)."""
+    return [v for v in existing_data.get("videos", []) if video_in_channel(v, display_name)]
+
+
+def rules_from_config(cfg):
+    """Extract the documented validate_record/compute_run rules subset
+    (view_count_min, duration_min_sec) from a channels.yaml entry, ignoring
+    every other key that entry may carry."""
+    return {
+        "view_count_min": cfg.get("view_count_min", 0),
+        "duration_min_sec": cfg.get("duration_min_sec", 0),
+    }
+
+
 def validate_record(record, rules):
     """Pure function — no API calls, no I/O.
 
@@ -239,32 +269,46 @@ def compute_run(
     }
 
 
-def write_channel_result(existing_data, channel_key_display_name, final_videos, is_default):
-    """Replace channel_key_display_name's entries in existing_data["videos"]
-    with final_videos (every other channel's entries pass through
-    untouched), and ensure existing_data["schedules"][channel_key_display_name]
-    exists. A channel's scheduleStart (and default flag) is set once, on
-    first creation, and never modified on later runs — only the video list
-    is refreshed. Unlike the old merge_channel(), this takes the final
+def write_channel_result(existing_data, display_name, final_videos, is_default):
+    """Replace display_name's entries in existing_data["videos"] with
+    final_videos (every other channel's entries pass through untouched),
+    and ensure existing_data["schedules"][display_name] exists. A
+    channel's scheduleStart (and default flag) is set once, on first
+    creation, and never modified on later runs — only the video list is
+    refreshed. Unlike the old merge_channel(), this takes the final
     already-computed video list directly rather than fetching anything
     itself.
     """
-    kept = [
-        v for v in existing_data.get("videos", []) if v.get("channels") != [channel_key_display_name]
-    ]
+    kept = [v for v in existing_data.get("videos", []) if not video_in_channel(v, display_name)]
     kept.extend(final_videos)
     existing_data["videos"] = kept
 
     schedules = existing_data.setdefault("schedules", {})
-    if channel_key_display_name not in schedules:
+    if display_name not in schedules:
         entry = {"scheduleStart": datetime.datetime.now(datetime.timezone.utc).isoformat()}
         if is_default:
             entry["default"] = True
-        schedules[channel_key_display_name] = entry
+        schedules[display_name] = entry
     # else: this channel's schedule entry already exists — leave its
     # scheduleStart and default value exactly as they are.
 
     return existing_data
+
+
+def load_pending_summaries(pending_dir=PENDING_DIR):
+    """Read every {"channel", "additions", "removals"} summary written by
+    write_run_summary(), sorted by filename for deterministic ordering.
+
+    Returns [] if the directory doesn't exist or holds no .json files.
+    """
+    pending_dir = Path(pending_dir)
+    if not pending_dir.exists():
+        return []
+    summaries = []
+    for path in sorted(pending_dir.glob("*.json")):
+        with path.open() as f:
+            summaries.append(json.load(f))
+    return summaries
 
 
 def write_run_summary(channel_key, additions, removals, out_dir="curation/.pending"):

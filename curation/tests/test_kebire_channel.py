@@ -3,7 +3,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from kebire_channel import filter_new_ids, matches_text_filter, tag_for
+from kebire_channel import matches_text_filter, tag_for
 
 
 def test_matches_text_filter_in_title():
@@ -36,18 +36,3 @@ def test_tag_for_no_hash():
 
 def test_tag_for_empty():
     assert tag_for("") == ""
-
-
-def test_filter_new_ids_drops_stored_and_blocked():
-    all_ids = ["a", "b", "c", "d"]
-    stored = {"a"}
-    blocked = {"c"}
-    assert filter_new_ids(all_ids, stored, blocked) == ["b", "d"]
-
-
-def test_filter_new_ids_empty_input():
-    assert filter_new_ids([], set(), set()) == []
-
-
-def test_filter_new_ids_no_filtering_needed():
-    assert filter_new_ids(["x", "y"], set(), set()) == ["x", "y"]

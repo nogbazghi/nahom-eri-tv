@@ -91,13 +91,6 @@ def tag_for(text_filter):
     return text_filter.lstrip("#").lower() if text_filter else ""
 
 
-def filter_new_ids(all_video_ids, stored_ids, blocked_ids):
-    """Pure — the uploads a channel-type source hasn't already stored and
-    that aren't blocklisted. These are candidates for the text_filter
-    check, not yet validated."""
-    return [vid for vid in all_video_ids if vid not in stored_ids and vid not in blocked_ids]
-
-
 def run_channel(channel_key, entry, api_key, blocked_ids, existing_data):
     display_name = entry["display_name"]
     text_filter = entry.get("text_filter", "")
@@ -105,10 +98,10 @@ def run_channel(channel_key, entry, api_key, blocked_ids, existing_data):
     uploads_playlist_id = get_uploads_playlist_id(entry["channel_id"], api_key)
     all_video_ids = get_all_video_ids(uploads_playlist_id, api_key)
 
-    stored_videos = [v for v in existing_data.get("videos", []) if v.get("channels") == [display_name]]
+    stored_videos = pipeline.videos_for_channel(existing_data, display_name)
     stored_ids = {v["id"] for v in stored_videos}
 
-    fresh_ids = filter_new_ids(all_video_ids, stored_ids, blocked_ids)
+    fresh_ids = pipeline.filter_new_ids(all_video_ids, stored_ids, blocked_ids)
 
     # Need title/description to apply text_filter, so fetch metadata for
     # fresh IDs up front. compute_run() will fetch it again internally for
@@ -122,8 +115,9 @@ def run_channel(channel_key, entry, api_key, blocked_ids, existing_data):
         and matches_text_filter(metadata[vid]["title"], metadata[vid]["description"], text_filter)
     ]
 
+    rules = pipeline.rules_from_config(entry)
     result = pipeline.compute_run(
-        channel_key, display_name, stored_videos, candidate_ids, entry, api_key, blocked_ids,
+        channel_key, display_name, stored_videos, candidate_ids, rules, api_key, blocked_ids,
     )
 
     tag = tag_for(text_filter)
