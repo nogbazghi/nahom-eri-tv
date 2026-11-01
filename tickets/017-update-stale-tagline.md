@@ -1,5 +1,6 @@
 # 017: Update the header tagline for multi-channel
 
+**Status: resolved as a side effect of ticket 015's redesign.**
 **Depends on:** 015
 
 ## Context
@@ -14,3 +15,7 @@
 ## Acceptance
 
 - The tagline doesn't promise only wedding content once a second channel is live.
+
+## Resolution
+
+The Classic Guide Grid redesign (ticket 015, commit `8e31f5f`) removed the tagline paragraph entirely rather than rewording it — the corner badge now shows the live channel name/number directly, making a separate static tagline redundant. No action needed.
