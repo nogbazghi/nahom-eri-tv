@@ -9,3 +9,6 @@ __pycache__/
 # macOS
 .DS_Store
 scratch/
+
+# Curation pipeline transient output (hand-off to the GitHub Actions workflow)
+curation/.pending/

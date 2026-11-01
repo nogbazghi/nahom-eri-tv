@@ -11,24 +11,29 @@ a `channels` array) plus a `schedules` map of one entry per channel
 channel's `scheduleStart` is set once, the first time that channel is
 generated, and preserved on every later run — this script only ever
 replaces the "Weddings"-tagged videos, leaving every other channel's
-entries and schedule untouched. See `merge_channel` below; discover.py
-and kebire_channel.py reuse it for their own channels.
+entries and schedule untouched.
+
+The shared search/validate/merge helpers (parse_duration, YAML loading,
+reading/writing docs/data/videos.json, merging one channel's result into
+it) live in pipeline.py — discover.py and kebire_channel.py are peers of
+this script, not consumers of it.
 
 Usage:
     export YOUTUBE_API_KEY=...
     python fetch_metadata.py
 """
 
-import datetime
-import json
 import os
-import re
 import sys
-import urllib.parse
-import urllib.request
 from pathlib import Path
 
-import yaml
+from pipeline import (
+    load_existing,
+    load_yaml_list,
+    parse_duration,
+    write_channel_result,
+    write_output,
+)
 
 ROOT = Path(__file__).resolve().parent.parent
 SEED_FILE = ROOT / "curation" / "seed_videos.yaml"
@@ -36,72 +41,19 @@ BLOCKLIST_FILE = ROOT / "curation" / "blocklist.yaml"
 OUTPUT_FILE = ROOT / "docs" / "data" / "videos.json"
 
 API_URL = "https://www.googleapis.com/youtube/v3/videos"
-DURATION_RE = re.compile(
-    r"PT(?:(?P<hours>\d+)H)?(?:(?P<minutes>\d+)M)?(?:(?P<seconds>\d+)S)?"
-)
 
 CHANNEL_NAME = "Weddings"
 IS_DEFAULT_CHANNEL = True
 
 
-def parse_duration(iso8601):
-    match = DURATION_RE.fullmatch(iso8601)
-    if not match:
-        raise ValueError(f"Unrecognized duration format: {iso8601}")
-    parts = match.groupdict(default="0")
-    return int(parts["hours"]) * 3600 + int(parts["minutes"]) * 60 + int(parts["seconds"])
-
-
-def load_yaml_list(path):
-    if not path.exists():
-        return []
-    with path.open() as f:
-        return yaml.safe_load(f) or []
-
-
-def load_existing():
-    """Read docs/data/videos.json, or a fresh empty structure if it
-    doesn't exist yet."""
-    if OUTPUT_FILE.exists():
-        with OUTPUT_FILE.open() as f:
-            data = json.load(f)
-        data.setdefault("videos", [])
-        data.setdefault("schedules", {})
-        return data
-    return {"videos": [], "schedules": {}}
-
-
-def merge_channel(existing, channel_name, new_videos, is_default=False):
-    """Replace `channel_name`'s entries in existing["videos"] with
-    new_videos (every other channel's entries pass through untouched),
-    and ensure existing["schedules"][channel_name] exists. A channel's
-    scheduleStart (and default flag) is set once, on first creation,
-    and never modified on later runs — only the video list is
-    refreshed."""
-    kept = [v for v in existing["videos"] if v.get("channels") != [channel_name]]
-    kept.extend(new_videos)
-    existing["videos"] = kept
-
-    schedules = existing.setdefault("schedules", {})
-    if channel_name not in schedules:
-        entry = {"scheduleStart": datetime.datetime.now(datetime.timezone.utc).isoformat()}
-        if is_default:
-            entry["default"] = True
-        schedules[channel_name] = entry
-    # else: this channel's schedule entry already exists — leave its
-    # scheduleStart and default value exactly as they are.
-
-    return existing
-
-
-def write_output(data):
-    OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
-    with OUTPUT_FILE.open("w") as f:
-        json.dump(data, f, indent=2)
-        f.write("\n")
-
-
 def fetch_video_data(video_ids, api_key):
+    """Thin, snippet/contentDetails/status-only fetch — kept separate from
+    pipeline.fetch_video_metadata (which also pulls statistics) since this
+    script doesn't apply a view-count rule; it only needs embeddable status."""
+    import json
+    import urllib.parse
+    import urllib.request
+
     results = {}
     for i in range(0, len(video_ids), 50):  # the API allows up to 50 IDs per call
         batch = video_ids[i : i + 50]
@@ -161,7 +113,7 @@ def main():
         )
 
     existing = load_existing()
-    merged = merge_channel(existing, CHANNEL_NAME, videos, is_default=IS_DEFAULT_CHANNEL)
+    merged = write_channel_result(existing, CHANNEL_NAME, videos, is_default=IS_DEFAULT_CHANNEL)
     write_output(merged)
 
     print(f"Wrote {len(videos)} videos to the '{CHANNEL_NAME}' channel in {OUTPUT_FILE}")
