@@ -1,6 +1,18 @@
 # Curation
 
+See [`ARCHITECTURE.md`](ARCHITECTURE.md) for the full design of the automated curation pipeline (search, validation, storage, and why additions vs. removals are handled differently).
+
 `../docs/data/videos.json` holds a flat pool of videos (each tagged with a `channels` array) plus a `schedules` map with one entry per channel (`scheduleStart`, and `default: true` on exactly one channel). Each script below only ever replaces its own channel's videos and leaves every other channel's entries and schedule untouched — see `merge_channel` in `fetch_metadata.py`, which the other scripts reuse.
+
+## Automated runs
+
+Once ticket 023 ships, the pipeline runs weekly on its own via GitHub Actions, and a run can also be forced on demand:
+
+```
+gh workflow run curate.yml
+```
+
+(Not available yet — `.github/workflows/curate.yml` doesn't exist until ticket 023 lands. Until then, run the scripts below by hand.)
 
 ## Weddings channel
 
