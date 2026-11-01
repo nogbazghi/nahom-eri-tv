@@ -3,26 +3,36 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Nahom Eri TV — Weddings</title>
+  <title>Nahom Eri TV</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
     <h1>Nahom Eri TV</h1>
-    <p class="tagline">Eritrean and Tigrinya weddings, playing now.</p>
   </header>
 
-  <nav id="channel-switcher"></nav>
-
   <main>
-    <div id="player-wrap">
-      <div id="player"></div>
-      <button id="unmute" type="button">🔇 Tap to unmute</button>
-    </div>
+    <div id="screen">
+      <div id="player-wrap">
+        <div id="player"></div>
+        <button id="unmute" type="button">🔇 Tap to unmute</button>
+        <div id="corner-badge">
+          <div class="badge-top">
+            <span id="badge-num" class="num mono"></span>
+            <span id="badge-name" class="name"></span>
+          </div>
+          <div id="badge-title"></div>
+        </div>
+      </div>
 
-    <div id="credit">
-      <span id="credit-title">Loading…</span>
-      <span id="credit-channel"></span>
+      <div id="guide-panel" hidden>
+        <div id="guide-rows"></div>
+      </div>
+
+      <div class="toolbar">
+        <span id="toolbar-chan" class="toolbar-chan"></span>
+        <button id="guide-toggle" class="btn-guide" type="button" aria-expanded="false">Guide ▾</button>
+      </div>
     </div>
   </main>
 
