@@ -295,22 +295,6 @@ def write_channel_result(existing_data, display_name, final_videos, is_default):
     return existing_data
 
 
-def load_pending_summaries(pending_dir=PENDING_DIR):
-    """Read every {"channel", "additions", "removals"} summary written by
-    write_run_summary(), sorted by filename for deterministic ordering.
-
-    Returns [] if the directory doesn't exist or holds no .json files.
-    """
-    pending_dir = Path(pending_dir)
-    if not pending_dir.exists():
-        return []
-    summaries = []
-    for path in sorted(pending_dir.glob("*.json")):
-        with path.open() as f:
-            summaries.append(json.load(f))
-    return summaries
-
-
 def write_run_summary(channel_key, additions, removals, out_dir="curation/.pending"):
     """Write {out_dir}/{channel_key}.json: {"channel", "additions", "removals"}.
 
