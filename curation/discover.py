@@ -1,13 +1,13 @@
-"""Automated discovery for channel lineups (M4 — replaces hand-picking).
+"""Automated discovery for search-based channel lineups.
 
-For each channel rule below, searches YouTube for public videos matching
-a tag/language/city query, pulls duration/embeddable-status/view-count,
-applies a minimum view-count filter, and writes ../docs/data/videos.json.
-
-Per the design doc there is no trusted-channel allow-list and no
-per-video review: any channel whose public video matches a rule's
-search query qualifies. A video is tagged with the language/city of
-the query that first found it, not inferred from its text.
+For each `type: search` entry in channels.yaml, searches YouTube for
+recently-published videos matching each of its queries, re-validates both
+those fresh candidates and the channel's already-stored videos (see
+pipeline.compute_run — this is what fixes the old bug where a video could
+silently disappear just because a search run didn't re-surface it, not
+because it actually became invalid), and merges the result into
+../docs/data/videos.json. Also writes a per-channel summary to
+curation/.pending/<channel_key>.json for the GitHub Actions workflow.
 
 Usage:
     export YOUTUBE_API_KEY=...
@@ -15,6 +15,7 @@ Usage:
     python curation/discover.py         # from the repo root
 """
 
+import datetime
 import json
 import os
 import sys
@@ -23,43 +24,62 @@ import urllib.request
 from pathlib import Path
 
 # Make this importable/runnable from either the repo root or curation/
-# itself, since `import fetch_metadata` otherwise only resolves when
-# curation/ is the working directory (or already on sys.path).
+# itself.
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-import fetch_metadata as fm  # noqa: E402  (reuses parse_duration, load_yaml_list, file paths)
+import pipeline  # noqa: E402
+
+BLOCKLIST_FILE = Path(__file__).resolve().parent / "blocklist.yaml"
 
 SEARCH_URL = "https://www.googleapis.com/youtube/v3/search"
-MIN_VIEWS = 1000
 RESULTS_PER_QUERY = 25
-
-# Per-channel rules. Each one becomes a search query of
-# "<language> <city> <tag>" (city omitted when not set). Add more
-# entries here to expand beyond the pilot Weddings channel.
-RULES = [
-    {"channel": "Weddings", "tag": "wedding", "language": "Tigrinya", "city": None},
-    {"channel": "Weddings", "tag": "wedding", "language": "Eritrean", "city": None},
-]
-
-# Every rule above targets "Weddings" today, so there's exactly one
-# channel's worth of results to merge. If RULES ever targets more than
-# one channel name, this script's merge step (see main()) would need
-# to group videos by their actual `channels` value and call
-# fm.merge_channel once per distinct channel — not needed yet.
-IS_DEFAULT_CHANNEL = True
+PUBLISHED_WINDOW_DAYS = 10  # weekly cadence + buffer, so a missed run doesn't lose candidates
 
 
-def build_query(rule):
-    parts = [rule.get("language"), rule.get("city"), rule["tag"]]
-    return " ".join(p for p in parts if p)
+def published_after(days=PUBLISHED_WINDOW_DAYS, now=None):
+    """RFC3339 timestamp `days` before `now` (defaults to current time), for
+    search.list's publishedAfter param."""
+    now = now or datetime.datetime.now(datetime.timezone.utc)
+    cutoff = now - datetime.timedelta(days=days)
+    return cutoff.strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-def search_videos(query, api_key):
+def dedup_candidates(id_lists):
+    """Flatten + dedup candidate IDs across multiple queries' result lists,
+    preserving first-seen order. Pure — no API calls."""
+    seen_set = set()
+    seen = []
+    for ids in id_lists:
+        for vid in ids:
+            if vid not in seen_set:
+                seen_set.add(vid)
+                seen.append(vid)
+    return seen
+
+
+def filter_new_candidates(candidate_ids, stored_ids, blocked_ids):
+    """Drop candidates already stored for this channel or on the blocklist.
+    Pure — no API calls."""
+    stored_set = set(stored_ids)
+    return [cid for cid in candidate_ids if cid not in stored_set and cid not in blocked_ids]
+
+
+def infer_language_city(query):
+    """Best-effort language guess from the query string that found a video,
+    per the "tag by the query" decision. Minor field — not exhaustive."""
+    for candidate in ("Tigrinya", "Eritrean", "Tigre", "Arabic"):
+        if candidate.lower() in query.lower():
+            return candidate, ""
+    return "", ""
+
+
+def search_videos(query, api_key, published_after_ts):
     params = {
         "part": "id",
         "q": query,
         "type": "video",
         "maxResults": RESULTS_PER_QUERY,
+        "publishedAfter": published_after_ts,
         "key": api_key,
     }
     url = f"{SEARCH_URL}?{urllib.parse.urlencode(params)}"
@@ -68,21 +88,42 @@ def search_videos(query, api_key):
     return [item["id"]["videoId"] for item in payload.get("items", [])]
 
 
-def fetch_video_details(video_ids, api_key):
-    results = {}
-    for i in range(0, len(video_ids), 50):  # the API allows up to 50 IDs per call
-        batch = video_ids[i : i + 50]
-        params = {
-            "part": "snippet,contentDetails,status,statistics",
-            "id": ",".join(batch),
-            "key": api_key,
-        }
-        url = f"{fm.API_URL}?{urllib.parse.urlencode(params)}"
-        with urllib.request.urlopen(url) as response:
-            payload = json.load(response)
-        for item in payload.get("items", []):
-            results[item["id"]] = item
-    return results
+def stored_videos_for(existing_data, display_name):
+    return [v for v in existing_data.get("videos", []) if v.get("channels") == [display_name]]
+
+
+def run_channel(channel_key, cfg, api_key, blocked_ids, existing_data):
+    display_name = cfg["display_name"]
+    stored = stored_videos_for(existing_data, display_name)
+    stored_ids = [v["id"] for v in stored]
+
+    after_ts = published_after()
+    per_query_results = [search_videos(q, api_key, after_ts) for q in cfg["queries"]]
+    candidates = dedup_candidates(per_query_results)
+    candidates = filter_new_candidates(candidates, stored_ids, blocked_ids)
+
+    rules = {
+        "view_count_min": cfg.get("view_count_min", 0),
+        "duration_min_sec": cfg.get("duration_min_sec", 0),
+    }
+    result = pipeline.compute_run(
+        channel_key, display_name, stored, candidates, rules, api_key, blocked_ids
+    )
+
+    # Best-effort language/city/tags for new additions (minor field; see
+    # infer_language_city docstring).
+    query_by_candidate = {}
+    for query, ids in zip(cfg["queries"], per_query_results):
+        for vid in ids:
+            query_by_candidate.setdefault(vid, query)
+    for video in result["additions"]:
+        query = query_by_candidate.get(video["id"], "")
+        language, city = infer_language_city(query)
+        video["language"] = language
+        video["city"] = city
+        video["tags"] = ["wedding"] if "wedding" in query.lower() else []
+
+    return result
 
 
 def main():
@@ -90,62 +131,27 @@ def main():
     if not api_key:
         sys.exit("Set YOUTUBE_API_KEY before running this script.")
 
-    blocked_ids = {entry["id"] for entry in fm.load_yaml_list(fm.BLOCKLIST_FILE)}
+    channels = pipeline.load_channels_config()
+    blocked_ids = {entry["id"] for entry in pipeline.load_yaml_list(BLOCKLIST_FILE)}
+    existing = pipeline.load_existing()
 
-    # Run every rule's search, tagging each newly-seen video with the
-    # rule that first found it and accumulating channel membership for
-    # every rule that matches it.
-    found_by = {}  # video_id -> rule dict (first match, used for tagging)
-    channels_by_id = {}  # video_id -> set of channel names
+    search_channels = {k: v for k, v in channels.items() if v.get("type") == "search"}
+    if not search_channels:
+        print("No type: search channels in channels.yaml — nothing to do.")
+        return
 
-    for rule in RULES:
-        query = build_query(rule)
-        for video_id in search_videos(query, api_key):
-            if video_id in blocked_ids:
-                continue
-            found_by.setdefault(video_id, rule)
-            channels_by_id.setdefault(video_id, set()).add(rule["channel"])
-
-    video_ids = list(found_by.keys())
-    details = fetch_video_details(video_ids, api_key)
-
-    videos = []
-    for video_id in video_ids:
-        item = details.get(video_id)
-        if item is None:
-            print(f"Warning: {video_id} not found or not public, skipping.", file=sys.stderr)
-            continue
-        if item.get("status", {}).get("privacyStatus") != "public":
-            continue
-        if not item.get("status", {}).get("embeddable", False):
-            continue
-        view_count = int(item.get("statistics", {}).get("viewCount", 0))
-        if view_count < MIN_VIEWS:
-            continue
-
-        rule = found_by[video_id]
-        videos.append(
-            {
-                "id": video_id,
-                "title": item["snippet"]["title"],
-                "channel": item["snippet"]["channelTitle"],
-                "language": rule.get("language", ""),
-                "city": rule.get("city") or "",
-                "tags": [rule["tag"]],
-                "published": item["snippet"]["publishedAt"][:10],
-                "duration": fm.parse_duration(item["contentDetails"]["duration"]),
-                "channels": sorted(channels_by_id[video_id]),
-                "notes": "",
-            }
+    for channel_key, cfg in search_channels.items():
+        result = run_channel(channel_key, cfg, api_key, blocked_ids, existing)
+        existing = pipeline.write_channel_result(
+            existing, cfg["display_name"], result["final_videos"], cfg.get("is_default", False)
+        )
+        pipeline.write_run_summary(channel_key, result["additions"], result["removals"])
+        print(
+            f"{cfg['display_name']}: {len(result['additions'])} added, "
+            f"{len(result['removals'])} removed, {len(result['final_videos'])} total"
         )
 
-    # Every rule targets "Weddings" today (see RULES comment above), so
-    # this is one merge for one channel.
-    existing = fm.load_existing()
-    merged = fm.merge_channel(existing, "Weddings", videos, is_default=IS_DEFAULT_CHANNEL)
-    fm.write_output(merged)
-
-    print(f"Wrote {len(videos)} videos to the 'Weddings' channel in {fm.OUTPUT_FILE}")
+    pipeline.write_output(existing)
 
 
 if __name__ == "__main__":
