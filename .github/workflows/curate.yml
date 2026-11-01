@@ -1,0 +1,142 @@
+name: Curation Pipeline
+
+on:
+  schedule:
+    - cron: '0 13 * * 1' # Mondays 13:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  STANDING_BRANCH: curation/weekly-update
+
+jobs:
+  curate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install -r curation/requirements.txt
+
+      - name: Configure git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Snapshot original videos.json
+        run: cp docs/data/videos.json /tmp/original-videos.json
+
+      - name: Run curation jobs
+        working-directory: curation
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: |
+          python3 -c "import yaml; [print(s) for s in yaml.safe_load(open('jobs.yaml'))]" | while IFS= read -r script; do
+            echo "::group::Running $script"
+            python3 "$script"
+            echo "::endgroup::"
+          done
+
+      - name: Snapshot final state (post-run, before the removals-only rewrite below)
+        run: cp docs/data/videos.json /tmp/final-videos.json
+
+      - name: Compute and apply removals to main
+        id: removals
+        run: |
+          python3 << 'PYEOF' >> "$GITHUB_OUTPUT"
+          import glob
+          import json
+
+          with open("/tmp/original-videos.json") as f:
+              original = json.load(f)
+
+          removed = {}
+          for path in glob.glob("curation/.pending/*.json"):
+              with open(path) as pf:
+                  summary = json.load(pf)
+              for r in summary.get("removals", []):
+                  removed[r["id"]] = r
+
+          if removed:
+              original["videos"] = [v for v in original["videos"] if v["id"] not in removed]
+              with open("docs/data/videos.json", "w") as f:
+                  json.dump(original, f, indent=2)
+                  f.write("\n")
+
+          print(f"count={len(removed)}")
+          PYEOF
+
+      - name: Commit removals directly to main
+        if: steps.removals.outputs.count != '0'
+        run: |
+          git add docs/data/videos.json
+          git commit -m "Remove ${{ steps.removals.outputs.count }} video(s) that failed revalidation [automated]"
+          git push origin main
+
+      - name: Compute additions and build PR body
+        id: additions
+        run: |
+          python3 << 'PYEOF' >> "$GITHUB_OUTPUT"
+          import glob
+          import json
+
+          total = 0
+          sections = []
+          for path in sorted(glob.glob("curation/.pending/*.json")):
+              with open(path) as pf:
+                  summary = json.load(pf)
+              adds = summary.get("additions", [])
+              total += len(adds)
+              if not adds:
+                  continue
+              label = summary.get("channel", "unknown").title()
+              lines = [f"## {label}", f"+{len(adds)} video(s)"]
+              for a in adds:
+                  lines.append(f"- \"{a['title']}\" (channel: {a['channel']})")
+              sections.append("\n".join(lines))
+
+          body = "\n\n".join(sections) if sections else "No new videos this run."
+          with open("/tmp/pr-body.md", "w") as f:
+              f.write(body)
+
+          print(f"count={total}")
+          PYEOF
+
+      - name: Push additions to the standing branch
+        if: steps.additions.outputs.count != '0'
+        run: |
+          git fetch origin main
+          git checkout -B "$STANDING_BRANCH" origin/main
+          cp /tmp/final-videos.json docs/data/videos.json
+          git add docs/data/videos.json
+          git commit -m "Weekly curation update: new videos pending review [automated]"
+          git push --force origin "$STANDING_BRANCH"
+
+      - name: Open or update the review PR
+        if: steps.additions.outputs.count != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          BODY=$(cat /tmp/pr-body.md)
+          existing_pr=$(gh pr list --head "$STANDING_BRANCH" --base main --json number --jq '.[0].number')
+          if [ -n "$existing_pr" ]; then
+            gh pr edit "$existing_pr" --body "$BODY"
+          else
+            gh pr create \
+              --head "$STANDING_BRANCH" \
+              --base main \
+              --title "Weekly curation update" \
+              --body "$BODY" \
+              --reviewer nogbazghi
+          fi
