@@ -6,9 +6,10 @@ metadata from the YouTube Data API, deciding whether a video still
 qualifies for its channel (validate_record — a pure function, no API
 calls), orchestrating a full per-channel run that re-checks both
 already-stored videos and freshly-discovered candidates (compute_run),
-merging the result into docs/data/videos.json (write_channel_result), and
+merging the result into docs/data/videos.json (write_channel_result),
 handing off a machine-readable summary of what changed to the GitHub
-Actions workflow (write_run_summary).
+Actions workflow (write_run_summary), and reading those summaries back
+for the workflow to act on (load_pending_summaries).
 
 Design note: removals (a video failing validate_record) and additions
 (a new video passing it) are kept as separate lists throughout, because
@@ -293,6 +294,26 @@ def write_channel_result(existing_data, display_name, final_videos, is_default):
     # scheduleStart and default value exactly as they are.
 
     return existing_data
+
+
+def load_pending_summaries(pending_dir=PENDING_DIR):
+    """Read every {"channel", "additions", "removals"} summary written by
+    write_run_summary(), sorted by filename for deterministic ordering.
+
+    Used by the GitHub Actions workflow to collect all channels' pending
+    changes in one pass, rather than globbing curation/.pending/*.json
+    inline in each workflow step.
+
+    Returns [] if the directory doesn't exist or holds no .json files.
+    """
+    pending_dir = Path(pending_dir)
+    if not pending_dir.exists():
+        return []
+    summaries = []
+    for path in sorted(pending_dir.glob("*.json")):
+        with path.open() as f:
+            summaries.append(json.load(f))
+    return summaries
 
 
 def write_run_summary(channel_key, additions, removals, out_dir="curation/.pending"):

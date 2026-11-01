@@ -55,16 +55,17 @@ jobs:
         id: removals
         run: |
           python3 << 'PYEOF' >> "$GITHUB_OUTPUT"
-          import glob
           import json
+          import sys
+
+          sys.path.insert(0, "curation")
+          from pipeline import load_pending_summaries
 
           with open("/tmp/original-videos.json") as f:
               original = json.load(f)
 
           removed = {}
-          for path in glob.glob("curation/.pending/*.json"):
-              with open(path) as pf:
-                  summary = json.load(pf)
+          for summary in load_pending_summaries():
               for r in summary.get("removals", []):
                   removed[r["id"]] = r
 
@@ -88,14 +89,15 @@ jobs:
         id: additions
         run: |
           python3 << 'PYEOF' >> "$GITHUB_OUTPUT"
-          import glob
           import json
+          import sys
+
+          sys.path.insert(0, "curation")
+          from pipeline import load_pending_summaries
 
           total = 0
           sections = []
-          for path in sorted(glob.glob("curation/.pending/*.json")):
-              with open(path) as pf:
-                  summary = json.load(pf)
+          for summary in load_pending_summaries():
               adds = summary.get("additions", [])
               total += len(adds)
               if not adds:

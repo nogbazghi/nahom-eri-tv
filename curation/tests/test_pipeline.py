@@ -1,12 +1,17 @@
 """Unit tests for pipeline.py's shared pure helper functions.
 
-Covers the logic consolidated out of discover.py and kebire_channel.py:
-dropping already-stored/blocklisted candidate IDs, and locating a
-channel's stored videos by membership. compute_run/validate_record are
-exercised indirectly via discover.py/kebire_channel.py's own test suites
-and end-to-end runs; this file is for the newly-shared helpers.
+Covers the logic consolidated out of discover.py and kebire_channel.py
+(dropping already-stored/blocklisted candidate IDs, locating a channel's
+stored videos by membership, extracting validate_record's rules subset
+from a channels.yaml entry), write_channel_result, and the workflow-facing
+load_pending_summaries. compute_run/validate_record are exercised
+indirectly via discover.py/kebire_channel.py's own test suites and
+end-to-end runs. No network calls — pipeline functions that hit the
+YouTube API (fetch_video_metadata, compute_run with the real fetch_fn)
+aren't exercised here.
 """
 
+import json
 import sys
 from pathlib import Path
 
@@ -82,3 +87,28 @@ def test_write_channel_result_replaces_only_named_channels_videos():
         {"id": "3", "channels": ["Kebire"]},
     ]
     assert result["schedules"]["Kebire"]["scheduleStart"] == "2026-01-01T00:00:00+00:00"
+
+
+def test_load_pending_summaries_reads_every_file_sorted_by_path(tmp_path):
+    (tmp_path / "weddings.json").write_text(
+        json.dumps({"channel": "weddings", "additions": [{"id": "a1"}], "removals": []})
+    )
+    (tmp_path / "kebire.json").write_text(
+        json.dumps({"channel": "kebire", "additions": [], "removals": [{"id": "r1"}]})
+    )
+
+    result = pipeline.load_pending_summaries(tmp_path)
+
+    assert result == [
+        {"channel": "kebire", "additions": [], "removals": [{"id": "r1"}]},
+        {"channel": "weddings", "additions": [{"id": "a1"}], "removals": []},
+    ]
+
+
+def test_load_pending_summaries_empty_dir_returns_empty_list(tmp_path):
+    assert pipeline.load_pending_summaries(tmp_path) == []
+
+
+def test_load_pending_summaries_missing_dir_returns_empty_list(tmp_path):
+    missing = tmp_path / "does-not-exist"
+    assert pipeline.load_pending_summaries(missing) == []
