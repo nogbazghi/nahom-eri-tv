@@ -28,9 +28,9 @@ import sys
 from pathlib import Path
 
 from pipeline import (
+    fetch_video_metadata,
     load_existing,
     load_yaml_list,
-    parse_duration,
     write_channel_result,
     write_output,
 )
@@ -40,34 +40,8 @@ SEED_FILE = ROOT / "curation" / "seed_videos.yaml"
 BLOCKLIST_FILE = ROOT / "curation" / "blocklist.yaml"
 OUTPUT_FILE = ROOT / "docs" / "data" / "videos.json"
 
-API_URL = "https://www.googleapis.com/youtube/v3/videos"
-
 CHANNEL_NAME = "Weddings"
 IS_DEFAULT_CHANNEL = True
-
-
-def fetch_video_data(video_ids, api_key):
-    """Thin, snippet/contentDetails/status-only fetch — kept separate from
-    pipeline.fetch_video_metadata (which also pulls statistics) since this
-    script doesn't apply a view-count rule; it only needs embeddable status."""
-    import json
-    import urllib.parse
-    import urllib.request
-
-    results = {}
-    for i in range(0, len(video_ids), 50):  # the API allows up to 50 IDs per call
-        batch = video_ids[i : i + 50]
-        params = {
-            "part": "snippet,contentDetails,status",
-            "id": ",".join(batch),
-            "key": api_key,
-        }
-        url = f"{API_URL}?{urllib.parse.urlencode(params)}"
-        with urllib.request.urlopen(url) as response:
-            payload = json.load(response)
-        for item in payload.get("items", []):
-            results[item["id"]] = item
-    return results
 
 
 def main():
@@ -82,7 +56,7 @@ def main():
     blocked_ids = {entry["id"] for entry in load_yaml_list(BLOCKLIST_FILE)}
 
     video_ids = [seed["id"] for seed in seeds if seed["id"] not in blocked_ids]
-    api_data = fetch_video_data(video_ids, api_key)
+    api_data = fetch_video_metadata(video_ids, api_key)
 
     videos = []
     for seed in seeds:
@@ -93,20 +67,20 @@ def main():
         if item is None:
             print(f"Warning: {video_id} not found or not public, skipping.", file=sys.stderr)
             continue
-        if not item.get("status", {}).get("embeddable", False):
+        if not item.get("embeddable", False):
             print(f"Warning: {video_id} is not embeddable, skipping.", file=sys.stderr)
             continue
 
         videos.append(
             {
                 "id": video_id,
-                "title": item["snippet"]["title"],
-                "channel": item["snippet"]["channelTitle"],
+                "title": item["title"],
+                "channel": item["channel"],
                 "language": seed.get("language", ""),
                 "city": seed.get("city", ""),
                 "tags": seed.get("tags", []),
-                "published": item["snippet"]["publishedAt"][:10],
-                "duration": parse_duration(item["contentDetails"]["duration"]),
+                "published": item["published"],
+                "duration": item["duration"],
                 "channels": seed.get("channels", []),
                 "notes": seed.get("notes", ""),
             }
