@@ -1,3 +1,5 @@
+import { selectLineupMessage } from "./offline-message.js";
+
 let allVideos = [];
 let schedules = {};
 let channelNames = [];
@@ -6,6 +8,16 @@ let currentVideos = [];
 let player = null;
 let currentIndex = -1;
 let guideOpen = false;
+let playerReady = false;
+
+// Outcome of the most recent loadLineup() attempt — "success" or "error".
+// Paired with navigator.onLine by selectLineupMessage() (see
+// offline-message.js) to decide what, if anything, replaces the guide.
+let lineupStatus = "success";
+// The message currently shown in place of the guide, or null when the real
+// schedule is showing. Mirrors scheduleMessageEl so renderGuide() etc. can
+// check it without reading back from the DOM.
+let scheduleMessage = null;
 
 const CHANNEL_DOT_COLORS = ["var(--accent)", "var(--kebire)", "#9a7fd1", "#d97757"];
 
@@ -25,17 +37,69 @@ const guidePanel = document.getElementById("guide-panel");
 const guideRows = document.getElementById("guide-rows");
 const guideToggle = document.getElementById("guide-toggle");
 const toolbarChan = document.getElementById("toolbar-chan");
+const scheduleMessageEl = document.getElementById("schedule-message");
 
 function slug(name) {
   return name.toLowerCase();
 }
 
+// Fetches the live lineup. Never throws — a network failure or a bad
+// response is recorded in lineupStatus instead, so callers always continue
+// on to applyLineupState() rather than leaving an unhandled rejection (see
+// ticket #9). data/videos.json is the live, actively-curated broadcast
+// schedule (ADR-0002) — fetched with no-store and never retried with stale
+// data on failure.
 async function loadLineup() {
-  const res = await fetch("data/videos.json", { cache: "no-store" });
-  const data = await res.json();
-  allVideos = data.videos || [];
-  schedules = data.schedules || {};
-  channelNames = Object.keys(schedules);
+  try {
+    const res = await fetch("data/videos.json", { cache: "no-store" });
+    if (!res.ok) throw new Error(`videos.json responded with ${res.status}`);
+    const data = await res.json();
+    allVideos = data.videos || [];
+    schedules = data.schedules || {};
+    channelNames = Object.keys(schedules);
+    lineupStatus = "success";
+  } catch (err) {
+    lineupStatus = "error";
+  }
+}
+
+// Called after every loadLineup() attempt — the initial one and every retry
+// triggered by the "online" listener below. Decides, via the pure
+// selectLineupMessage() (connectivity + lineupStatus in, message or null
+// out), whether to show the offline/error state or let playback proceed.
+function applyLineupState() {
+  scheduleMessage = selectLineupMessage({ online: navigator.onLine, status: lineupStatus });
+  renderScheduleMessage();
+
+  if (scheduleMessage) return; // nothing to play until this clears
+
+  tryStartPlayback();
+  if (guideOpen) renderGuide(); // refresh an already-open guide after a retry
+}
+
+function renderScheduleMessage() {
+  scheduleMessageEl.textContent = scheduleMessage || "";
+  scheduleMessageEl.hidden = !scheduleMessage;
+}
+
+// Starts playback once both halves of startup are ready: the YouTube player
+// (playerReady, via onPlayerReady) and a successfully-loaded lineup
+// (lineupStatus). These resolve independently and in either order — notably,
+// opening the app with no connection at all means the cross-origin YouTube
+// iframe API script never loads and playerReady never becomes true, while
+// loadLineup() (same-origin, fetched independently of the YouTube API) still
+// runs and can still report the offline state.
+function tryStartPlayback() {
+  if (!playerReady) return;
+  if (currentChannel !== null) return; // already playing, e.g. a later retry
+  if (lineupStatus !== "success") return;
+
+  currentChannel = pickInitialChannel();
+  if (currentChannel === null) {
+    showEmptyState();
+    return;
+  }
+  switchChannel(currentChannel);
 }
 
 function videosForChannel(channelName) {
@@ -256,12 +320,8 @@ function switchChannel(name) {
 
 function onPlayerReady() {
   player.mute();
-  currentChannel = pickInitialChannel();
-  if (currentChannel === null) {
-    showEmptyState();
-    return;
-  }
-  switchChannel(currentChannel);
+  playerReady = true;
+  tryStartPlayback();
 }
 
 function onPlayerStateChange(event) {
@@ -386,8 +446,12 @@ guidePanel.addEventListener("touchend", (event) => {
   }
 });
 
-window.onYouTubeIframeAPIReady = async function () {
-  await loadLineup();
+// Creating the player and loading the lineup are independent of each other
+// (see tryStartPlayback() above) — this callback only fires once the
+// cross-origin YouTube iframe API script has itself loaded, which (unlike
+// the same-origin lineup fetch) requires the real network and never fires
+// at all when opening the app fully offline.
+window.onYouTubeIframeAPIReady = function () {
   player = new YT.Player("player", {
     height: "100%",
     width: "100%",
@@ -404,3 +468,12 @@ window.onYouTubeIframeAPIReady = async function () {
     },
   });
 };
+
+// Auto-recovery: when connectivity returns, reload the schedule with no
+// manual refresh required (ticket #9). navigator.onLine false->true is what
+// fires "online"; selectLineupMessage() re-evaluates from the fresh result.
+window.addEventListener("online", () => {
+  loadLineup().then(applyLineupState);
+});
+
+loadLineup().then(applyLineupState);

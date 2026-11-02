@@ -4,12 +4,27 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Nahom Eri TV</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16.png" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <meta name="theme-color" content="#0b0b0d" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Eri TV" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
     <h1>Nahom Eri TV</h1>
   </header>
+
+  <div id="ios-install-hint" class="install-hint" hidden>
+    <p>
+      Install Nahom Eri TV: tap <strong>Share</strong>
+      <span aria-hidden="true">⎋</span> then <strong>Add to Home Screen</strong>.
+    </p>
+    <button id="ios-install-hint-dismiss" class="touch-target" type="button" aria-label="Dismiss install hint">✕</button>
+  </div>
 
   <main>
     <div id="screen">
@@ -24,6 +39,8 @@
           <div id="badge-title"></div>
         </div>
       </div>
+
+      <div id="schedule-message" class="schedule-message" role="status" hidden></div>
 
       <div id="guide-panel" hidden>
         <div id="guide-rows"></div>
@@ -42,6 +59,16 @@
 
   <script src="https://www.youtube.com/iframe_api"></script>
   <script src="nav.js"></script>
-  <script src="app.js"></script>
+  <script type="module" src="app.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("sw.js").catch((err) => {
+          console.error("Service worker registration failed:", err);
+        });
+      });
+    }
+  </script>
+  <script type="module" src="ios-install-hint-ui.js"></script>
 </body>
 </html>
