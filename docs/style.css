@@ -144,6 +144,14 @@ main {
   height: 100%;
 }
 
+/* Shared touch-target minimum (~44px) for tappable buttons — see
+   https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html */
+.touch-target {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
 #unmute {
   position: absolute;
   bottom: 0.8rem;
@@ -231,7 +239,7 @@ main {
   color: var(--accent-ink);
   background: var(--accent);
   border: 1px solid var(--accent);
-  padding: 0.4rem 0.75rem;
+  padding: 0.4rem 0.9rem;
   border-radius: 4px;
   font-weight: 600;
   cursor: pointer;
@@ -248,14 +256,19 @@ main {
   grid-template-columns: 150px 1fr;
   border-bottom: 1px solid var(--border);
   cursor: pointer;
+  min-height: 48px; /* touch-target minimum (~44-48px), not just text line height */
 }
 
 .guide-row:last-child {
   border-bottom: none;
 }
 
-.guide-row:hover {
-  background: rgba(224, 184, 75, 0.06);
+/* Guard against :hover sticking after a tap on touch devices, which have
+   no real hover concept — only apply it on inputs that actually hover. */
+@media (hover: hover) {
+  .guide-row:hover {
+    background: rgba(224, 184, 75, 0.06);
+  }
 }
 
 /* Keyboard focus — a glowing accent ring, not the browser-default blue.
@@ -372,6 +385,17 @@ footer a {
     display: none;
   }
   .guide-cell.now::before {
+    display: none;
+  }
+}
+
+/* Tablet portrait: show "now" + one upcoming, not the full now+next-2 desktop
+   grid — drop just the last (furthest-out) cell. Landscape tablets fall
+   through to the default desktop layout unchanged. The sibling-combinator
+   selector only matches a last-child that follows a `.now` cell, so the
+   single "Nothing scheduled" cell (no `.now` sibling) is left alone. */
+@media (min-width: 561px) and (max-width: 1024px) and (orientation: portrait) {
+  .guide-cell.now ~ .guide-cell:last-child {
     display: none;
   }
 }
