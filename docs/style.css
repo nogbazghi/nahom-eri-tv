@@ -246,6 +246,19 @@ main {
   flex-shrink: 0;
 }
 
+/* Offline/error state for the schedule (ticket #9) — shown in place of the
+   guide whenever selectLineupMessage() returns non-null; always visible
+   (not tucked inside the collapsible #guide-panel) so it reads regardless
+   of whether the visitor has the guide open. */
+.schedule-message {
+  padding: 0.8rem 0.9rem;
+  background: var(--surface-2);
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
 #guide-panel {
   background: var(--surface);
   border-top: 1px solid var(--border);
