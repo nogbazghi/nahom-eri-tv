@@ -258,6 +258,18 @@ main {
   background: rgba(224, 184, 75, 0.06);
 }
 
+/* Keyboard focus — a glowing accent ring, not the browser-default blue.
+   Rows are focused entirely via script (see nav.js), never the mouse, so
+   a plain :focus-visible (not :focus) is enough; there's no mouse-click
+   case to exclude. */
+.guide-row:focus-visible,
+#guide-toggle:focus-visible,
+#unmute:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+  box-shadow: 0 0 0 4px rgba(224, 184, 75, 0.25);
+}
+
 .guide-chan {
   display: flex;
   align-items: center;
