@@ -9,6 +9,14 @@ let guideOpen = false;
 
 const CHANNEL_DOT_COLORS = ["var(--accent)", "var(--kebire)", "#9a7fd1", "#d97757"];
 
+// Drives focus through the guide's channel rows — see nav.js. Keyboard is
+// the only input source today; a later TV-stick remote feeds the same
+// move()/activate() calls from its own input events.
+const guideNav = createListNav({
+  getItems: () => Array.from(guideRows.querySelectorAll(".guide-row")),
+  onActivate: (row) => switchChannel(row.dataset.channel),
+});
+
 const badgeNum = document.getElementById("badge-num");
 const badgeName = document.getElementById("badge-name");
 const badgeTitle = document.getElementById("badge-title");
@@ -136,13 +144,22 @@ function pickInitialChannel() {
 
 function renderGuide() {
   guideRows.innerHTML = "";
+  guideNav.reset();
 
   channelNames.forEach((name, i) => {
     const { videos, index } = channelNowState(name);
 
     const row = document.createElement("div");
     row.className = "guide-row";
+    row.dataset.channel = name;
+    row.tabIndex = -1; // focus is managed entirely by guideNav, not Tab order
     row.addEventListener("click", () => switchChannel(name));
+    row.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault(); // stop Space from also scrolling the page
+        guideNav.activate();
+      }
+    });
 
     const chan = document.createElement("div");
     chan.className = "guide-chan";
@@ -195,13 +212,17 @@ function openGuide() {
   guidePanel.hidden = false;
   guideToggle.textContent = "Close ✕";
   guideToggle.setAttribute("aria-expanded", "true");
+  guideNav.focusWhere((row) => row.dataset.channel === currentChannel);
 }
 
 function closeGuide() {
+  if (!guideOpen) return; // avoid stealing focus on e.g. the initial switchChannel() call
   guideOpen = false;
+  guideNav.reset();
   guidePanel.hidden = true;
   guideToggle.textContent = "Guide ▾";
   guideToggle.setAttribute("aria-expanded", "false");
+  guideToggle.focus();
 }
 
 function toggleGuide() {
@@ -253,12 +274,62 @@ function onPlayerError() {
   advanceToNext();
 }
 
-unmuteButton.addEventListener("click", () => {
-  if (player) player.unMute();
-  unmuteButton.hidden = true;
-});
+// A real toggle (not the one-shot "unmute and hide forever" it used to be) —
+// needed so the "M" shortcut means something coming back from a muted state,
+// not just a second way to do the one thing the button already did.
+function toggleMute() {
+  if (!player) return;
+  if (player.isMuted()) {
+    player.unMute();
+    unmuteButton.textContent = "🔊 Tap to mute";
+  } else {
+    player.mute();
+    unmuteButton.textContent = "🔇 Tap to unmute";
+  }
+}
 
+unmuteButton.addEventListener("click", toggleMute);
 guideToggle.addEventListener("click", toggleGuide);
+
+// Global keyboard shortcuts, independent of what currently has focus.
+// Arrow keys move within the guide once it's open; while it's closed they
+// (like "G") open it instead, focused on whatever channel is live now — the
+// common "press a direction to see what's on" remote-control convention.
+const VERTICAL_ARROWS = { ArrowUp: -1, ArrowDown: 1 };
+const ANY_ARROW = new Set(["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"]);
+
+document.addEventListener("keydown", (event) => {
+  const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
+
+  if (key === "m") {
+    toggleMute();
+    return;
+  }
+
+  if (key === "Escape") {
+    closeGuide();
+    return;
+  }
+
+  if (key === "g") {
+    toggleGuide();
+    return;
+  }
+
+  if (ANY_ARROW.has(key) && !guideOpen) {
+    event.preventDefault(); // don't also scroll the page
+    openGuide();
+    return;
+  }
+
+  // ArrowLeft/ArrowRight do nothing once the guide is open — a channel row
+  // is one selectable unit (see GLOSSARY.md: Channel row), there's no
+  // horizontal target within it to move to.
+  if (guideOpen && key in VERTICAL_ARROWS) {
+    event.preventDefault();
+    guideNav.move(VERTICAL_ARROWS[key]);
+  }
+});
 
 window.onYouTubeIframeAPIReady = async function () {
   await loadLineup();
