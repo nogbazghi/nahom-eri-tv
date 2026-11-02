@@ -18,6 +18,14 @@
     <h1>Nahom Eri TV</h1>
   </header>
 
+  <div id="ios-install-hint" class="install-hint" hidden>
+    <p>
+      Install Nahom Eri TV: tap <strong>Share</strong>
+      <span aria-hidden="true">⎋</span> then <strong>Add to Home Screen</strong>.
+    </p>
+    <button id="ios-install-hint-dismiss" class="touch-target" type="button" aria-label="Dismiss install hint">✕</button>
+  </div>
+
   <main>
     <div id="screen">
       <div id="player-wrap">
@@ -61,5 +69,6 @@
       });
     }
   </script>
+  <script type="module" src="ios-install-hint-ui.js"></script>
 </body>
 </html>

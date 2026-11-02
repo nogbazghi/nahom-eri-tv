@@ -30,6 +30,8 @@ const SHELL_ASSETS = [
   "app.js",
   "offline-message.js",
   "nav.js",
+  "ios-install-hint.js",
+  "ios-install-hint-ui.js",
   "manifest.webmanifest",
   "fonts/ibm-plex-sans-latin-400-normal.woff2",
   "fonts/ibm-plex-sans-latin-500-normal.woff2",
