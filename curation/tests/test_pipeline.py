@@ -3,14 +3,13 @@
 Covers the logic consolidated out of discover.py and kebire_channel.py
 (dropping already-stored/blocklisted candidate IDs, locating a channel's
 stored videos by membership, extracting validate_record's rules subset
-from a channels.yaml entry), write_channel_result, and the workflow-facing
-load_pending_summaries. compute_run/validate_record are exercised
-indirectly via discover.py/kebire_channel.py's own test suites and
-end-to-end runs. No network calls — pipeline functions that hit the
-YouTube API (fetch_video_metadata, compute_run with the real fetch_fn)
-aren't exercised here.
+from a channels.yaml entry), validate_record, compute_run,
+write_channel_result, and the workflow-facing load_pending_summaries.
+No network calls — compute_run is exercised with a fake fetch_fn, never
+the real fetch_video_metadata.
 """
 
+import datetime
 import json
 import sys
 from pathlib import Path
@@ -18,6 +17,23 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import pipeline  # noqa: E402
+
+RULES = {"view_count_min": 100, "duration_min_sec": 60}
+
+
+def make_record(**overrides):
+    record = {
+        "title": "A Video",
+        "channel": "Some Channel",
+        "description": "",
+        "published": "2026-01-01",
+        "duration": 120,
+        "public": True,
+        "embeddable": True,
+        "view_count": 500,
+    }
+    record.update(overrides)
+    return record
 
 
 def test_filter_new_ids_drops_stored_and_blocklisted():
@@ -53,6 +69,40 @@ def test_rules_from_config_defaults_missing_thresholds_to_zero():
     }
 
 
+def test_validate_record_missing_fails_as_removed():
+    assert pipeline.validate_record({"missing": True}, RULES) == (False, "removed")
+
+
+def test_validate_record_private_fails():
+    record = make_record(public=False)
+    assert pipeline.validate_record(record, RULES) == (False, "private")
+
+
+def test_validate_record_not_embeddable_fails():
+    record = make_record(embeddable=False)
+    assert pipeline.validate_record(record, RULES) == (False, "not embeddable")
+
+
+def test_validate_record_too_short_fails():
+    record = make_record(duration=RULES["duration_min_sec"] - 1)
+    assert pipeline.validate_record(record, RULES) == (False, "too short")
+
+
+def test_validate_record_too_few_views_fails():
+    record = make_record(view_count=RULES["view_count_min"] - 1)
+    assert pipeline.validate_record(record, RULES) == (False, "too few views")
+
+
+def test_validate_record_passing_record_returns_true():
+    record = make_record(
+        public=True,
+        embeddable=True,
+        duration=RULES["duration_min_sec"],
+        view_count=RULES["view_count_min"],
+    )
+    assert pipeline.validate_record(record, RULES) == (True, None)
+
+
 def test_videos_for_channel_returns_only_matching_videos():
     existing_data = {
         "videos": [
@@ -66,6 +116,81 @@ def test_videos_for_channel_returns_only_matching_videos():
         {"id": "1", "channels": ["Kebire"]},
         {"id": "3", "channels": ["Kebire"]},
     ]
+
+
+def test_compute_run_blocklisted_stored_video_removed_without_api_call():
+    stored_videos = [{"id": "blocked1", "title": "Old Video", "channels": ["Weddings"]}]
+
+    def fetch_fn(ids, api_key):
+        raise AssertionError("fetch_fn should not be called for blocklisted-only stored videos")
+
+    result = pipeline.compute_run(
+        "weddings", "Weddings", stored_videos, [], RULES, "key", {"blocked1"}, fetch_fn=fetch_fn
+    )
+
+    assert result["removals"] == [{"id": "blocked1", "title": "Old Video", "reason": "blocklisted"}]
+    assert result["final_videos"] == []
+
+
+def test_compute_run_video_missing_from_api_response_is_treated_as_removed():
+    stored_videos = [{"id": "v1", "title": "Video 1", "channels": ["Weddings"]}]
+
+    def fetch_fn(ids, api_key):
+        return {}
+
+    result = pipeline.compute_run(
+        "weddings", "Weddings", stored_videos, [], RULES, "key", set(), fetch_fn=fetch_fn
+    )
+
+    assert result["removals"] == [{"id": "v1", "title": "Video 1", "reason": "removed"}]
+    assert result["final_videos"] == []
+
+
+def test_compute_run_already_stored_candidate_id_is_skipped():
+    stored_videos = [{"id": "v1", "title": "Video 1", "channels": ["Weddings"]}]
+    fetch_calls = []
+
+    def fetch_fn(ids, api_key):
+        fetch_calls.append(list(ids))
+        return {vid: make_record(title=f"Title {vid}") for vid in ids}
+
+    result = pipeline.compute_run(
+        "weddings", "Weddings", stored_videos, ["v1", "v2"], RULES, "key", set(), fetch_fn=fetch_fn
+    )
+
+    # v1 is only ever refetched as a stored video, never re-fetched as a candidate.
+    assert fetch_calls == [["v1"], ["v2"]]
+    assert [a["id"] for a in result["additions"]] == ["v2"]
+    assert [v["id"] for v in result["final_videos"]] == ["v1", "v2"]
+
+
+def test_compute_run_failing_new_candidate_is_dropped_silently():
+    def fetch_fn(ids, api_key):
+        return {}  # candidate missing from the API response -> fails validation
+
+    result = pipeline.compute_run(
+        "weddings", "Weddings", [], ["bad1"], RULES, "key", set(), fetch_fn=fetch_fn
+    )
+
+    assert result == {"final_videos": [], "additions": [], "removals": []}
+
+
+def test_compute_run_stamps_last_validated_on_every_kept_and_added_record():
+    stored_videos = [{"id": "v1", "title": "Old Title", "channels": ["Weddings"]}]
+
+    def fetch_fn(ids, api_key):
+        return {vid: make_record(title=f"Title {vid}") for vid in ids}
+
+    before = datetime.datetime.now(datetime.timezone.utc)
+    result = pipeline.compute_run(
+        "weddings", "Weddings", stored_videos, ["v2"], RULES, "key", set(), fetch_fn=fetch_fn
+    )
+    after = datetime.datetime.now(datetime.timezone.utc)
+
+    assert len(result["final_videos"]) == 2
+    for video in result["final_videos"]:
+        stamp = datetime.datetime.fromisoformat(video["lastValidated"])
+        assert before <= stamp <= after
 
 
 def test_write_channel_result_replaces_only_named_channels_videos():
@@ -87,6 +212,42 @@ def test_write_channel_result_replaces_only_named_channels_videos():
         {"id": "3", "channels": ["Kebire"]},
     ]
     assert result["schedules"]["Kebire"]["scheduleStart"] == "2026-01-01T00:00:00+00:00"
+
+
+def test_write_channel_result_leaves_other_channels_schedule_untouched():
+    existing_data = {
+        "videos": [],
+        "schedules": {
+            "Other Channel": {"scheduleStart": "2025-01-01T00:00:00+00:00", "default": True}
+        },
+    }
+
+    result = pipeline.write_channel_result(
+        existing_data, display_name="Weddings", final_videos=[], is_default=False
+    )
+
+    assert result["schedules"]["Other Channel"] == {
+        "scheduleStart": "2025-01-01T00:00:00+00:00",
+        "default": True,
+    }
+
+
+def test_write_channel_result_schedule_start_and_default_set_once_and_preserved():
+    existing_data = {"videos": [], "schedules": {}}
+
+    first = pipeline.write_channel_result(
+        existing_data, display_name="Weddings", final_videos=[], is_default=True
+    )
+    first_schedule = dict(first["schedules"]["Weddings"])
+
+    assert first_schedule["default"] is True
+    assert "scheduleStart" in first_schedule
+
+    second = pipeline.write_channel_result(
+        first, display_name="Weddings", final_videos=[], is_default=False
+    )
+
+    assert second["schedules"]["Weddings"] == first_schedule
 
 
 def test_load_pending_summaries_reads_every_file_sorted_by_path(tmp_path):
