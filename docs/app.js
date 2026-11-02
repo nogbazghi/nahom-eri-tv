@@ -9,9 +9,9 @@ let guideOpen = false;
 
 const CHANNEL_DOT_COLORS = ["var(--accent)", "var(--kebire)", "#9a7fd1", "#d97757"];
 
-// Drives focus through the guide's channel rows — see nav.js. Keyboard is
-// the only input source today; a later TV-stick remote feeds the same
-// move()/activate() calls from its own input events.
+// Drives focus through the guide's channel rows — see nav.js. Keyboard and
+// touch (swipe) are the two input sources wired up so far; a later TV-stick
+// remote feeds the same move()/activate() calls from its own input events.
 const guideNav = createListNav({
   getItems: () => Array.from(guideRows.querySelectorAll(".guide-row")),
   onActivate: (row) => switchChannel(row.dataset.channel),
@@ -328,6 +328,61 @@ document.addEventListener("keydown", (event) => {
   if (guideOpen && key in VERTICAL_ARROWS) {
     event.preventDefault();
     guideNav.move(VERTICAL_ARROWS[key]);
+  }
+});
+
+// Swipe gestures — a second input source feeding the same nav.js calls
+// keyboard uses (see ADR-0001). Scoped to the guide panel only: gestures
+// never touch the player itself (a cross-origin YouTube iframe, to avoid
+// fighting its own touch handling), and opening/closing the guide stays
+// button-driven — only navigation within an already-open guide is gesture-
+// driven. Swipe up/down moves focus a row at a time (discrete paging, not
+// free scroll — not a concern yet at 2 channels, revisit if that grows);
+// swipe right activates the focused row. A plain tap still works via each
+// row's own click handler, unchanged.
+const SWIPE_THRESHOLD_PX = 40;
+let touchStart = { x: 0, y: 0 };
+
+// {dx, dy, absDx, absDy} from touchStart to the given touch point — the one
+// place that shape is computed, used by both touchmove and touchend below.
+function touchDelta(touch) {
+  const dx = touch.clientX - touchStart.x;
+  const dy = touch.clientY - touchStart.y;
+  return { dx, dy, absDx: Math.abs(dx), absDy: Math.abs(dy) };
+}
+
+guidePanel.addEventListener(
+  "touchstart",
+  (event) => {
+    if (!guideOpen) return; // belt-and-suspenders alongside guidePanel[hidden]
+    const touch = event.touches[0];
+    touchStart = { x: touch.clientX, y: touch.clientY };
+  },
+  { passive: true }
+);
+
+guidePanel.addEventListener(
+  "touchmove",
+  (event) => {
+    if (!guideOpen) return;
+    const { absDx, absDy } = touchDelta(event.touches[0]);
+    // Only suppress scrolling for a vertical-dominant drag — a horizontal
+    // one is left alone so .guide-track's own overflow-x scroll still works.
+    if (absDy > absDx) {
+      event.preventDefault();
+    }
+  },
+  { passive: false }
+);
+
+guidePanel.addEventListener("touchend", (event) => {
+  if (!guideOpen) return;
+  const { dx, dy, absDx, absDy } = touchDelta(event.changedTouches[0]);
+
+  if (absDy > absDx && absDy > SWIPE_THRESHOLD_PX) {
+    guideNav.move(dy < 0 ? 1 : -1); // swipe up -> next row, swipe down -> previous row
+  } else if (dx > SWIPE_THRESHOLD_PX && absDx > absDy) {
+    guideNav.activate();
   }
 });
 
