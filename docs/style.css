@@ -434,6 +434,52 @@ footer a {
   color: var(--accent);
 }
 
+footer p + p {
+  margin-top: 0.5rem;
+}
+
+/* About page (docs/about.html) — plain prose, no player/guide chrome. */
+main.about {
+  max-width: 640px;
+}
+
+main.about h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 1.75rem 0 0.5rem;
+}
+
+main.about h2:first-child {
+  margin-top: 0;
+}
+
+main.about p,
+main.about li {
+  font-size: 0.95rem;
+}
+
+main.about ul {
+  margin: 0.4rem 0;
+  padding-left: 1.2rem;
+}
+
+main.about li {
+  margin-bottom: 0.5rem;
+}
+
+main.about kbd {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.05rem 0.35rem;
+}
+
 /* Mobile: collapse the grid to a vertical "now only" list, per channel. */
 @media (max-width: 560px) {
   .guide-row {

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About — Nahom Eri TV</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16.png" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <meta name="theme-color" content="#0b0b0d" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Eri TV" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Nahom Eri TV</h1>
+  </header>
+
+  <main class="about">
+    <h2>What it is</h2>
+    <p>
+      Nahom Eri TV is a broadcast-style streaming service for Eritrean and
+      Tigrinya diaspora content. You tune in to a channel already playing —
+      the way a real TV channel works — instead of picking a video from a
+      list. Every channel runs on its own fixed, continuous schedule, so
+      everyone watching at the same moment sees the same thing. The service
+      is organized into channels, each curated around its own topic or
+      creator, with more added over time.
+    </p>
+    <p>
+      Nothing is downloaded, stored, or rehosted: every video plays directly
+      from YouTube's own player, so creators keep their views and control of
+      their uploads.
+    </p>
+
+    <h2>Who it's for</h2>
+    <p>
+      Eritrean and Tigrinya-speaking diaspora viewers who want to see their
+      community's weddings, culture, and everyday life without searching for
+      it — someone abroad catching up over coffee, a family planning their
+      own wedding looking for ideas, a younger viewer curious how traditions
+      look today, or a creator whose work deserves a wider audience.
+    </p>
+
+    <h2>How to use it</h2>
+    <ul>
+      <li>
+        Just open it — a channel starts playing right away, muted at first.
+        Tap the unmute button (or press <kbd>M</kbd>) to turn on sound.
+      </li>
+      <li>
+        To see what's on or switch channels, open the guide — tap
+        <strong>Guide</strong> in the toolbar (or press <kbd>G</kbd>), then
+        use the up/down arrows or a vertical swipe to move between channels,
+        and press <kbd>Enter</kbd> (or tap, or swipe right) to tune in.
+        Press <kbd>Esc</kbd> to close the guide.
+      </li>
+      <li>
+        On a phone, you can install Nahom Eri TV like an app — add it to your
+        home screen for one-tap access and instant loading, even on a weak
+        connection.
+      </li>
+    </ul>
+  </main>
+
+  <footer>
+    <p><a href="index.html">← Back to the guide</a></p>
+  </footer>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("sw.js").catch((err) => {
+          console.error("Service worker registration failed:", err);
+        });
+      });
+    }
+  </script>
+</body>
+</html>

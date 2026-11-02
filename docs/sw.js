@@ -21,11 +21,12 @@
 // clients.claim) and cleans up after itself silently on the next load, with
 // no "update available" prompt.
 
-const CACHE_NAME = "eri-tv-shell-v2";
+const CACHE_NAME = "eri-tv-shell-v3";
 
 const SHELL_ASSETS = [
   "./",
   "index.html",
+  "about.html",
   "style.css",
   "app.js",
   "offline-message.js",
