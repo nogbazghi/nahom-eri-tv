@@ -3,7 +3,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from kebire_channel import matches_text_filter, resolve_playlist_id, tag_for
+from kebire_channel import dedup_video_ids, matches_text_filter, resolve_playlist_id, tag_for
 
 
 def test_matches_text_filter_in_title():
@@ -59,3 +59,18 @@ def test_resolve_playlist_id_falls_back_to_uploads_playlist_when_unset():
 
     assert result == "UUz9a7XA9oMmk3CpFnE456bQ"
     assert calls == [("UCz9a7XA9oMmk3CpFnE456bQ", "key")]
+
+
+def test_dedup_video_ids_removes_repeats_preserving_first_seen_order():
+    # A source playlist can itself list the same video more than once (e.g.
+    # confirmed for real against Eri-TV's "Independence Day" playlist:
+    # contentDetails.itemCount counts every entry, including repeats).
+    assert dedup_video_ids(["a", "b", "a", "c", "b"]) == ["a", "b", "c"]
+
+
+def test_dedup_video_ids_no_repeats_unchanged():
+    assert dedup_video_ids(["a", "b", "c"]) == ["a", "b", "c"]
+
+
+def test_dedup_video_ids_empty_list():
+    assert dedup_video_ids([]) == []
