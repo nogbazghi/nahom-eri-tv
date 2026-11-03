@@ -25,6 +25,6 @@ kebire:
   type: channel
   display_name: Kebire
   channel_id: UCz9a7XA9oMmk3CpFnE456bQ
-  text_filter: "#eritrea"
+  text_filter: "eritrea"
   view_count_min: 0
   duration_min_sec: 120

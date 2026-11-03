@@ -2,22 +2,6 @@
   "scheduleStart": "2026-10-31T19:18:56.607835+00:00",
   "videos": [
     {
-      "id": "un4pHBAkIag",
-      "title": "Join me on a country side ride in Eritrea's beautiful mountain landscape.",
-      "channel": "Kebire",
-      "language": "",
-      "city": "",
-      "tags": [
-        "eritrea"
-      ],
-      "published": "2026-01-01",
-      "duration": 1271,
-      "channels": [
-        "Kebire"
-      ],
-      "notes": ""
-    },
-    {
       "id": "YaQd8H6rdm4",
       "title": "Eritrean Wedding",
       "channel": "MelayVideo",
@@ -131,6 +115,125 @@
         "Weddings"
       ],
       "notes": "API-verified public/embeddable via fetch_metadata.py. Guayla performance (Wedi Gumsa), uploaded by 'DY2 ENTERTAINMENT' \u2014 same channel as 5zOUjoKkksc above; strongest copyright-attribution signal found in research. Not individually screened for copyrighted music; included per owner decision."
+    },
+    {
+      "id": "un4pHBAkIag",
+      "title": "Join me on a country side ride in Eritrea's beautiful mountain landscape.",
+      "channel": "Kebire",
+      "language": "",
+      "city": "",
+      "tags": [
+        "eritrea"
+      ],
+      "published": "2026-01-01",
+      "duration": 1271,
+      "channels": [
+        "Kebire"
+      ],
+      "notes": "",
+      "lastValidated": "2026-11-02T15:53:12.759772+00:00"
+    },
+    {
+      "id": "hLDgTSjHW3Q",
+      "title": "My Asmara Community",
+      "channel": "Kebire",
+      "language": "",
+      "city": "",
+      "tags": [
+        "eritrea"
+      ],
+      "published": "2025-12-29",
+      "duration": 858,
+      "channels": [
+        "Kebire"
+      ],
+      "notes": "",
+      "lastValidated": "2026-11-02T15:53:12.759772+00:00"
+    },
+    {
+      "id": "VrrnDreEHR0",
+      "title": "14th Annual Senior Eritrean Soccer Tournament of North America",
+      "channel": "Kebire",
+      "language": "",
+      "city": "",
+      "tags": [
+        "eritrea"
+      ],
+      "published": "2023-09-05",
+      "duration": 4668,
+      "channels": [
+        "Kebire"
+      ],
+      "notes": "",
+      "lastValidated": "2026-11-02T15:53:12.759772+00:00"
+    },
+    {
+      "id": "52wJF0A8HvQ",
+      "title": "Eritrea's hidden gem.",
+      "channel": "Kebire",
+      "language": "",
+      "city": "",
+      "tags": [
+        "eritrea"
+      ],
+      "published": "2023-07-09",
+      "duration": 1858,
+      "channels": [
+        "Kebire"
+      ],
+      "notes": "",
+      "lastValidated": "2026-11-02T15:53:12.759772+00:00"
+    },
+    {
+      "id": "c77dzUGZF-Q",
+      "title": "Asmara, Eritrea Night life.",
+      "channel": "Kebire",
+      "language": "",
+      "city": "",
+      "tags": [
+        "eritrea"
+      ],
+      "published": "2023-07-08",
+      "duration": 1231,
+      "channels": [
+        "Kebire"
+      ],
+      "notes": "",
+      "lastValidated": "2026-11-02T15:53:12.759772+00:00"
+    },
+    {
+      "id": "viTx4Stzefw",
+      "title": "2023 Martyrs' Day in Asmara, Eritrea Walk",
+      "channel": "Kebire",
+      "language": "",
+      "city": "",
+      "tags": [
+        "eritrea"
+      ],
+      "published": "2023-06-30",
+      "duration": 6882,
+      "channels": [
+        "Kebire"
+      ],
+      "notes": "",
+      "lastValidated": "2026-11-02T15:53:12.759772+00:00"
+    },
+    {
+      "id": "2wWnTQcPCk8",
+      "title": "Asmara, Eritrea Walking Tour",
+      "channel": "Kebire",
+      "language": "",
+      "city": "",
+      "tags": [
+        "eritrea"
+      ],
+      "published": "2023-06-27",
+      "duration": 7176,
+      "channels": [
+        "Kebire"
+      ],
+      "notes": "",
+      "lastValidated": "2026-11-02T15:53:12.759772+00:00"
     }
   ],
   "schedules": {
