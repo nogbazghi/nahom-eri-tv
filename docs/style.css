@@ -167,6 +167,26 @@ header h1 {
   text-transform: uppercase;
 }
 
+/* Cross-page nav (TV <-> About) — each page links only to the OTHER page,
+   never itself, so this is always exactly one link. */
+.site-nav {
+  margin-top: 0.4rem;
+}
+
+.site-nav a {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  color: var(--accent);
+}
+
 main {
   max-width: 960px;
   margin: 0.5rem auto 1.5rem;
