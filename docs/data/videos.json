@@ -15,7 +15,8 @@
       "channels": [
         "Weddings"
       ],
-      "notes": "API-verified public/embeddable via fetch_metadata.py. Generic 'Eritrean Wedding' title \u2014 not individually content-reviewed; included per owner decision."
+      "notes": "API-verified public/embeddable via fetch_metadata.py. Generic 'Eritrean Wedding' title \u2014 not individually content-reviewed; included per owner decision.",
+      "source": "weddings"
     },
     {
       "id": "lF2X4fXeBb0",
@@ -31,7 +32,8 @@
       "channels": [
         "Weddings"
       ],
-      "notes": "API-verified public/embeddable via fetch_metadata.py. 'Eritrean wedding in Toronto | Yekealo and Natsent 4K Wedding Film' \u2014 not individually content-reviewed; included per owner decision."
+      "notes": "API-verified public/embeddable via fetch_metadata.py. 'Eritrean wedding in Toronto | Yekealo and Natsent 4K Wedding Film' \u2014 not individually content-reviewed; included per owner decision.",
+      "source": "weddings"
     },
     {
       "id": "G_5U0LNqkPg",
@@ -47,7 +49,8 @@
       "channels": [
         "Weddings"
       ],
-      "notes": "API-verified public/embeddable via fetch_metadata.py. Named couple (Samsom & Besrat), 2025 \u2014 not individually content-reviewed; included per owner decision."
+      "notes": "API-verified public/embeddable via fetch_metadata.py. Named couple (Samsom & Besrat), 2025 \u2014 not individually content-reviewed; included per owner decision.",
+      "source": "weddings"
     },
     {
       "id": "fZ_6ZZfBAA0",
@@ -63,7 +66,8 @@
       "channels": [
         "Weddings"
       ],
-      "notes": "API-verified public/embeddable via fetch_metadata.py. Possibly an Isaias & Roma wedding filmed in Stockholm \u2014 not individually content-reviewed; included per owner decision."
+      "notes": "API-verified public/embeddable via fetch_metadata.py. Possibly an Isaias & Roma wedding filmed in Stockholm \u2014 not individually content-reviewed; included per owner decision.",
+      "source": "weddings"
     },
     {
       "id": "5zOUjoKkksc",
@@ -80,7 +84,8 @@
       "channels": [
         "Weddings"
       ],
-      "notes": "API-verified public/embeddable via fetch_metadata.py. Guayla performance (Robi & Meaza, Netherlands 2026), uploaded by 'DY2 ENTERTAINMENT' \u2014 same channel as R5Et-odTT4g below. Not individually screened for copyrighted music; included per owner decision."
+      "notes": "API-verified public/embeddable via fetch_metadata.py. Guayla performance (Robi & Meaza, Netherlands 2026), uploaded by 'DY2 ENTERTAINMENT' \u2014 same channel as R5Et-odTT4g below. Not individually screened for copyrighted music; included per owner decision.",
+      "source": "weddings"
     },
     {
       "id": "kveqL6-bWAA",
@@ -97,7 +102,8 @@
       "channels": [
         "Weddings"
       ],
-      "notes": "API-verified public/embeddable via fetch_metadata.py. Guayla performance uploaded directly by the performer, 'Tedros Kahsay (Xaedu)'. Not individually screened for copyrighted music; included per owner decision."
+      "notes": "API-verified public/embeddable via fetch_metadata.py. Guayla performance uploaded directly by the performer, 'Tedros Kahsay (Xaedu)'. Not individually screened for copyrighted music; included per owner decision.",
+      "source": "weddings"
     },
     {
       "id": "R5Et-odTT4g",
@@ -114,7 +120,8 @@
       "channels": [
         "Weddings"
       ],
-      "notes": "API-verified public/embeddable via fetch_metadata.py. Guayla performance (Wedi Gumsa), uploaded by 'DY2 ENTERTAINMENT' \u2014 same channel as 5zOUjoKkksc above; strongest copyright-attribution signal found in research. Not individually screened for copyrighted music; included per owner decision."
+      "notes": "API-verified public/embeddable via fetch_metadata.py. Guayla performance (Wedi Gumsa), uploaded by 'DY2 ENTERTAINMENT' \u2014 same channel as 5zOUjoKkksc above; strongest copyright-attribution signal found in research. Not individually screened for copyrighted music; included per owner decision.",
+      "source": "weddings"
     },
     {
       "id": "un4pHBAkIag",
@@ -131,7 +138,8 @@
         "Kebire"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:33.842020+00:00"
+      "lastValidated": "2026-11-03T06:33:29.893070+00:00",
+      "source": "kebire"
     },
     {
       "id": "hLDgTSjHW3Q",
@@ -148,7 +156,8 @@
         "Kebire"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:33.842020+00:00"
+      "lastValidated": "2026-11-03T06:33:29.893070+00:00",
+      "source": "kebire"
     },
     {
       "id": "VrrnDreEHR0",
@@ -165,7 +174,8 @@
         "Kebire"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:33.842020+00:00"
+      "lastValidated": "2026-11-03T06:33:29.893070+00:00",
+      "source": "kebire"
     },
     {
       "id": "52wJF0A8HvQ",
@@ -182,7 +192,8 @@
         "Kebire"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:33.842020+00:00"
+      "lastValidated": "2026-11-03T06:33:29.893070+00:00",
+      "source": "kebire"
     },
     {
       "id": "c77dzUGZF-Q",
@@ -199,7 +210,8 @@
         "Kebire"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:33.842020+00:00"
+      "lastValidated": "2026-11-03T06:33:29.893070+00:00",
+      "source": "kebire"
     },
     {
       "id": "viTx4Stzefw",
@@ -216,7 +228,8 @@
         "Kebire"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:33.842020+00:00"
+      "lastValidated": "2026-11-03T06:33:29.893070+00:00",
+      "source": "kebire"
     },
     {
       "id": "2wWnTQcPCk8",
@@ -233,7 +246,8 @@
         "Kebire"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:33.842020+00:00"
+      "lastValidated": "2026-11-03T06:33:29.893070+00:00",
+      "source": "kebire"
     },
     {
       "id": "2-Yd3otUPCs",
@@ -247,8 +261,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "bUzHgRR-W1s",
@@ -262,8 +277,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "QA_OYTXKeFA",
@@ -277,8 +293,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "7Ik7qWtvnxE",
@@ -292,8 +309,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "N_5ej40NHWw",
@@ -307,8 +325,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "3czT_LlvMAM",
@@ -322,8 +341,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "3RnpCbZnveE",
@@ -337,8 +357,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "3sGPk5n0AUI",
@@ -352,8 +373,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "JLTT933h8Wo",
@@ -367,8 +389,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "5gsdfj-Uepo",
@@ -382,8 +405,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "HF3urq0LzP4",
@@ -397,8 +421,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "1vjwREf_LhU",
@@ -412,8 +437,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "ZAnkSJqom0Y",
@@ -427,8 +453,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "oiR35oqqTw8",
@@ -442,8 +469,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "-k37UQuPrKo",
@@ -457,8 +485,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "f_DNZkKTnLY",
@@ -472,8 +501,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "ux-spcD3NJw",
@@ -487,8 +517,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "vRvZ3-I-mFc",
@@ -502,8 +533,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "df9F5DZ6GAE",
@@ -517,8 +549,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "A5XLmoS-twc",
@@ -532,8 +565,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "ABAbSGZ5UyU",
@@ -547,8 +581,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "s5OD9G_Gp8A",
@@ -562,8 +597,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "_i6E_YrzWZU",
@@ -577,8 +613,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "Koo3sRi8Yhw",
@@ -592,8 +629,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "jPSmxGVHTiQ",
@@ -607,8 +645,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "X8fMOnmhYd8",
@@ -622,8 +661,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "hdpeCi3xl54",
@@ -637,8 +677,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "tsGlo4vuc3U",
@@ -652,8 +693,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "rNJZBptqsKM",
@@ -667,8 +709,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "YO6wgtUxkxE",
@@ -682,8 +725,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "TLjdDYH228A",
@@ -697,8 +741,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "Mf42RhIersw",
@@ -712,8 +757,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "wwPjlX5HU18",
@@ -727,8 +773,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "FJHPffUJjB0",
@@ -742,8 +789,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "LcO80Gv0CG8",
@@ -757,8 +805,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "rX5OG6PJuns",
@@ -772,8 +821,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "gN7ha4maEo8",
@@ -787,8 +837,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "uOJbQIEU5fA",
@@ -802,8 +853,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "cqbRER4QdHY",
@@ -817,8 +869,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "-2Qb6cCKJx0",
@@ -832,8 +885,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "X03CX1XTx8E",
@@ -847,8 +901,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "_gzn5uc7kc0",
@@ -862,8 +917,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "Ubz4r_kRIdE",
@@ -877,8 +933,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "MoX8FlF3cqY",
@@ -892,8 +949,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "o6ZpBNc1NCg",
@@ -907,8 +965,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "DYrzrJJpwY4",
@@ -922,8 +981,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "zNaiUk8RJJY",
@@ -937,8 +997,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "azv7kj99cBE",
@@ -952,8 +1013,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "liZf1J1SRm8",
@@ -967,8 +1029,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "Fm_uC1M3ZZ4",
@@ -982,8 +1045,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "AyY7f2CJ5LY",
@@ -997,8 +1061,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "2u2JeFL7SXs",
@@ -1012,8 +1077,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "Vp5yMfcLcqg",
@@ -1027,8 +1093,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "XwxrPIUGqw0",
@@ -1042,8 +1109,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "DHEKZuMs01s",
@@ -1057,8 +1125,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "PlNwMK4taeo",
@@ -1072,8 +1141,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "ZpTuyxGKTo4",
@@ -1087,8 +1157,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "PWqXvkqBNrc",
@@ -1102,8 +1173,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "eOXkI7R-9uo",
@@ -1117,8 +1189,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "r5vvxJuacjo",
@@ -1132,8 +1205,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "yFNLYcy6F08",
@@ -1147,8 +1221,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "dIisXzx_vx0",
@@ -1162,8 +1237,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "SikrFw__-i4",
@@ -1177,8 +1253,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "tTPeoz_Ue3M",
@@ -1192,8 +1269,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "yaLgWhYkYNE",
@@ -1207,8 +1285,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "jmVDBhIfX1E",
@@ -1222,8 +1301,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "aNsFo0_9AVQ",
@@ -1237,8 +1317,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "M_lBQdZba10",
@@ -1252,8 +1333,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "l6-Wctz9z04",
@@ -1267,8 +1349,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "8rmchC_r6ec",
@@ -1282,8 +1365,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "QxWYyZ09kMc",
@@ -1297,8 +1381,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "JrIdss8lgvc",
@@ -1312,8 +1397,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "aaAMPJDwUvE",
@@ -1327,8 +1413,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "gyejz1g9AVc",
@@ -1342,8 +1429,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "iLyhchwOL00",
@@ -1357,8 +1445,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "3qkzTRkZRh0",
@@ -1372,8 +1461,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "nTPTiW5xW-c",
@@ -1387,8 +1477,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "M28f-L9HoXY",
@@ -1402,8 +1493,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "U8drKZHJzvU",
@@ -1417,8 +1509,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "Rd-sufbM5lI",
@@ -1432,8 +1525,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "XfCBJzSkaZ4",
@@ -1447,8 +1541,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "Tgr9TgmL1b4",
@@ -1462,8 +1557,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "ewvvpbyHyTE",
@@ -1477,8 +1573,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "3IZdLCxIYTQ",
@@ -1492,8 +1589,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "jK56AxKAAKI",
@@ -1507,8 +1605,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "JYPlAzBeEuQ",
@@ -1522,8 +1621,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "oBwXDTYAGVI",
@@ -1537,8 +1637,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "PGuaxlSQWck",
@@ -1552,8 +1653,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "MX-GRaFFnkg",
@@ -1567,8 +1669,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "XBh3WxXB_ic",
@@ -1582,8 +1685,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "Rd-G9m4eqHE",
@@ -1597,8 +1701,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "Ar5mR6M-6eo",
@@ -1612,8 +1717,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "9ZXauvZLyxQ",
@@ -1627,8 +1733,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "zmci3aT0Vjw",
@@ -1642,8 +1749,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "vVW4iibuDqI",
@@ -1657,8 +1765,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "xq4vYpIykz8",
@@ -1672,8 +1781,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "rK16p4YX6_w",
@@ -1687,8 +1797,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "yEAtzzaPJq0",
@@ -1702,8 +1813,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "1ttdvb3iKbs",
@@ -1717,8 +1829,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "0-YI0TXV7io",
@@ -1732,8 +1845,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "l2kmuJXcO_o",
@@ -1747,8 +1861,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "QSW6JLQZ0kY",
@@ -1762,8 +1877,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "7ZNNjJrVaCU",
@@ -1777,8 +1893,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "wkvjMmz9dd8",
@@ -1792,8 +1909,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "79RARdC8QvM",
@@ -1807,8 +1925,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "fMV20XnnnAA",
@@ -1822,8 +1941,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "1HgjPknRYL8",
@@ -1837,8 +1957,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "MZx3p8fC1Rs",
@@ -1852,8 +1973,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "NusUesoWXuk",
@@ -1867,8 +1989,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "ZtqjpKZ6p-w",
@@ -1882,8 +2005,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "THDaFAG0d2Q",
@@ -1897,8 +2021,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "qIETehtmTzM",
@@ -1912,8 +2037,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "aMY_fG1BQ60",
@@ -1927,8 +2053,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "KuN0xluXcN0",
@@ -1942,8 +2069,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "SZWsoUeIwho",
@@ -1957,8 +2085,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "_5Q5A35xG-A",
@@ -1972,8 +2101,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "49ZL9z2QdyQ",
@@ -1987,8 +2117,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "dauoPcEeP2A",
@@ -2002,8 +2133,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "ztCUFOKkM8Y",
@@ -2017,8 +2149,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "oi8qhHogiiE",
@@ -2032,8 +2165,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "iXOJxueSoKc",
@@ -2047,8 +2181,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "vr3UYLIfG8w",
@@ -2062,8 +2197,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "Z9mJeo0RJf4",
@@ -2077,8 +2213,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "7iWruEj74vU",
@@ -2092,8 +2229,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "ZqF5hmos1Ow",
@@ -2107,8 +2245,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "BGo9WXPQx5U",
@@ -2122,8 +2261,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "3Hn_7ZKT6W0",
@@ -2137,8 +2277,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "RDBjSo0IxUw",
@@ -2152,8 +2293,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "ze6HHG46fi4",
@@ -2167,8 +2309,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "2zglSgIJ96Y",
@@ -2182,8 +2325,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "1YgI8c9Ro_8",
@@ -2197,8 +2341,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "3IDtZi5TtcM",
@@ -2212,8 +2357,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "C1pK6ujwOHY",
@@ -2227,8 +2373,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "KQG0bpdGPg0",
@@ -2242,8 +2389,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "3dBnNs5umBU",
@@ -2257,8 +2405,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "t0x-BfbqKt0",
@@ -2272,8 +2421,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     },
     {
       "id": "QBY3_6lHstQ",
@@ -2287,8 +2437,9 @@
       "channels": [
         "Sports"
       ],
+      "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:31:36.444798+00:00"
+      "lastValidated": "2026-11-03T06:33:32.193470+00:00"
     }
   ],
   "schedules": {
@@ -2300,7 +2451,7 @@
       "scheduleStart": "2026-10-31T21:26:25.541375+00:00"
     },
     "Sports": {
-      "scheduleStart": "2026-11-03T06:31:37.180724+00:00"
+      "scheduleStart": "2026-11-03T06:33:32.977281+00:00"
     }
   }
 }

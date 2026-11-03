@@ -83,7 +83,7 @@ def search_videos(query, api_key, published_after_ts):
 
 def run_channel(channel_key, cfg, api_key, blocked_ids, existing_data):
     display_name = cfg["display_name"]
-    stored = pipeline.videos_for_channel(existing_data, display_name)
+    stored = pipeline.videos_for_channel(existing_data, display_name, channel_key)
     stored_ids = [v["id"] for v in stored]
 
     after_ts = published_after()
@@ -129,7 +129,11 @@ def main():
     for channel_key, cfg in search_channels.items():
         result = run_channel(channel_key, cfg, api_key, blocked_ids, existing)
         existing = pipeline.write_channel_result(
-            existing, cfg["display_name"], result["final_videos"], cfg.get("is_default", False)
+            existing,
+            cfg["display_name"],
+            channel_key,
+            result["final_videos"],
+            cfg.get("is_default", False),
         )
         pipeline.write_run_summary(channel_key, result["additions"], result["removals"])
         print(

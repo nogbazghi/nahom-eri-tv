@@ -106,16 +106,27 @@ def test_validate_record_passing_record_returns_true():
 def test_videos_for_channel_returns_only_matching_videos():
     existing_data = {
         "videos": [
-            {"id": "1", "channels": ["Kebire"]},
-            {"id": "2", "channels": ["Other Channel"]},
-            {"id": "3", "channels": ["Kebire"]},
+            {"id": "1", "channels": ["Kebire"], "source": "kebire"},
+            {"id": "2", "channels": ["Other Channel"], "source": "other"},
+            {"id": "3", "channels": ["Kebire"], "source": "kebire"},
         ]
     }
-    result = pipeline.videos_for_channel(existing_data, "Kebire")
+    result = pipeline.videos_for_channel(existing_data, "Kebire", "kebire")
     assert result == [
-        {"id": "1", "channels": ["Kebire"]},
-        {"id": "3", "channels": ["Kebire"]},
+        {"id": "1", "channels": ["Kebire"], "source": "kebire"},
+        {"id": "3", "channels": ["Kebire"], "source": "kebire"},
     ]
+
+
+def test_videos_for_channel_excludes_a_different_sources_videos_under_the_same_display_name():
+    existing_data = {
+        "videos": [
+            {"id": "1", "channels": ["Sports"], "source": "sports_eritv"},
+            {"id": "2", "channels": ["Sports"], "source": "sports_diaspora"},
+        ]
+    }
+    result = pipeline.videos_for_channel(existing_data, "Sports", "sports_eritv")
+    assert result == [{"id": "1", "channels": ["Sports"], "source": "sports_eritv"}]
 
 
 def test_compute_run_blocklisted_stored_video_removed_without_api_call():
@@ -164,6 +175,18 @@ def test_compute_run_already_stored_candidate_id_is_skipped():
     assert [v["id"] for v in result["final_videos"]] == ["v1", "v2"]
 
 
+def test_compute_run_stamps_source_as_the_calling_channel_key_on_new_additions():
+    def fetch_fn(ids, api_key):
+        return {vid: make_record(title=f"Title {vid}") for vid in ids}
+
+    result = pipeline.compute_run(
+        "sports_eritv", "Sports", [], ["v1"], RULES, "key", set(), fetch_fn=fetch_fn
+    )
+
+    assert result["additions"][0]["source"] == "sports_eritv"
+    assert result["final_videos"][0]["source"] == "sports_eritv"
+
+
 def test_compute_run_failing_new_candidate_is_dropped_silently():
     def fetch_fn(ids, api_key):
         return {}  # candidate missing from the API response -> fails validation
@@ -196,22 +219,50 @@ def test_compute_run_stamps_last_validated_on_every_kept_and_added_record():
 def test_write_channel_result_replaces_only_named_channels_videos():
     existing_data = {
         "videos": [
-            {"id": "1", "channels": ["Kebire"]},
-            {"id": "2", "channels": ["Other Channel"]},
+            {"id": "1", "channels": ["Kebire"], "source": "kebire"},
+            {"id": "2", "channels": ["Other Channel"], "source": "other"},
         ],
         "schedules": {"Kebire": {"scheduleStart": "2026-01-01T00:00:00+00:00"}},
     }
-    final_videos = [{"id": "3", "channels": ["Kebire"]}]
+    final_videos = [{"id": "3", "channels": ["Kebire"], "source": "kebire"}]
 
     result = pipeline.write_channel_result(
-        existing_data, display_name="Kebire", final_videos=final_videos, is_default=False
+        existing_data,
+        display_name="Kebire",
+        source="kebire",
+        final_videos=final_videos,
+        is_default=False,
     )
 
     assert result["videos"] == [
-        {"id": "2", "channels": ["Other Channel"]},
-        {"id": "3", "channels": ["Kebire"]},
+        {"id": "2", "channels": ["Other Channel"], "source": "other"},
+        {"id": "3", "channels": ["Kebire"], "source": "kebire"},
     ]
     assert result["schedules"]["Kebire"]["scheduleStart"] == "2026-01-01T00:00:00+00:00"
+
+
+def test_write_channel_result_replaces_only_the_calling_sources_slice_of_a_shared_display_name():
+    existing_data = {
+        "videos": [
+            {"id": "1", "channels": ["Sports"], "source": "sports_eritv"},
+            {"id": "2", "channels": ["Sports"], "source": "sports_diaspora"},
+        ],
+        "schedules": {},
+    }
+    final_videos = [{"id": "3", "channels": ["Sports"], "source": "sports_eritv"}]
+
+    result = pipeline.write_channel_result(
+        existing_data,
+        display_name="Sports",
+        source="sports_eritv",
+        final_videos=final_videos,
+        is_default=False,
+    )
+
+    assert result["videos"] == [
+        {"id": "2", "channels": ["Sports"], "source": "sports_diaspora"},
+        {"id": "3", "channels": ["Sports"], "source": "sports_eritv"},
+    ]
 
 
 def test_write_channel_result_leaves_other_channels_schedule_untouched():
@@ -223,7 +274,7 @@ def test_write_channel_result_leaves_other_channels_schedule_untouched():
     }
 
     result = pipeline.write_channel_result(
-        existing_data, display_name="Weddings", final_videos=[], is_default=False
+        existing_data, display_name="Weddings", source="weddings", final_videos=[], is_default=False
     )
 
     assert result["schedules"]["Other Channel"] == {
@@ -236,7 +287,7 @@ def test_write_channel_result_schedule_start_and_default_set_once_and_preserved(
     existing_data = {"videos": [], "schedules": {}}
 
     first = pipeline.write_channel_result(
-        existing_data, display_name="Weddings", final_videos=[], is_default=True
+        existing_data, display_name="Weddings", source="weddings", final_videos=[], is_default=True
     )
     first_schedule = dict(first["schedules"]["Weddings"])
 
@@ -244,7 +295,7 @@ def test_write_channel_result_schedule_start_and_default_set_once_and_preserved(
     assert "scheduleStart" in first_schedule
 
     second = pipeline.write_channel_result(
-        first, display_name="Weddings", final_videos=[], is_default=False
+        first, display_name="Weddings", source="weddings", final_videos=[], is_default=False
     )
 
     assert second["schedules"]["Weddings"] == first_schedule
