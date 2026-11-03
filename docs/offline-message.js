@@ -9,12 +9,18 @@
 // but the fetch/response itself failed (e.g. a bad status or malformed
 // JSON) — is surfaced as the exact same message. The cause isn't something
 // a visitor can act on differently, so it isn't worth distinguishing.
-export const LINEUP_FAILURE_MESSAGE =
-  "Couldn't load the schedule. Check your connection and try again.";
+//
+// This is a docs/i18n.js translation *key*, not the final display text —
+// per spec #22/ticket #31, the offline/schedule-failure message is chrome
+// text and must flip with the language toggle. The caller (docs/app.js)
+// resolves it to the active language's string via translate() before
+// putting it in the DOM; see docs/i18n/strings.en.js's/strings.ti.js's
+// lineupFailureMessage key.
+export const LINEUP_FAILURE_MESSAGE_KEY = "lineupFailureMessage";
 
 export function selectLineupMessage({ online, status }) {
   if (!online || status === "error") {
-    return LINEUP_FAILURE_MESSAGE;
+    return LINEUP_FAILURE_MESSAGE_KEY;
   }
 
   return null;
