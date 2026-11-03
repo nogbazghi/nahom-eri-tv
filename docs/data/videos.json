@@ -15,7 +15,8 @@
       "channels": [
         "Weddings"
       ],
-      "notes": "API-verified public/embeddable via fetch_metadata.py. Generic 'Eritrean Wedding' title \u2014 not individually content-reviewed; included per owner decision."
+      "notes": "API-verified public/embeddable via fetch_metadata.py. Generic 'Eritrean Wedding' title \u2014 not individually content-reviewed; included per owner decision.",
+      "source": "weddings"
     },
     {
       "id": "lF2X4fXeBb0",
@@ -31,7 +32,8 @@
       "channels": [
         "Weddings"
       ],
-      "notes": "API-verified public/embeddable via fetch_metadata.py. 'Eritrean wedding in Toronto | Yekealo and Natsent 4K Wedding Film' \u2014 not individually content-reviewed; included per owner decision."
+      "notes": "API-verified public/embeddable via fetch_metadata.py. 'Eritrean wedding in Toronto | Yekealo and Natsent 4K Wedding Film' \u2014 not individually content-reviewed; included per owner decision.",
+      "source": "weddings"
     },
     {
       "id": "G_5U0LNqkPg",
@@ -47,7 +49,8 @@
       "channels": [
         "Weddings"
       ],
-      "notes": "API-verified public/embeddable via fetch_metadata.py. Named couple (Samsom & Besrat), 2025 \u2014 not individually content-reviewed; included per owner decision."
+      "notes": "API-verified public/embeddable via fetch_metadata.py. Named couple (Samsom & Besrat), 2025 \u2014 not individually content-reviewed; included per owner decision.",
+      "source": "weddings"
     },
     {
       "id": "fZ_6ZZfBAA0",
@@ -63,7 +66,8 @@
       "channels": [
         "Weddings"
       ],
-      "notes": "API-verified public/embeddable via fetch_metadata.py. Possibly an Isaias & Roma wedding filmed in Stockholm \u2014 not individually content-reviewed; included per owner decision."
+      "notes": "API-verified public/embeddable via fetch_metadata.py. Possibly an Isaias & Roma wedding filmed in Stockholm \u2014 not individually content-reviewed; included per owner decision.",
+      "source": "weddings"
     },
     {
       "id": "5zOUjoKkksc",
@@ -80,7 +84,8 @@
       "channels": [
         "Weddings"
       ],
-      "notes": "API-verified public/embeddable via fetch_metadata.py. Guayla performance (Robi & Meaza, Netherlands 2026), uploaded by 'DY2 ENTERTAINMENT' \u2014 same channel as R5Et-odTT4g below. Not individually screened for copyrighted music; included per owner decision."
+      "notes": "API-verified public/embeddable via fetch_metadata.py. Guayla performance (Robi & Meaza, Netherlands 2026), uploaded by 'DY2 ENTERTAINMENT' \u2014 same channel as R5Et-odTT4g below. Not individually screened for copyrighted music; included per owner decision.",
+      "source": "weddings"
     },
     {
       "id": "kveqL6-bWAA",
@@ -97,7 +102,8 @@
       "channels": [
         "Weddings"
       ],
-      "notes": "API-verified public/embeddable via fetch_metadata.py. Guayla performance uploaded directly by the performer, 'Tedros Kahsay (Xaedu)'. Not individually screened for copyrighted music; included per owner decision."
+      "notes": "API-verified public/embeddable via fetch_metadata.py. Guayla performance uploaded directly by the performer, 'Tedros Kahsay (Xaedu)'. Not individually screened for copyrighted music; included per owner decision.",
+      "source": "weddings"
     },
     {
       "id": "R5Et-odTT4g",
@@ -114,7 +120,8 @@
       "channels": [
         "Weddings"
       ],
-      "notes": "API-verified public/embeddable via fetch_metadata.py. Guayla performance (Wedi Gumsa), uploaded by 'DY2 ENTERTAINMENT' \u2014 same channel as 5zOUjoKkksc above; strongest copyright-attribution signal found in research. Not individually screened for copyrighted music; included per owner decision."
+      "notes": "API-verified public/embeddable via fetch_metadata.py. Guayla performance (Wedi Gumsa), uploaded by 'DY2 ENTERTAINMENT' \u2014 same channel as 5zOUjoKkksc above; strongest copyright-attribution signal found in research. Not individually screened for copyrighted music; included per owner decision.",
+      "source": "weddings"
     },
     {
       "id": "un4pHBAkIag",
@@ -131,7 +138,8 @@
         "Kebire"
       ],
       "notes": "",
-      "lastValidated": "2026-11-02T15:53:12.759772+00:00"
+      "lastValidated": "2026-11-02T15:53:12.759772+00:00",
+      "source": "kebire"
     },
     {
       "id": "hLDgTSjHW3Q",
@@ -148,7 +156,8 @@
         "Kebire"
       ],
       "notes": "",
-      "lastValidated": "2026-11-02T15:53:12.759772+00:00"
+      "lastValidated": "2026-11-02T15:53:12.759772+00:00",
+      "source": "kebire"
     },
     {
       "id": "VrrnDreEHR0",
@@ -165,7 +174,8 @@
         "Kebire"
       ],
       "notes": "",
-      "lastValidated": "2026-11-02T15:53:12.759772+00:00"
+      "lastValidated": "2026-11-02T15:53:12.759772+00:00",
+      "source": "kebire"
     },
     {
       "id": "52wJF0A8HvQ",
@@ -182,7 +192,8 @@
         "Kebire"
       ],
       "notes": "",
-      "lastValidated": "2026-11-02T15:53:12.759772+00:00"
+      "lastValidated": "2026-11-02T15:53:12.759772+00:00",
+      "source": "kebire"
     },
     {
       "id": "c77dzUGZF-Q",
@@ -199,7 +210,8 @@
         "Kebire"
       ],
       "notes": "",
-      "lastValidated": "2026-11-02T15:53:12.759772+00:00"
+      "lastValidated": "2026-11-02T15:53:12.759772+00:00",
+      "source": "kebire"
     },
     {
       "id": "viTx4Stzefw",
@@ -216,7 +228,8 @@
         "Kebire"
       ],
       "notes": "",
-      "lastValidated": "2026-11-02T15:53:12.759772+00:00"
+      "lastValidated": "2026-11-02T15:53:12.759772+00:00",
+      "source": "kebire"
     },
     {
       "id": "2wWnTQcPCk8",
@@ -233,7 +246,8 @@
         "Kebire"
       ],
       "notes": "",
-      "lastValidated": "2026-11-02T15:53:12.759772+00:00"
+      "lastValidated": "2026-11-02T15:53:12.759772+00:00",
+      "source": "kebire"
     }
   ],
   "schedules": {
