@@ -153,6 +153,15 @@ body {
   text-align: center;
 }
 
+/* The `display: flex` above outranks the UA stylesheet's `[hidden] {
+   display: none }` (author styles always beat UA styles, regardless of
+   specificity), so the dismiss button's `banner.hidden = true` would
+   otherwise do nothing visible. Restate display:none here so [hidden]
+   actually hides the banner. */
+.install-hint[hidden] {
+  display: none;
+}
+
 .install-hint p {
   margin: 0;
 }
