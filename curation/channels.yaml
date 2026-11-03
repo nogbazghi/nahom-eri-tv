@@ -169,3 +169,72 @@ music:
   playlist_id: PLjrXQ8yRJDlwKR_fhpgNNJYAq1WWz0l7f  # "Eritrean Music"
   view_count_min: 0
   duration_min_sec: 120
+
+fenkil:
+  type: channel
+  display_name: Fenkil
+  channel_id: UCpPhzhCfud9ctQSJJv4Kqlw
+  playlist_id: PLjrXQ8yRJDlxrxnmmg2k9vTNAtFq-N8rA  # "Fenkil (ፈንቅል)" — the big,
+  # deduplicated playlist (confirmed live, 2026-11-03: 206 playlistItems
+  # covering 181 unique video IDs). Deliberately NOT one of the two
+  # smaller playlists on this same topic ("Fenkil Documentary 2025",
+  # "ስርሒት ፈንቅል / Operation Fenkil") — both were confirmed (2026-11-03) to
+  # be 100% duplicate subsets of this one, so adding them separately would
+  # only create duplicate entries, not new coverage.
+  #
+  # This single playlist legitimately covers two different kinds of
+  # content under one umbrella term, per docs/research/channel-demand-
+  # signals.md §6: Eri-TV's own long-running numbered dramatized-
+  # documentary series re-telling the 1990 Massawa campaign ("ፈንቅል -
+  # ክፋል N", still actively airing new parts), AND Eri-TV's own annual
+  # Feb 10 anniversary commemoration specials. Per the owner's brief
+  # (ticket #25) these are not split into separate entries — both are in
+  # scope, which is also why this channel is evergreen rather than
+  # narrowly seasonal despite the name's holiday association.
+  view_count_min: 0
+  duration_min_sec: 120
+
+# Shares display_name "Fenkil" with the `fenkil` entry above (Eri-TV's own
+# playlist) — the (display_name, source) scoping from ticket #16 keeps the
+# two rules' runs from clobbering each other (verified in both run
+# orders — see ticket #25).
+#
+# Covers diaspora-made Fenkil-anniversary content: community/embassy
+# celebration recaps and anniversary-festival coverage, distinct from
+# Eri-TV's own commemoration specials and ongoing documentary series
+# (covered by the `fenkil` entry above). Per docs/research/channel-
+# demand-signals.md §6, "Fenkil" alone is the one term in this entire
+# research project with a clean, Eritrea-specific Google Trends geo
+# signal (ER=100, every other country incl. Ethiopia = 0) that also spikes
+# reliably on the same Feb 10 calendar week every year tested.
+#
+# Queries are "Fenkil anniversary" and "Fenkil celebration", not the bare
+# term "Fenkil" — a live trial run (2026-11-03) of the bare term returned
+# a lot of off-topic noise for this rule's purpose (a daily Tigrinya-news
+# commentary channel incidentally named "Fenql eri media", generic
+# politics/military clips, and Eri-TV's own documentary episodes, which
+# are already covered by the `fenkil` entry above). Qualifying with
+# "anniversary" or "celebration" reliably surfaced genuine diaspora-made
+# content instead: Cinema Semere Media's "36th Fenkil Anniversary
+# Festival", Eritrean Unity Worldwide EPLF1's Washington DC commemoration,
+# Barka Eri's Massawa coverage, Teame Tesfamariam's and YPFDJToronto's
+# city-specific diaspora recaps, SEBRET Entertainment's tribute content —
+# matching the diaspora-channel supply documented in §6's YouTube table.
+#
+# Unlike `fenkil` above (a trusted single source, view_count_min: 0), this
+# pulls from arbitrary YouTube search results, so it follows Weddings' and
+# sports_diaspora's unvetted-pool precedent with a nonzero view_count_min.
+# Set to the same 500 as sports_diaspora (not Weddings' 1000): a live
+# trial run of both queries' top results (2026-11-03) showed legitimate
+# diaspora content spanning roughly 1,000-60,000 views, with only one
+# outlier single-community recap below 500 — 500 comfortably excludes
+# near-zero-view noise without excluding the legitimate smaller-community
+# uploads that make up most of this pool.
+fenkil_diaspora:
+  type: search
+  display_name: Fenkil
+  queries:
+    - "Fenkil anniversary"
+    - "Fenkil celebration"
+  view_count_min: 500
+  duration_min_sec: 120

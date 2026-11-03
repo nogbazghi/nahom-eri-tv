@@ -5,6 +5,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from kebire_channel import (
     candidate_matches,
+    dedup_preserve_order,
     matches_text_filter,
     matches_text_filter_title_only,
     resolve_playlist_id,
@@ -106,3 +107,15 @@ def test_resolve_playlist_id_falls_back_to_uploads_playlist_when_unset():
 
     assert result == "UUz9a7XA9oMmk3CpFnE456bQ"
     assert calls == [("UCz9a7XA9oMmk3CpFnE456bQ", "key")]
+
+
+def test_dedup_preserve_order_drops_repeats_but_keeps_first_occurrence_order():
+    # A playlist can list the same video more than once (confirmed live for
+    # Fenkil's big merged playlist: 206 playlistItems, 181 unique video
+    # IDs) — without this, a repeated entry would flow through as two
+    # separate "fresh" candidates and get added to videos.json twice.
+    assert dedup_preserve_order(["a", "b", "a", "c", "b"]) == ["a", "b", "c"]
+
+
+def test_dedup_preserve_order_empty_list():
+    assert dedup_preserve_order([]) == []
