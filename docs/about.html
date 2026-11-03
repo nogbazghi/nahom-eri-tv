@@ -16,12 +16,15 @@
 <body>
   <header>
     <h1>Nahom Eri TV</h1>
-    <nav class="site-nav"><a href="index.html">TV</a></nav>
+    <nav class="site-nav">
+      <a href="index.html">TV</a>
+      <button id="lang-toggle" type="button">ትግርኛ</button>
+    </nav>
   </header>
 
   <main class="about">
-    <h2>What it is</h2>
-    <p>
+    <h2 data-i18n="aboutWhatItIsHeading">What it is</h2>
+    <p data-i18n="aboutWhatItIsIntro">
       Nahom Eri TV is a broadcast-style streaming service for Eritrean and
       Tigrinya diaspora content. You tune in to a channel already playing —
       the way a real TV channel works — instead of picking a video from a
@@ -30,14 +33,14 @@
       is organized into channels, each curated around its own topic or
       creator, with more added over time.
     </p>
-    <p>
+    <p data-i18n="aboutNothingDownloaded">
       Nothing is downloaded, stored, or rehosted: every video plays directly
       from YouTube's own player, so creators keep their views and control of
       their uploads.
     </p>
 
-    <h2>Who it's for</h2>
-    <p>
+    <h2 data-i18n="aboutWhoItsForHeading">Who it's for</h2>
+    <p data-i18n="aboutWhoItsForParagraph">
       Eritrean and Tigrinya-speaking diaspora viewers who want to see their
       community's weddings, culture, and everyday life without searching for
       it — someone abroad catching up over coffee, a family planning their
@@ -45,20 +48,20 @@
       look today, or a creator whose work deserves a wider audience.
     </p>
 
-    <h2>How to use it</h2>
+    <h2 data-i18n="aboutHowToUseHeading">How to use it</h2>
     <ul>
-      <li>
+      <li data-i18n-html="aboutUnmuteInstructionHtml">
         Just open it — a channel starts playing right away, muted at first.
         Tap the unmute button (or press <kbd>M</kbd>) to turn on sound.
       </li>
-      <li>
+      <li data-i18n-html="aboutGuideInstructionHtml">
         To see what's on or switch channels, open the guide — tap
         <strong>Guide</strong> in the toolbar (or press <kbd>G</kbd>), then
         use the up/down arrows or a vertical swipe to move between channels,
         and press <kbd>Enter</kbd> (or tap, or swipe right) to tune in.
         Press <kbd>Esc</kbd> to close the guide.
       </li>
-      <li>
+      <li data-i18n="aboutInstallInstruction">
         On a phone, you can install Nahom Eri TV like an app — add it to your
         home screen for one-tap access and instant loading, even on a weak
         connection.
@@ -79,5 +82,6 @@
       });
     }
   </script>
+  <script type="module" src="i18n-ui.js"></script>
 </body>
 </html>
