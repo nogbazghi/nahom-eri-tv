@@ -33,6 +33,18 @@ kebire:
   view_count_min: 0
   duration_min_sec: 120
 
+# Kezahta (ቀዛሕታ): the one clear YouTube breakout in the Podcasters vertical
+# (161K subs, 664 videos; see docs/research/channel-demand-signals.md §3).
+# No playlist_id and no text_filter, same whole-catalog shape as Kebire
+# above — a single trusted creator's entire uploads history, not a
+# playlist-scoped slice like News/Sports.
+podcasters:
+  type: channel
+  display_name: Podcasters
+  channel_id: UCeY639opaisiHzgkLS8xZBg
+  view_count_min: 0
+  duration_min_sec: 120
+
 news:
   type: channel
   display_name: News
@@ -96,6 +108,66 @@ sports_diaspora:
     - "Biniam Girmay cycling"
     - "Zersenay Tadese"
   view_count_min: 500
+  duration_min_sec: 120
+
+# Anastasia ኣናስታስያ (54.4K subs, 736 videos) runs a recurring, numbered
+# "ERITREAN ORTHODOX NEW SBKET [year]" sermon/teaching series by named
+# clergy (principally ቀሲስ ዕርዶም ዑቅባሚካኤል, also ዲ/ን ሃብቶም ኣፈወርቂ and ቀሲስ
+# ተስፋልደት ጠዓመ), per docs/research/channel-demand-signals.md §8 — but the
+# same channel's dominant content by view-share is children's-choir
+# mezmur (individual hymns reaching 2M+ views), so a plain channel entry
+# without a filter would pull in a majority-music feed, not a teaching
+# one.
+#
+# "sbket" was verified empirically against all 736 real uploads before
+# committing to it, matching Kebire's existing title-OR-description
+# behavior first: that matched 247 videos, but a manual read showed ~129
+# of them were mezmur, podcast episodes, even an unrelated restaurant
+# video — all pulled in because this channel pastes the SAME giant
+# cross-genre hashtag block (containing both "#mezmur" and "#sbket"
+# together) onto most of its uploads' descriptions regardless of genre,
+# making description-text a useless relevance signal here. Restricting
+# the match to the TITLE only gives a clean 114 matches with zero
+# false positives on manual review — every one credits a named clergy
+# member and carries the literal "ERITREAN ORTHODOX NEW SBKET" banner.
+# `text_filter_title_only: true` (kebire_channel.py's
+# matches_text_filter_title_only, test-first per ticket #28) opts this
+# entry out of Kebire's description-matching path for exactly that
+# reason. The tradeoff (a handful of older uploads whose title doesn't
+# literally say "sbket" but whose description does) is accepted in
+# favor of zero mezmur pollution, which is the acceptance criterion
+# that actually matters for this channel.
+orthodox:
+  type: channel
+  display_name: Orthodox
+  channel_id: UCWSR_EcVezgodKqeYvwylyg
+  text_filter: "sbket"
+  text_filter_title_only: true
+  view_count_min: 0
+  duration_min_sec: 120
+
+# Eri-TV's general, already-curated Eritrean Music catalog. Per
+# docs/research/channel-demand-signals.md §2 and ADR-0003/ADR-0005, this is
+# a general catalog, not decade-segmented — the original "per-decade
+# nostalgia" framing was explicitly dropped in favor of reusing Eri-TV's
+# existing curation outright.
+#
+# Eri-TV's two smaller "Eritrean Tigre Music" and "Pre-Independence Music"
+# playlists were considered as additional type: channel entries sharing
+# display_name "Music" (same (display_name, source) scoping as
+# Sports/sports_diaspora), per issue #26. They were deliberately left out:
+# a live playlists.list/playlistItems check at implementation time (2026-
+# 11-03) found they are NOT the non-overlapping pools the research doc
+# assumed — 29/30 of "Eritrean Tigre Music" and 4/22 of "Pre-Independence
+# Music" are duplicate videos already in this main playlist, which would
+# have put the same songs into the Music channel's rotation twice. If
+# that changes (Eri-TV reorganizes the playlists) this can be revisited.
+music:
+  type: channel
+  display_name: Music
+  channel_id: UCpPhzhCfud9ctQSJJv4Kqlw
+  playlist_id: PLjrXQ8yRJDlwKR_fhpgNNJYAq1WWz0l7f  # "Eritrean Music"
+  view_count_min: 0
   duration_min_sec: 120
 
 independence_day:

@@ -123,6 +123,37 @@ def matches_text_filter(title, description, text_filter):
     return needle in (title or "").lower() or needle in (description or "").lower()
 
 
+def matches_text_filter_title_only(title, description, text_filter):
+    """Pure — case-insensitive substring match against title ONLY.
+
+    `description` is accepted (and ignored) to keep the same shape as
+    matches_text_filter, so candidate_matches() can call either
+    interchangeably. Use this for a channel whose descriptions are
+    unreliable for genre isolation — e.g. a creator who pastes the same
+    cross-genre hashtag boilerplate (covering both the wanted series and
+    unrelated content) onto most of their uploads' descriptions, making
+    a description hit meaningless as a relevance signal.
+    """
+    if not text_filter:
+        return True
+    return text_filter.lower() in (title or "").lower()
+
+
+def candidate_matches(entry, title, description):
+    """Pure — whether a video satisfies a `type: channel` entry's
+    text_filter, respecting that entry's `text_filter_title_only` flag.
+
+    Defaults to matches_text_filter's title-OR-description behavior
+    (Kebire's existing, unchanged path). Set `text_filter_title_only:
+    true` on an entry to restrict matching to the title only, for a
+    channel where description-based matching produces false positives
+    (see matches_text_filter_title_only's docstring).
+    """
+    text_filter = entry.get("text_filter", "")
+    matcher = matches_text_filter_title_only if entry.get("text_filter_title_only") else matches_text_filter
+    return matcher(title, description, text_filter)
+
+
 def tag_for(text_filter):
     """'#eritrea' -> 'eritrea'; '' -> ''. Generic, not hardcoded to any
     one channel's filter text."""
@@ -151,8 +182,7 @@ def run_channel(channel_key, entry, api_key, blocked_ids, existing_data):
     candidate_ids = [
         vid
         for vid in fresh_ids
-        if vid in metadata
-        and matches_text_filter(metadata[vid]["title"], metadata[vid]["description"], text_filter)
+        if vid in metadata and candidate_matches(entry, metadata[vid]["title"], metadata[vid]["description"])
     ]
 
     rules = pipeline.rules_from_config(entry)
