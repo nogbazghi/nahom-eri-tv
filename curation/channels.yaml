@@ -40,3 +40,11 @@ news:
   playlist_id: PLjrXQ8yRJDlyLOZjQ35TMIY8DRUPPcxrh
   view_count_min: 0
   duration_min_sec: 120
+
+sports:
+  type: channel
+  display_name: Sports
+  channel_id: UCpPhzhCfud9ctQSJJv4Kqlw
+  playlist_id: PLjrXQ8yRJDlyS5OZoEsg0acNuCfUR3Kzp  # "Lese Sport (ለሰ ስፖርት)"
+  view_count_min: 0
+  duration_min_sec: 120

@@ -1,23 +1,6 @@
 {
   "videos": [
     {
-      "id": "YaQd8H6rdm4",
-      "title": "Eritrean Wedding",
-      "channel": "MelayVideo",
-      "language": "Tigrinya",
-      "city": "",
-      "tags": [
-        "wedding"
-      ],
-      "published": "2024-07-29",
-      "duration": 1135,
-      "channels": [
-        "Weddings"
-      ],
-      "notes": "API-verified public/embeddable via fetch_metadata.py. Generic 'Eritrean Wedding' title \u2014 not individually content-reviewed; included per owner decision.",
-      "source": "weddings"
-    },
-    {
       "id": "lF2X4fXeBb0",
       "title": "Eritrean wedding in Toronto | Yekealo and Natsent 4K Wedding Film",
       "channel": "Oleh Muzyka Films",
@@ -32,76 +15,6 @@
         "Weddings"
       ],
       "notes": "API-verified public/embeddable via fetch_metadata.py. 'Eritrean wedding in Toronto | Yekealo and Natsent 4K Wedding Film' \u2014 not individually content-reviewed; included per owner decision.",
-      "source": "weddings"
-    },
-    {
-      "id": "G_5U0LNqkPg",
-      "title": "Eritrean wedding 2025 Samsom & Besrat",
-      "channel": "Photo Berhan",
-      "language": "Tigrinya",
-      "city": "",
-      "tags": [
-        "wedding"
-      ],
-      "published": "2025-05-16",
-      "duration": 2383,
-      "channels": [
-        "Weddings"
-      ],
-      "notes": "API-verified public/embeddable via fetch_metadata.py. Named couple (Samsom & Besrat), 2025 \u2014 not individually content-reviewed; included per owner decision.",
-      "source": "weddings"
-    },
-    {
-      "id": "fZ_6ZZfBAA0",
-      "title": "Eritrean Wedding",
-      "channel": "MelayVideo",
-      "language": "Tigrinya",
-      "city": "Stockholm",
-      "tags": [
-        "wedding"
-      ],
-      "published": "2024-07-19",
-      "duration": 815,
-      "channels": [
-        "Weddings"
-      ],
-      "notes": "API-verified public/embeddable via fetch_metadata.py. Possibly an Isaias & Roma wedding filmed in Stockholm \u2014 not individually content-reviewed; included per owner decision.",
-      "source": "weddings"
-    },
-    {
-      "id": "5zOUjoKkksc",
-      "title": "Eritrean Wedding Robi & Meaza, Guayla in Holland 2026 \ud83d\udd25 | Tantan Live Performance",
-      "channel": "DY2 ENTERTAINMENT",
-      "language": "Tigrinya",
-      "city": "",
-      "tags": [
-        "wedding",
-        "music"
-      ],
-      "published": "2026-07-05",
-      "duration": 1339,
-      "channels": [
-        "Weddings"
-      ],
-      "notes": "API-verified public/embeddable via fetch_metadata.py. Guayla performance (Robi & Meaza, Netherlands 2026), uploaded by 'DY2 ENTERTAINMENT' \u2014 same channel as R5Et-odTT4g below. Not individually screened for copyrighted music; included per owner decision.",
-      "source": "weddings"
-    },
-    {
-      "id": "kveqL6-bWAA",
-      "title": "Eritrean Wedding Guayla Mexikaley do (\u1218\u133a\u12ab\u1208\u12ed \u12f6 )   By Tedros Kahsay ( Xaedu ) 2024",
-      "channel": "Tedros Kahsay ( Xaedu )",
-      "language": "Tigrinya",
-      "city": "",
-      "tags": [
-        "wedding",
-        "music"
-      ],
-      "published": "2024-08-11",
-      "duration": 385,
-      "channels": [
-        "Weddings"
-      ],
-      "notes": "API-verified public/embeddable via fetch_metadata.py. Guayla performance uploaded directly by the performer, 'Tedros Kahsay (Xaedu)'. Not individually screened for copyrighted music; included per owner decision.",
       "source": "weddings"
     },
     {
@@ -123,94 +36,91 @@
       "source": "weddings"
     },
     {
-      "id": "un4pHBAkIag",
-      "title": "Join me on a country side ride in Eritrea's beautiful mountain landscape.",
-      "channel": "Kebire",
-      "language": "",
+      "id": "5zOUjoKkksc",
+      "title": "Eritrean Wedding Robi & Meaza, Guayla in Holland 2026 \ud83d\udd25 | Tantan Live Performance",
+      "channel": "DY2 ENTERTAINMENT",
+      "language": "Tigrinya",
       "city": "",
       "tags": [
-        "eritrea"
+        "wedding",
+        "music"
       ],
-      "published": "2026-01-01",
-      "duration": 1271,
+      "published": "2026-07-05",
+      "duration": 1339,
       "channels": [
-        "Kebire"
+        "Weddings"
       ],
-      "notes": "",
-      "lastValidated": "2026-11-03T06:33:29.935459+00:00",
-      "source": "kebire"
+      "notes": "API-verified public/embeddable via fetch_metadata.py. Guayla performance (Robi & Meaza, Netherlands 2026), uploaded by 'DY2 ENTERTAINMENT' \u2014 same channel as R5Et-odTT4g below. Not individually screened for copyrighted music; included per owner decision.",
+      "source": "weddings"
     },
     {
-      "id": "hLDgTSjHW3Q",
-      "title": "My Asmara Community",
-      "channel": "Kebire",
-      "language": "",
+      "id": "YaQd8H6rdm4",
+      "title": "Eritrean Wedding",
+      "channel": "MelayVideo",
+      "language": "Tigrinya",
       "city": "",
       "tags": [
-        "eritrea"
+        "wedding"
       ],
-      "published": "2025-12-29",
-      "duration": 858,
+      "published": "2024-07-29",
+      "duration": 1135,
       "channels": [
-        "Kebire"
+        "Weddings"
       ],
-      "notes": "",
-      "lastValidated": "2026-11-03T06:33:29.935459+00:00",
-      "source": "kebire"
+      "notes": "API-verified public/embeddable via fetch_metadata.py. Generic 'Eritrean Wedding' title \u2014 not individually content-reviewed; included per owner decision.",
+      "source": "weddings"
     },
     {
-      "id": "VrrnDreEHR0",
-      "title": "14th Annual Senior Eritrean Soccer Tournament of North America",
-      "channel": "Kebire",
-      "language": "",
+      "id": "kveqL6-bWAA",
+      "title": "Eritrean Wedding Guayla Mexikaley do (\u1218\u133a\u12ab\u1208\u12ed \u12f6 )   By Tedros Kahsay ( Xaedu ) 2024",
+      "channel": "Tedros Kahsay ( Xaedu )",
+      "language": "Tigrinya",
       "city": "",
       "tags": [
-        "eritrea"
+        "wedding",
+        "music"
       ],
-      "published": "2023-09-05",
-      "duration": 4668,
+      "published": "2024-08-11",
+      "duration": 385,
       "channels": [
-        "Kebire"
+        "Weddings"
       ],
-      "notes": "",
-      "lastValidated": "2026-11-03T06:33:29.935459+00:00",
-      "source": "kebire"
+      "notes": "API-verified public/embeddable via fetch_metadata.py. Guayla performance uploaded directly by the performer, 'Tedros Kahsay (Xaedu)'. Not individually screened for copyrighted music; included per owner decision.",
+      "source": "weddings"
     },
     {
-      "id": "52wJF0A8HvQ",
-      "title": "Eritrea's hidden gem.",
-      "channel": "Kebire",
-      "language": "",
-      "city": "",
+      "id": "fZ_6ZZfBAA0",
+      "title": "Eritrean Wedding",
+      "channel": "MelayVideo",
+      "language": "Tigrinya",
+      "city": "Stockholm",
       "tags": [
-        "eritrea"
+        "wedding"
       ],
-      "published": "2023-07-09",
-      "duration": 1858,
+      "published": "2024-07-19",
+      "duration": 815,
       "channels": [
-        "Kebire"
+        "Weddings"
       ],
-      "notes": "",
-      "lastValidated": "2026-11-03T06:33:29.935459+00:00",
-      "source": "kebire"
+      "notes": "API-verified public/embeddable via fetch_metadata.py. Possibly an Isaias & Roma wedding filmed in Stockholm \u2014 not individually content-reviewed; included per owner decision.",
+      "source": "weddings"
     },
     {
-      "id": "c77dzUGZF-Q",
-      "title": "Asmara, Eritrea Night life.",
-      "channel": "Kebire",
-      "language": "",
+      "id": "G_5U0LNqkPg",
+      "title": "Eritrean wedding 2025 Samsom & Besrat",
+      "channel": "Photo Berhan",
+      "language": "Tigrinya",
       "city": "",
       "tags": [
-        "eritrea"
+        "wedding"
       ],
-      "published": "2023-07-08",
-      "duration": 1231,
+      "published": "2025-05-16",
+      "duration": 2383,
       "channels": [
-        "Kebire"
+        "Weddings"
       ],
-      "notes": "",
-      "lastValidated": "2026-11-03T06:33:29.935459+00:00",
-      "source": "kebire"
+      "notes": "API-verified public/embeddable via fetch_metadata.py. Named couple (Samsom & Besrat), 2025 \u2014 not individually content-reviewed; included per owner decision.",
+      "source": "weddings"
     },
     {
       "id": "viTx4Stzefw",
@@ -227,7 +137,25 @@
         "Kebire"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:29.935459+00:00",
+      "lastValidated": "2026-11-03T06:35:23.815784+00:00",
+      "source": "kebire"
+    },
+    {
+      "id": "un4pHBAkIag",
+      "title": "Join me on a country side ride in Eritrea's beautiful mountain landscape.",
+      "channel": "Kebire",
+      "language": "",
+      "city": "",
+      "tags": [
+        "eritrea"
+      ],
+      "published": "2026-01-01",
+      "duration": 1271,
+      "channels": [
+        "Kebire"
+      ],
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:23.815784+00:00",
       "source": "kebire"
     },
     {
@@ -245,7 +173,79 @@
         "Kebire"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:29.935459+00:00",
+      "lastValidated": "2026-11-03T06:35:23.815784+00:00",
+      "source": "kebire"
+    },
+    {
+      "id": "hLDgTSjHW3Q",
+      "title": "My Asmara Community",
+      "channel": "Kebire",
+      "language": "",
+      "city": "",
+      "tags": [
+        "eritrea"
+      ],
+      "published": "2025-12-29",
+      "duration": 858,
+      "channels": [
+        "Kebire"
+      ],
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:23.815784+00:00",
+      "source": "kebire"
+    },
+    {
+      "id": "52wJF0A8HvQ",
+      "title": "Eritrea's hidden gem.",
+      "channel": "Kebire",
+      "language": "",
+      "city": "",
+      "tags": [
+        "eritrea"
+      ],
+      "published": "2023-07-09",
+      "duration": 1858,
+      "channels": [
+        "Kebire"
+      ],
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:23.815784+00:00",
+      "source": "kebire"
+    },
+    {
+      "id": "c77dzUGZF-Q",
+      "title": "Asmara, Eritrea Night life.",
+      "channel": "Kebire",
+      "language": "",
+      "city": "",
+      "tags": [
+        "eritrea"
+      ],
+      "published": "2023-07-08",
+      "duration": 1231,
+      "channels": [
+        "Kebire"
+      ],
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:23.815784+00:00",
+      "source": "kebire"
+    },
+    {
+      "id": "VrrnDreEHR0",
+      "title": "14th Annual Senior Eritrean Soccer Tournament of North America",
+      "channel": "Kebire",
+      "language": "",
+      "city": "",
+      "tags": [
+        "eritrea"
+      ],
+      "published": "2023-09-05",
+      "duration": 4668,
+      "channels": [
+        "Kebire"
+      ],
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:23.815784+00:00",
       "source": "kebire"
     },
     {
@@ -261,7 +261,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -277,7 +277,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -293,7 +293,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -309,7 +309,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -325,7 +325,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -341,7 +341,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -357,7 +357,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -373,7 +373,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -389,7 +389,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -405,7 +405,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -421,7 +421,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -437,7 +437,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -453,7 +453,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -469,7 +469,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -485,7 +485,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -501,7 +501,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -517,7 +517,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -533,7 +533,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -549,7 +549,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -565,7 +565,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -581,7 +581,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -597,7 +597,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -613,7 +613,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -629,7 +629,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -645,7 +645,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -661,7 +661,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -677,7 +677,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -693,7 +693,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -709,7 +709,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -725,7 +725,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -741,7 +741,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -757,7 +757,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -773,7 +773,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -789,7 +789,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -805,7 +805,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -821,7 +821,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -837,7 +837,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -853,7 +853,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -869,7 +869,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -885,7 +885,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -901,7 +901,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -917,7 +917,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -933,7 +933,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -949,7 +949,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -965,7 +965,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -981,7 +981,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -997,7 +997,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1013,7 +1013,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1029,7 +1029,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1045,7 +1045,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1061,7 +1061,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1077,7 +1077,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1093,7 +1093,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1109,7 +1109,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1125,7 +1125,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1141,7 +1141,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1157,7 +1157,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1173,7 +1173,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1189,7 +1189,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1205,7 +1205,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1221,7 +1221,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1237,7 +1237,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1253,7 +1253,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1269,7 +1269,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1285,7 +1285,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1301,7 +1301,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1317,7 +1317,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1333,7 +1333,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1349,7 +1349,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1365,7 +1365,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1381,7 +1381,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1397,7 +1397,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1413,7 +1413,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1429,7 +1429,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1445,7 +1445,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1461,7 +1461,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1477,7 +1477,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1493,7 +1493,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1509,7 +1509,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1525,7 +1525,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1541,7 +1541,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1557,7 +1557,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1573,7 +1573,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1589,7 +1589,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1605,7 +1605,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1621,7 +1621,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1637,7 +1637,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1653,7 +1653,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1669,7 +1669,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1685,7 +1685,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1701,7 +1701,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1717,7 +1717,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1733,7 +1733,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1749,7 +1749,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1765,7 +1765,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1781,7 +1781,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1797,7 +1797,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1813,7 +1813,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1829,7 +1829,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1845,7 +1845,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1861,7 +1861,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1877,7 +1877,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1893,7 +1893,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1909,7 +1909,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1925,7 +1925,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1941,7 +1941,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1957,7 +1957,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1973,7 +1973,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -1989,7 +1989,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2005,7 +2005,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2021,7 +2021,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2037,7 +2037,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2053,7 +2053,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2069,7 +2069,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2085,7 +2085,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2101,7 +2101,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2117,7 +2117,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2133,7 +2133,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2149,7 +2149,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2165,7 +2165,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2181,7 +2181,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2197,7 +2197,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2213,7 +2213,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2229,7 +2229,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2245,7 +2245,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2261,7 +2261,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2277,7 +2277,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2293,7 +2293,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2309,7 +2309,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2325,7 +2325,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2341,7 +2341,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2357,7 +2357,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2373,7 +2373,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2389,7 +2389,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2405,7 +2405,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2421,7 +2421,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2437,7 +2437,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2453,7 +2453,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2469,7 +2469,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2485,7 +2485,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2501,7 +2501,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2517,7 +2517,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2533,7 +2533,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2549,7 +2549,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2565,7 +2565,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2581,7 +2581,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
     },
     {
@@ -2597,8 +2597,2200 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:33:31.262139+00:00",
+      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
       "source": "news"
+    },
+    {
+      "id": "2-Yd3otUPCs",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast  September 26, 2026 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-10-23",
+      "duration": 5794,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "bUzHgRR-W1s",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast  September 9, 2026 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-10-19",
+      "duration": 4200,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "QA_OYTXKeFA",
+      "title": "\u12a3\u1265 \u121e\u1295\u1275\u122d\u12eb\u120d \u12a5\u1295\u1273'\u12e9 \u12a3\u130b\u1322\u1219 - \u12d5\u120b\u120d \u121d\u1235 \u1320\u122d\u1290\u134d\u1272 \u1203\u1308\u122b\u12ca\u1275 \u130b\u1295\u1273 \u1245\u12f5\u12f5\u121d \u1265\u123d\u130d\u1208\u1273 \u12a4\u122d\u1275\u122b | Eri-TV, #Eritrea",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-10-10",
+      "duration": 2686,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "7Ik7qWtvnxE",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast  September 19, 2026 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-10-03",
+      "duration": 4714,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "N_5ej40NHWw",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast  September 7, 2026 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-09-30",
+      "duration": 4195,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "3czT_LlvMAM",
+      "title": "\u12d5\u120b\u120d \u121d\u1235 \u12a3\u1263\u120b\u1275 \u12a3\u1265 \u12ae\u1350\u1295\u1203\u1308\u1295 \u12f4\u1295\u121b\u122d\u12ad \u12a3\u1265 \u12dd\u1270\u1308\u1265\u1228 \u12cd\u12f5\u12f5\u122d \u12f5\u1219\u1255 \u12d3\u12c8\u1275 \u12d8\u1218\u12dd\u1308\u1260\u1275 \u1203\u1308\u122b\u12ca\u1275 \u130b\u1295\u1273 \u12a3\u1275\u1208\u1272\u12ad\u1235 \u12a4\u122d\u1275\u122b | Eri-TV, #Eritrea",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-09-27",
+      "duration": 1097,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "3RnpCbZnveE",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast  August 15, 2026 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-09-09",
+      "duration": 2156,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "3sGPk5n0AUI",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast  August 15, 2026 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-09-06",
+      "duration": 2156,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "JLTT933h8Wo",
+      "title": "\u12d5\u120b\u120d \u121d\u1235 \u12d5\u12c9\u1273\u1275 \u123b\u121d\u1355\u12ee\u1295 \u1245\u12f5\u12f5\u121d \u1265\u123d\u130d\u1208\u1273 \u12a4\u122d\u1275\u122d\u12eb 2026 \u121a\u120d\u12ad\u12eb\u1235 \u121b\u12a5\u12a8\u1208\u1295 \u1231\u12db\u1293 \u134d\u1235\u1203\u12e8\u1295 | Eri-TV, #Eritrea",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-07-04",
+      "duration": 1743,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "5gsdfj-Uepo",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast  May 9, 2026 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-05-18",
+      "duration": 3660,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "HF3urq0LzP4",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast  April 25, 2026 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-05-13",
+      "duration": 3074,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "1vjwREf_LhU",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast  April 11, 2026 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-05-06",
+      "duration": 4094,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "ZAnkSJqom0Y",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast  March  21, 2026 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-04-03",
+      "duration": 5048,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "oiR35oqqTw8",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast  March 14, 2026 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-03-30",
+      "duration": 4505,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "-k37UQuPrKo",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast  February 21, 2026 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-03-17",
+      "duration": 5640,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "f_DNZkKTnLY",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast  February 28, 2026 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-03-10",
+      "duration": 5910,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "ux-spcD3NJw",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast  February 7, 2026 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-02-12",
+      "duration": 3896,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "vRvZ3-I-mFc",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast  January 24, 2026 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-02-09",
+      "duration": 2015,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "df9F5DZ6GAE",
+      "title": "\u12f3\u1205\u1233\u1235 \u1215\u1275\u1218\u1275 - \u1265\u12db\u12d5\u1263 \u12a3\u1265 \u12dd\u1213\u1208\u1348 \u1230\u1219\u1295 \u12dd\u12c8\u133b \u130b\u12dc\u1323\u1273\u1275 \u12cd\u123d\u1322 \u1203\u1308\u122d \u12a3\u1270\u12b2\u122b \u12a5\u1275\u12f3\u120e \u1218\u12f0\u1265 - January 17, 2026 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-02-05",
+      "duration": 1899,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "A5XLmoS-twc",
+      "title": "\u12f3\u1205\u1233\u1235 \u1215\u1275\u1218\u1275 - \u1265\u12db\u12d5\u1263 \u12a3\u1265 \u12dd\u1213\u1208\u1348 \u1230\u1219\u1295 \u12dd\u12c8\u133b \u130b\u12dc\u1323\u1273\u1275 \u12cd\u123d\u1322 \u1203\u1308\u122d \u12a3\u1270\u12b2\u122b \u12a5\u1275\u12f3\u120e \u1218\u12f0\u1265 - January 20, 2026 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-01-26",
+      "duration": 3203,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "ABAbSGZ5UyU",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast  January 12, 2026 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-01-24",
+      "duration": 1556,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "s5OD9G_Gp8A",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast  November 8, 2025 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2025-12-18",
+      "duration": 2135,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "_i6E_YrzWZU",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast  November 1, 2025 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2025-12-15",
+      "duration": 4499,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "Koo3sRi8Yhw",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast  October 25, 2025 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2025-11-15",
+      "duration": 5371,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "jPSmxGVHTiQ",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast  September 27, 2025 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2025-10-24",
+      "duration": 4650,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "X8fMOnmhYd8",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast  October 11, 2025 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2025-10-22",
+      "duration": 4729,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "hdpeCi3xl54",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast  October 4, 2025 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2025-10-20",
+      "duration": 4298,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "tsGlo4vuc3U",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast June 28, 2025 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2025-07-02",
+      "duration": 5168,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "rNJZBptqsKM",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast June 14, 2025 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2025-06-26",
+      "duration": 1766,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "YO6wgtUxkxE",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast April 26, 2025 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2025-05-06",
+      "duration": 4467,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "TLjdDYH228A",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast March 22, 2025 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2025-05-04",
+      "duration": 4976,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "Mf42RhIersw",
+      "title": "\u1235\u1290\u1235\u122d\u12d3\u1275 \u1218\u1218\u1228\u1255\u1273 \u1230\u120d\u1320\u1295\u1272 \u1273\u12ed\u12b3\u1295\u12f6 | Taekwondo graduation ceremony, Asmara 2025 | ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2025-04-16",
+      "duration": 1931,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "wwPjlX5HU18",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast March 15, 2025 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2025-03-23",
+      "duration": 2589,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "FJHPffUJjB0",
+      "title": "\u1230\u1219\u1293\u12ca \u134d\u133b\u1218\u1273\u1275 \u1235\u1356\u122d\u1275 | Weekly Sports review - March 3, 2025 Weekly Sports review",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2025-03-03",
+      "duration": 2116,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "LcO80Gv0CG8",
+      "title": "\u1230\u1219\u1293\u12ca \u134d\u133b\u1218\u1273\u1275 \u1235\u1356\u122d\u1275 | Weekly Sports review - February 17, 2025 Weekly Sports review",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2025-02-23",
+      "duration": 2555,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "rX5OG6PJuns",
+      "title": "\u1230\u1219\u1293\u12ca \u134d\u133b\u1218\u1273\u1275 \u1235\u1356\u122d\u1275 | Weekly Sports review - February 10, 2025 Weekly Sports review",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2025-02-14",
+      "duration": 2818,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "gN7ha4maEo8",
+      "title": "\u1230\u1219\u1293\u12ca \u134d\u133b\u1218\u1273\u1275 \u1235\u1356\u122d\u1275 | Weekly Sports review - January 27, 2025 Weekly Sports review",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2025-02-06",
+      "duration": 2229,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "uOJbQIEU5fA",
+      "title": "\u1230\u1219\u1293\u12ca \u134d\u133b\u1218\u1273\u1275 \u1235\u1356\u122d\u1275 | Weekly Sports review - December 16, 2024 Weekly Sports review",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2025-01-24",
+      "duration": 901,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "cqbRER4QdHY",
+      "title": "\u1230\u1219\u1293\u12ca \u134d\u133b\u1218\u1273\u1275 \u1235\u1356\u122d\u1275 | Weekly Sports review - December 23,  2024 Weekly Sports review",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2025-01-09",
+      "duration": 833,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "-2Qb6cCKJx0",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast December 7, 2024 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2024-12-20",
+      "duration": 4752,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "X03CX1XTx8E",
+      "title": "\u1204\u1296\u12ad \u1219\u1209\u12a5\u1265\u122d\u1203\u1295 - \u1230\u1208\u1235\u1270 \u130d\u12dc \u1265\u1270\u12b8\u1273\u1273\u120a \u1293\u12ed \u123b\u121d\u1355\u12ee\u1295 \u12a3\u134d\u122a\u1243 \u1270\u12d3\u12cb\u1272 \u1245\u12f5\u12f5\u121d \u123d\u130d\u1208\u1273|Henok Mulueberhan - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2024-11-02",
+      "duration": 1252,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "_gzn5uc7kc0",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast July 27, 2024 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2024-10-27",
+      "duration": 4190,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "Ubz4r_kRIdE",
+      "title": "\u1230\u1219\u1293\u12ca \u134d\u133b\u1218\u1273\u1275 \u1235\u1356\u122d\u1275 | Weekly Sports review - September 10, 2024 weekly sports review",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2024-10-15",
+      "duration": 2008,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "MoX8FlF3cqY",
+      "title": "\u12f3\u1295\u12a4\u120d \u134d\u1230\u1203\u12e8 - \u1308\u12f2\u121d \u12a6\u120e\u121d\u1352\u12ab\u12ca \u1270\u1240\u12f3\u12f3\u121b\u12ed -  \u1265\u123d\u12ad\u1208\u1273 \u12a8\u12cb\u12bd\u1265\u1272 \u1235\u1356\u122d\u1275| Daniel Fesshaye - veteran cyclist-ERi-TV, Eritrea",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2024-10-14",
+      "duration": 1578,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "o6ZpBNc1NCg",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast September 10, 2024 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2024-10-09",
+      "duration": 3553,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "DYrzrJJpwY4",
+      "title": "\u12d5\u120b\u120d \u121d\u1235 \u1235\u12f5\u122b\u1264\u1275 \u1204\u1296\u12ad \u121d\u1209\u12a5\u1265\u122d\u1203\u1295 - \u1355\u122e\u1348\u123a\u1293\u120d \u1270\u1250\u12f3\u12f3\u121b\u12ed \u1265\u123d\u12ad\u1208\u1273 | Henok Mulueberhan - cycling champion.",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2024-07-23",
+      "duration": 1378,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "zNaiUk8RJJY",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast June 8, 2024 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2024-06-12",
+      "duration": 4052,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "azv7kj99cBE",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast April 27, 2024 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2024-05-22",
+      "duration": 4838,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "liZf1J1SRm8",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast April 27, 2024 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2024-05-10",
+      "duration": 4835,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "Fm_uC1M3ZZ4",
+      "title": "\u134a\u120d\u121e\u1295 \u1320\u12d3\u1218 (\u121b\u1271\u1233\u120b) - \u1308\u12f2\u121d \u1270\u133b\u12cb\u1273\u12ed \u12ad\u1208\u1265 \u12f0\u1295\u12f0\u1295 | Lese Sport - Broadcast May 03, 2024 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2024-05-04",
+      "duration": 1527,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "AyY7f2CJ5LY",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast April 13, 2024 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2024-04-27",
+      "duration": 4315,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "2u2JeFL7SXs",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast April 6, 2024 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2024-04-25",
+      "duration": 2673,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "Vp5yMfcLcqg",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast April 20, 2024 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2024-04-23",
+      "duration": 2819,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "XwxrPIUGqw0",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast March 30, 2024 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2024-04-19",
+      "duration": 4726,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "DHEKZuMs01s",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast March 23, 2024 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2024-04-18",
+      "duration": 4551,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "PlNwMK4taeo",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast March 16, 2024 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2024-04-16",
+      "duration": 4491,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "ZpTuyxGKTo4",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast March 02, 2024 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2024-04-14",
+      "duration": 4575,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "PWqXvkqBNrc",
+      "title": "\u1208\u1235 \u1235\u1356\u122d\u1275 | les sport lela sport Merhawi Mebrahtu  | ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2024-03-12",
+      "duration": 4328,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "eOXkI7R-9uo",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast February 24, 2024 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2024-03-08",
+      "duration": 4328,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "r5vvxJuacjo",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast February 17, 2024 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2024-03-07",
+      "duration": 4180,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "yFNLYcy6F08",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast February 9, 2024 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2024-02-27",
+      "duration": 4420,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "dIisXzx_vx0",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast February  03, 2024 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2024-02-24",
+      "duration": 4420,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "SikrFw__-i4",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast January 27, 2024 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2024-02-14",
+      "duration": 3327,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "tTPeoz_Ue3M",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast January 13, 2024 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2024-01-30",
+      "duration": 3955,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "yaLgWhYkYNE",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast January 6, 2024 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2024-01-23",
+      "duration": 4498,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "jmVDBhIfX1E",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast December 30, 2023 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2024-01-10",
+      "duration": 4321,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "aNsFo0_9AVQ",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast December 16, 2023 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2024-01-05",
+      "duration": 3956,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "M_lBQdZba10",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast December 2, 2023 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2023-12-25",
+      "duration": 4204,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "l6-Wctz9z04",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast December 9, 2023 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2023-12-23",
+      "duration": 5441,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "8rmchC_r6ec",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport - Broadcast November 27, 2023 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2023-12-11",
+      "duration": 1613,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "QxWYyZ09kMc",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport- November 18, 2023 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2023-12-02",
+      "duration": 3695,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "JrIdss8lgvc",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport- November 11, 2023 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2023-11-29",
+      "duration": 3975,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "aaAMPJDwUvE",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport- November 4, 2023 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2023-11-12",
+      "duration": 5718,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "gyejz1g9AVc",
+      "title": "ERi-TV, Eritrea - \u12a8\u12cb\u12bd\u1265\u1272 \u1235\u1356\u122d\u1275 - \u1245\u120d\u1321\u134d \u1260\u120a\u1215 \u133b\u12d5\u122b\u121d \u1270\u133b\u12cb\u1273\u12ed \u12a9\u12d5\u1236 \u12a5\u130d\u122a \u12d3\u1261\u12f1 \u12d3\u1265\u12f1\u1230\u120b\u121d | les sport - kewakibti",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2023-11-07",
+      "duration": 2336,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "iLyhchwOL00",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport- October 21, 2023 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2023-10-25",
+      "duration": 2917,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "3qkzTRkZRh0",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport- October 14, 2023 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2023-10-21",
+      "duration": 3768,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "nTPTiW5xW-c",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport- October 7, 2023 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2023-10-19",
+      "duration": 6373,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "M28f-L9HoXY",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275 | Lese Sport- September 23, 2023 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2023-10-12",
+      "duration": 5959,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "U8drKZHJzvU",
+      "title": "\u1203\u1308\u122b\u12ca \u12cd\u12f5\u12f5\u122d \u134d\u122d\u1242 \u121b\u122b\u1276\u1295 - \u1263\u1228\u1295\u1271 | National Half Marathon race, Barentu",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2023-09-30",
+      "duration": 1280,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "Rd-sufbM5lI",
+      "title": "\u12c8\u1208\u1295\u1273\u12ca \u12a3\u1230\u120d\u1323\u1292 \u1235\u12d2\u12f5 \u122e\u121e\u12f3\u1295 \u12a3\u1265 \u12a8\u1270\u121b \u134e\u122e | Volunteer sports trainer Said Romodan - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2023-09-29",
+      "duration": 1091,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "XfCBJzSkaZ4",
+      "title": "\u1218\u12db\u12d8\u121a \u1245\u1290 \u1235\u1356\u122d\u1275 \u12a5\u12da \u12ad\u134d\u1208 \u1230\u122b\u12ca\u1275 84 - \u1208\u1230 \u1235\u1356\u122d\u1275 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2023-09-27",
+      "duration": 1736,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "Tgr9TgmL1b4",
+      "title": "\u1204\u1296\u12ad \u1219\u1209\u12a5\u1265\u122d\u1203\u1295 - \u123b\u121d\u1355\u12ee\u1295 \u12a3\u134d\u122a\u1243\u1295 \u1270\u12d3\u12cb\u1272 \u1245\u12f5\u12f5\u121d \u123d\u130d\u1208\u1273 \u12aa\u1295\u130b\u12ed \u120c\u12ad-\u127b\u12ed\u1293\u1295|Henok Mulueberhan - cycling champion of Africa",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2023-07-29",
+      "duration": 1074,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "ewvvpbyHyTE",
+      "title": "\u12d5\u120b\u120d \u121d\u1235 \u12d5\u12cd\u1275 \u121b\u122b\u1276\u1295 \u12a3\u1235\u1218\u122b 2023 \u1293\u1206\u121d \u12a4\u122d\u121a\u12eb\u1235 (\u1230\u1295\u12d3\u1348) | Interview with Marathon Asmara 2023 winner - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2023-06-22",
+      "duration": 1207,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "3IZdLCxIYTQ",
+      "title": "\u12d5\u120b\u120d \u121d\u1235 \u1355\u1228\u12da\u12f0\u1295\u1275 \u1203\u1308\u122b\u12ca \u1348\u12f0\u122c\u123d\u1295 \u12a3\u1275\u1208\u1272\u12ad\u1235 \u12a4\u122d\u1275\u122b \u12a3\u1276 \u12a4\u134d\u122c\u121d \u1270\u12b8\u1235\u1270 \u1265\u12db\u12d5\u1263 \u121b\u122b\u1276\u1295 \u12a3\u1235\u1218\u122b  - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2023-06-17",
+      "duration": 2091,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "jK56AxKAAKI",
+      "title": "\u1218\u12f0\u1265 \u1208\u1235 \u1235\u1356\u122d\u1275\u1361 \u1295\u1325\u1348\u1273\u1275 \u1235\u1356\u122d\u1275 \u1295\u12a1\u1235 \u12de\u1263 \u121b\u12ed \u1270\u1218\u1293\u12ed - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2023-05-10",
+      "duration": 980,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "JYPlAzBeEuQ",
+      "title": "\u12a8\u12cb\u12bd\u1265\u1272 \u1235\u1356\u122d\u1275\u1361 \u12a3\u1275\u120a\u1275 \u1235\u1265\u1203\u1271 \u12a8\u1230\u1270 | Athlete Sibhatu Kessete - ERi-TV, Eritrea",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2023-05-06",
+      "duration": 2628,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "oBwXDTYAGVI",
+      "title": "\u1218\u12f0\u1265 \u1208\u1230 \u1235\u1356\u122d\u1275\u1361 \u1235\u1356\u122d\u1273\u12ca \u1245\u1290 \u1295\u1325\u1348\u1273\u1275 \u12de\u1263 \u121b\u12a5\u12a8\u120d | Sports competition in Central Region - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2023-05-06",
+      "duration": 1807,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "PGuaxlSQWck",
+      "title": "\u12a3\u1265\u122b\u1203\u121d \u1274\u12f5\u122e\u1235 (\u12d3\u1313) - \u1213\u1208\u1253 \u1203\u1308\u122b\u12ca\u1275 \u130b\u1295\u1273 \u12a9\u12d1\u1236 \u12a5\u130d\u122a \u12a4\u122d\u1275\u122b \u1290\u1260\u122d - \u1208\u1230 \u1235\u1356\u122d\u1275 | les sport Abraham Tedros| ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2023-04-14",
+      "duration": 2727,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "MX-GRaFFnkg",
+      "title": "\u12f3\u12ca\u1275 \u12a3\u1263\u12f2: \u1308\u12f2\u121d \u1235\u1356\u122d\u1273\u12ca\u1295 \u1218\u121d\u1205\u122d \u12a3\u12ab\u120b\u12ca \u1205\u1295\u1338\u1275\u1295 - \u1208\u1230 \u1235\u1356\u122d\u1275 | Dawit Abadi, veteran bodybuilder - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2023-04-11",
+      "duration": 1596,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "XBh3WxXB_ic",
+      "title": "\u1231\u12db\u1295 \u1230\u1218\u1228\u12a3\u1265 \u12ee\u12cd\u1203\u1295\u1235 - \u12a2\u1295\u1270\u122d\u1293\u123d\u1293\u120d \u121b\u12a5\u12a8\u120b\u12ca\u1275 \u12f3\u129b | Eritrean female international football referee | ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2023-03-11",
+      "duration": 949,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "Rd-G9m4eqHE",
+      "title": "\u1218\u12db\u12d8\u121a \u12d8\u12c8\u122a\u1275 \u12cb\u1295\u132b \u1263\u12ed\u1273 \u1270\u1295\u1235 \u12de\u1263 \u121b\u12a5\u12a8\u120d 2022 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2023-02-28",
+      "duration": 1131,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "Ar5mR6M-6eo",
+      "title": "\u1308\u121d\u130b\u121d \u12d3\u1230\u122d\u1270 \u12d3\u1218\u1275 \u12ae\u121a\u1274 \u1235\u1356\u122d\u1275 \u1291\u12a1\u1235 \u12de\u1263 \u1353\u122b\u12f2\u1236 | Sports club Paradiso 10 year review - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2023-01-07",
+      "duration": 1308,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "9ZXauvZLyxQ",
+      "title": "\u1208\u1230 \u1235\u1356\u122d\u1275\u1361 \u1235\u1356\u122d\u1273\u12ca \u1245\u1290 \u12a3\u1265 \u1264\u1275 \u1275\u121d\u1205\u122d\u1272 \u12cb\u122d\u1233\u12ed \u12ed\u12a8\u12a3\u120e | Sports competition in Sawa - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2022-12-31",
+      "duration": 887,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "zmci3aT0Vjw",
+      "title": "\u1230\u1219\u1293\u12ca \u134d\u133b\u1218\u1273\u1275 \u1235\u1356\u122d\u1275 | Weekly Sports review December 12, 2022 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2022-12-24",
+      "duration": 1245,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "vVW4iibuDqI",
+      "title": "\u12d8\u1270 \u1235\u1356\u122d\u1275 - \u12d5\u120b\u120d \u121d\u1235 \u12d3\u1265\u12f0\u120d\u12c8\u1203\u1265 \u1218\u1213\u1218\u12f5 \u12a3\u121b\u1295\u1295 \u122e\u1264\u120d \u1260\u1228\u12b8\u1275\u1295\u1295 \u1265\u12db\u12d5\u1263 \u121d\u12f5\u120d\u12cb\u1275 \u12cb\u1295\u132b \u12d3\u1208\u121d - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2022-12-08",
+      "duration": 1651,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "xq4vYpIykz8",
+      "title": "\u1218\u12f0\u1265 \u120c\u120b \u1235\u1356\u122d\u1275\u1361 \u1215\u1261\u1265 \u1270\u133b\u12cb\u1273\u12ed \u12a9\u12d5\u1236 \u1230\u12aa\u12d4\u1275 \u1235\u12c9\u12a5 \u1213\u1230\u1295 \u12d3\u1266 \u1235\u12d2\u12f5 | legendary basketball player Hassen Seid - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2022-12-06",
+      "duration": 904,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "rK16p4YX6_w",
+      "title": "\u1265\u1209\u133d \u12d3\u120b\u121a \u12a9\u12d5\u1236 \u1230\u12aa\u12a4\u1275 \u12a3\u12f5\u1213\u1296\u121d \u1230\u1208\u1219\u1295 | Junior league basketball coach Adhanom Solomon - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2022-10-31",
+      "duration": 1857,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "yEAtzzaPJq0",
+      "title": "\u121a\u12aa\u12a4\u120d \u1203\u1265\u1270 (\u1353\u1278) - \u1308\u12f2\u121d \u1270\u133b\u12cb\u1273\u12ed \u12ad\u1208\u1265 \u12a3\u1235\u1218\u122b \u1262\u122b | ERi-TV Sports - \u12a8\u12cb\u12bd\u1265\u1272 \u1235\u1356\u122d\u1275",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2022-10-15",
+      "duration": 2649,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "1ttdvb3iKbs",
+      "title": "\u1230\u1219\u1293\u12ca \u134d\u133b\u1218\u1273\u1275 \u1235\u1356\u122d\u1275 | Weekly sports review - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2022-10-13",
+      "duration": 1580,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "0-YI0TXV7io",
+      "title": "\u1230\u1218\u1228 \u1260\u12e8\u1290 (\u12c8\u12f2 \u1231\u12f3\u1295) \u1308\u12f2\u121d \u12ae\u12be\u1265 \u1270\u133b\u12cb\u1273\u12ed \u12a9\u12d1\u1236 \u12a5\u130d\u122a | Semere Beyene - star football player - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2022-10-05",
+      "duration": 1928,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "l2kmuJXcO_o",
+      "title": "\u1218\u12db\u12d8\u121a \u1218\u12f0\u1265 \u1238\u12cd\u12d3\u1270 \u12c8\u122d\u1212 \u12dd\u1270\u12bb\u12e8\u12f0 \u1235\u1356\u122d\u1273\u12cd \u12cd\u12f5\u12f5\u122d \u1291\u12a1\u1235 \u12de\u1263 \u130b\u120b \u1290\u134d\u1212 - les Sport- ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2022-08-07",
+      "duration": 1204,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "QSW6JLQZ0kY",
+      "title": "\u1208\u1230 \u1235\u1356\u122d\u1275: \u12eb\u1273\u12ca \u1235\u1356\u122d\u1275 \u1233\u1206 - \u121d\u1235 \u1218\u1213\u1218\u12f5\u12d3\u120a \u1233\u120d\u1215 | les sport yata sport | ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2022-04-05",
+      "duration": 767,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "7ZNNjJrVaCU",
+      "title": "\u1208\u1230 \u1235\u1356\u122d\u1275 - \u12eb\u1273\u12ca \u1235\u1356\u122d\u1275 \u1245\u120d\u1235 | les sport yata sport kilis | ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2022-04-02",
+      "duration": 880,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "wkvjMmz9dd8",
+      "title": "\u1230\u1208\u1219\u1295 \u12a3\u12cb\u1301 -  \u12d8\u1270 \u1235\u1356\u122d\u1275 \u1230\u1208\u1219\u1295 \u12a3\u12cb\u1301 | les sport zete sport Solomon Awaju | ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2022-04-01",
+      "duration": 1122,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "79RARdC8QvM",
+      "title": "\u1208\u1230 \u1235\u1356\u122d\u1275 -  \u12eb\u1273\u12ca  \u1235\u1356\u122d\u1275 \u1203\u12ad\u1272 | les sport yata sport haketi | ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2022-04-01",
+      "duration": 1239,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "fMV20XnnnAA",
+      "title": "\u12ad\u12cb\u12bd\u1265\u1272 \u1235\u1356\u122d\u1275 - \u12ee\u122d\u12f3\u1296\u1235 \u12aa\u12f3\u1290 | Veteran outstanding basketball player Yordanos Kidane | Eri-TV #Eritrea",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2022-03-31",
+      "duration": 1808,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "1HgjPknRYL8",
+      "title": "\u1208\u1230 \u1235\u1356\u122d\u1275  - \u1261\u1209\u133d \u1270\u133b\u12cb\u1273\u12ed \u12a9\u12d1\u1236 \u1230\u12aa\u12d4\u1275 - \u1295\u1309\u1230 \u1203\u1265\u1270\u121b\u122d\u12eb\u121d  | les sport Nugussie Habtemariam| ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2022-03-31",
+      "duration": 2214,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "MZx3p8fC1Rs",
+      "title": "\u12d5\u120b\u120d \u121d\u1235 \u121a\u12ad\u12a4\u120d \u1235\u12e9\u121d - \u130b\u12dc\u1320\u129b\u1295 \u12a3\u12ab\u12eb\u12f2 \u1235\u1356\u122d\u1273\u12ca \u1295\u1320\u1348\u1273\u1275\u1295 | Michael Seium, journalist and sports analyst - Eri-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2022-03-01",
+      "duration": 1214,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "NusUesoWXuk",
+      "title": "\u12a3\u1276 \u1270\u1235\u134b\u1308\u122d\u130a\u1235 \u1260\u12a2\u12f0\u121b\u122d\u12eb\u121d (\u1246\u1253\u1215) - \u1308\u12f2\u121d \u1270\u133b\u12cb\u1273\u12ed \u12ad\u1208\u1265 \u1213\u121b\u1234\u1295 | Eri-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2022-01-15",
+      "duration": 2260,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "ZtqjpKZ6p-w",
+      "title": "\u12a3\u1276 \u1260\u12e8\u1290 \u1235\u121d\u12a6\u1295 \u1308\u12f2\u121d \u1235\u1356\u122d\u1273\u12ca - \u12a8\u12cb\u12bd\u1265\u1272 \u1235\u1356\u122d\u1275| Beyene Simon, veteran cyclist and race car driver",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2021-12-28",
+      "duration": 2116,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "THDaFAG0d2Q",
+      "title": "\u1208\u1235 \u1235\u1356\u122d\u1275\u1361 \u1235\u1290 \u1235\u122d\u12d3\u1275 \u123d\u120d\u121b\u1275 \u1265\u1209\u133b\u1275 \u12a3\u1230\u120d\u1320\u1295\u1275\u1295 \u1270\u1250\u12f3\u12f3\u121d\u1275\u1295 \u1265\u123d\u12ad\u120c\u1273 \u12de\u1263 \u121b\u12a5\u12a8\u120d |Trainers & cyclists award ceremony -ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2021-11-28",
+      "duration": 1730,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "qIETehtmTzM",
+      "title": "\u1270\u1250\u12f3\u12f3\u121a\u1275 \u12cd\u12f5\u12f5\u122d \u121b\u12aa\u1293 \u134c\u1268\u1295 \u12ad\u134d\u120e\u121d | Feven Kiflom, pioneer female race car driver, ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2021-11-16",
+      "duration": 1362,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "aMY_fG1BQ60",
+      "title": "\u1270\u133b\u12cb\u1273\u12ed \u1230\u12f0\u1253 \u1274\u1295\u1235 - \u12f6/\u122d \u12e8\u121b\u1290 \u12f0\u1235\u1273 | Dr. Yemane Desta, veteran tennis table layer, ERi, TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2021-10-29",
+      "duration": 1611,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "KuN0xluXcN0",
+      "title": "\u123b\u121d\u1355\u12ee\u1295 \u12d3\u1208\u121d \u12cd\u12f5\u12f5\u122d \u1265\u123d\u130d\u1208\u1273 2020 \u1270\u1230\u120b\u121a \u1218\u12f3\u120a\u12eb \u1262\u1295\u12eb\u121d \u130d\u122d\u121b\u12ed|Biniam Girmay, Silver Medalist World champion winner",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2021-10-16",
+      "duration": 1425,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "SZWsoUeIwho",
+      "title": "ERi-TV -\u12a3\u1230\u120d\u1323\u1292 \u1290\u134d\u1235\u1204\u122d \u1218\u121d\u1205\u122d \u1235\u12e9\u121d \u12ee\u1203\u1295\u1235 - \u12a8\u12cb\u12bd\u1265\u1272 \u1235\u1356\u122d\u1275\u1361 \u1208\u1230 \u1235\u1356\u122d\u1275 | History of athlete and coach Sium Yohannes",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2021-10-05",
+      "duration": 2042,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "_5Q5A35xG-A",
+      "title": "\u1309\u12d5\u12de 30 \u12d3\u1218\u1275 \u1245\u12f5\u12f5\u121d \u1265\u123d\u130d\u1208\u1273 \u12a4\u122d\u1275\u122b | ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2021-07-20",
+      "duration": 2567,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "49ZL9z2QdyQ",
+      "title": "\u12a8\u12cb\u12bd\u1265\u1272 \u1235\u1356\u122d\u1275 - \u12a6\u120e\u121d\u1352\u12ab\u12ca \u1235\u1356\u122d\u1270\u129b \u1290\u1265\u1235\u1204\u122d \u12ad\u1265\u1228\u12a3\u1265 \u1228\u12f2 | ERi-TV Sports",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2021-07-09",
+      "duration": 2086,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "dauoPcEeP2A",
+      "title": "\u1308\u12f2\u121d \u1270\u1240\u12f3\u12f3\u121b\u12ed \u1265\u123d\u12ad\u120c\u1273\u1295 \u12a3\u1230\u120d\u1323\u1292\u1295 \u12ee\u1293\u1235 \u12d8\u12ab\u122d\u12eb\u1235 (\u1213\u120b\u1263\u12ed) | Champion Cyclist & trainer Yonas Zekarias - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2021-04-26",
+      "duration": 2065,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "ztCUFOKkM8Y",
+      "title": "\u1208\u1235 \u1235\u1356\u122d\u1275\u1361 \u12d5\u120b\u120d \u121d\u1235 \u12a3\u1276 \u1270\u1235\u134d\u12a3\u1208\u121d \u12d8\u12ab\u122d\u12eb\u1235 - \u12a3\u1230\u120d\u1323\u1292 \u12a9\u12d5\u1236 \u1230\u12aa\u12d4\u1275 \u12f0\u1242 \u1270\u1263\u12d5\u1275\u12ee - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2021-04-20",
+      "duration": 1245,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "oi8qhHogiiE",
+      "title": "\u12d8\u1270 \u1235\u1356\u122d\u1275\u1361 \u1270\u1295\u1273\u1292\u1295 \u1218\u122b\u1212\u1295 \u12a9\u12d5\u1236 \u1218\u122d\u1260\u1265 \u1308\u121b\u130d\u121d \u1263\u1215\u122a \u12a3\u1276 \u1333\u12cd\u120e\u1235 \u12c8\u120d\u12f0\u1203\u12ed\u121b\u1296\u1275 | Discussion on Beach Volleyball in Eritrea",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2021-03-24",
+      "duration": 1142,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "iXOJxueSoKc",
+      "title": "\u1208\u1230 \u1235\u1356\u122d\u1275\u1361 \u12d5\u120b\u120d \u121d\u1235 \u12a3\u1276 \u122e\u1264\u120d \u1270\u1235\u134b\u12ed \u1213\u120b\u134a \u1274\u12ad\u1292\u12ad \u12a9\u12d5\u1236 \u1230\u12aa\u12d4\u1275 | Interview with Robiel Tesfay - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2021-03-17",
+      "duration": 877,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "vr3UYLIfG8w",
+      "title": "\u12a8\u12cb\u12bd\u1265\u1272 \u1235\u1356\u122d\u1275 - \u1213\u12f0 \u12ab\u1265\u1276\u121d \u1260\u1303 \u1203\u1308\u122d \u12dd\u1213\u1208\u1349 \u1293\u12ed \u12a8\u1270\u121b \u1270\u130b\u12f0\u120d\u1272\u1295 \u1235\u1356\u122d\u1270\u129b\u1295 \u1290\u134d\u1235\u1204\u122d \u1266\u12bd\u1228\u133d\u12ee\u1295 \u1218\u1213\u122a - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2021-03-13",
+      "duration": 2459,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "Z9mJeo0RJf4",
+      "title": "\u120c\u120b \u121d\u1235 \u1308\u12f2\u121d \u1270\u133b\u12cb\u1273\u12ed \u1266\u120a\u1295\u130d \u12a3\u1276 \u12d8\u122d\u12a5\u12dd\u130a \u12d1\u1245\u1263\u121a\u12ab\u12a4\u120d | Interview with professional bowler Mr. Zerezghi Uqbamichael",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2021-03-06",
+      "duration": 1561,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "7iWruEj74vU",
+      "title": "\u12a8\u12cb\u12bd\u1265\u1272 \u1235\u1356\u122d\u1275\u1361 \u1265\u1209\u133d \u1235\u1356\u122d\u1270\u129b \u1290\u134d\u1235\u1204\u122d \u1233\u121d\u122b\u12ca \u1270\u12bd\u1208 (\u12c8\u12f2 \u1306\u121c\u1275\u122b) - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2021-03-02",
+      "duration": 2091,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "ZqF5hmos1Ow",
+      "title": "\u12d5\u120b\u120d \u1265\u12db\u12d5\u1263 \u12dd\u12bd\u122a \u12cd\u12f5\u12f5\u122d \u1265\u123d\u12ad\u120c\u1273 \u12a3\u1265 \u1260\u12d3\u120d \u1348\u1295\u1245\u120d 1992 \u121d\u1235 \u12a3\u1230\u120d\u1323\u1292 \u12ad\u120b\u1265 \u12a3\u1235\u1264\u12ae\u1295 \u1203\u1308\u122b\u12ca\u1275 \u130b\u1295\u1273 \u1265\u123d\u12ad\u120c\u1273\u1295 \u1233\u121d\u1236\u1295 \u1230\u1208\u1219\u1295 - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2021-02-25",
+      "duration": 1150,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "BGo9WXPQx5U",
+      "title": "ERi-TV:\u1293\u1275\u1293\u12a4\u120d \u1270\u1235\u134b\u133c\u1295 - \u1270\u1240\u12f3\u12f3\u121b\u12ed \u12ad\u1208\u1265 \u12a0\u1295\u12f5\u122e\u1292 \u1355\u122e \u1233\u12ed\u12ad\u120a\u1295\u130d",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2021-02-06",
+      "duration": 916,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "3Hn_7ZKT6W0",
+      "title": "\u1265\u120d\u133d\u1272 \u1270\u12c8\u12f3\u12f3\u122a\u1275 \u1265\u123d\u12ad\u120c\u1273 \u121e\u1233\u1293 \u12f0\u1260\u1233\u12ed | Champion cyclist Mosana Debesay - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2021-01-31",
+      "duration": 2056,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "RDBjSo0IxUw",
+      "title": "ERi-TV: \u12a3\u1275\u120c\u1275 \u1235\u1265\u1203\u1271 \u12a8\u1230\u1270 -\u12a3\u1265\u1290\u1273\u12ca \u1235\u1356\u122d\u1270\u129b - Sibhatu Kesete, exemplary athlete",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2021-01-28",
+      "duration": 1019,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "ze6HHG46fi4",
+      "title": "\u1338\u12c8\u1273 \u12a3\u1235\u1272 - \u12eb\u1273\u12ca \u1235\u1356\u122d\u1275 - \u1208\u1235 \u1235\u1356\u122d\u1275 | Eritrean traditional sport - tseweta asty - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2021-01-22",
+      "duration": 1277,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "2zglSgIJ96Y",
+      "title": "\u1338\u12c8\u1273\u1273\u1275 \u1215\u1295\u1246 - \u12eb\u1273\u12ca \u1235\u1356\u122d\u1275 - \u1208\u1235 \u1235\u1356\u122d\u1275 | Eritrean traditional sport - hinqo - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2021-01-19",
+      "duration": 1170,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "1YgI8c9Ro_8",
+      "title": "\u12d5\u120b\u120d \u121d\u1235 \u1270\u12c8\u12f3\u12f3\u122b\u12ed \u1265\u123d\u12ad\u120c\u1273 \u12a3\u121b\u1291\u12a4\u120d \u1308\u1265\u1228\u12dd\u130b\u1265\u1204\u122d | Interview with Amanuel Gebregziabher with NTT Pro cycling team",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2021-01-19",
+      "duration": 709,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "3IDtZi5TtcM",
+      "title": "\u12d5\u120b\u120d \u121d\u1235 \u1265\u1209\u133d \u1270\u1250\u12f3\u12f3\u121b\u12ed \u12a3\u134d\u122a\u1243 2020 \u1262\u1295\u12eb\u121d \u130d\u122d\u121b\u12ed | Interview with best African Cyclist of 2020 Biniam Girmay",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2021-01-19",
+      "duration": 1341,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "C1pK6ujwOHY",
+      "title": "\u1275\u122a\u121d \u1230\u122a\u1293\u12ae - \u12eb\u1273\u12ca \u1235\u1356\u122d\u1275 \u1262\u1204\u1228 \u1233\u1206  - \u1208\u1230 \u1235\u1356\u122d\u1275 | Eritrean traditional sport - trim serinako  - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2020-12-23",
+      "duration": 864,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "KQG0bpdGPg0",
+      "title": "\u1208\u1235 \u1235\u1356\u122d - \u12d5\u120b\u120d \u121d\u1235 \u1213\u120b\u134a \u1274\u12ad\u1292\u12ad \u12a9\u12d1\u1236 \u1230\u12aa\u12d4\u1275 \u122e\u1264\u120d \u1270\u1235\u134b\u12ed - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2020-12-23",
+      "duration": 876,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "3dBnNs5umBU",
+      "title": "\u12d5\u120b\u120d \u121d\u1235 \u1265\u1209\u133d \u1270\u1240\u12f3\u12f3\u121a \u1265\u123d\u12ad\u120c\u1273 \u12eb\u1246\u1265 \u12f0\u1260\u1233\u12ed |  Interview with champion cyclist Yakob Debesay - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2020-12-13",
+      "duration": 972,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "t0x-BfbqKt0",
+      "title": "\u1215\u1261\u1265 \u1270\u133b\u12cb\u1273\u12ed \u12a9\u12d1\u1236 \u12a5\u130d\u122a \u1290\u1260\u122d \u1290\u134d\u1235\u1204\u122d \u1266\u12bd\u1228\u133a\u12ee\u1295 \u1308\u1265\u1228\u1202\u12c8\u1275 (\u1266\u12bd\u1228) | History of talented soccer player Bokre - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2020-12-12",
+      "duration": 1653,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+    },
+    {
+      "id": "QBY3_6lHstQ",
+      "title": "\u12a8\u12cb\u12bd\u1265\u1272 \u1235\u1356\u122d\u1275\u1361 \u12d3\u12cd\u12f2 \u121d\u1205\u1293\u133d \u12a3\u12ab\u120b\u1275 \u12dd\u1230\u122d\u1215 \u12a3\u1276 \u1262\u1295\u12eb\u121d \u1270\u1218\u1235\u1308\u1295 | Body builder and athlet Biniam Temesgen",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2020-12-03",
+      "duration": 1832,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports",
+      "notes": "",
+      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
     }
   ],
   "schedules": {
@@ -2611,6 +4803,9 @@
     },
     "News": {
       "scheduleStart": "2026-11-03T06:30:35.655106+00:00"
+    },
+    "Sports": {
+      "scheduleStart": "2026-11-03T06:33:32.977281+00:00"
     }
   }
 }
