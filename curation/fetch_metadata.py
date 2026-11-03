@@ -90,7 +90,11 @@ def main():
 
     existing = load_existing()
     merged = write_channel_result(
-        existing, CHANNEL_NAME, CHANNEL_KEY, videos, is_default=IS_DEFAULT_CHANNEL
+        existing,
+        display_name=CHANNEL_NAME,
+        source=CHANNEL_KEY,
+        final_videos=videos,
+        is_default=IS_DEFAULT_CHANNEL,
     )
     write_output(merged)
 

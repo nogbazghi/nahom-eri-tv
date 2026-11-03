@@ -118,7 +118,7 @@ def test_videos_for_channel_returns_only_matching_videos():
             {"id": "3", "channels": ["Kebire"], "source": "kebire"},
         ]
     }
-    result = pipeline.videos_for_channel(existing_data, "Kebire", "kebire")
+    result = pipeline.videos_for_channel(existing_data, display_name="Kebire", source="kebire")
     assert result == [
         {"id": "1", "channels": ["Kebire"], "source": "kebire"},
         {"id": "3", "channels": ["Kebire"], "source": "kebire"},
@@ -132,7 +132,9 @@ def test_videos_for_channel_excludes_a_different_sources_videos_under_the_same_d
             {"id": "2", "channels": ["Sports"], "source": "sports_diaspora"},
         ]
     }
-    result = pipeline.videos_for_channel(existing_data, "Sports", "sports_eritv")
+    result = pipeline.videos_for_channel(
+        existing_data, display_name="Sports", source="sports_eritv"
+    )
     assert result == [{"id": "1", "channels": ["Sports"], "source": "sports_eritv"}]
 
 
@@ -143,7 +145,14 @@ def test_compute_run_blocklisted_stored_video_removed_without_api_call():
         raise AssertionError("fetch_fn should not be called for blocklisted-only stored videos")
 
     result = pipeline.compute_run(
-        "weddings", "Weddings", stored_videos, [], RULES, "key", {"blocked1"}, fetch_fn=fetch_fn
+        channel_key="weddings",
+        display_name="Weddings",
+        stored_videos=stored_videos,
+        fresh_candidate_ids=[],
+        rules=RULES,
+        api_key="key",
+        blocked_ids={"blocked1"},
+        fetch_fn=fetch_fn,
     )
 
     assert result["removals"] == [{"id": "blocked1", "title": "Old Video", "reason": "blocklisted"}]
@@ -157,7 +166,14 @@ def test_compute_run_video_missing_from_api_response_is_treated_as_removed():
         return {}
 
     result = pipeline.compute_run(
-        "weddings", "Weddings", stored_videos, [], RULES, "key", set(), fetch_fn=fetch_fn
+        channel_key="weddings",
+        display_name="Weddings",
+        stored_videos=stored_videos,
+        fresh_candidate_ids=[],
+        rules=RULES,
+        api_key="key",
+        blocked_ids=set(),
+        fetch_fn=fetch_fn,
     )
 
     assert result["removals"] == [{"id": "v1", "title": "Video 1", "reason": "removed"}]
@@ -173,7 +189,14 @@ def test_compute_run_already_stored_candidate_id_is_skipped():
         return {vid: make_record(title=f"Title {vid}") for vid in ids}
 
     result = pipeline.compute_run(
-        "weddings", "Weddings", stored_videos, ["v1", "v2"], RULES, "key", set(), fetch_fn=fetch_fn
+        channel_key="weddings",
+        display_name="Weddings",
+        stored_videos=stored_videos,
+        fresh_candidate_ids=["v1", "v2"],
+        rules=RULES,
+        api_key="key",
+        blocked_ids=set(),
+        fetch_fn=fetch_fn,
     )
 
     # v1 is only ever refetched as a stored video, never re-fetched as a candidate.
@@ -187,7 +210,14 @@ def test_compute_run_stamps_source_as_the_calling_channel_key_on_new_additions()
         return {vid: make_record(title=f"Title {vid}") for vid in ids}
 
     result = pipeline.compute_run(
-        "sports_eritv", "Sports", [], ["v1"], RULES, "key", set(), fetch_fn=fetch_fn
+        channel_key="sports_eritv",
+        display_name="Sports",
+        stored_videos=[],
+        fresh_candidate_ids=["v1"],
+        rules=RULES,
+        api_key="key",
+        blocked_ids=set(),
+        fetch_fn=fetch_fn,
     )
 
     assert result["additions"][0]["source"] == "sports_eritv"
@@ -199,7 +229,14 @@ def test_compute_run_failing_new_candidate_is_dropped_silently():
         return {}  # candidate missing from the API response -> fails validation
 
     result = pipeline.compute_run(
-        "weddings", "Weddings", [], ["bad1"], RULES, "key", set(), fetch_fn=fetch_fn
+        channel_key="weddings",
+        display_name="Weddings",
+        stored_videos=[],
+        fresh_candidate_ids=["bad1"],
+        rules=RULES,
+        api_key="key",
+        blocked_ids=set(),
+        fetch_fn=fetch_fn,
     )
 
     assert result == {"final_videos": [], "additions": [], "removals": []}
@@ -213,7 +250,14 @@ def test_compute_run_stamps_last_validated_on_every_kept_and_added_record():
 
     before = datetime.datetime.now(datetime.timezone.utc)
     result = pipeline.compute_run(
-        "weddings", "Weddings", stored_videos, ["v2"], RULES, "key", set(), fetch_fn=fetch_fn
+        channel_key="weddings",
+        display_name="Weddings",
+        stored_videos=stored_videos,
+        fresh_candidate_ids=["v2"],
+        rules=RULES,
+        api_key="key",
+        blocked_ids=set(),
+        fetch_fn=fetch_fn,
     )
     after = datetime.datetime.now(datetime.timezone.utc)
 

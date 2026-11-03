@@ -117,7 +117,9 @@ def run_channel(channel_key, entry, api_key, blocked_ids, existing_data):
     playlist_id = resolve_playlist_id(entry, api_key)
     all_video_ids = get_all_video_ids(playlist_id, api_key)
 
-    stored_videos = pipeline.videos_for_channel(existing_data, display_name, channel_key)
+    stored_videos = pipeline.videos_for_channel(
+        existing_data, display_name=display_name, source=channel_key
+    )
     stored_ids = {v["id"] for v in stored_videos}
 
     fresh_ids = pipeline.filter_new_ids(all_video_ids, stored_ids, blocked_ids)
@@ -136,7 +138,13 @@ def run_channel(channel_key, entry, api_key, blocked_ids, existing_data):
 
     rules = pipeline.rules_from_config(entry)
     result = pipeline.compute_run(
-        channel_key, display_name, stored_videos, candidate_ids, rules, api_key, blocked_ids,
+        channel_key=channel_key,
+        display_name=display_name,
+        stored_videos=stored_videos,
+        fresh_candidate_ids=candidate_ids,
+        rules=rules,
+        api_key=api_key,
+        blocked_ids=blocked_ids,
     )
 
     tag = tag_for(text_filter)
@@ -146,10 +154,10 @@ def run_channel(channel_key, entry, api_key, blocked_ids, existing_data):
 
     updated = pipeline.write_channel_result(
         existing_data,
-        display_name,
-        channel_key,
-        result["final_videos"],
-        entry.get("is_default", False),
+        display_name=display_name,
+        source=channel_key,
+        final_videos=result["final_videos"],
+        is_default=entry.get("is_default", False),
     )
     pipeline.write_run_summary(channel_key, result["additions"], result["removals"])
     print(

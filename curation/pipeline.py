@@ -141,7 +141,7 @@ def filter_new_ids(candidate_ids, stored_ids, blocked_ids):
     return [cid for cid in candidate_ids if cid not in stored_set and cid not in blocked_ids]
 
 
-def video_in_channel(video, display_name, source):
+def video_in_channel(video, *, display_name, source):
     """True if `video`'s channels field names exactly this one channel AND
     it was added by this channels.yaml rule (its `source` key). Scoping by
     both — not display_name alone — is what lets two separate rules (e.g.
@@ -150,14 +150,16 @@ def video_in_channel(video, display_name, source):
     return video.get("channels") == [display_name] and video.get("source") == source
 
 
-def videos_for_channel(existing_data, display_name, source):
+def videos_for_channel(existing_data, *, display_name, source):
     """This rule's currently-stored videos — matching on channel membership
     AND source, so a display_name shared by multiple rules only yields the
     calling rule's own videos. Shared by discover.py/kebire_channel.py (to
     find what to re-validate) and write_channel_result (to find what to
     replace)."""
     return [
-        v for v in existing_data.get("videos", []) if video_in_channel(v, display_name, source)
+        v
+        for v in existing_data.get("videos", [])
+        if video_in_channel(v, display_name=display_name, source=source)
     ]
 
 
@@ -197,6 +199,7 @@ def validate_record(record, rules):
 
 
 def compute_run(
+    *,
     channel_key,
     display_name,
     stored_videos,
@@ -289,7 +292,7 @@ def compute_run(
     }
 
 
-def write_channel_result(existing_data, display_name, source, final_videos, is_default):
+def write_channel_result(existing_data, *, display_name, source, final_videos, is_default):
     """Replace this rule's (display_name, source) slice of
     existing_data["videos"] with final_videos — every other video, including
     another rule's contribution to the same display_name, passes through
@@ -303,7 +306,7 @@ def write_channel_result(existing_data, display_name, source, final_videos, is_d
     kept = [
         v
         for v in existing_data.get("videos", [])
-        if not video_in_channel(v, display_name, source)
+        if not video_in_channel(v, display_name=display_name, source=source)
     ]
     kept.extend(final_videos)
     existing_data["videos"] = kept
