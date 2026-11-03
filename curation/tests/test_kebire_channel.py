@@ -3,7 +3,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from kebire_channel import matches_text_filter, tag_for
+from kebire_channel import matches_text_filter, resolve_playlist_id, tag_for
 
 
 def test_matches_text_filter_in_title():
@@ -36,3 +36,26 @@ def test_tag_for_no_hash():
 
 def test_tag_for_empty():
     assert tag_for("") == ""
+
+
+def test_resolve_playlist_id_uses_explicit_playlist_id_without_deriving_uploads():
+    entry = {"channel_id": "UCz9a7XA9oMmk3CpFnE456bQ", "playlist_id": "PLnotarealplaylist"}
+
+    def fail_if_called(channel_id, api_key):
+        raise AssertionError("should not derive the uploads playlist when playlist_id is set")
+
+    assert resolve_playlist_id(entry, "key", get_uploads_playlist_id=fail_if_called) == "PLnotarealplaylist"
+
+
+def test_resolve_playlist_id_falls_back_to_uploads_playlist_when_unset():
+    entry = {"channel_id": "UCz9a7XA9oMmk3CpFnE456bQ"}
+    calls = []
+
+    def fake_get_uploads_playlist_id(channel_id, api_key):
+        calls.append((channel_id, api_key))
+        return "UUz9a7XA9oMmk3CpFnE456bQ"
+
+    result = resolve_playlist_id(entry, "key", get_uploads_playlist_id=fake_get_uploads_playlist_id)
+
+    assert result == "UUz9a7XA9oMmk3CpFnE456bQ"
+    assert calls == [("UCz9a7XA9oMmk3CpFnE456bQ", "key")]

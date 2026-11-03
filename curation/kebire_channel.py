@@ -73,6 +73,25 @@ def get_all_video_ids(playlist_id, api_key):
     return video_ids
 
 
+def resolve_playlist_id(entry, api_key, get_uploads_playlist_id=get_uploads_playlist_id):
+    """Pick the playlist to enumerate for a `type: channel` entry.
+
+    An explicit `playlist_id` is used as-is, so a channel can point
+    directly at one of its own curated playlists (e.g. Eri-TV's news or
+    sports playlist) instead of its whole uploads history. With no
+    `playlist_id` configured, falls back to deriving the channel's
+    uploads playlist from `channel_id` — today's only behavior, and
+    Kebire's existing entry takes this path unchanged.
+
+    `get_uploads_playlist_id` is injectable for testing (defaults to the
+    real one); callers in run_channel() should not pass it.
+    """
+    playlist_id = entry.get("playlist_id")
+    if playlist_id:
+        return playlist_id
+    return get_uploads_playlist_id(entry["channel_id"], api_key)
+
+
 def matches_text_filter(title, description, text_filter):
     """Pure — case-insensitive substring match against title OR description.
 
@@ -95,8 +114,8 @@ def run_channel(channel_key, entry, api_key, blocked_ids, existing_data):
     display_name = entry["display_name"]
     text_filter = entry.get("text_filter", "")
 
-    uploads_playlist_id = get_uploads_playlist_id(entry["channel_id"], api_key)
-    all_video_ids = get_all_video_ids(uploads_playlist_id, api_key)
+    playlist_id = resolve_playlist_id(entry, api_key)
+    all_video_ids = get_all_video_ids(playlist_id, api_key)
 
     stored_videos = pipeline.videos_for_channel(existing_data, display_name)
     stored_ids = {v["id"] for v in stored_videos}
