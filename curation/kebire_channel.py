@@ -76,11 +76,13 @@ def get_all_video_ids(playlist_id, api_key):
 def dedup_preserve_order(ids):
     """Drop repeated IDs, keeping first-seen order. Pure — no API calls.
 
-    A playlist's own listing can repeat a video (confirmed live for
-    Fenkil's big merged playlist: playlistItems returns 206 items for only
-    181 unique video IDs). Without this, a repeated entry would flow
-    through filter_new_ids/compute_run as two separate "fresh" candidates
-    on the same run and get added to videos.json twice."""
+    A playlist's own listing can repeat a video — confirmed live for both
+    Fenkil's big merged playlist (playlistItems returns 206 items for only
+    181 unique video IDs) and Eri-TV's "Independence Day" playlist
+    (contentDetails.itemCount of 293, only 279 distinct video IDs). Without
+    this, a repeated entry would flow through filter_new_ids/compute_run as
+    two separate "fresh" candidates on the same run and get added to
+    videos.json twice."""
     seen = set()
     result = []
     for vid in ids:
@@ -163,7 +165,7 @@ def run_channel(channel_key, entry, api_key, blocked_ids, existing_data):
     text_filter = entry.get("text_filter", "")
 
     playlist_id = resolve_playlist_id(entry, api_key)
-    all_video_ids = get_all_video_ids(playlist_id, api_key)
+    all_video_ids = get_all_video_ids(playlist_id, api_key)  # already deduped
 
     stored_videos = pipeline.videos_for_channel(
         existing_data, display_name=display_name, source=channel_key

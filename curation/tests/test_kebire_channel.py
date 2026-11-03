@@ -111,9 +111,11 @@ def test_resolve_playlist_id_falls_back_to_uploads_playlist_when_unset():
 
 def test_dedup_preserve_order_drops_repeats_but_keeps_first_occurrence_order():
     # A playlist can list the same video more than once (confirmed live for
-    # Fenkil's big merged playlist: 206 playlistItems, 181 unique video
-    # IDs) — without this, a repeated entry would flow through as two
-    # separate "fresh" candidates and get added to videos.json twice.
+    # both Fenkil's big merged playlist — 206 playlistItems, 181 unique
+    # video IDs — and Eri-TV's "Independence Day" playlist — itemCount 293,
+    # 279 unique video IDs) — without this, a repeated entry would flow
+    # through as two separate "fresh" candidates and get added to
+    # videos.json twice.
     assert dedup_preserve_order(["a", "b", "a", "c", "b"]) == ["a", "b", "c"]
 
 

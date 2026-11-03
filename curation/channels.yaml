@@ -300,5 +300,48 @@ martyrs_day_diaspora:
   queries:
     - "Eritrean Martyrs Day"
     - "Martyrs Day Eritrea"
+independence_day:
+  type: channel
+  display_name: Independence Day
+  channel_id: UCpPhzhCfud9ctQSJJv4Kqlw
+  playlist_id: PLjrXQ8yRJDlwzezrznsesIbyBnMv_6WWB  # Eri-TV's own "Independence Day" playlist
+  view_count_min: 0
+  duration_min_sec: 120
+
+# Shares display_name "Independence Day" with the `independence_day` entry
+# above (Eri-TV's own playlist) — the (display_name, source) scoping from
+# ticket #16 keeps the two rules' runs from clobbering each other, same
+# pattern as Sports/sports_diaspora. Covers diaspora community celebration
+# content Eri-TV doesn't produce itself: city-by-city recaps and embassy
+# events, per docs/research/channel-demand-signals.md §6 (the only vertical
+# in that research showing clean, recurring annual seasonality tied to the
+# actual May 24 calendar date, every year tested).
+#
+# Query wording was iterated against the live search.list API before
+# settling on these two. The research doc's own tested terms —
+# "Eritrean Independence Day" and "Independence Day Eritrea" — both do
+# surface genuine diaspora content, but a live trial run of each showed
+# they also pull in several videos from Eri-TV's own official channel
+# (e.g. a "Military Parade" upload also confirmed, by direct playlist
+# lookup, to already be inside the `independence_day` entry's own
+# playlist above) — exactly the kind of same-video-under-two-sources
+# duplication this dual-rule pattern is supposed to avoid, not something
+# `(display_name, source)` scoping protects against, since the two rules
+# add distinct pool entries for the same underlying video ID.
+#
+# Adding "embassy" and "community celebration" qualifiers, confirmed in
+# that same live trial, reliably steers search.list toward diaspora
+# organizer/community-videographer uploads (Eritrean Unity Worldwide
+# EPLF1's Washington DC embassy coverage; individual community recaps
+# from Seattle, Oakland, Minnesota, Dallas, Winnipeg, Cincinnati,
+# Kristiansand, Melbourne, Dubai, Cairo) while returning zero results
+# from Eri-TV's own official channel across a 25-result page for either
+# query — unlike the unqualified terms above.
+independence_day_diaspora:
+  type: search
+  display_name: Independence Day
+  queries:
+    - "Eritrean Independence Day embassy"
+    - "Eritrean Independence Day community celebration"
   view_count_min: 500
   duration_min_sec: 120
