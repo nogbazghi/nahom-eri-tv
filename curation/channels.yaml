@@ -97,3 +97,67 @@ sports_diaspora:
     - "Zersenay Tadese"
   view_count_min: 500
   duration_min_sec: 120
+
+# Martyrs Day (June 20) — dual-source, same pattern as Sports/sports_diaspora.
+# `martyrs_day` below is Eri-TV's own commemoration coverage (the official
+# "Martyr's Day" playlist); `martyrs_day_diaspora` just below it is diaspora
+# tribute/recap content the state broadcaster doesn't produce. Per
+# docs/research/channel-demand-signals.md §6.
+martyrs_day:
+  type: channel
+  display_name: Martyrs Day
+  channel_id: UCpPhzhCfud9ctQSJJv4Kqlw
+  playlist_id: PLjrXQ8yRJDlxgpLlXTxkFUmju-LC2EIHm  # "Martyr's Day (መዓልቲ ሰማእታት)" — 102 items, re-verified live at implementation time (99 at research time; growth expected, not a different playlist)
+  view_count_min: 0
+  duration_min_sec: 120
+
+# Shares display_name "Martyrs Day" with the `martyrs_day` entry above — the
+# (display_name, source) scoping keeps the two rules' runs from clobbering
+# each other, same as Sports/sports_diaspora.
+#
+# §6's YouTube survey surfaces two genuinely distinct pools under this
+# subject: diaspora tribute-song releases (Kosta Entertainment's annual
+# "ERITREAN MARTYRS DAY" uploads, HabeshaMusic, Awet Okbay) and single-city
+# community recap clips (Teame Tesfamariam's London recap, Savana Millygo's
+# Toronto recap, plus one-off community uploads from Stockholm/Atlanta/
+# Birmingham). Both queries below were run live against search.list (with a
+# wide publishedAfter window, to judge wording quality independent of the
+# production script's 10-day recency window) and each surfaced several
+# genuinely on-topic, correctly-attributed results the other didn't catch
+# within YouTube's per-query result cap — same justification Sports' two
+# plain-name queries had for not collapsing into one.
+#
+# Ge'ez-script phrasing ("ሰማዕታት ኤርትራ") was deliberately not added as a
+# third query: §6 flags it as noisier than the English-qualified terms,
+# surfacing some unrelated Amharic/Ethiopian Orthodox devotional content
+# alongside genuine matches — the same English-phrasing-beats-script-
+# phrasing pattern this project has seen for every other vertical.
+#
+# Unlike `martyrs_day` above (a trusted single source, view_count_min: 0),
+# this pulls from arbitrary YouTube search results, so it follows Weddings'/
+# sports_diaspora's unvetted-pool precedent with a nonzero view_count_min.
+# Live testing showed a clear quality floor around the low hundreds of
+# views (a handful of single-digit-to-low-hundred-view personal clips sit
+# well below everything else returned) without excluding legitimate
+# small-community recap content (the Toronto/London/Stockholm recaps above
+# all comfortably clear it) — 500 was chosen to match sports_diaspora's
+# already-proven threshold for the same "thin, unvetted diaspora pool"
+# shape, rather than inventing a new number without a comparably strong
+# reason to diverge.
+#
+# NOTE: because June 20 is a calendar-specific commemoration (unlike
+# Sports' continuously-newsworthy athletes), a live run of this rule
+# outside the Martyrs Day season will likely surface few or zero new
+# candidates in the production script's 10-day recency window — the
+# pipeline's search mechanism is designed to catch *new* uploads since the
+# last run, not to backfill the whole historical corpus, so this channel's
+# diaspora pool is expected to fill in gradually, concentrated around each
+# June 20 anniversary.
+martyrs_day_diaspora:
+  type: search
+  display_name: Martyrs Day
+  queries:
+    - "Eritrean Martyrs Day"
+    - "Martyrs Day Eritrea"
+  view_count_min: 500
+  duration_min_sec: 120
