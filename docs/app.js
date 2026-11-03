@@ -1,4 +1,5 @@
 import { selectLineupMessage } from "./offline-message.js";
+import { t, onLanguageChange } from "./i18n-ui.js";
 
 let allVideos = [];
 let schedules = {};
@@ -9,6 +10,11 @@ let player = null;
 let currentIndex = -1;
 let guideOpen = false;
 let playerReady = false;
+// True while the "Nothing in the lineup yet" empty state (showEmptyState())
+// is the badge's current content — tracked so a language toggle can
+// re-render it correctly without guessing from other state. Cleared the
+// moment real playback starts (playAt()).
+let lineupEmpty = false;
 
 // Outcome of the most recent loadLineup() attempt — "success" or "error".
 // Paired with navigator.onLine by selectLineupMessage() (see
@@ -77,8 +83,12 @@ function applyLineupState() {
   if (guideOpen) renderGuide(); // refresh an already-open guide after a retry
 }
 
+// scheduleMessage holds a docs/i18n.js translation *key* (see
+// offline-message.js's LINEUP_FAILURE_MESSAGE_KEY), not display text — it's
+// resolved to the active language's string here, at render time, so it
+// stays correct across a language toggle with no re-fetch needed.
 function renderScheduleMessage() {
-  scheduleMessageEl.textContent = scheduleMessage || "";
+  scheduleMessageEl.textContent = scheduleMessage ? t(scheduleMessage) : "";
   scheduleMessageEl.hidden = !scheduleMessage;
 }
 
@@ -169,13 +179,15 @@ function updateBadge(video, channelName) {
 }
 
 function showEmptyState() {
+  lineupEmpty = true;
   badgeNum.textContent = "";
   badgeName.textContent = "";
-  badgeTitle.textContent = "Nothing in the lineup yet";
+  badgeTitle.textContent = t("nothingInLineupLabel");
   toolbarChan.textContent = "";
 }
 
 function playAt(index, offsetSeconds) {
+  lineupEmpty = false;
   currentIndex = index;
   const video = currentVideos[index];
   updateBadge(video, currentChannel);
@@ -241,14 +253,14 @@ function renderGuide() {
     if (index === -1) {
       const cell = document.createElement("div");
       cell.className = "guide-cell";
-      cell.textContent = "Nothing scheduled";
+      cell.textContent = t("nothingScheduledLabel");
       track.appendChild(cell);
     } else {
       const nowCell = document.createElement("div");
       nowCell.className = "guide-cell now";
       const nowStart = document.createElement("span");
       nowStart.className = "start mono";
-      nowStart.textContent = "NOW";
+      nowStart.textContent = t("nowLabel");
       nowCell.appendChild(nowStart);
       nowCell.appendChild(document.createTextNode(videos[index].title));
       track.appendChild(nowCell);
@@ -274,7 +286,7 @@ function openGuide() {
   guideOpen = true;
   renderGuide();
   guidePanel.hidden = false;
-  guideToggle.textContent = "Close ✕";
+  guideToggle.textContent = t("guideToggleCloseLabel");
   guideToggle.setAttribute("aria-expanded", "true");
   guideNav.focusWhere((row) => row.dataset.channel === currentChannel);
 }
@@ -284,7 +296,7 @@ function closeGuide() {
   guideOpen = false;
   guideNav.reset();
   guidePanel.hidden = true;
-  guideToggle.textContent = "Guide ▾";
+  guideToggle.textContent = t("guideToggleOpenLabel");
   guideToggle.setAttribute("aria-expanded", "false");
   guideToggle.focus();
 }
@@ -341,12 +353,31 @@ function toggleMute() {
   if (!player) return;
   if (player.isMuted()) {
     player.unMute();
-    unmuteButton.textContent = "🔊 Tap to mute";
+    unmuteButton.textContent = t("tapToMuteLabel");
   } else {
     player.mute();
-    unmuteButton.textContent = "🔇 Tap to unmute";
+    unmuteButton.textContent = t("tapToUnmuteLabel");
   }
 }
+
+// Re-renders every piece of chrome text this module owns that isn't static
+// markup, in the newly-active language — called once at startup (to sync
+// #guide-toggle/#unmute past their static HTML defaults, which only match
+// English) and again on every language toggle (ticket #31, spec #22). Each
+// piece only re-renders if it's actually showing right now, using the same
+// state this module already tracks, so toggling the language never changes
+// *what's* on screen, just which language it reads in.
+function refreshChromeLanguage() {
+  guideToggle.textContent = guideOpen ? t("guideToggleCloseLabel") : t("guideToggleOpenLabel");
+  unmuteButton.textContent =
+    player && !player.isMuted() ? t("tapToMuteLabel") : t("tapToUnmuteLabel");
+  if (guideOpen) renderGuide();
+  if (lineupEmpty) showEmptyState();
+  renderScheduleMessage();
+}
+
+onLanguageChange(refreshChromeLanguage);
+refreshChromeLanguage();
 
 unmuteButton.addEventListener("click", toggleMute);
 guideToggle.addEventListener("click", toggleGuide);

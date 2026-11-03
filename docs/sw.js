@@ -21,7 +21,7 @@
 // clients.claim) and cleans up after itself silently on the next load, with
 // no "update available" prompt.
 
-const CACHE_NAME = "eri-tv-shell-v4";
+const CACHE_NAME = "eri-tv-shell-v5";
 
 const SHELL_ASSETS = [
   "./",
@@ -33,6 +33,10 @@ const SHELL_ASSETS = [
   "nav.js",
   "ios-install-hint.js",
   "ios-install-hint-ui.js",
+  "i18n.js",
+  "i18n-ui.js",
+  "i18n/strings.en.js",
+  "i18n/strings.ti.js",
   "manifest.webmanifest",
   "fonts/ibm-plex-sans-latin-400-normal.woff2",
   "fonts/ibm-plex-sans-latin-500-normal.woff2",
@@ -44,6 +48,9 @@ const SHELL_ASSETS = [
   "fonts/big-shoulders-display-latin-700-normal.woff2",
   "fonts/big-shoulders-display-latin-800-normal.woff2",
   "fonts/big-shoulders-display-latin-900-normal.woff2",
+  "fonts/noto-sans-ethiopic-ethiopic-400-normal.woff2",
+  "fonts/noto-sans-ethiopic-ethiopic-600-normal.woff2",
+  "fonts/noto-sans-ethiopic-ethiopic-700-normal.woff2",
   "icons/icon-192.png",
   "icons/icon-512.png",
   "icons/icon-512-maskable.png",
