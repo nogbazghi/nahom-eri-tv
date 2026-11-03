@@ -70,7 +70,26 @@ def get_all_video_ids(playlist_id, api_key):
         page_token = payload.get("nextPageToken")
         if not page_token:
             break
-    return video_ids
+    return dedup_preserve_order(video_ids)
+
+
+def dedup_preserve_order(ids):
+    """Drop repeated IDs, keeping first-seen order. Pure — no API calls.
+
+    A playlist's own listing can repeat a video — confirmed live for both
+    Fenkil's big merged playlist (playlistItems returns 206 items for only
+    181 unique video IDs) and Eri-TV's "Independence Day" playlist
+    (contentDetails.itemCount of 293, only 279 distinct video IDs). Without
+    this, a repeated entry would flow through filter_new_ids/compute_run as
+    two separate "fresh" candidates on the same run and get added to
+    videos.json twice."""
+    seen = set()
+    result = []
+    for vid in ids:
+        if vid not in seen:
+            seen.add(vid)
+            result.append(vid)
+    return result
 
 
 def resolve_playlist_id(entry, api_key, get_uploads_playlist_id=get_uploads_playlist_id):
@@ -90,25 +109,6 @@ def resolve_playlist_id(entry, api_key, get_uploads_playlist_id=get_uploads_play
     if playlist_id:
         return playlist_id
     return get_uploads_playlist_id(entry["channel_id"], api_key)
-
-
-def dedup_video_ids(video_ids):
-    """Order-preserving de-dup of a single playlist's video IDs.
-
-    A source playlist can itself list the same video more than once —
-    confirmed for real against Eri-TV's "Independence Day" playlist, whose
-    contentDetails.itemCount (293) counts every playlistItems entry,
-    including repeats, while only 279 distinct video IDs actually appear.
-    Without this, compute_run would validate and add the same video twice
-    under one source, showing it twice in the channel's schedule. Pure —
-    no API calls."""
-    seen = set()
-    deduped = []
-    for vid in video_ids:
-        if vid not in seen:
-            seen.add(vid)
-            deduped.append(vid)
-    return deduped
 
 
 def matches_text_filter(title, description, text_filter):
@@ -165,7 +165,7 @@ def run_channel(channel_key, entry, api_key, blocked_ids, existing_data):
     text_filter = entry.get("text_filter", "")
 
     playlist_id = resolve_playlist_id(entry, api_key)
-    all_video_ids = dedup_video_ids(get_all_video_ids(playlist_id, api_key))
+    all_video_ids = get_all_video_ids(playlist_id, api_key)  # already deduped
 
     stored_videos = pipeline.videos_for_channel(
         existing_data, display_name=display_name, source=channel_key
