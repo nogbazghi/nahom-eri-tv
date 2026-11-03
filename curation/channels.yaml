@@ -32,3 +32,11 @@ kebire:
   text_filter: "eritrea"
   view_count_min: 0
   duration_min_sec: 120
+
+news:
+  type: channel
+  display_name: News
+  channel_id: UCpPhzhCfud9ctQSJJv4Kqlw
+  playlist_id: PLjrXQ8yRJDlyLOZjQ35TMIY8DRUPPcxrh
+  view_count_min: 0
+  duration_min_sec: 120
