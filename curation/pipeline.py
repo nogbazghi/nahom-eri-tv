@@ -40,6 +40,12 @@ DURATION_RE = re.compile(
 
 
 def parse_duration(iso8601):
+    if iso8601 == "P0D":
+        # YouTube reports this (no "PT" time designator) for a livestream
+        # that's still in progress — it has no real duration yet. Treat it
+        # as 0 seconds so it naturally fails any duration_min_sec > 0
+        # threshold until a later run sees its real duration.
+        return 0
     match = DURATION_RE.fullmatch(iso8601)
     if not match:
         raise ValueError(f"Unrecognized duration format: {iso8601}")

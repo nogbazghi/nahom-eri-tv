@@ -1,128 +1,6 @@
 {
   "videos": [
     {
-      "id": "lF2X4fXeBb0",
-      "title": "Eritrean wedding in Toronto | Yekealo and Natsent 4K Wedding Film",
-      "channel": "Oleh Muzyka Films",
-      "language": "Tigrinya",
-      "city": "Toronto",
-      "tags": [
-        "wedding"
-      ],
-      "published": "2025-02-28",
-      "duration": 403,
-      "channels": [
-        "Weddings"
-      ],
-      "notes": "API-verified public/embeddable via fetch_metadata.py. 'Eritrean wedding in Toronto | Yekealo and Natsent 4K Wedding Film' \u2014 not individually content-reviewed; included per owner decision.",
-      "source": "weddings"
-    },
-    {
-      "id": "R5Et-odTT4g",
-      "title": "\u1218\u1270\u12d3\u1265\u12ed\u1272, New Eritrean Wedding Guayla 2025 \u12c8\u12f2 \u1309\u121d\u1233, msgna & shewit, Wedi Gumsa.",
-      "channel": "DY2 ENTERTAINMENT",
-      "language": "Tigrinya",
-      "city": "",
-      "tags": [
-        "wedding",
-        "music"
-      ],
-      "published": "2024-12-17",
-      "duration": 1342,
-      "channels": [
-        "Weddings"
-      ],
-      "notes": "API-verified public/embeddable via fetch_metadata.py. Guayla performance (Wedi Gumsa), uploaded by 'DY2 ENTERTAINMENT' \u2014 same channel as 5zOUjoKkksc above; strongest copyright-attribution signal found in research. Not individually screened for copyrighted music; included per owner decision.",
-      "source": "weddings"
-    },
-    {
-      "id": "5zOUjoKkksc",
-      "title": "Eritrean Wedding Robi & Meaza, Guayla in Holland 2026 \ud83d\udd25 | Tantan Live Performance",
-      "channel": "DY2 ENTERTAINMENT",
-      "language": "Tigrinya",
-      "city": "",
-      "tags": [
-        "wedding",
-        "music"
-      ],
-      "published": "2026-07-05",
-      "duration": 1339,
-      "channels": [
-        "Weddings"
-      ],
-      "notes": "API-verified public/embeddable via fetch_metadata.py. Guayla performance (Robi & Meaza, Netherlands 2026), uploaded by 'DY2 ENTERTAINMENT' \u2014 same channel as R5Et-odTT4g below. Not individually screened for copyrighted music; included per owner decision.",
-      "source": "weddings"
-    },
-    {
-      "id": "YaQd8H6rdm4",
-      "title": "Eritrean Wedding",
-      "channel": "MelayVideo",
-      "language": "Tigrinya",
-      "city": "",
-      "tags": [
-        "wedding"
-      ],
-      "published": "2024-07-29",
-      "duration": 1135,
-      "channels": [
-        "Weddings"
-      ],
-      "notes": "API-verified public/embeddable via fetch_metadata.py. Generic 'Eritrean Wedding' title \u2014 not individually content-reviewed; included per owner decision.",
-      "source": "weddings"
-    },
-    {
-      "id": "kveqL6-bWAA",
-      "title": "Eritrean Wedding Guayla Mexikaley do (\u1218\u133a\u12ab\u1208\u12ed \u12f6 )   By Tedros Kahsay ( Xaedu ) 2024",
-      "channel": "Tedros Kahsay ( Xaedu )",
-      "language": "Tigrinya",
-      "city": "",
-      "tags": [
-        "wedding",
-        "music"
-      ],
-      "published": "2024-08-11",
-      "duration": 385,
-      "channels": [
-        "Weddings"
-      ],
-      "notes": "API-verified public/embeddable via fetch_metadata.py. Guayla performance uploaded directly by the performer, 'Tedros Kahsay (Xaedu)'. Not individually screened for copyrighted music; included per owner decision.",
-      "source": "weddings"
-    },
-    {
-      "id": "fZ_6ZZfBAA0",
-      "title": "Eritrean Wedding",
-      "channel": "MelayVideo",
-      "language": "Tigrinya",
-      "city": "Stockholm",
-      "tags": [
-        "wedding"
-      ],
-      "published": "2024-07-19",
-      "duration": 815,
-      "channels": [
-        "Weddings"
-      ],
-      "notes": "API-verified public/embeddable via fetch_metadata.py. Possibly an Isaias & Roma wedding filmed in Stockholm \u2014 not individually content-reviewed; included per owner decision.",
-      "source": "weddings"
-    },
-    {
-      "id": "G_5U0LNqkPg",
-      "title": "Eritrean wedding 2025 Samsom & Besrat",
-      "channel": "Photo Berhan",
-      "language": "Tigrinya",
-      "city": "",
-      "tags": [
-        "wedding"
-      ],
-      "published": "2025-05-16",
-      "duration": 2383,
-      "channels": [
-        "Weddings"
-      ],
-      "notes": "API-verified public/embeddable via fetch_metadata.py. Named couple (Samsom & Besrat), 2025 \u2014 not individually content-reviewed; included per owner decision.",
-      "source": "weddings"
-    },
-    {
       "id": "viTx4Stzefw",
       "title": "2023 Martyrs' Day in Asmara, Eritrea Walk",
       "channel": "Kebire",
@@ -137,7 +15,7 @@
         "Kebire"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:23.815784+00:00",
+      "lastValidated": "2026-11-03T07:19:37.239653+00:00",
       "source": "kebire"
     },
     {
@@ -155,7 +33,7 @@
         "Kebire"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:23.815784+00:00",
+      "lastValidated": "2026-11-03T07:19:37.239653+00:00",
       "source": "kebire"
     },
     {
@@ -173,7 +51,7 @@
         "Kebire"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:23.815784+00:00",
+      "lastValidated": "2026-11-03T07:19:37.239653+00:00",
       "source": "kebire"
     },
     {
@@ -191,7 +69,7 @@
         "Kebire"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:23.815784+00:00",
+      "lastValidated": "2026-11-03T07:19:37.239653+00:00",
       "source": "kebire"
     },
     {
@@ -209,7 +87,7 @@
         "Kebire"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:23.815784+00:00",
+      "lastValidated": "2026-11-03T07:19:37.239653+00:00",
       "source": "kebire"
     },
     {
@@ -227,7 +105,7 @@
         "Kebire"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:23.815784+00:00",
+      "lastValidated": "2026-11-03T07:19:37.239653+00:00",
       "source": "kebire"
     },
     {
@@ -245,7 +123,7 @@
         "Kebire"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:23.815784+00:00",
+      "lastValidated": "2026-11-03T07:19:37.239653+00:00",
       "source": "kebire"
     },
     {
@@ -261,7 +139,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -277,7 +155,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -293,7 +171,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -309,7 +187,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -325,7 +203,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -341,7 +219,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -357,7 +235,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -373,7 +251,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -389,7 +267,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -405,7 +283,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -421,7 +299,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -437,7 +315,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -453,7 +331,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -469,7 +347,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -485,7 +363,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -501,7 +379,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -517,7 +395,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -533,7 +411,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -549,7 +427,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -565,7 +443,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -581,7 +459,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -597,7 +475,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -613,7 +491,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -629,7 +507,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -645,7 +523,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -661,7 +539,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -677,7 +555,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -693,7 +571,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -709,7 +587,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -725,7 +603,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -741,7 +619,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -757,7 +635,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -773,7 +651,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -789,7 +667,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -805,7 +683,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -821,7 +699,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -837,7 +715,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -853,7 +731,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -869,7 +747,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -885,7 +763,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -901,7 +779,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -917,7 +795,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -933,7 +811,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -949,7 +827,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -965,7 +843,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -981,7 +859,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -997,7 +875,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1013,7 +891,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1029,7 +907,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1045,7 +923,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1061,7 +939,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1077,7 +955,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1093,7 +971,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1109,7 +987,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1125,7 +1003,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1141,7 +1019,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1157,7 +1035,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1173,7 +1051,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1189,7 +1067,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1205,7 +1083,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1221,7 +1099,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1237,7 +1115,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1253,7 +1131,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1269,7 +1147,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1285,7 +1163,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1301,7 +1179,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1317,7 +1195,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1333,7 +1211,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1349,7 +1227,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1365,7 +1243,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1381,7 +1259,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1397,7 +1275,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1413,7 +1291,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1429,7 +1307,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1445,7 +1323,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1461,7 +1339,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1477,7 +1355,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1493,7 +1371,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1509,7 +1387,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1525,7 +1403,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1541,7 +1419,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1557,7 +1435,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1573,7 +1451,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1589,7 +1467,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1605,7 +1483,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1621,7 +1499,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1637,7 +1515,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1653,7 +1531,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1669,7 +1547,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1685,7 +1563,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1701,7 +1579,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1717,7 +1595,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1733,7 +1611,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1749,7 +1627,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1765,7 +1643,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1781,7 +1659,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1797,7 +1675,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1813,7 +1691,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1829,7 +1707,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1845,7 +1723,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1861,7 +1739,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1877,7 +1755,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1893,7 +1771,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1909,7 +1787,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1925,7 +1803,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1941,7 +1819,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1957,7 +1835,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1973,7 +1851,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -1989,7 +1867,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2005,7 +1883,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2021,7 +1899,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2037,7 +1915,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2053,7 +1931,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2069,7 +1947,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2085,7 +1963,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2101,7 +1979,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2117,7 +1995,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2133,7 +2011,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2149,7 +2027,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2165,7 +2043,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2181,7 +2059,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2197,7 +2075,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2213,7 +2091,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2229,7 +2107,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2245,7 +2123,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2261,7 +2139,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2277,7 +2155,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2293,7 +2171,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2309,7 +2187,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2325,7 +2203,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2341,7 +2219,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2357,7 +2235,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2373,7 +2251,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2389,7 +2267,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2405,7 +2283,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2421,7 +2299,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2437,7 +2315,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2453,7 +2331,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2469,7 +2347,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2485,7 +2363,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2501,7 +2379,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2517,7 +2395,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2533,7 +2411,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2549,7 +2427,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2565,7 +2443,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2581,7 +2459,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2597,7 +2475,7 @@
         "News"
       ],
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:24.809952+00:00",
+      "lastValidated": "2026-11-03T07:19:38.259505+00:00",
       "source": "news"
     },
     {
@@ -2614,7 +2492,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "bUzHgRR-W1s",
@@ -2630,7 +2508,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "QA_OYTXKeFA",
@@ -2646,7 +2524,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "7Ik7qWtvnxE",
@@ -2662,7 +2540,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "N_5ej40NHWw",
@@ -2678,7 +2556,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "3czT_LlvMAM",
@@ -2694,7 +2572,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "3RnpCbZnveE",
@@ -2710,7 +2588,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "3sGPk5n0AUI",
@@ -2726,7 +2604,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "JLTT933h8Wo",
@@ -2742,7 +2620,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "5gsdfj-Uepo",
@@ -2758,7 +2636,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "HF3urq0LzP4",
@@ -2774,7 +2652,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "1vjwREf_LhU",
@@ -2790,7 +2668,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "ZAnkSJqom0Y",
@@ -2806,7 +2684,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "oiR35oqqTw8",
@@ -2822,7 +2700,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "-k37UQuPrKo",
@@ -2838,7 +2716,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "f_DNZkKTnLY",
@@ -2854,7 +2732,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "ux-spcD3NJw",
@@ -2870,7 +2748,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "vRvZ3-I-mFc",
@@ -2886,7 +2764,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "df9F5DZ6GAE",
@@ -2902,7 +2780,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "A5XLmoS-twc",
@@ -2918,7 +2796,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "ABAbSGZ5UyU",
@@ -2934,7 +2812,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "s5OD9G_Gp8A",
@@ -2950,7 +2828,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "_i6E_YrzWZU",
@@ -2966,7 +2844,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "Koo3sRi8Yhw",
@@ -2982,7 +2860,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "jPSmxGVHTiQ",
@@ -2998,7 +2876,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "X8fMOnmhYd8",
@@ -3014,7 +2892,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "hdpeCi3xl54",
@@ -3030,7 +2908,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "tsGlo4vuc3U",
@@ -3046,7 +2924,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "rNJZBptqsKM",
@@ -3062,7 +2940,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "YO6wgtUxkxE",
@@ -3078,7 +2956,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "TLjdDYH228A",
@@ -3094,7 +2972,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "Mf42RhIersw",
@@ -3110,7 +2988,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "wwPjlX5HU18",
@@ -3126,7 +3004,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "FJHPffUJjB0",
@@ -3142,7 +3020,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "LcO80Gv0CG8",
@@ -3158,7 +3036,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "rX5OG6PJuns",
@@ -3174,7 +3052,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "gN7ha4maEo8",
@@ -3190,7 +3068,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "uOJbQIEU5fA",
@@ -3206,7 +3084,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "cqbRER4QdHY",
@@ -3222,7 +3100,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "-2Qb6cCKJx0",
@@ -3238,7 +3116,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "X03CX1XTx8E",
@@ -3254,7 +3132,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "_gzn5uc7kc0",
@@ -3270,7 +3148,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "Ubz4r_kRIdE",
@@ -3286,7 +3164,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "MoX8FlF3cqY",
@@ -3302,7 +3180,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "o6ZpBNc1NCg",
@@ -3318,7 +3196,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "DYrzrJJpwY4",
@@ -3334,7 +3212,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "zNaiUk8RJJY",
@@ -3350,7 +3228,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "azv7kj99cBE",
@@ -3366,7 +3244,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "liZf1J1SRm8",
@@ -3382,7 +3260,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "Fm_uC1M3ZZ4",
@@ -3398,7 +3276,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "AyY7f2CJ5LY",
@@ -3414,7 +3292,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "2u2JeFL7SXs",
@@ -3430,7 +3308,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "Vp5yMfcLcqg",
@@ -3446,7 +3324,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "XwxrPIUGqw0",
@@ -3462,7 +3340,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "DHEKZuMs01s",
@@ -3478,7 +3356,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "PlNwMK4taeo",
@@ -3494,7 +3372,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "ZpTuyxGKTo4",
@@ -3510,7 +3388,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "PWqXvkqBNrc",
@@ -3526,7 +3404,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "eOXkI7R-9uo",
@@ -3542,7 +3420,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "r5vvxJuacjo",
@@ -3558,7 +3436,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "yFNLYcy6F08",
@@ -3574,7 +3452,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "dIisXzx_vx0",
@@ -3590,7 +3468,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "SikrFw__-i4",
@@ -3606,7 +3484,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "tTPeoz_Ue3M",
@@ -3622,7 +3500,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "yaLgWhYkYNE",
@@ -3638,7 +3516,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "jmVDBhIfX1E",
@@ -3654,7 +3532,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "aNsFo0_9AVQ",
@@ -3670,7 +3548,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "M_lBQdZba10",
@@ -3686,7 +3564,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "l6-Wctz9z04",
@@ -3702,7 +3580,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "8rmchC_r6ec",
@@ -3718,7 +3596,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "QxWYyZ09kMc",
@@ -3734,7 +3612,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "JrIdss8lgvc",
@@ -3750,7 +3628,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "aaAMPJDwUvE",
@@ -3766,7 +3644,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "gyejz1g9AVc",
@@ -3782,7 +3660,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "iLyhchwOL00",
@@ -3798,7 +3676,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "3qkzTRkZRh0",
@@ -3814,7 +3692,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "nTPTiW5xW-c",
@@ -3830,7 +3708,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "M28f-L9HoXY",
@@ -3846,7 +3724,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "U8drKZHJzvU",
@@ -3862,7 +3740,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "Rd-sufbM5lI",
@@ -3878,7 +3756,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "XfCBJzSkaZ4",
@@ -3894,7 +3772,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "Tgr9TgmL1b4",
@@ -3910,7 +3788,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "ewvvpbyHyTE",
@@ -3926,7 +3804,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "3IZdLCxIYTQ",
@@ -3942,7 +3820,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "jK56AxKAAKI",
@@ -3958,7 +3836,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "JYPlAzBeEuQ",
@@ -3974,7 +3852,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "oBwXDTYAGVI",
@@ -3990,7 +3868,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "PGuaxlSQWck",
@@ -4006,7 +3884,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "MX-GRaFFnkg",
@@ -4022,7 +3900,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "XBh3WxXB_ic",
@@ -4038,7 +3916,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "Rd-G9m4eqHE",
@@ -4054,7 +3932,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "Ar5mR6M-6eo",
@@ -4070,7 +3948,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "9ZXauvZLyxQ",
@@ -4086,7 +3964,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "zmci3aT0Vjw",
@@ -4102,7 +3980,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "vVW4iibuDqI",
@@ -4118,7 +3996,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "xq4vYpIykz8",
@@ -4134,7 +4012,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "rK16p4YX6_w",
@@ -4150,7 +4028,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "yEAtzzaPJq0",
@@ -4166,7 +4044,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "1ttdvb3iKbs",
@@ -4182,7 +4060,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "0-YI0TXV7io",
@@ -4198,7 +4076,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "l2kmuJXcO_o",
@@ -4214,7 +4092,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "QSW6JLQZ0kY",
@@ -4230,7 +4108,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "7ZNNjJrVaCU",
@@ -4246,7 +4124,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "wkvjMmz9dd8",
@@ -4262,7 +4140,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "79RARdC8QvM",
@@ -4278,7 +4156,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "fMV20XnnnAA",
@@ -4294,7 +4172,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "1HgjPknRYL8",
@@ -4310,7 +4188,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "MZx3p8fC1Rs",
@@ -4326,7 +4204,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "NusUesoWXuk",
@@ -4342,7 +4220,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "ZtqjpKZ6p-w",
@@ -4358,7 +4236,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "THDaFAG0d2Q",
@@ -4374,7 +4252,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "qIETehtmTzM",
@@ -4390,7 +4268,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "aMY_fG1BQ60",
@@ -4406,7 +4284,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "KuN0xluXcN0",
@@ -4422,7 +4300,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "SZWsoUeIwho",
@@ -4438,7 +4316,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "_5Q5A35xG-A",
@@ -4454,7 +4332,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "49ZL9z2QdyQ",
@@ -4470,7 +4348,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "dauoPcEeP2A",
@@ -4486,7 +4364,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "ztCUFOKkM8Y",
@@ -4502,7 +4380,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "oi8qhHogiiE",
@@ -4518,7 +4396,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "iXOJxueSoKc",
@@ -4534,7 +4412,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "vr3UYLIfG8w",
@@ -4550,7 +4428,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "Z9mJeo0RJf4",
@@ -4566,7 +4444,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "7iWruEj74vU",
@@ -4582,7 +4460,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "ZqF5hmos1Ow",
@@ -4598,7 +4476,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "BGo9WXPQx5U",
@@ -4614,7 +4492,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "3Hn_7ZKT6W0",
@@ -4630,7 +4508,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "RDBjSo0IxUw",
@@ -4646,7 +4524,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "ze6HHG46fi4",
@@ -4662,7 +4540,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "2zglSgIJ96Y",
@@ -4678,7 +4556,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "1YgI8c9Ro_8",
@@ -4694,7 +4572,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "3IDtZi5TtcM",
@@ -4710,7 +4588,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "C1pK6ujwOHY",
@@ -4726,7 +4604,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "KQG0bpdGPg0",
@@ -4742,7 +4620,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "3dBnNs5umBU",
@@ -4758,7 +4636,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "t0x-BfbqKt0",
@@ -4774,7 +4652,7 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
     },
     {
       "id": "QBY3_6lHstQ",
@@ -4790,7 +4668,586 @@
       ],
       "source": "sports",
       "notes": "",
-      "lastValidated": "2026-11-03T06:35:26.478311+00:00"
+      "lastValidated": "2026-11-03T07:19:40.035729+00:00"
+    },
+    {
+      "id": "lF2X4fXeBb0",
+      "title": "Eritrean wedding in Toronto | Yekealo and Natsent 4K Wedding Film",
+      "channel": "Oleh Muzyka Films",
+      "language": "Tigrinya",
+      "city": "Toronto",
+      "tags": [
+        "wedding"
+      ],
+      "published": "2025-02-28",
+      "duration": 403,
+      "channels": [
+        "Weddings"
+      ],
+      "notes": "API-verified public/embeddable via fetch_metadata.py. 'Eritrean wedding in Toronto | Yekealo and Natsent 4K Wedding Film' \u2014 not individually content-reviewed; included per owner decision.",
+      "source": "weddings",
+      "lastValidated": "2026-11-03T07:19:50.040181+00:00"
+    },
+    {
+      "id": "R5Et-odTT4g",
+      "title": "\u1218\u1270\u12d3\u1265\u12ed\u1272, New Eritrean Wedding Guayla 2025 \u12c8\u12f2 \u1309\u121d\u1233, msgna & shewit, Wedi Gumsa.",
+      "channel": "DY2 ENTERTAINMENT",
+      "language": "Tigrinya",
+      "city": "",
+      "tags": [
+        "wedding",
+        "music"
+      ],
+      "published": "2024-12-17",
+      "duration": 1342,
+      "channels": [
+        "Weddings"
+      ],
+      "notes": "API-verified public/embeddable via fetch_metadata.py. Guayla performance (Wedi Gumsa), uploaded by 'DY2 ENTERTAINMENT' \u2014 same channel as 5zOUjoKkksc above; strongest copyright-attribution signal found in research. Not individually screened for copyrighted music; included per owner decision.",
+      "source": "weddings",
+      "lastValidated": "2026-11-03T07:19:50.040181+00:00"
+    },
+    {
+      "id": "5zOUjoKkksc",
+      "title": "Eritrean Wedding Robi & Meaza, Guayla in Holland 2026 \ud83d\udd25 | Tantan Live Performance",
+      "channel": "DY2 ENTERTAINMENT",
+      "language": "Tigrinya",
+      "city": "",
+      "tags": [
+        "wedding",
+        "music"
+      ],
+      "published": "2026-07-05",
+      "duration": 1339,
+      "channels": [
+        "Weddings"
+      ],
+      "notes": "API-verified public/embeddable via fetch_metadata.py. Guayla performance (Robi & Meaza, Netherlands 2026), uploaded by 'DY2 ENTERTAINMENT' \u2014 same channel as R5Et-odTT4g below. Not individually screened for copyrighted music; included per owner decision.",
+      "source": "weddings",
+      "lastValidated": "2026-11-03T07:19:50.040181+00:00"
+    },
+    {
+      "id": "YaQd8H6rdm4",
+      "title": "Eritrean Wedding",
+      "channel": "MelayVideo",
+      "language": "Tigrinya",
+      "city": "",
+      "tags": [
+        "wedding"
+      ],
+      "published": "2024-07-29",
+      "duration": 1135,
+      "channels": [
+        "Weddings"
+      ],
+      "notes": "API-verified public/embeddable via fetch_metadata.py. Generic 'Eritrean Wedding' title \u2014 not individually content-reviewed; included per owner decision.",
+      "source": "weddings",
+      "lastValidated": "2026-11-03T07:19:50.040181+00:00"
+    },
+    {
+      "id": "kveqL6-bWAA",
+      "title": "Eritrean Wedding Guayla Mexikaley do (\u1218\u133a\u12ab\u1208\u12ed \u12f6 )   By Tedros Kahsay ( Xaedu ) 2024",
+      "channel": "Tedros Kahsay ( Xaedu )",
+      "language": "Tigrinya",
+      "city": "",
+      "tags": [
+        "wedding",
+        "music"
+      ],
+      "published": "2024-08-11",
+      "duration": 385,
+      "channels": [
+        "Weddings"
+      ],
+      "notes": "API-verified public/embeddable via fetch_metadata.py. Guayla performance uploaded directly by the performer, 'Tedros Kahsay (Xaedu)'. Not individually screened for copyrighted music; included per owner decision.",
+      "source": "weddings",
+      "lastValidated": "2026-11-03T07:19:50.040181+00:00"
+    },
+    {
+      "id": "fZ_6ZZfBAA0",
+      "title": "Eritrean Wedding",
+      "channel": "MelayVideo",
+      "language": "Tigrinya",
+      "city": "Stockholm",
+      "tags": [
+        "wedding"
+      ],
+      "published": "2024-07-19",
+      "duration": 815,
+      "channels": [
+        "Weddings"
+      ],
+      "notes": "API-verified public/embeddable via fetch_metadata.py. Possibly an Isaias & Roma wedding filmed in Stockholm \u2014 not individually content-reviewed; included per owner decision.",
+      "source": "weddings",
+      "lastValidated": "2026-11-03T07:19:50.040181+00:00"
+    },
+    {
+      "id": "G_5U0LNqkPg",
+      "title": "Eritrean wedding 2025 Samsom & Besrat",
+      "channel": "Photo Berhan",
+      "language": "Tigrinya",
+      "city": "",
+      "tags": [
+        "wedding"
+      ],
+      "published": "2025-05-16",
+      "duration": 2383,
+      "channels": [
+        "Weddings"
+      ],
+      "notes": "API-verified public/embeddable via fetch_metadata.py. Named couple (Samsom & Besrat), 2025 \u2014 not individually content-reviewed; included per owner decision.",
+      "source": "weddings",
+      "lastValidated": "2026-11-03T07:19:50.040181+00:00"
+    },
+    {
+      "id": "MFnUCAS4Q2c",
+      "title": "A Beautiful Eritrean Wedding in Melbourne, Australia 2026",
+      "channel": "Photo Berhan",
+      "language": "Tigrinya",
+      "city": "",
+      "tags": [
+        "wedding"
+      ],
+      "published": "2026-10-25",
+      "duration": 2962,
+      "channels": [
+        "Weddings"
+      ],
+      "source": "weddings",
+      "notes": "",
+      "lastValidated": "2026-11-03T07:19:50.040181+00:00"
+    },
+    {
+      "id": "FWXz9z67wAo",
+      "title": "New Eritrean Blin Wedding Flimon & Aranshi 2026",
+      "channel": "Ateya Media",
+      "language": "Tigrinya",
+      "city": "",
+      "tags": [
+        "wedding"
+      ],
+      "published": "2026-10-27",
+      "duration": 2786,
+      "channels": [
+        "Weddings"
+      ],
+      "source": "weddings",
+      "notes": "",
+      "lastValidated": "2026-11-03T07:19:50.040181+00:00"
+    },
+    {
+      "id": "zCkMb1rQqiU",
+      "title": "KAL KIN - SHENEN / \u1243\u120d\u12a0\u1265 \u12ad\u1295\u1348 - \u1238\u1290\u1295 New Ethiopian Tigirigna Music 2026 (Official Video) ",
+      "channel": "Kal Kin",
+      "language": "Tigrinya",
+      "city": "",
+      "tags": [
+        "wedding"
+      ],
+      "published": "2026-10-30",
+      "duration": 355,
+      "channels": [
+        "Weddings"
+      ],
+      "source": "weddings",
+      "notes": "",
+      "lastValidated": "2026-11-03T07:19:50.040181+00:00"
+    },
+    {
+      "id": "OYmrlb3QOJ8",
+      "title": "Eritrean Wedding",
+      "channel": "MelayVideo",
+      "language": "Eritrean",
+      "city": "",
+      "tags": [
+        "wedding"
+      ],
+      "published": "2026-10-31",
+      "duration": 762,
+      "channels": [
+        "Weddings"
+      ],
+      "source": "weddings",
+      "notes": "",
+      "lastValidated": "2026-11-03T07:19:50.040181+00:00"
+    },
+    {
+      "id": "bMjrZdm338w",
+      "title": "Eritrean Blin wedding Calgary , Simret Neamin Wedding",
+      "channel": "ERI-BELAYN TAMITOW MEDIA \ud83c\uddea\ud83c\uddf7",
+      "language": "Eritrean",
+      "city": "",
+      "tags": [
+        "wedding"
+      ],
+      "published": "2026-11-02",
+      "duration": 1404,
+      "channels": [
+        "Weddings"
+      ],
+      "source": "weddings",
+      "notes": "",
+      "lastValidated": "2026-11-03T07:19:50.040181+00:00"
+    },
+    {
+      "id": "nQK3o7ORc-c",
+      "title": "Eritrean Wedding EFI + Beki, Guayla in Holland 2026 \ud83d\udd25 | Alfa Band Live Performance",
+      "channel": "DY2 ENTERTAINMENT",
+      "language": "Eritrean",
+      "city": "",
+      "tags": [
+        "wedding"
+      ],
+      "published": "2026-10-31",
+      "duration": 1156,
+      "channels": [
+        "Weddings"
+      ],
+      "source": "weddings",
+      "notes": "",
+      "lastValidated": "2026-11-03T07:19:50.040181+00:00"
+    },
+    {
+      "id": "Az1O1Vt3FPw",
+      "title": "Eritrean Wedding Calgary Live staging Yonas Mengistu ",
+      "channel": "ERI-BELAYN TAMITOW MEDIA \ud83c\uddea\ud83c\uddf7",
+      "language": "Eritrean",
+      "city": "",
+      "tags": [
+        "wedding"
+      ],
+      "published": "2026-11-01",
+      "duration": 1288,
+      "channels": [
+        "Weddings"
+      ],
+      "source": "weddings",
+      "notes": "",
+      "lastValidated": "2026-11-03T07:19:50.040181+00:00"
+    },
+    {
+      "id": "g808qD3cdKM",
+      "title": "ERITREAN BLIN WEDDING USTAZ NEAMIN MICHAEL DAUGHTER WEDDING SHAM AND NAOD WEDDING CALGARY ",
+      "channel": "ERI-BELAYN TAMITOW MEDIA \ud83c\uddea\ud83c\uddf7",
+      "language": "Eritrean",
+      "city": "",
+      "tags": [
+        "wedding"
+      ],
+      "published": "2026-11-02",
+      "duration": 1336,
+      "channels": [
+        "Weddings"
+      ],
+      "source": "weddings",
+      "notes": "",
+      "lastValidated": "2026-11-03T07:19:50.040181+00:00"
+    },
+    {
+      "id": "B1rDtYxzjZg",
+      "title": "ERITREAN KUNAMA WEDDING ADAM & YODIT SONG BY NATALE TEKKE 2026",
+      "channel": "Yacoba entertainment",
+      "language": "Eritrean",
+      "city": "",
+      "tags": [
+        "wedding"
+      ],
+      "published": "2026-10-31",
+      "duration": 363,
+      "channels": [
+        "Weddings"
+      ],
+      "source": "weddings",
+      "notes": "",
+      "lastValidated": "2026-11-03T07:19:50.040181+00:00"
+    },
+    {
+      "id": "I-mlST3TcO4",
+      "title": "Pundits Debate on Liverpool should have been awarded a Penalty for shirt Pull on Isak? Iraola angry!",
+      "channel": "SPORTS ADDICT",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-11-02",
+      "duration": 995,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports_diaspora",
+      "notes": "",
+      "lastValidated": "2026-11-03T07:19:51.475351+00:00"
+    },
+    {
+      "id": "h31nQU3iXNo",
+      "title": "\"IT'S A PENALTY!\" Andy Goldstein & Darren Bent BAFFLED by lack of VAR in Timber & Isak shirt pull!",
+      "channel": "talkSPORT",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-11-02",
+      "duration": 796,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports_diaspora",
+      "notes": "",
+      "lastValidated": "2026-11-03T07:19:51.475351+00:00"
+    },
+    {
+      "id": "QyCwKiUyXlI",
+      "title": "Can Isak, Ndiaye & Cunha Change My Mind? \ud83d\ude21 eFootball 27 Showtime Review",
+      "channel": "Mednasah",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-11-02",
+      "duration": 1561,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports_diaspora",
+      "notes": "",
+      "lastValidated": "2026-11-03T07:19:51.475351+00:00"
+    },
+    {
+      "id": "yuiZv_7MJBI",
+      "title": "Alexander Isak is (Objectively) The Best Goal Scoring Center Forward\u2026\ud83d\ude2c",
+      "channel": "Drezd Boi",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-11-02",
+      "duration": 595,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports_diaspora",
+      "notes": "",
+      "lastValidated": "2026-11-03T07:19:51.475351+00:00"
+    },
+    {
+      "id": "e4tIdv96yFM",
+      "title": "Thierry Henry Warned Us About Alexander Isak. Nobody Listened...",
+      "channel": "The Pitch Reports",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-10-28",
+      "duration": 734,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports_diaspora",
+      "notes": "",
+      "lastValidated": "2026-11-03T07:19:51.475351+00:00"
+    },
+    {
+      "id": "0tJ33G3nQBk",
+      "title": "VAR DISGRACE AT ANFIELD! TIMBER PULLS ISAK'S SHIRT BUT NO PENALTY! SCRAP VAR!",
+      "channel": "Liverpool FC Daily TV",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-11-01",
+      "duration": 272,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports_diaspora",
+      "notes": "",
+      "lastValidated": "2026-11-03T07:19:51.475351+00:00"
+    },
+    {
+      "id": "3A9CJoMwpgo",
+      "title": "Virgil van Dijk calls shirt-pull on Alexander Isak 'a clear penalty' | Premier League",
+      "channel": "NBC Sports",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-11-01",
+      "duration": 249,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports_diaspora",
+      "notes": "",
+      "lastValidated": "2026-11-03T07:19:51.475351+00:00"
+    },
+    {
+      "id": "cMbfRTNPNUM",
+      "title": "Lyonnes vs. Inter: Extended Highlights | UWCL League Phase MD 3 I W Golazo",
+      "channel": "CBS Sports W Golazo",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-10-28",
+      "duration": 539,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports_diaspora",
+      "notes": "",
+      "lastValidated": "2026-11-03T07:19:51.475351+00:00"
+    },
+    {
+      "id": "-hO1bG84T6A",
+      "title": "Inside - OL Lyonnes vs Inter Milan (6-0) \ud83d\udc40",
+      "channel": "OL Lyonnes",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-10-30",
+      "duration": 625,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports_diaspora",
+      "notes": "",
+      "lastValidated": "2026-11-03T07:19:51.475351+00:00"
+    },
+    {
+      "id": "CcmwAcFJXYc",
+      "title": "\"DISAPPOINTED\" Vigg\u00f3sd\u00f3ttir on Bayern DRAW versus Real Madrid + Chelsea & Arsenal PREVAIL at home",
+      "channel": "CBS Sports W Golazo",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-10-28",
+      "duration": 1429,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports_diaspora",
+      "notes": "",
+      "lastValidated": "2026-11-03T07:19:51.475351+00:00"
+    },
+    {
+      "id": "es2nqJLuQ-M",
+      "title": "LYONNES APLAST\u00d3 6-0 a INTER MILAN y escala al liderato | Women\u2019s Champions League",
+      "channel": "ESPN Deportes",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-10-28",
+      "duration": 799,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports_diaspora",
+      "notes": "",
+      "lastValidated": "2026-11-03T07:19:51.475351+00:00"
+    },
+    {
+      "id": "iHBrDwBe_Xs",
+      "title": "R\u00e9sum\u00e9 - OL Lyonnes \ud83c\udd9a Inter Milan (6-0)",
+      "channel": "OL Lyonnes",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-10-29",
+      "duration": 180,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports_diaspora",
+      "notes": "",
+      "lastValidated": "2026-11-03T07:19:51.475351+00:00"
+    },
+    {
+      "id": "hTaDzobric0",
+      "title": "6-0 contre l'Inter, et pourtant Lyon n'a pas brill\u00e9 | D\u00e9brief Ligue des champions",
+      "channel": "Le Bloc Fenottes",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-10-29",
+      "duration": 605,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports_diaspora",
+      "notes": "",
+      "lastValidated": "2026-11-03T07:19:51.475351+00:00"
+    },
+    {
+      "id": "d_ZloP2G7Ps",
+      "title": "\u3010\u8c37\u5ddd\u840c\u3005\u5b50\u3011\u6d77\u5916\u30d5\u30a1\u30f3\u300c\u3044\u307e\u4e16\u754c\u3067\u3044\u3061\u3070\u3093\u306e\u82e5\u624b\u306f\u30e8\u30cf\u30cd\u30b9\u3058\u3083\u306a\u3044\u3001\u8c37\u5ddd\u3060\u300d\u2026\u201c\u4e16\u4ee3\u306b\u4e00\u4eba\u201d\u3068\u547c\u3070\u308c\u305f21\u6b73\u3001\u30ec\u30a2\u30eb\u6226\u306f\u30d1\u30b9\u6210\u529f87%\u30fb\u30dc\u30fc\u30eb\u56de\u53ce6\u56de\u3010\u5973\u5b50CL\u30fb\u6d77\u5916\u306e\u53cd\u5fdc\u3011",
+      "channel": "\u30a8\u30de\u306e\u30b9\u30dd\u30fc\u30c4JAPAN",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-10-31",
+      "duration": 913,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports_diaspora",
+      "notes": "",
+      "lastValidated": "2026-11-03T07:19:51.475351+00:00"
+    },
+    {
+      "id": "docCU2cKtVw",
+      "title": "\u1262\u1295\u12eb\u121d \u12ab\u1265 \u1293\u12ed 2025 \u1293\u12ed 2026 \u12d3\u12c8\u1273\u1271 \u12ed\u12db\u12ed\u12f5 \u1265\u12dd\u1212 \u12d3\u12c8\u1275 \u130b\u1295\u1273\u1275 \u1245\u12f5\u12f5\u121d \u1265\u123d\u12ad\u1208\u1273 2026 \u120e\u1276 \u12a2\u1295\u1270\u122d\u121b\u122d\u1238 \u12f5\u1215\u122a \u1262\u1295\u12eb\u121d \u130d\u122d\u121b\u12ed \u1265\u12dd\u12eb\u12f3 \u12d3\u12c8\u1275 \u12c8\u12f2\u12a3",
+      "channel": "Cinema Semere Media",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-11-02",
+      "duration": 661,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports_diaspora",
+      "notes": "",
+      "lastValidated": "2026-11-03T07:19:51.475351+00:00"
+    },
+    {
+      "id": "i2AQJ3aiCH0",
+      "title": "\u12a3\u1265 \u12cd\u12f1\u12a5 \u1230\u12d3\u1275 \u12a3\u1295\u133b\u122d \u12a4\u122d\u1275\u122b \u12a8\u1262\u12f5 \u1270\u1295\u12ae\u120d \u1270\u121b\u1202\u12d9\u1363 \u12cb\u130b \u12a3\u12bd\u134a\u1209! \u1204\u1265\u122e\u1295 \u1265\u122d\u1203\u1290 3\u12ed \u1270\u12d3\u12ca\u1271! #cycling #CAC2026kenya #\u1218\u122b #\u1293\u1206\u121d #\u12dc\u1293",
+      "channel": "Xrura Media \u133d\u1229\u122b \u121c\u12f5\u12eb",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-10-25",
+      "duration": 481,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports_diaspora",
+      "notes": "",
+      "lastValidated": "2026-11-03T07:19:51.475351+00:00"
+    },
+    {
+      "id": "SbzTkj_rNu0",
+      "title": "Eritrean Pride in Kenya! 2026 African Cycling Championship \u1235\u1208\u121d\u1295\u1273\u12ed \u12a4\u122d\u1275\u122b \u123b\u121d\u1355\u12ee\u1295 \u12d8\u12ed\u12ae\u1290\u1275? \u12ee\u1293\u1235 \u1270\u12db\u122a\u1261 \u12a5\u1272 \u1213\u1242 !",
+      "channel": "Cinema Semere Media",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-10-26",
+      "duration": 1173,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports_diaspora",
+      "notes": "",
+      "lastValidated": "2026-11-03T07:19:51.475351+00:00"
+    },
+    {
+      "id": "XkbFYCtCYkY",
+      "title": "\u123b\u121d\u1355\u12ee\u1295 \u1245\u12f5\u12f5\u121d \u1265\u123d\u12ad\u1208\u1273 \u12a3\u134d\u122a\u1243 \u1265\u1240\u1325\u1273.\u12a8\u1218\u12ed \u1290\u1260\u1228\u1361",
+      "channel": "ERIGOAL Tube",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-10-26",
+      "duration": 2072,
+      "channels": [
+        "Sports"
+      ],
+      "source": "sports_diaspora",
+      "notes": "",
+      "lastValidated": "2026-11-03T07:19:51.475351+00:00"
     }
   ],
   "schedules": {

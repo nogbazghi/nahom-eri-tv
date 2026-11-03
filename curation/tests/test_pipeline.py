@@ -21,6 +21,13 @@ import pipeline  # noqa: E402
 RULES = {"view_count_min": 100, "duration_min_sec": 60}
 
 
+def test_parse_duration_treats_in_progress_livestream_as_zero_seconds():
+    # YouTube's videos.list API reports contentDetails.duration as "P0D"
+    # (no "PT" time designator) for a livestream that hasn't ended yet,
+    # rather than a normal "PTnHnMnS" value.
+    assert pipeline.parse_duration("P0D") == 0
+
+
 def make_record(**overrides):
     record = {
         "title": "A Video",
