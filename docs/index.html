@@ -16,15 +16,18 @@
 <body>
   <header>
     <h1>Nahom Eri TV</h1>
-    <nav class="site-nav"><a href="about.html">About</a></nav>
+    <nav class="site-nav">
+      <a href="about.html">About</a>
+      <button id="lang-toggle" type="button">ትግርኛ</button>
+    </nav>
   </header>
 
   <div id="ios-install-hint" class="install-hint" hidden>
-    <p>
+    <p data-i18n-html="installHintHtml">
       Install Nahom Eri TV: tap <strong>Share</strong>
       <span aria-hidden="true">⎋</span> then <strong>Add to Home Screen</strong>.
     </p>
-    <button id="ios-install-hint-dismiss" class="touch-target" type="button" aria-label="Dismiss install hint">✕</button>
+    <button id="ios-install-hint-dismiss" class="touch-target" type="button" data-i18n-aria-label="installHintDismissAriaLabel" aria-label="Dismiss install hint">✕</button>
   </div>
 
   <main>
