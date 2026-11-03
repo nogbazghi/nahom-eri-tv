@@ -41,6 +41,7 @@ BLOCKLIST_FILE = ROOT / "curation" / "blocklist.yaml"
 OUTPUT_FILE = ROOT / "docs" / "data" / "videos.json"
 
 CHANNEL_NAME = "Weddings"
+CHANNEL_KEY = "weddings"  # the channels.yaml key this hand-picked seed data maps to
 IS_DEFAULT_CHANNEL = True
 
 
@@ -82,12 +83,19 @@ def main():
                 "published": item["published"],
                 "duration": item["duration"],
                 "channels": seed.get("channels", []),
+                "source": CHANNEL_KEY,
                 "notes": seed.get("notes", ""),
             }
         )
 
     existing = load_existing()
-    merged = write_channel_result(existing, CHANNEL_NAME, videos, is_default=IS_DEFAULT_CHANNEL)
+    merged = write_channel_result(
+        existing,
+        display_name=CHANNEL_NAME,
+        source=CHANNEL_KEY,
+        final_videos=videos,
+        is_default=IS_DEFAULT_CHANNEL,
+    )
     write_output(merged)
 
     print(f"Wrote {len(videos)} videos to the '{CHANNEL_NAME}' channel in {OUTPUT_FILE}")

@@ -6,6 +6,10 @@
 # type: channel — kebire_channel.py enumerates every upload from `channel_id`
 #                 (not a search), keeps only ones where `text_filter` appears
 #                 in the title or description, then validates the same way.
+#                 An entry may instead set `playlist_id` to enumerate that
+#                 exact playlist directly (e.g. a creator's own curated
+#                 playlist) instead of deriving their whole uploads history
+#                 from `channel_id`.
 #
 # Thresholds apply uniformly to freshly-discovered candidates AND to
 # previously-stored videos being re-checked on every run (see
@@ -25,6 +29,71 @@ kebire:
   type: channel
   display_name: Kebire
   channel_id: UCz9a7XA9oMmk3CpFnE456bQ
-  text_filter: "#eritrea"
+  text_filter: "eritrea"
   view_count_min: 0
+  duration_min_sec: 120
+
+news:
+  type: channel
+  display_name: News
+  channel_id: UCpPhzhCfud9ctQSJJv4Kqlw
+  playlist_id: PLjrXQ8yRJDlyLOZjQ35TMIY8DRUPPcxrh
+  view_count_min: 0
+  duration_min_sec: 120
+
+sports:
+  type: channel
+  display_name: Sports
+  channel_id: UCpPhzhCfud9ctQSJJv4Kqlw
+  playlist_id: PLjrXQ8yRJDlyS5OZoEsg0acNuCfUR3Kzp  # "Lese Sport (ለሰ ስፖርት)"
+  view_count_min: 0
+  duration_min_sec: 120
+
+# Shares display_name "Sports" with the `sports` entry above (Eri-TV's own
+# playlist) — the (display_name, source) scoping from ticket #16 keeps the
+# two rules' runs from clobbering each other. Covers both diaspora-heritage
+# players who represent other countries (Alexander Isak for Sweden, Lily
+# Yohannes for the USA) and Eritrea's own national-team athletes (Biniam
+# Girmay, Zersenay Tadese), per docs/research/channel-demand-signals.md §5
+# and its diaspora-heritage addendum — an explicit owner decision to
+# include both pools, not just Team Eritrea's own roster.
+#
+# Queries are plain athlete names, not "<name> Eritrea(n)"-qualified: a
+# live trial run of qualified queries (e.g. "Lily Yohannes Eritrean")
+# showed that once YouTube's search.list has exhausted genuinely relevant
+# recent matches for a thin, specific multi-word query, it falls back to
+# loosely-ranked results that merely share a word like "Eritrean" —
+# surfacing a run of completely unrelated church-livestream videos in
+# testing, not diaspora-player content. Plain names return real, on-topic
+# candidates (confirmed in that same trial), and duration_min_sec below
+# does the quality/relevance filtering that would otherwise be attempted
+# by qualifying the query — it reliably drops the short hashtag-spam clips
+# (e.g. "#biniamgirmay"-tagged shorts unrelated to him) that plain-name
+# searches also surface, while keeping substantive match highlights,
+# analysis, and news segments.
+#
+# "Biniam Girmay" is qualified with "cycling" (unlike Isak/Yohannes/
+# Tadese) because "Girmay" alone is also a common Eritrean personal name
+# unrelated to the cyclist — unqualified, live testing showed it pulling
+# in unrelated diaspora content (talk shows, wedding videos, political
+# commentary) that merely mentioned a different Girmay. Adding "cycling"
+# was confirmed in that same testing to return only genuinely
+# cycling-related candidates, consistently across repeated calls.
+#
+# Unlike `sports` above (a trusted single source, view_count_min: 0), this
+# pulls from arbitrary YouTube search results, so it follows Weddings'
+# unvetted-pool precedent with a nonzero view_count_min — set lower than
+# Weddings' 1000 because this is a newer, thinner pool (Zersenay Tadese
+# specifically returned zero recent results in testing) and 500 already
+# comfortably excludes near-zero-view noise without excluding legitimate
+# niche content.
+sports_diaspora:
+  type: search
+  display_name: Sports
+  queries:
+    - "Alexander Isak"
+    - "Lily Yohannes"
+    - "Biniam Girmay cycling"
+    - "Zersenay Tadese"
+  view_count_min: 500
   duration_min_sec: 120

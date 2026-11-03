@@ -40,6 +40,12 @@ DURATION_RE = re.compile(
 
 
 def parse_duration(iso8601):
+    if iso8601 == "P0D":
+        # YouTube reports this (no "PT" time designator) for a livestream
+        # that's still in progress — it has no real duration yet. Treat it
+        # as 0 seconds so it naturally fails any duration_min_sec > 0
+        # threshold until a later run sees its real duration.
+        return 0
     match = DURATION_RE.fullmatch(iso8601)
     if not match:
         raise ValueError(f"Unrecognized duration format: {iso8601}")
@@ -135,16 +141,26 @@ def filter_new_ids(candidate_ids, stored_ids, blocked_ids):
     return [cid for cid in candidate_ids if cid not in stored_set and cid not in blocked_ids]
 
 
-def video_in_channel(video, display_name):
-    """True if `video`'s channels field names exactly this one channel."""
-    return video.get("channels") == [display_name]
+def video_in_channel(video, *, display_name, source):
+    """True if `video`'s channels field names exactly this one channel AND
+    it was added by this channels.yaml rule (its `source` key). Scoping by
+    both — not display_name alone — is what lets two separate rules (e.g.
+    Sports' Eri-TV-playlist rule and its diaspora-player search rule) share
+    one display_name without clobbering each other's videos."""
+    return video.get("channels") == [display_name] and video.get("source") == source
 
 
-def videos_for_channel(existing_data, display_name):
-    """This channel's currently-stored videos (matching on channel
-    membership). Shared by discover.py/kebire_channel.py (to find what to
-    re-validate) and write_channel_result (to find what to replace)."""
-    return [v for v in existing_data.get("videos", []) if video_in_channel(v, display_name)]
+def videos_for_channel(existing_data, *, display_name, source):
+    """This rule's currently-stored videos — matching on channel membership
+    AND source, so a display_name shared by multiple rules only yields the
+    calling rule's own videos. Shared by discover.py/kebire_channel.py (to
+    find what to re-validate) and write_channel_result (to find what to
+    replace)."""
+    return [
+        v
+        for v in existing_data.get("videos", [])
+        if video_in_channel(v, display_name=display_name, source=source)
+    ]
 
 
 def rules_from_config(cfg):
@@ -183,6 +199,7 @@ def validate_record(record, rules):
 
 
 def compute_run(
+    *,
     channel_key,
     display_name,
     stored_videos,
@@ -198,12 +215,16 @@ def compute_run(
        fails immediately (reason "blocklisted", no API call needed); every
        other ID gets fresh metadata and goes through validate_record. A
        video that still passes keeps its existing language/city/tags/
-       channels/notes but refreshes title/channel/duration and stamps
-       lastValidated = now (UTC ISO). One that fails goes into removals.
+       channels/source/notes but refreshes title/channel/duration and
+       stamps lastValidated = now (UTC ISO). One that fails goes into
+       removals.
     2. Validate fresh_candidate_ids (skipping any already in
        stored_videos): a blocklisted candidate is dropped the same as a
        failing one — it never existed in the pool, so it's not a
-       "removal". A candidate that passes becomes a new video record.
+       "removal". A candidate that passes becomes a new video record,
+       tagged source=channel_key — the channels.yaml key of the rule that
+       added it, distinct from display_name (front-end-facing membership)
+       and from the record's own "channel" field (creator attribution).
     3. Return {"final_videos": [...], "additions": [...], "removals": [...]}.
 
     `fetch_fn` is injectable for testing (defaults to the real
@@ -258,6 +279,7 @@ def compute_run(
                 "published": record["published"],
                 "duration": record["duration"],
                 "channels": [display_name],
+                "source": channel_key,
                 "notes": "",
                 "lastValidated": now,
             }
@@ -270,17 +292,22 @@ def compute_run(
     }
 
 
-def write_channel_result(existing_data, display_name, final_videos, is_default):
-    """Replace display_name's entries in existing_data["videos"] with
-    final_videos (every other channel's entries pass through untouched),
-    and ensure existing_data["schedules"][display_name] exists. A
-    channel's scheduleStart (and default flag) is set once, on first
+def write_channel_result(existing_data, *, display_name, source, final_videos, is_default):
+    """Replace this rule's (display_name, source) slice of
+    existing_data["videos"] with final_videos — every other video, including
+    another rule's contribution to the same display_name, passes through
+    untouched — and ensure existing_data["schedules"][display_name] exists.
+    A channel's scheduleStart (and default flag) is set once, on first
     creation, and never modified on later runs — only the video list is
     refreshed. Unlike the old merge_channel(), this takes the final
     already-computed video list directly rather than fetching anything
     itself.
     """
-    kept = [v for v in existing_data.get("videos", []) if not video_in_channel(v, display_name)]
+    kept = [
+        v
+        for v in existing_data.get("videos", [])
+        if not video_in_channel(v, display_name=display_name, source=source)
+    ]
     kept.extend(final_videos)
     existing_data["videos"] = kept
 

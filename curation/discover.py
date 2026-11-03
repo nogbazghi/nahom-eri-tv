@@ -83,7 +83,9 @@ def search_videos(query, api_key, published_after_ts):
 
 def run_channel(channel_key, cfg, api_key, blocked_ids, existing_data):
     display_name = cfg["display_name"]
-    stored = pipeline.videos_for_channel(existing_data, display_name)
+    stored = pipeline.videos_for_channel(
+        existing_data, display_name=display_name, source=channel_key
+    )
     stored_ids = [v["id"] for v in stored]
 
     after_ts = published_after()
@@ -93,7 +95,13 @@ def run_channel(channel_key, cfg, api_key, blocked_ids, existing_data):
 
     rules = pipeline.rules_from_config(cfg)
     result = pipeline.compute_run(
-        channel_key, display_name, stored, candidates, rules, api_key, blocked_ids
+        channel_key=channel_key,
+        display_name=display_name,
+        stored_videos=stored,
+        fresh_candidate_ids=candidates,
+        rules=rules,
+        api_key=api_key,
+        blocked_ids=blocked_ids,
     )
 
     # Best-effort language/city/tags for new additions (minor field; see
@@ -129,7 +137,11 @@ def main():
     for channel_key, cfg in search_channels.items():
         result = run_channel(channel_key, cfg, api_key, blocked_ids, existing)
         existing = pipeline.write_channel_result(
-            existing, cfg["display_name"], result["final_videos"], cfg.get("is_default", False)
+            existing,
+            display_name=cfg["display_name"],
+            source=channel_key,
+            final_videos=result["final_videos"],
+            is_default=cfg.get("is_default", False),
         )
         pipeline.write_run_summary(channel_key, result["additions"], result["removals"])
         print(
