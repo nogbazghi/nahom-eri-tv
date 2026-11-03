@@ -6,6 +6,10 @@
 # type: channel — kebire_channel.py enumerates every upload from `channel_id`
 #                 (not a search), keeps only ones where `text_filter` appears
 #                 in the title or description, then validates the same way.
+#                 An entry may instead set `playlist_id` to enumerate that
+#                 exact playlist directly (e.g. a creator's own curated
+#                 playlist) instead of deriving their whole uploads history
+#                 from `channel_id`.
 #
 # Thresholds apply uniformly to freshly-discovered candidates AND to
 # previously-stored videos being re-checked on every run (see
