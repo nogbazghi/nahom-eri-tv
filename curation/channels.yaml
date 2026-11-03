@@ -33,6 +33,18 @@ kebire:
   view_count_min: 0
   duration_min_sec: 120
 
+# Kezahta (ቀዛሕታ): the one clear YouTube breakout in the Podcasters vertical
+# (161K subs, 664 videos; see docs/research/channel-demand-signals.md §3).
+# No playlist_id and no text_filter, same whole-catalog shape as Kebire
+# above — a single trusted creator's entire uploads history, not a
+# playlist-scoped slice like News/Sports.
+podcasters:
+  type: channel
+  display_name: Podcasters
+  channel_id: UCeY639opaisiHzgkLS8xZBg
+  view_count_min: 0
+  duration_min_sec: 120
+
 news:
   type: channel
   display_name: News
