@@ -361,6 +361,9 @@ martyrs_day_diaspora:
   queries:
     - "Eritrean Martyrs Day"
     - "Martyrs Day Eritrea"
+  view_count_min: 500
+  duration_min_sec: 120
+
 independence_day:
   type: channel
   display_name: Independence Day
