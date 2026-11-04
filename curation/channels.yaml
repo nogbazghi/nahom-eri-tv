@@ -409,3 +409,65 @@ independence_day_diaspora:
     - "Eritrean Independence Day community celebration"
   view_count_min: 500
   duration_min_sec: 120
+
+# Catholic sermon/teaching content, per docs/research/channel-demand-signals.md
+# §8. §8 found no clean single-source Catholic teaching channel to point a
+# `type: channel` rule at: supply is fragmented across several sub-20K-
+# subscriber channels, organized by preacher identity rather than brand. Two
+# named clergy recur across multiple of those channels — Abba Yonas Yohannes
+# (AyniMay Tube, E.H, Eritrean Catholic Charismatic Renewal) and Abba
+# Teclezghi Ucbaghiorghis (catholicgheez) — so this uses named-clergy search
+# queries instead, the same shape as sports_diaspora.
+#
+# §8 also explicitly found that the generic denominational term surfaces far
+# less precise results for this genre than for §1's general-Catholic-content
+# case: a live trial of "Eritrean Catholic sermon" (no publishedAfter
+# restriction beyond discover.py's normal 10-day window) returned 25
+# results, nearly all either unrelated Orthodox-church livestream clips (a
+# "#6media #orthodox" tag channel, EOTC parish channels, Amharic content with
+# no connection to either named priest) or a different denomination's
+# Sunday-service stream entirely — essentially zero genuine Catholic
+# teaching content from either named clergy member. Named-clergy queries are
+# how this genre is actually organized online, so they're the query, not a
+# denominational label.
+#
+# "Abba Teclezghi" (unqualified) was tested live and reliably returns only
+# genuine content by this priest, recurring on catholicgheez and elsewhere,
+# across both a full-history trial and discover.py's normal recent-only
+# window (0 noise observed; 0 results is the recent-window norm — this is a
+# thin pool, same as Zersenay Tadese's precedent in sports_diaspora). Also
+# including the full name "Abba Teclezghi Ucbaghiorghis" (as given in the
+# research) as a second query costs nothing (dedup_candidates merges
+# overlapping hits) and catches any title that spells out the surname where
+# the short form might rank lower.
+#
+# "Abba Yonas Yohannes" unqualified was NOT kept as-is: a live trial (both in
+# full-history mode and discover.py's actual 10-day recent window) showed it
+# occasionally surfacing an unrelated video from a channel crediting a
+# *different* "Abba Yohannes" (a hermit-monk mezmur artist, "Aba Yohannes
+# Tesfamariam" — no relation), the same kind of common-partial-name collision
+# sports_diaspora hit with bare "Girmay." Qualifying with "Eritrean Catholic"
+# (same live trial) returned exclusively genuine on-topic results in both
+# modes and dropped the collision entirely, so that's the query used here.
+#
+# Unlike `sports` (a trusted single source, view_count_min: 0), this pulls
+# from arbitrary YouTube search results, so it follows Weddings'/
+# sports_diaspora's unvetted-pool precedent with a nonzero view_count_min —
+# but NOT copying sports_diaspora's 500 unchanged: this pool is thinner and
+# runs lower overall (live-trial view counts for genuine sermons from these
+# two priests ranged from under a thousand to ~30K, versus sports_diaspora's
+# mainstream-reach diaspora athletes). 500 would risk excluding legitimate
+# niche uploads observed in the 600-900 view range; the noise this round
+# actually observed (the Abba Yohannes Tesfamariam collision, and a couple of
+# unrelated low-production reposts) sat at well under 100 views. 300
+# comfortably clears that noise floor without cutting into genuine content.
+catholic:
+  type: search
+  display_name: Catholic
+  queries:
+    - "Abba Yonas Yohannes Eritrean Catholic"
+    - "Abba Teclezghi"
+    - "Abba Teclezghi Ucbaghiorghis"
+  view_count_min: 300
+  duration_min_sec: 120
+  duration_min_sec: 120
