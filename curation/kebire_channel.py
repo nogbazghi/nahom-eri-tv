@@ -70,7 +70,26 @@ def get_all_video_ids(playlist_id, api_key):
         page_token = payload.get("nextPageToken")
         if not page_token:
             break
-    return video_ids
+    return dedup_preserve_order(video_ids)
+
+
+def dedup_preserve_order(ids):
+    """Drop repeated IDs, keeping first-seen order. Pure — no API calls.
+
+    A playlist's own listing can repeat a video — confirmed live for both
+    Fenkil's big merged playlist (playlistItems returns 206 items for only
+    181 unique video IDs) and Eri-TV's "Independence Day" playlist
+    (contentDetails.itemCount of 293, only 279 distinct video IDs). Without
+    this, a repeated entry would flow through filter_new_ids/compute_run as
+    two separate "fresh" candidates on the same run and get added to
+    videos.json twice."""
+    seen = set()
+    result = []
+    for vid in ids:
+        if vid not in seen:
+            seen.add(vid)
+            result.append(vid)
+    return result
 
 
 def resolve_playlist_id(entry, api_key, get_uploads_playlist_id=get_uploads_playlist_id):
@@ -104,6 +123,37 @@ def matches_text_filter(title, description, text_filter):
     return needle in (title or "").lower() or needle in (description or "").lower()
 
 
+def matches_text_filter_title_only(title, description, text_filter):
+    """Pure — case-insensitive substring match against title ONLY.
+
+    `description` is accepted (and ignored) to keep the same shape as
+    matches_text_filter, so candidate_matches() can call either
+    interchangeably. Use this for a channel whose descriptions are
+    unreliable for genre isolation — e.g. a creator who pastes the same
+    cross-genre hashtag boilerplate (covering both the wanted series and
+    unrelated content) onto most of their uploads' descriptions, making
+    a description hit meaningless as a relevance signal.
+    """
+    if not text_filter:
+        return True
+    return text_filter.lower() in (title or "").lower()
+
+
+def candidate_matches(entry, title, description):
+    """Pure — whether a video satisfies a `type: channel` entry's
+    text_filter, respecting that entry's `text_filter_title_only` flag.
+
+    Defaults to matches_text_filter's title-OR-description behavior
+    (Kebire's existing, unchanged path). Set `text_filter_title_only:
+    true` on an entry to restrict matching to the title only, for a
+    channel where description-based matching produces false positives
+    (see matches_text_filter_title_only's docstring).
+    """
+    text_filter = entry.get("text_filter", "")
+    matcher = matches_text_filter_title_only if entry.get("text_filter_title_only") else matches_text_filter
+    return matcher(title, description, text_filter)
+
+
 def tag_for(text_filter):
     """'#eritrea' -> 'eritrea'; '' -> ''. Generic, not hardcoded to any
     one channel's filter text."""
@@ -115,7 +165,7 @@ def run_channel(channel_key, entry, api_key, blocked_ids, existing_data):
     text_filter = entry.get("text_filter", "")
 
     playlist_id = resolve_playlist_id(entry, api_key)
-    all_video_ids = get_all_video_ids(playlist_id, api_key)
+    all_video_ids = get_all_video_ids(playlist_id, api_key)  # already deduped
 
     stored_videos = pipeline.videos_for_channel(
         existing_data, display_name=display_name, source=channel_key
@@ -132,8 +182,7 @@ def run_channel(channel_key, entry, api_key, blocked_ids, existing_data):
     candidate_ids = [
         vid
         for vid in fresh_ids
-        if vid in metadata
-        and matches_text_filter(metadata[vid]["title"], metadata[vid]["description"], text_filter)
+        if vid in metadata and candidate_matches(entry, metadata[vid]["title"], metadata[vid]["description"])
     ]
 
     rules = pipeline.rules_from_config(entry)
