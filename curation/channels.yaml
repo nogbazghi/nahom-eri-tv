@@ -97,3 +97,64 @@ sports_diaspora:
     - "Zersenay Tadese"
   view_count_min: 500
   duration_min_sec: 120
+
+# Protestant/Evangelical sermon-and-teaching channel, per
+# docs/research/channel-demand-signals.md §8. Unlike Orthodox (one existing
+# channel, filtered by text_filter) there is no single Protestant channel to
+# point at: §8 found this content scattered across 8-10 small host-church
+# channels, none owned by the preacher himself. The one real signal §8 found
+# is a named traveling preacher, Pastor Goitom Gebreyonas, whose guest
+# sermons draw 10K-170K views at host churches whose own typical content
+# runs a few hundred to low thousands — a concentrated-demand-in-a-name
+# pattern, not a concentrated-demand-in-a-channel one (structurally like
+# Sports' Biniam Girmay, not like Podcasters' Kezahta). So this uses a
+# type: search rule keyed to his name, same as Catholic's named-clergy
+# queries, rather than generic terms like "Eritrean Protestant" or "Eritrean
+# Evangelical" — §1 and §8 both confirmed those generic terms return a
+# literally empty Google Trends timeline, and more importantly for this
+# pipeline, live-testing confirmed the YouTube-noise problem documented in
+# sports_diaspora's comment above is worse for generic terms than for a
+# specific name: a genuinely distinctive multi-word name is what lets
+# search.list's relevance ranking do useful work at all for a pool this
+# thin.
+#
+# Two queries, not one: the English/Latin transliteration ("Pastor Goitom
+# Gebreyonas") and the native Ge'ez-script rendering ("ፓስተር ጎይትኦም ገብረዮናስ"),
+# since his host churches title videos both ways (e.g. "Sermon By Pastor
+# Goitom G/Yonas" vs. "||| ሕብረት ||| ፓስተር ጎይትኦም ገብረዮናስ"). Live testing (90-day
+# lookback, wider than discover.py's real 10-day window, used only to get a
+# large enough sample to judge query quality) showed both queries surfacing
+# the same cluster of genuine sermon hits from exactly the host channels §8
+# named (Gospel Light Church Juba, Ebenezer DC, Medhanialem Church
+# Gothenburg) in their first several results, then — once that genuinely
+# relevant, thin supply is exhausted — falling back to loosely-ranked noise:
+# other, unrelated pastors (a "pastor weldsh" at UGBC AYAT recurred across
+# both queries), generic worship-song/prayer content, and in one case a
+# totally unrelated meme clip with 1.9M views. This is the exact same
+# exhaustion pattern sports_diaspora's comment documents for "Lily Yohannes
+# Eritrean" — confirmed here against the live API rather than assumed from
+# precedent.
+#
+# view_count_min: 300 (lower than sports_diaspora's 500 — this pool is
+# thinner still; discover.py's real 10-day window typically surfaces only
+# 1-2 raw candidates per run for this name, vs. sports_diaspora's handful).
+# 300 was chosen, not guessed: every genuine Goitom Gebreyonas sermon found
+# in testing cleared at least 1,286 views, while the directly-adjacent
+# false-positive noise (the other "pastor weldsh" videos that also matched
+# these queries) topped out at 179 views — 300 sits in the gap between
+# those two clusters with headroom on both sides. It also incidentally
+# drops two genuine-but-trivial clips (a 25-view, 4-minute excerpt and a
+# 93-view, 69-second livestream announcement) that are too thin to be worth
+# adding regardless of who they're about. duration_min_sec stays at the
+# standard 120 used by every other entry in this file — sermon videos here
+# run 30 minutes to 2 hours, so 120 only does its usual job of dropping
+# sub-2-minute spam/announcement clips, the same role it plays everywhere
+# else.
+protestant:
+  type: search
+  display_name: Protestant
+  queries:
+    - "Pastor Goitom Gebreyonas"
+    - "ፓስተር ጎይትኦም ገብረዮናስ"
+  view_count_min: 300
+  duration_min_sec: 120
