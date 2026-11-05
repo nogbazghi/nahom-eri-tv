@@ -34,6 +34,10 @@ export const strings = {
   // renderScheduleMessage()).
   lineupFailureMessage: "መደብ ምጽዓን ኣይተኻእለን። ግንኙነትካ ረጋግጽ እሞ ደጊምካ ፈትን።",
 
+  // #cast-button (docs/cast-sender.js), ticket #39 — icon-only, so its
+  // accessible name comes entirely from this aria-label.
+  castButtonAriaLabel: "ናብ ተለቪዥን ልኣኽ",
+
   // iOS install hint (static markup in index.html's #ios-install-hint;
   // ios-install-hint-ui.js only toggles its visibility, never its text).
   // Contains trusted, developer-authored markup (<strong>, an aria-hidden

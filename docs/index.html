@@ -52,6 +52,7 @@
 
       <div class="toolbar">
         <span id="toolbar-chan" class="toolbar-chan"></span>
+        <button id="cast-button" class="btn-cast touch-target" type="button" data-i18n-aria-label="castButtonAriaLabel" aria-label="Cast to TV" hidden>📺</button>
         <button id="guide-toggle" class="btn-guide touch-target" type="button" aria-expanded="false">Guide ▾</button>
       </div>
     </div>
@@ -65,6 +66,8 @@
   <script src="https://www.youtube.com/iframe_api"></script>
   <script src="nav.js"></script>
   <script type="module" src="app.js"></script>
+  <script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
+  <script type="module" src="cast-sender.js"></script>
   <script>
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {

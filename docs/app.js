@@ -292,6 +292,9 @@ function toggleGuide() {
 
 function switchChannel(name) {
   currentChannel = name;
+  // Lets cast-sender.js (ticket #39) know which channel is showing locally,
+  // without importing it here — app.js stays ignorant of casting entirely.
+  window.dispatchEvent(new CustomEvent("neritv:channel", { detail: { channel: name } }));
 
   const params = new URLSearchParams(window.location.search);
   params.set("channel", slug(name));

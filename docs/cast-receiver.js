@@ -1,14 +1,15 @@
-// Standalone Cast receiver page (ticket #37, part of spec #35): plays the
-// live broadcast correctly when docs/cast-receiver.html is opened directly
-// in a browser, with no Cast session plumbing yet (no "tune" message
-// handling, no on-screen channel menu, no remote command interception —
-// those are later tickets under #35). Reuses the exact same shared, tested
-// modules app.js uses for position math (schedule.js) and offline/error
-// messaging (offline-message.js) so the two surfaces can never drift out of
-// sync or duplicate buggy math.
+// Cast receiver page: plays the live broadcast when docs/cast-receiver.html
+// is opened directly in a browser (ticket #37), and also when launched as an
+// actual Cast session and handed a channel via a "tune" message from
+// docs/cast-sender.js (ticket #39, part of spec #35). On-screen channel menu
+// and remote command interception are later tickets under #35. Reuses the
+// exact same shared, tested modules app.js uses for position math
+// (schedule.js) and offline/error messaging (offline-message.js) so the two
+// surfaces can never drift out of sync or duplicate buggy math.
 import { selectLineupMessage } from "./offline-message.js";
 import { t } from "./i18n-ui.js";
 import { currentPosition, videosForChannel } from "./schedule.js";
+import { TUNE_NAMESPACE, TUNE_MESSAGE_TYPE } from "./cast-protocol.js";
 
 let allVideos = [];
 let schedules = {};
@@ -23,6 +24,12 @@ let playerReady = false;
 // Paired with navigator.onLine by selectLineupMessage() to decide whether
 // to show the offline/error message instead of playing.
 let lineupStatus = "success";
+
+// A channel requested via a "tune" message that arrived before both the
+// player and the lineup were ready to act on it — applied as soon as
+// tryStartPlayback()'s own readiness check passes, in place of the default
+// channel it would otherwise pick.
+let pendingTuneChannel = null;
 
 const messageEl = document.getElementById("receiver-message");
 
@@ -79,14 +86,32 @@ function tryStartPlayback() {
   if (currentChannel !== null) return;
   if (lineupStatus !== "success") return;
 
-  currentChannel = pickDefaultChannel();
-  if (currentChannel === null) {
+  const requested = pendingTuneChannel;
+  pendingTuneChannel = null;
+  if (requested !== null) tuneTo(requested);
+  if (currentChannel !== null) return; // the requested tune succeeded
+
+  const defaultChannel = pickDefaultChannel();
+  if (defaultChannel === null) {
     showMessage(t("nothingInLineupLabel"));
     return;
   }
+  tuneTo(defaultChannel);
+}
 
-  currentVideos = videosForChannel(allVideos, currentChannel);
-  const scheduleStartMs = new Date(schedules[currentChannel].scheduleStart).getTime();
+// Switches to the given channel, computing its live broadcast position
+// fresh (never the position at page load) — same approach as app.js's
+// switchChannel(). Silently ignored if the name doesn't match a known
+// channel, same as a stale/bad "tune" message would be. Shared by
+// tryStartPlayback() (the default-channel path) and tuneToChannel() (an
+// incoming "tune" message), so there's exactly one place that computes
+// "what's playing right now" and hands it to the player.
+function tuneTo(channelName) {
+  if (!channelNames.includes(channelName)) return;
+
+  currentChannel = channelName;
+  currentVideos = videosForChannel(allVideos, channelName);
+  const scheduleStartMs = new Date(schedules[channelName].scheduleStart).getTime();
   const { index, offset } = currentPosition(currentVideos, scheduleStartMs);
 
   if (index === -1) {
@@ -95,6 +120,17 @@ function tryStartPlayback() {
   }
 
   playAt(index, offset);
+}
+
+// Entry point for an incoming "tune" message. Applies it immediately once
+// both the player and the lineup are ready; otherwise queues it for
+// tryStartPlayback() to pick up once they are.
+function tuneToChannel(channelName) {
+  if (playerReady && lineupStatus === "success") {
+    tuneTo(channelName);
+  } else {
+    pendingTuneChannel = channelName;
+  }
 }
 
 function playAt(index, offsetSeconds) {
@@ -156,3 +192,17 @@ window.addEventListener("online", () => {
 });
 
 loadLineup().then(applyLineupState);
+
+// Cast Receiver SDK wiring (ticket #39): listens for the "tune" message
+// docs/cast-sender.js sends on session start, and starts the receiver
+// lifecycle. No PlayerManager/media-command setup here — intercepting the
+// physical remote's play/pause/volume is ticket #41's scope; this receiver
+// still drives its own YouTube IFrame Player exactly as it does standalone.
+const castReceiverContext = cast.framework.CastReceiverContext.getInstance();
+castReceiverContext.addCustomMessageListener(TUNE_NAMESPACE, (event) => {
+  const message = event.data;
+  if (!message || message.type !== TUNE_MESSAGE_TYPE) return;
+  if (typeof message.channel !== "string") return;
+  tuneToChannel(message.channel);
+});
+castReceiverContext.start();
