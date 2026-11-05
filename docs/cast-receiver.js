@@ -148,4 +148,11 @@ window.onYouTubeIframeAPIReady = function () {
   });
 };
 
+// Auto-recovery: when connectivity returns, reload the schedule with no
+// manual refresh possible on a receiver — same as app.js's "online"
+// listener (ticket #9).
+window.addEventListener("online", () => {
+  loadLineup().then(applyLineupState);
+});
+
 loadLineup().then(applyLineupState);

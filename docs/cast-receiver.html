@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Nahom Eri TV — Cast Receiver</title>
+  <title>Cast Receiver — Nahom Eri TV</title>
   <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png" />
   <style>
     html, body {
@@ -53,6 +53,9 @@
     <div id="receiver-message" role="status" hidden></div>
   </div>
 
+  <!-- No sw.js registration here, unlike index.html/about.html: this page
+       runs in a Cast receiver context that always has live network, so
+       there's no offline PWA-shell use case to precache it for. -->
   <script src="https://www.youtube.com/iframe_api"></script>
   <script type="module" src="cast-receiver.js"></script>
 </body>
