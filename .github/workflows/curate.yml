@@ -83,7 +83,7 @@ jobs:
         run: |
           git add docs/data/videos.json
           git commit -m "Remove ${{ steps.removals.outputs.count }} video(s) that failed revalidation [automated]"
-          git push origin main
+          git push origin HEAD:main
 
       - name: Compute additions and build PR body
         id: additions

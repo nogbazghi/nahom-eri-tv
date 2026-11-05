@@ -231,6 +231,44 @@ music:
   view_count_min: 0
   duration_min_sec: 120
 
+# 2010s/2020s Eritrean music, per issue #45 (five themed Music channels) and
+# its Implementation Decisions for `music_modern`. This is NOT the
+# "per-decade nostalgia" framing the `music` entry's comment above says was
+# dropped — that earlier framing covered literal decade-by-decade channels
+# back through the 1960s, and #45 confirmed generic decade search only
+# differentiates eras cleanly from ~2010 onward (pre-2010 decade queries all
+# collapse into the same undifferentiated pool — see #45's Out of Scope).
+# 2010s/2020s is the one decade band where plain decade search was verified
+# genuinely era-matched, high-volume, and actively-produced, distinct from
+# the Liberation Era/Post-Independence Classics channels (#47/#48), which
+# cover the earlier decades with phrase/named-artist queries instead because
+# generic decade search doesn't work for them.
+#
+# Unlike `music` above (Eri-TV's own trusted, already-curated playlist,
+# view_count_min: 0), this pulls from arbitrary YouTube search results, so
+# it follows Weddings' unvetted-pool precedent with view_count_min: 1000.
+# #45 verified this decade band isn't thin at the query-differentiation level
+# (see above), but unlike sports_diaspora/catholic/fenkil_diaspora, no
+# dedicated live-trial view-count range was captured for this specific
+# threshold during design — 1000 is #45's suggested value (mirroring
+# Weddings) taken as-is, not independently re-verified here. Per #45's
+# Testing Decisions, the first live discover.py run's additions-PR review is
+# where that gets confirmed or adjusted, same as every other channel.
+#
+# This is its own standalone row (display_name "Music · Modern"), not
+# merged into any other entry's row — see ADR-0007 for why the five Music
+# theme channels each get an independent row instead of the Sports/Fenkil/
+# Martyrs Day/Independence Day shared-display_name pattern.
+music_modern:
+  type: search
+  display_name: "Music · Modern"
+  queries:
+    - "New Eritrean music"
+    - "Eritrean music 2020s"
+    - "Eritrean music 2010s"
+  view_count_min: 1000
+  duration_min_sec: 120
+
 fenkil:
   type: channel
   display_name: Fenkil

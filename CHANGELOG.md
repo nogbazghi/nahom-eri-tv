@@ -6,6 +6,10 @@ Versions here mark real service-level milestones, not package releases.
 
 ## v3 — Automated Curation Pipeline (in progress, started 2026-11-01)
 
+- Added a **Go to Live** control, always visible as an overlay bottom-left on the player: re-tunes the current channel to its live broadcast position and resumes playback in one tap (or the `l` key) — reusing the exact same re-tune path as reselecting a channel from the guide, rather than a second resync mechanism. Translated label, consistent with the rest of the app's chrome text.
+- Channels with nothing scheduled are now visibly disabled everywhere they appear: their guide row is greyed out, unselectable, and skipped by keyboard navigation; the player screen itself greys out when tuned to one; and the Go to Live control shows disabled (not hidden) rather than inert. All three share one tested source of truth, `docs/channel-availability.js`, for what counts as "empty."
+- Spec: GitHub issue #46; implemented as tickets #52–#55.
+
 - Redesigned curation as three explicit pieces — Search, Validation, Storage — instead of one blended script.
 - Per-channel rules (search queries, view-count/duration minimums) move out of hardcoded Python into `curation/channels.yaml`, so adding a channel or a query is a data edit, not a code change.
 - New shared `curation/pipeline.py`: a pure validation function (no API calls) checks both freshly-discovered candidates AND already-stored videos on every run — closing a real gap where a video could silently disappear from the lineup just because a search re-ranked it out of the results, not because it actually became invalid.
