@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# Runs the same checks CI runs (node --test, pytest) before a push is
+# allowed to proceed. Activated repo-wide via:
+#
+#   git config core.hooksPath .githooks
+#
+# Bypass with: git push --no-verify
+
+set -e
+
+repo_root=$(git rev-parse --show-toplevel)
+cd "$repo_root"
+
+echo "pre-push: node --test"
+node --test docs/*.test.js
+
+echo "pre-push: pytest"
+pytest curation/tests/
