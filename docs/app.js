@@ -44,6 +44,7 @@ const guideNav = createListNav({
   onActivate: (row) => switchChannel(row.dataset.channel),
 });
 
+const playerWrap = document.getElementById("player-wrap");
 const badgeNum = document.getElementById("badge-num");
 const badgeName = document.getElementById("badge-name");
 const badgeTitle = document.getElementById("badge-title");
@@ -174,6 +175,7 @@ function updateGoLiveButton() {
 
 function showEmptyState() {
   lineupEmpty = true;
+  playerWrap.classList.add("is-unavailable");
   badgeNum.textContent = "";
   badgeName.textContent = "";
   badgeTitle.textContent = t("nothingInLineupLabel");
@@ -183,6 +185,7 @@ function showEmptyState() {
 
 function playAt(index, offsetSeconds) {
   lineupEmpty = false;
+  playerWrap.classList.remove("is-unavailable");
   currentIndex = index;
   const video = currentVideos[index];
   updateBadge(video, currentChannel);
@@ -330,7 +333,7 @@ function switchChannel(name) {
 
   closeGuide();
 
-  if (index === -1) {
+  if (!isChannelAvailable(currentVideos)) {
     showEmptyState();
     return;
   }

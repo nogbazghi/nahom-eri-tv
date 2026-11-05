@@ -267,6 +267,13 @@ main {
   height: 100%;
 }
 
+/* Channel has nothing scheduled (see app.js showEmptyState()/playAt()) — the
+   player itself greys out rather than just the guide row, so the "nothing
+   live" state reads consistently wherever the viewer is looking. */
+#player-wrap.is-unavailable #player {
+  filter: grayscale(1) brightness(0.55);
+}
+
 /* Shared touch-target minimum (~44px) for tappable buttons — see
    https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html */
 .touch-target {
