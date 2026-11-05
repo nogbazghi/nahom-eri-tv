@@ -1,0 +1,7 @@
+---
+status: accepted
+---
+
+# Each Music theme gets its own channel row, not a shared display_name
+
+Issue #45 adds five themed Music channels (Liberation Era, Post-Independence Classics, Modern, Diaspora Artists, Independence Day). Sports/Sports_diaspora, Fenkil/Fenkil_diaspora, Martyrs Day/Martyrs_day_diaspora, and Independence Day/Independence_day_diaspora all blend a trusted single-source rule and an unvetted search rule into one shared `display_name` (the `(display_name, source)` scoping from ticket #16), because in each of those cases the two rules are two supply pools for the *same* theme. The five Music channels are different: each is an independently-curated era/scope (pre-independence liberation music, 1990s–2000s classics, 2010s–2020s output, diaspora artists performing outside the homeland scope, Independence Day performances), not two pools feeding one theme. Owner decision (per #45's problem statement and user stories 6–7): a viewer who wants one specific mood — e.g. just Independence Day songs — shouldn't have to sit through a different era's music to find them, so each theme is its own fully independent, separately-tunable `channels.yaml` entry and its own schedule row, named `Music · <Theme>`, rather than being collapsed into fewer shared rows. This is a deliberate departure from the Sports/Fenkil/Martyrs Day/Independence Day pattern, not an inconsistency to "fix" later.
