@@ -39,6 +39,13 @@ export const strings = {
   // accessible name comes entirely from this aria-label.
   castButtonAriaLabel: "Cast to TV",
 
+  // #casting-view (docs/app.js), ticket #40 — the phone's remote-control
+  // view while a Cast session is active. The device name itself is read
+  // from the Cast Framework, not translated, so this is just the label
+  // that precedes it (see #casting-device-name in index.html).
+  castingToLabel: "Casting to",
+  stopCastingLabel: "Stop Casting",
+
   // iOS install hint (static markup in index.html's #ios-install-hint;
   // ios-install-hint-ui.js only toggles its visibility, never its text).
   // Contains trusted, developer-authored markup (<strong>, an aria-hidden

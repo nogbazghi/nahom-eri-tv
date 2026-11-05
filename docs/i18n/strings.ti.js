@@ -42,6 +42,12 @@ export const strings = {
   // accessible name comes entirely from this aria-label.
   castButtonAriaLabel: "ናብ ተለቪዥን ልኣኽ",
 
+  // #casting-view (docs/app.js), ticket #40 — the phone's remote-control
+  // view while a Cast session is active. Best-effort draft, same reviewer
+  // note as the top of this file.
+  castingToLabel: "ናብ ዝልኣኽ ዘሎ",
+  stopCastingLabel: "ምልኣኽ ኣቋርጽ",
+
   // iOS install hint (static markup in index.html's #ios-install-hint;
   // ios-install-hint-ui.js only toggles its visibility, never its text).
   // Contains trusted, developer-authored markup (<strong>, an aria-hidden
