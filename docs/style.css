@@ -407,6 +407,20 @@ main {
   }
 }
 
+/* A channel with nothing in its lineup — not clickable, not reachable by
+   keyboard (see guideNav's getItems() filter in app.js), so no hover/focus
+   treatment is needed here, just the greyed-out look. */
+.guide-row[aria-disabled="true"] {
+  cursor: default;
+  opacity: 0.45;
+}
+
+@media (hover: hover) {
+  .guide-row[aria-disabled="true"]:hover {
+    background: none;
+  }
+}
+
 /* Keyboard focus — a glowing accent ring, not the browser-default blue.
    Rows are focused entirely via script (see nav.js), never the mouse, so
    a plain :focus-visible (not :focus) is enough; there's no mouse-click
