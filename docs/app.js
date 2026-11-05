@@ -1,5 +1,10 @@
 import { selectLineupMessage } from "./offline-message.js";
 import { t, onLanguageChange } from "./i18n-ui.js";
+import {
+  currentPosition,
+  videosForChannel as videosForChannelPure,
+  channelNowState as channelNowStatePure,
+} from "./schedule.js";
 
 let allVideos = [];
 let schedules = {};
@@ -113,35 +118,11 @@ function tryStartPlayback() {
 }
 
 function videosForChannel(channelName) {
-  return allVideos.filter((v) => Array.isArray(v.channels) && v.channels.includes(channelName));
-}
-
-function totalDuration(videoList) {
-  return videoList.reduce((sum, v) => sum + v.duration, 0);
-}
-
-// Where in a channel's own lineup "now" falls, given that channel's fixed broadcast schedule.
-function currentPosition(videoList, scheduleStartMs) {
-  const total = totalDuration(videoList);
-  if (total === 0) return { index: -1, offset: 0 };
-
-  const elapsedMs = Date.now() - scheduleStartMs;
-  let elapsed = (((elapsedMs / 1000) % total) + total) % total;
-
-  for (let i = 0; i < videoList.length; i++) {
-    if (elapsed < videoList[i].duration) {
-      return { index: i, offset: Math.floor(elapsed) };
-    }
-    elapsed -= videoList[i].duration;
-  }
-  return { index: 0, offset: 0 };
+  return videosForChannelPure(allVideos, channelName);
 }
 
 function channelNowState(channelName) {
-  const videos = videosForChannel(channelName);
-  const scheduleStartMs = new Date(schedules[channelName].scheduleStart).getTime();
-  const { index, offset } = currentPosition(videos, scheduleStartMs);
-  return { videos, index, offset };
+  return channelNowStatePure(allVideos, schedules, channelName);
 }
 
 // The next `count` videos in a channel's own cyclic lineup after whatever is
