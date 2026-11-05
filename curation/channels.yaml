@@ -528,35 +528,56 @@ catholic:
 # Per ticket #45's Out of Scope note, this query list was NOT individually
 # spot-checked against live YouTube search during design (unlike
 # Liberation Era and Post-Independence Classics) — this ticket's live
-# trial run is where query quality and noise actually get caught, so some
-# of these names may need pruning/qualifying after the first real run
-# (see the PR for what that run found).
+# trial run (2026-11-05) is where query quality and noise actually got
+# caught, and it caught a lot: of the original 16 bare-name queries, only
+# "Nipsey Hussle" and "Rubi Rose" are distinctive enough on their own to
+# return clean, genuinely on-topic hits (confirmed against the live
+# results PR). Every other query that returned anything was dominated by
+# namesake/common-word collisions, well past view_count_min's ability to
+# filter them out (the colliding content is often itself popular) —
+# "Aminé" surfaced a wave of unrelated Francophone/Arabic "Amine"
+# creators, "AWATE" surfaced a Marathi finance-exam-prep channel's host
+# surname, "Khadija" surfaced the common Muslim first name across
+# lifestyle/religious/political content (plus footballer Khadija Shaw),
+# "Nura" surfaced a Linux OS, a different Hausa singer, and a river name,
+# "Deno" surfaced an unrelated podcast/DJ and the Deno JS runtime, and
+# "J. Holiday" surfaced generic "holiday"-themed content. Each of those
+# (plus "Denz", "RIMON", "Feven", "Adiam") was re-queried qualified with a
+# genre/role term or the artist's fuller name from
+# docs/research/eritrean-diaspora-artists-by-decade.md, the same fix
+# pattern as `sports_diaspora`'s "Biniam Girmay cycling" and `catholic`'s
+# full-name queries. "Lay Bankz", "Afrob", and "Raheaven" returned zero
+# candidates in this run's 10-day recency window — thin pools, same
+# accepted pattern as Zersenay Tadese in sports_diaspora and Catholic's
+# named clergy. "Kibra" was also tightened to her full name pre-emptively,
+# since the one hit it returned unqualified was an ambiguous,
+# unverifiable namesake match, not confirmed on-topic content.
 #
 # view_count_min: 1000 (matching Weddings, not sports_diaspora's/
 # catholic's lower thresholds) because several of these names are
 # internationally famous (Nipsey Hussle, Aminé) or common enough to
 # collide with unrelated same-name people/channels — a healthy view floor
-# is the cheapest way to keep results to each artist's own
-# official/substantive content rather than a namesake's.
+# helps, but query qualification above is what actually does the real
+# relevance filtering here, per the collision examples above.
 music_diaspora_artists:
   type: search
   display_name: Music · Diaspora Artists
   queries:
     - "Nipsey Hussle"
-    - "Aminé"
-    - "Denz"
+    - "Aminé rapper"
+    - "Denz rapper Sweden"
     - "Rubi Rose"
-    - "AWATE"
-    - "Khadija"
+    - "AWATE rapper"
+    - "Khadija Afro house DJ"
     - "Raheaven"
-    - "RIMON"
+    - "RIMON singer"
     - "Lay Bankz"
-    - "Kibra"
-    - "Deno"
-    - "Nura"
-    - "Feven"
-    - "Adiam"
-    - "J. Holiday"
+    - "Kibra Tesfaye"
+    - "Deno UK singer"
+    - "Nura rapper"
+    - "Feven Ghebremicael"
+    - "Adiam Dymott"
+    - "J Holiday singer"
     - "Afrob"
   view_count_min: 1000
   duration_min_sec: 120
