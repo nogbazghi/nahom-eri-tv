@@ -5,6 +5,7 @@ import {
   videosForChannel as videosForChannelPure,
   channelNowState as channelNowStatePure,
 } from "./schedule.js";
+import { isChannelAvailable } from "./channel-availability.js";
 
 let allVideos = [];
 let schedules = {};
@@ -44,6 +45,7 @@ const badgeNum = document.getElementById("badge-num");
 const badgeName = document.getElementById("badge-name");
 const badgeTitle = document.getElementById("badge-title");
 const unmuteButton = document.getElementById("unmute");
+const goLiveButton = document.getElementById("go-live");
 const guidePanel = document.getElementById("guide-panel");
 const guideRows = document.getElementById("guide-rows");
 const guideToggle = document.getElementById("guide-toggle");
@@ -159,12 +161,21 @@ function updateBadge(video, channelName) {
   toolbarChan.textContent = channelName;
 }
 
+// Enabled/disabled state is driven entirely by isChannelAvailable(currentVideos)
+// — the same check #53/#54 use for the guide row/player empty state (ticket
+// #52) — so all three consumers can never disagree about whether the current
+// channel has anything scheduled.
+function updateGoLiveButton() {
+  goLiveButton.disabled = !isChannelAvailable(currentVideos);
+}
+
 function showEmptyState() {
   lineupEmpty = true;
   badgeNum.textContent = "";
   badgeName.textContent = "";
   badgeTitle.textContent = t("nothingInLineupLabel");
   toolbarChan.textContent = "";
+  updateGoLiveButton();
 }
 
 function playAt(index, offsetSeconds) {
@@ -172,6 +183,7 @@ function playAt(index, offsetSeconds) {
   currentIndex = index;
   const video = currentVideos[index];
   updateBadge(video, currentChannel);
+  updateGoLiveButton();
   player.loadVideoById({ videoId: video.id, startSeconds: offsetSeconds });
 }
 
@@ -311,6 +323,18 @@ function switchChannel(name) {
   playAt(index, offset);
 }
 
+// Re-tunes the current channel to its live broadcast position and resumes
+// playback — identical in effect to reselecting the channel from the guide,
+// since it's the same switchChannel() call (ticket #55, part of #46). A
+// no-op while the current channel has nothing scheduled — the native
+// `disabled` attribute already blocks a mouse/touch click, but the "l" key
+// isn't gated by it, so this checks the same isChannelAvailable() source of
+// truth updateGoLiveButton() drives the button's `disabled` state from.
+function goLive() {
+  if (!currentChannel || !isChannelAvailable(currentVideos)) return;
+  switchChannel(currentChannel);
+}
+
 function onPlayerReady() {
   player.mute();
   playerReady = true;
@@ -352,6 +376,7 @@ function refreshChromeLanguage() {
   guideToggle.textContent = guideOpen ? t("guideToggleCloseLabel") : t("guideToggleOpenLabel");
   unmuteButton.textContent =
     player && !player.isMuted() ? t("tapToMuteLabel") : t("tapToUnmuteLabel");
+  goLiveButton.textContent = t("goLiveLabel");
   if (guideOpen) renderGuide();
   if (lineupEmpty) showEmptyState();
   renderScheduleMessage();
@@ -362,6 +387,7 @@ refreshChromeLanguage();
 
 unmuteButton.addEventListener("click", toggleMute);
 guideToggle.addEventListener("click", toggleGuide);
+goLiveButton.addEventListener("click", goLive);
 
 // Global keyboard shortcuts, independent of what currently has focus.
 // Arrow keys move within the guide once it's open; while it's closed they
@@ -385,6 +411,11 @@ document.addEventListener("keydown", (event) => {
 
   if (key === "g") {
     toggleGuide();
+    return;
+  }
+
+  if (key === "l") {
+    goLive();
     return;
   }
 

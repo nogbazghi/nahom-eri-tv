@@ -30,6 +30,10 @@ export const strings = {
   tapToMuteLabel: "🔊 ድምጺ ንምጥፋእ ጠውቕ",
   tapToUnmuteLabel: "🔇 ድምጺ ንምክፋት ጠውቕ",
 
+  // #go-live (docs/app.js goLive()) — also the button's static initial text
+  // in index.html (ticket #55, part of #46).
+  goLiveLabel: "🔴 ናብ ቀጥታ ኺድ",
+
   // Offline/schedule-failure message (docs/offline-message.js + docs/app.js
   // renderScheduleMessage()).
   lineupFailureMessage: "መደብ ምጽዓን ኣይተኻእለን። ግንኙነትካ ረጋግጽ እሞ ደጊምካ ፈትን።",

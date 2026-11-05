@@ -26,6 +26,11 @@ export const strings = {
   tapToMuteLabel: "🔊 Tap to mute",
   tapToUnmuteLabel: "🔇 Tap to unmute",
 
+  // #go-live (docs/app.js goLive()) — also the button's static initial text
+  // in index.html. Text stays the same whether enabled or disabled; only the
+  // native `disabled` attribute changes (ticket #55, part of #46).
+  goLiveLabel: "🔴 Go to Live",
+
   // Offline/schedule-failure message (docs/offline-message.js + docs/app.js
   // renderScheduleMessage()).
   lineupFailureMessage: "Couldn't load the schedule. Check your connection and try again.",
