@@ -290,6 +290,32 @@ main {
   font-size: 0.85rem;
 }
 
+/* Mirrors #unmute's pill style, bottom-left instead of bottom-right (ticket
+   #55, part of #46). Disabled via the native `disabled` attribute (not
+   hidden) when the current channel has nothing scheduled —
+   isChannelAvailable() is the single source of truth app.js checks before
+   enabling it. */
+#go-live {
+  position: absolute;
+  bottom: 0.8rem;
+  left: 0.8rem;
+  z-index: 2;
+  padding: 0.5rem 1rem;
+  background: rgba(0, 0, 0, 0.7);
+  color: var(--fg);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+}
+
+#go-live:disabled {
+  opacity: 0.45;
+  cursor: default;
+  border-color: var(--border);
+}
+
 #corner-badge {
   position: absolute;
   top: 0.9rem;
@@ -424,7 +450,8 @@ main {
    case to exclude. */
 .guide-row:focus-visible,
 #guide-toggle:focus-visible,
-#unmute:focus-visible {
+#unmute:focus-visible,
+#go-live:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: -2px;
   box-shadow: 0 0 0 4px rgba(224, 184, 75, 0.25);
