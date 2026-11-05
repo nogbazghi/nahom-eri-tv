@@ -509,3 +509,58 @@ catholic:
   view_count_min: 300
   duration_min_sec: 120
   duration_min_sec: 120
+
+# 1991-2000s Eritrean music, curated by named artist rather than a generic
+# decade search, per issue #45's Implementation Decisions and ticket #48.
+# docs/research/channel-demand-signals.md §2 originally floated a "music per
+# decade" channel, but a live trial of generic decade-qualified queries (e.g.
+# "Eritrean music 1990s") was verified not to differentiate eras before
+# roughly 2010 — YouTube's own upload/era tagging for this catalog is too
+# noisy, so a decade search just returns the same undifferentiated "old
+# music" pool regardless of which decade is asked for. Naming actual artists
+# sidesteps that: each query is scoped to a real post-independence-era
+# musician instead of a decade label.
+#
+# Queries are the eight named 1990s/2000s artists from issue #45's
+# Implementation Decisions (itself sourced from
+# docs/research/tigrinya-eritrean-artists-by-decade.md's 1990s/2000s tables)
+# — Abraham Afewerki, Abeba Haile, Helen Meles, Elsa Kidane and Fitsum
+# Zemichael (1990s), plus Dawit Shilan, Senait Mehari and Asmara All Stars
+# (2000s). Two names present in those same research-doc tables are NOT in
+# issue #45's query list and are left out here too:
+# - Tsighe Teklesenbet — the doc only documents her as a Shushan Band member
+#   with no solo discography or dated milestone of her own, too thin for a
+#   standalone search query.
+# - Dehab Faytinga — NOT excluded for being a pre-independence artist (the
+#   doc actually frames her 2000s entry as her *better*-documented decade:
+#   a 2003 album, a 2000 Ma'Africa prize, and 2005/2010 Expo performances,
+#   versus her 1970s liberation-struggle-era debut). She's left off issue
+#   #45's list regardless, and is already indirectly covered here via the
+#   "Asmara All Stars" query, since the doc lists her as a member of that
+#   ensemble.
+#
+# Thresholds follow sports_diaspora's/catholic's unvetted-search-pool
+# precedent rather than Kebire/Music's trusted-single-source
+# view_count_min: 0: this pulls from arbitrary YouTube search results across
+# eight different named-artist queries, so it needs a quality floor the same
+# way those other named-query channels do. view_count_min: 500 and
+# duration_min_sec: 120 are the thresholds given in issue #45's
+# Implementation Decisions directly, matching sports_diaspora's/fenkil_
+# diaspora's/martyrs_day_diaspora's/independence_day_diaspora's 500 rather
+# than catholic's/protestant's lower 300 — these are more broadly-known
+# recording artists (several with Wikipedia pages and international releases)
+# than the thin, sermon-specific pools those two channels serve.
+music_post_independence_classics:
+  type: search
+  display_name: Music · Post-Independence Classics
+  queries:
+    - "Abraham Afewerki"
+    - "Abeba Haile"
+    - "Helen Meles"
+    - "Elsa Kidane"
+    - "Fitsum Zemichael"
+    - "Dawit Shilan"
+    - "Senait Mehari"
+    - "Asmara All Stars"
+  view_count_min: 500
+  duration_min_sec: 120
