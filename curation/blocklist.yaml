@@ -4,3 +4,35 @@
 # - id: dQw4w9WgXcQ
 #   reason: "Creator requested removal"
 #   date: 2026-11-01
+
+# music_modern (#49) first live run (2026-11-05): "New Eritrean music"-style
+# queries exhausted genuinely on-topic supply and fell back to loosely-ranked
+# noise, the same exhaustion pattern documented in channels.yaml's
+# sports_diaspora/protestant/catholic comments. None of these are music.
+- id: tKcAk2edEzY
+  reason: "music_modern noise: an Eritrean drama series episode, not music"
+  date: 2026-11-05
+- id: fiPCT-7G4TA
+  reason: "music_modern noise: an Eritrean comedy series episode, not music"
+  date: 2026-11-05
+- id: Gsjz4b8vfKI
+  reason: "music_modern noise: an Eritrean film, not music"
+  date: 2026-11-05
+- id: Z2Ae1oN5_iw
+  reason: "music_modern noise: a talent-show episode, not a music video"
+  date: 2026-11-05
+- id: s1v9-MVGeBY
+  reason: "music_modern noise: an event photo/video slideshow, not a produced song"
+  date: 2026-11-05
+- id: CLHXrmqh9_c
+  reason: "music_modern noise: a travel vlog, unrelated to music"
+  date: 2026-11-05
+- id: vC4yco8F-uo
+  reason: "music_modern noise: an unrelated explainer video about Eritrea, not music"
+  date: 2026-11-05
+- id: UV5gdUrLNjw
+  reason: "music_modern noise: unrelated to Eritrea or music entirely"
+  date: 2026-11-05
+- id: bjv27xI7RQU
+  reason: "music_modern noise: an unrelated PBS travel episode about Montana/Wyoming"
+  date: 2026-11-05
