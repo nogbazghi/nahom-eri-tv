@@ -30,6 +30,10 @@ export const strings = {
   // renderScheduleMessage()).
   lineupFailureMessage: "Couldn't load the schedule. Check your connection and try again.",
 
+  // #cast-button (docs/cast-sender.js), ticket #39 — icon-only, so its
+  // accessible name comes entirely from this aria-label.
+  castButtonAriaLabel: "Cast to TV",
+
   // iOS install hint (static markup in index.html's #ios-install-hint;
   // ios-install-hint-ui.js only toggles its visibility, never its text).
   // Contains trusted, developer-authored markup (<strong>, an aria-hidden
