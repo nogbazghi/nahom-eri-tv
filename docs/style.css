@@ -613,6 +613,81 @@ main.about kbd {
   padding: 0.05rem 0.35rem;
 }
 
+/* Minimal remote-control view (ticket #40, spec #35) — replaces #local-view
+   entirely while a Cast session is active. No player, no schedule grid:
+   just where it's casting to, the current channel, a switcher, and a way
+   to stop. */
+#casting-view {
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.casting-status {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+#casting-device-name {
+  color: var(--accent);
+}
+
+.casting-channel-name {
+  margin: 0 0 1.75rem;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.9rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.casting-channel-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.casting-channel-list button {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+  color: var(--fg);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.55rem 1.1rem;
+  cursor: pointer;
+}
+
+.casting-channel-list button.active {
+  color: var(--accent-ink);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.casting-channel-list button:focus-visible,
+.btn-stop-casting:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.btn-stop-casting {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--fg);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.5rem 1.1rem;
+  cursor: pointer;
+}
+
 /* Mobile: collapse the grid to a vertical "now only" list, per channel. */
 @media (max-width: 560px) {
   .guide-row {

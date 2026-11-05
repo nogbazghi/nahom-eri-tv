@@ -32,29 +32,41 @@
 
   <main>
     <div id="screen">
-      <div id="player-wrap">
-        <div id="player"></div>
-        <button id="unmute" class="touch-target" type="button">🔇 Tap to unmute</button>
-        <button id="go-live" class="touch-target" type="button" disabled>🔴 Go to Live</button>
-        <div id="corner-badge">
-          <div class="badge-top">
-            <span id="badge-num" class="num mono"></span>
-            <span id="badge-name" class="name"></span>
+      <div id="local-view">
+        <div id="player-wrap">
+          <div id="player"></div>
+          <button id="unmute" class="touch-target" type="button">🔇 Tap to unmute</button>
+          <button id="go-live" class="touch-target" type="button" disabled>🔴 Go to Live</button>
+          <div id="corner-badge">
+            <div class="badge-top">
+              <span id="badge-num" class="num mono"></span>
+              <span id="badge-name" class="name"></span>
+            </div>
+            <div id="badge-title"></div>
           </div>
-          <div id="badge-title"></div>
+        </div>
+
+        <div id="schedule-message" class="schedule-message" role="status" hidden></div>
+
+        <div id="guide-panel" hidden>
+          <div id="guide-rows"></div>
+        </div>
+
+        <div class="toolbar">
+          <span id="toolbar-chan" class="toolbar-chan"></span>
+          <button id="cast-button" class="btn-cast touch-target" type="button" data-i18n-aria-label="castButtonAriaLabel" aria-label="Cast to TV" hidden>📺</button>
+          <button id="guide-toggle" class="btn-guide touch-target" type="button" aria-expanded="false">Guide ▾</button>
         </div>
       </div>
 
-      <div id="schedule-message" class="schedule-message" role="status" hidden></div>
-
-      <div id="guide-panel" hidden>
-        <div id="guide-rows"></div>
-      </div>
-
-      <div class="toolbar">
-        <span id="toolbar-chan" class="toolbar-chan"></span>
-        <button id="cast-button" class="btn-cast touch-target" type="button" data-i18n-aria-label="castButtonAriaLabel" aria-label="Cast to TV" hidden>📺</button>
-        <button id="guide-toggle" class="btn-guide touch-target" type="button" aria-expanded="false">Guide ▾</button>
+      <div id="casting-view" hidden>
+        <p class="casting-status">
+          <span data-i18n="castingToLabel">Casting to</span>
+          <span id="casting-device-name"></span>
+        </p>
+        <p id="casting-channel-name" class="casting-channel-name"></p>
+        <div id="casting-channel-list" class="casting-channel-list"></div>
+        <button id="stop-casting" class="btn-stop-casting touch-target" type="button" data-i18n="stopCastingLabel">Stop Casting</button>
       </div>
     </div>
   </main>

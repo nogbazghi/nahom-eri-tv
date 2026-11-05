@@ -16,6 +16,11 @@ let player = null;
 let currentIndex = -1;
 let guideOpen = false;
 let playerReady = false;
+// True while a Cast session is active and the remote view (#casting-view)
+// is showing in place of the local player/guide (ticket #40, part of spec
+// #35) — set/cleared by the "neritv:cast-session" listener near the bottom
+// of this file, which cast-sender.js dispatches on session start/end.
+let casting = false;
 // True while the "Nothing in the lineup yet" empty state (showEmptyState())
 // is the badge's current content — tracked so a language toggle can
 // re-render it correctly without guessing from other state. Cleared the
@@ -55,6 +60,12 @@ const guideRows = document.getElementById("guide-rows");
 const guideToggle = document.getElementById("guide-toggle");
 const toolbarChan = document.getElementById("toolbar-chan");
 const scheduleMessageEl = document.getElementById("schedule-message");
+const localView = document.getElementById("local-view");
+const castingView = document.getElementById("casting-view");
+const castingDeviceNameEl = document.getElementById("casting-device-name");
+const castingChannelNameEl = document.getElementById("casting-channel-name");
+const castingChannelList = document.getElementById("casting-channel-list");
+const stopCastingButton = document.getElementById("stop-casting");
 
 function slug(name) {
   return name.toLowerCase();
@@ -352,6 +363,67 @@ function goLive() {
   switchChannel(currentChannel);
 }
 
+// Rebuilds the remote view's channel switcher (ticket #40) — one button per
+// channel, highlighting whichever is currently tuned. Cheap enough to
+// rebuild wholesale on every tune rather than diffing, same approach
+// renderGuide() takes for the guide panel.
+function renderCastingChannelList() {
+  castingChannelList.innerHTML = "";
+  channelNames.forEach((name) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = name;
+    if (name === currentChannel) button.classList.add("active");
+    button.addEventListener("click", () => remoteSwitchChannel(name));
+    castingChannelList.appendChild(button);
+  });
+}
+
+// Channel switching from the remote view, while a Cast session is active:
+// sends the TV a "tune" message instead of driving the local player (which
+// stays stopped throughout — see enterCastingView()). "neritv:channel" keeps
+// cast-sender.js's own notion of the current channel in sync (the same
+// event switchChannel() dispatches locally); "neritv:tune-request" is what
+// actually tells it to send the tune message right now, since merely
+// updating that channel wouldn't otherwise trigger a send mid-session.
+function remoteSwitchChannel(name) {
+  if (name === currentChannel) return; // already tuned, nothing to send
+  currentChannel = name;
+  window.dispatchEvent(new CustomEvent("neritv:channel", { detail: { channel: name } }));
+  window.dispatchEvent(new CustomEvent("neritv:tune-request"));
+  castingChannelNameEl.textContent = currentChannel;
+  renderCastingChannelList();
+}
+
+// Swaps the local player/guide out for the minimal casting remote (ticket
+// #40). Stops the local player outright (not just pauses it) — no point
+// decoding video the phone isn't showing anymore.
+function enterCastingView(deviceName) {
+  casting = true;
+  if (player) player.stopVideo();
+  closeGuide();
+  castingDeviceNameEl.textContent = deviceName || "";
+  castingChannelNameEl.textContent = currentChannel || "";
+  renderCastingChannelList();
+  localView.hidden = true;
+  castingView.hidden = false;
+}
+
+// Swaps back to the local player/guide once a Cast session ends. Resumes
+// playback via the same switchChannel() path a manual channel change uses,
+// so the position is computed fresh against the live schedule — never
+// wherever the TV happened to be when the session ended.
+function exitCastingView() {
+  casting = false;
+  castingView.hidden = true;
+  localView.hidden = false;
+  if (currentChannel !== null) {
+    switchChannel(currentChannel);
+  } else {
+    tryStartPlayback();
+  }
+}
+
 function onPlayerReady() {
   player.mute();
   playerReady = true;
@@ -406,6 +478,21 @@ unmuteButton.addEventListener("click", toggleMute);
 guideToggle.addEventListener("click", toggleGuide);
 goLiveButton.addEventListener("click", goLive);
 
+// Dispatched by cast-sender.js (ticket #39/#40) on every Cast session
+// state change — this is the one place app.js learns casting happened at
+// all, keeping it ignorant of the Cast Framework itself.
+window.addEventListener("neritv:cast-session", (event) => {
+  if (event.detail.active) {
+    enterCastingView(event.detail.deviceName);
+  } else {
+    exitCastingView();
+  }
+});
+
+stopCastingButton.addEventListener("click", () => {
+  window.dispatchEvent(new CustomEvent("neritv:stop-casting"));
+});
+
 // Global keyboard shortcuts, independent of what currently has focus.
 // Arrow keys move within the guide once it's open; while it's closed they
 // (like "G") open it instead, focused on whatever channel is live now — the
@@ -414,6 +501,12 @@ const VERTICAL_ARROWS = { ArrowUp: -1, ArrowDown: 1 };
 const ANY_ARROW = new Set(["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"]);
 
 document.addEventListener("keydown", (event) => {
+  // These all act on #local-view (the player/guide), which is hidden and
+  // superseded by #casting-view while a Cast session is active (ticket
+  // #40) — the phone isn't a second player at that point, so none of its
+  // local shortcuts should fire.
+  if (casting) return;
+
   const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
 
   if (key === "m") {
