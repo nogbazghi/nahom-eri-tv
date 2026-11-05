@@ -471,3 +471,54 @@ catholic:
   view_count_min: 300
   duration_min_sec: 120
   duration_min_sec: 120
+
+# Eritrean-heritage musicians performing outside the Tigrinya-language/
+# homeland scope (English/Swedish/German/Dutch-language hip-hop, R&B,
+# Afro-house, etc.), per ticket #45's Implementation Decisions and
+# docs/research/eritrean-diaspora-artists-by-decade.md. Distinct from
+# `music` above (Eri-TV's own curated Tigrinya-language catalog) — this is
+# a type: search rule over named artists, the same shape as
+# sports_diaspora/catholic, not a trusted single source.
+#
+# Queries are the named artists from the research doc, not generic terms
+# like "Eritrean diaspora music" — consistent with this project's
+# established finding (sports_diaspora, protestant, catholic) that a
+# distinctive name lets search.list's relevance ranking do useful work,
+# while generic terms either return thin/empty results or degrade into
+# unrelated noise once a thin pool is exhausted.
+#
+# Per ticket #45's Out of Scope note, this query list was NOT individually
+# spot-checked against live YouTube search during design (unlike
+# Liberation Era and Post-Independence Classics) — this ticket's live
+# trial run is where query quality and noise actually get caught, so some
+# of these names may need pruning/qualifying after the first real run
+# (see the PR for what that run found).
+#
+# view_count_min: 1000 (matching Weddings, not sports_diaspora's/
+# catholic's lower thresholds) because several of these names are
+# internationally famous (Nipsey Hussle, Aminé) or common enough to
+# collide with unrelated same-name people/channels — a healthy view floor
+# is the cheapest way to keep results to each artist's own
+# official/substantive content rather than a namesake's.
+music_diaspora_artists:
+  type: search
+  display_name: Music · Diaspora Artists
+  queries:
+    - "Nipsey Hussle"
+    - "Aminé"
+    - "Denz"
+    - "Rubi Rose"
+    - "AWATE"
+    - "Khadija"
+    - "Raheaven"
+    - "RIMON"
+    - "Lay Bankz"
+    - "Kibra"
+    - "Deno"
+    - "Nura"
+    - "Feven"
+    - "Adiam"
+    - "J. Holiday"
+    - "Afrob"
+  view_count_min: 1000
+  duration_min_sec: 120
