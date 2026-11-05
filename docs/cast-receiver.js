@@ -195,9 +195,7 @@ loadLineup().then(applyLineupState);
 
 // Cast Receiver SDK wiring (ticket #39): listens for the "tune" message
 // docs/cast-sender.js sends on session start, and starts the receiver
-// lifecycle. No PlayerManager/media-command setup here — intercepting the
-// physical remote's play/pause/volume is ticket #41's scope; this receiver
-// still drives its own YouTube IFrame Player exactly as it does standalone.
+// lifecycle.
 const castReceiverContext = cast.framework.CastReceiverContext.getInstance();
 castReceiverContext.addCustomMessageListener(TUNE_NAMESPACE, (event) => {
   const message = event.data;
@@ -205,4 +203,44 @@ castReceiverContext.addCustomMessageListener(TUNE_NAMESPACE, (event) => {
   if (typeof message.channel !== "string") return;
   tuneToChannel(message.channel);
 });
+
+// Physical remote's play/pause/volume/mute (ticket #41): this receiver
+// never issues its own LOAD request (tuning happens entirely via the custom
+// "tune" message above), so PlayerManager has no queued media of its own to
+// act on. Each interceptor below drives the YouTube IFrame Player directly,
+// then calls broadcastStatus() so PlayerManager's own state (and any
+// connected sender's remote-control UI) reflects the change — the
+// documented pattern for a receiver whose actual playback happens outside
+// PlayerManager's default media element.
+const playerManager = castReceiverContext.getPlayerManager();
+
+playerManager.setMessageInterceptor(cast.framework.messages.MessageType.PLAY, (request) => {
+  if (player) player.playVideo();
+  playerManager.broadcastStatus(true);
+  return request;
+});
+
+playerManager.setMessageInterceptor(cast.framework.messages.MessageType.PAUSE, (request) => {
+  if (player) player.pauseVideo();
+  playerManager.broadcastStatus(true);
+  return request;
+});
+
+playerManager.setMessageInterceptor(cast.framework.messages.MessageType.SET_VOLUME, (request) => {
+  if (player && request.volume) {
+    if (typeof request.volume.level === "number") {
+      player.setVolume(Math.round(request.volume.level * 100));
+    }
+    if (typeof request.volume.muted === "boolean") {
+      if (request.volume.muted) {
+        player.mute();
+      } else {
+        player.unMute();
+      }
+    }
+  }
+  playerManager.broadcastStatus(true);
+  return request;
+});
+
 castReceiverContext.start();
