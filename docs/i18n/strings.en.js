@@ -67,6 +67,8 @@ export const strings = {
     "Just open it — a channel starts playing right away, muted at first. Tap the unmute button (or press <kbd>M</kbd>) to turn on sound.",
   aboutGuideInstructionHtml:
     "To see what's on or switch channels, open the guide — tap <strong>Guide</strong> in the toolbar (or press <kbd>G</kbd>), then use the up/down arrows or a vertical swipe to move between channels, and press <kbd>Enter</kbd> (or tap, or swipe right) to tune in. Press <kbd>Esc</kbd> to close the guide.",
+  aboutGoLiveInstructionHtml:
+    "If you've paused or want to catch up to what's airing right now, tap <strong>🔴 Go to Live</strong> over the player (or press <kbd>L</kbd>) to jump back to the live broadcast.",
   aboutInstallInstruction:
     "On a phone, you can install Nahom Eri TV like an app — add it to your home screen for one-tap access and instant loading, even on a weak connection.",
 };
