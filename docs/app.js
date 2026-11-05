@@ -37,7 +37,10 @@ const CHANNEL_DOT_COLORS = ["var(--accent)", "var(--kebire)", "#9a7fd1", "#d9775
 // touch (swipe) are the two input sources wired up so far; a later TV-stick
 // remote feeds the same move()/activate() calls from its own input events.
 const guideNav = createListNav({
-  getItems: () => Array.from(guideRows.querySelectorAll(".guide-row")),
+  getItems: () =>
+    Array.from(guideRows.querySelectorAll(".guide-row")).filter(
+      (row) => row.getAttribute("aria-disabled") !== "true",
+    ),
   onActivate: (row) => switchChannel(row.dataset.channel),
 });
 
@@ -217,18 +220,26 @@ function renderGuide() {
 
   channelNames.forEach((name, i) => {
     const { videos, index } = channelNowState(name);
+    const available = isChannelAvailable(videos);
 
     const row = document.createElement("div");
     row.className = "guide-row";
     row.dataset.channel = name;
     row.tabIndex = -1; // focus is managed entirely by guideNav, not Tab order
-    row.addEventListener("click", () => switchChannel(name));
-    row.addEventListener("keydown", (event) => {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault(); // stop Space from also scrolling the page
-        guideNav.activate();
-      }
-    });
+    // A role is required for aria-disabled to be exposed by assistive tech at
+    // all — a roleless div's aria-disabled is commonly ignored by screen readers.
+    row.setAttribute("role", "button");
+    if (available) {
+      row.addEventListener("click", () => switchChannel(name));
+      row.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault(); // stop Space from also scrolling the page
+          guideNav.activate();
+        }
+      });
+    } else {
+      row.setAttribute("aria-disabled", "true");
+    }
 
     const chan = document.createElement("div");
     chan.className = "guide-chan";
