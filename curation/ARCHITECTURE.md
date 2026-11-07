@@ -1,5 +1,7 @@
 # Curation pipeline architecture
 
+![Curation pipeline architecture](architecture.svg)
+
 This describes the designed automated curation pipeline: a scheduled job that
 replaces manually running `discover.py`/`kebire_channel.py` by hand. Some of
 this is built already (`channels.yaml`, `jobs.yaml` — ticket 019); the rest

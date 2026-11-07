@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 970" role="img" aria-labelledby="title description">
+  <title id="title">Nahom Eri TV curation pipeline architecture</title>
+  <desc id="description">A planned GitHub Actions workflow reads channel, job, and blocklist configuration; searches YouTube and revalidates stored videos; writes channel updates and summaries; applies removals directly and sends additions through pull request review before GitHub Pages publishes from main.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#64748b"/>
+    </marker>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #172033; }
+      .title { font-size: 30px; font-weight: 700; }
+      .subtitle { font-size: 15px; fill: #526176; }
+      .section { font-size: 17px; font-weight: 700; }
+      .heading { font-size: 16px; font-weight: 700; }
+      .body { font-size: 13px; fill: #34445a; }
+      .small { font-size: 12px; fill: #526176; }
+      .card { fill: #fff; stroke: #cbd5e1; stroke-width: 1.5; }
+      .workflow { fill: #f0f7ff; stroke: #8bb9e8; stroke-width: 1.5; }
+      .blue { fill: #e8f2ff; stroke: #75a8df; }
+      .teal { fill: #e5f7f3; stroke: #66b9a7; }
+      .amber { fill: #fff5df; stroke: #e2b34f; }
+      .red { fill: #fff0ed; stroke: #df8c7d; }
+      .line { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#arrow); }
+      .dashed { stroke-dasharray: 6 5; }
+      .tag { font-size: 11px; font-weight: 700; fill: #526176; letter-spacing: .5px; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="970" fill="#f7f9fc"/>
+  <text class="title" x="48" y="52">Nahom Eri TV — Curation pipeline</text>
+  <text class="subtitle" x="49" y="78">Designed automated flow · workflow automation is pending (ticket 023)</text>
+
+  <rect class="card" x="48" y="108" width="330" height="125" rx="12"/>
+  <text class="tag" x="68" y="133">DATA-DRIVEN CONFIGURATION</text>
+  <text class="heading" x="68" y="159">Curators’ files</text>
+  <text class="body" x="68" y="182">channels.yaml — queries, thresholds, channel rules</text>
+  <text class="body" x="68" y="202">jobs.yaml — scripts to run · blocklist.yaml — exclusions</text>
+  <text class="small" x="68" y="221">Rules can change without editing Python.</text>
+
+  <rect class="blue" x="435" y="108" width="330" height="125" rx="12"/>
+  <text class="tag" x="455" y="133">TRIGGER</text>
+  <text class="heading" x="455" y="159">GitHub Actions workflow</text>
+  <text class="body" x="455" y="183">Weekly schedule or manual dispatch</text>
+  <text class="small" x="455" y="207">Runs the configured channel jobs.</text>
+
+  <rect class="card" x="822" y="108" width="330" height="125" rx="12"/>
+  <text class="tag" x="842" y="133">EXTERNAL METADATA</text>
+  <text class="heading" x="842" y="159">YouTube Data API</text>
+  <text class="body" x="842" y="183">Search / creator upload enumeration</text>
+  <text class="body" x="842" y="203">Video metadata and current availability</text>
+
+  <path class="line" d="M378 170H427"/>
+  <path class="line" d="M600 233V264"/>
+
+  <rect class="workflow" x="48" y="264" width="1104" height="465" rx="16"/>
+  <text class="section" x="72" y="295">Per-run workflow · process each configured channel</text>
+
+  <rect class="card" x="76" y="324" width="250" height="195" rx="12"/>
+  <text class="tag" x="96" y="350">CHANNEL JOBS</text>
+  <text class="heading" x="96" y="378">Channel scripts</text>
+  <text class="body" x="96" y="405">discover.py</text>
+  <text class="body" x="96" y="426">kebire_channel.py</text>
+  <text class="body" x="96" y="458">jobs.yaml selects scripts;</text>
+  <text class="body" x="96" y="478">each handles its own channels.</text>
+  <text class="small" x="96" y="501">Search queries or creator catalog</text>
+
+  <rect class="teal" x="402" y="324" width="365" height="195" rx="12"/>
+  <text class="tag" x="422" y="350">SHARED PIPELINE</text>
+  <text class="heading" x="422" y="378">Enrich → validate → merge</text>
+  <text class="body" x="422" y="405">1. Re-fetch metadata for stored videos</text>
+  <text class="body" x="422" y="428">2. Search / enumerate fresh candidates</text>
+  <text class="body" x="422" y="451">3. Validate both against channel thresholds</text>
+  <text class="body" x="422" y="474">4. Remove failed entries; keep passing ones</text>
+  <text class="small" x="422" y="501">One metadata path · blocklist applies</text>
+
+  <rect class="card" x="842" y="324" width="278" height="195" rx="12"/>
+  <text class="tag" x="862" y="350">GIT-TRACKED DATA</text>
+  <text class="heading" x="862" y="378">docs/data/videos.json</text>
+  <text class="body" x="862" y="405">Flat video pool + channel tags</text>
+  <text class="body" x="862" y="428">Per-channel schedules</text>
+  <text class="body" x="862" y="451">lastValidated timestamps</text>
+  <text class="small" x="862" y="486">A script only updates its channel;</text>
+  <text class="small" x="862" y="503">other channels remain untouched.</text>
+
+  <path class="line" d="M326 419H394"/>
+  <path class="line" d="M842 445H779"/>
+  <path class="line dashed" d="M1000 324V246"/>
+  <text class="small" x="1011" y="282">API calls</text>
+  <path class="line" d="M767 419H834"/>
+
+  <rect class="blue" x="402" y="548" width="365" height="145" rx="12"/>
+  <text class="tag" x="422" y="574">RUN OUTPUT</text>
+  <text class="heading" x="422" y="602">Per-channel update + summary</text>
+  <text class="body" x="422" y="628">Updated channel entry in videos.json</text>
+  <text class="body" x="422" y="651">.pending/&lt;channel&gt;.json: additions, removals</text>
+  <text class="small" x="422" y="676">Workflow collects all pending summaries.</text>
+  <path class="line" d="M584 519V540"/>
+
+  <text class="section" x="48" y="772">Different change types take different release paths</text>
+
+  <rect class="red" x="48" y="798" width="330" height="130" rx="12"/>
+  <text class="tag" x="68" y="824">REMOVALS · IMMEDIATE</text>
+  <text class="heading" x="68" y="852">Commit and push to main</text>
+  <text class="body" x="68" y="878">No PR gate; failed content is taken down</text>
+  <text class="body" x="68" y="899">without waiting for review.</text>
+
+  <rect class="amber" x="435" y="798" width="330" height="130" rx="12"/>
+  <text class="tag" x="455" y="824">ADDITIONS · HUMAN REVIEW</text>
+  <text class="heading" x="455" y="852">Branch → Pull Request</text>
+  <text class="body" x="455" y="878">Readable per-channel summary; reviewer</text>
+  <text class="body" x="455" y="899">approval and merge publish new videos.</text>
+
+  <rect class="teal" x="822" y="798" width="330" height="130" rx="12"/>
+  <text class="tag" x="842" y="824">PUBLISH</text>
+  <text class="heading" x="842" y="852">main → GitHub Pages</text>
+  <text class="body" x="842" y="878">Merged additions and direct removals</text>
+  <text class="body" x="842" y="899">are published from main.</text>
+
+  <path class="line" d="M486 693V752H213V790"/>
+  <path class="line" d="M584 693V790"/>
+  <path class="line" d="M378 863H814"/>
+  <path class="line" d="M765 863H814"/>
+</svg>

@@ -2,6 +2,8 @@
 
 See [`ARCHITECTURE.md`](ARCHITECTURE.md) for the full design of the automated curation pipeline (search, validation, storage, and why additions vs. removals are handled differently).
 
+![Curation pipeline architecture](architecture.svg)
+
 `../docs/data/videos.json` holds a flat pool of videos (each tagged with a `channels` array) plus a `schedules` map with one entry per channel (`scheduleStart`, and `default: true` on exactly one channel). Each script below only ever replaces its own channel's videos and leaves every other channel's entries and schedule untouched — see `merge_channel` in `fetch_metadata.py`, which the other scripts reuse.
 
 ## Automated runs
