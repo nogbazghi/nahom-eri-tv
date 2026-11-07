@@ -10,7 +10,7 @@
 // focus." It manages focus directly (a fully-scripted roving focus) rather
 // than juggling tabindex values on every item.
 
-function createListNav({ getItems, onActivate }) {
+export function createListNav({ getItems, onActivate }) {
   let focusedIndex = -1;
 
   function clamp(index, length) {

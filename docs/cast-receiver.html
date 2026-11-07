@@ -45,12 +45,93 @@
     #receiver-message[hidden] {
       display: none;
     }
+
+    #channel-menu-toggle {
+      position: absolute;
+      z-index: 4;
+      top: 4vh;
+      right: 4vw;
+      padding: 16px 24px;
+      border: 3px solid #fff;
+      border-radius: 8px;
+      color: #fff;
+      background: #b00020;
+      font: 700 28px/1.2 sans-serif;
+    }
+
+    #channel-menu-overlay {
+      position: absolute;
+      z-index: 3;
+      inset: 0;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8vh 8vw;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.92);
+      font-family: sans-serif;
+    }
+
+    #channel-menu-overlay[hidden] {
+      display: none;
+    }
+
+    .menu-title {
+      width: min(80vw, 900px);
+      margin-bottom: 24px;
+      font-size: 36px;
+      font-weight: 700;
+      text-align: left;
+    }
+
+    #channel-list {
+      box-sizing: border-box;
+      width: min(80vw, 900px);
+      max-height: 72vh;
+      margin: 0;
+      padding: 0;
+      overflow-y: auto;
+      list-style: none;
+    }
+
+    .channel-item {
+      margin-bottom: 8px;
+      padding: 16px 24px;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 8px;
+      font-size: clamp(28px, 4vw, 48px);
+    }
+
+    .channel-item:focus {
+      background: #ff0033; /* High-contrast focus state */
+      outline: 4px solid #fff;
+      outline-offset: 2px;
+    }
+
+    .channel-item[aria-disabled="true"] {
+      color: #a4a4a4;
+      background: #252525;
+    }
   </style>
 </head>
 <body>
   <div id="player-wrap">
     <div id="player"></div>
     <div id="receiver-message" role="status" hidden></div>
+    <button
+      id="channel-menu-toggle"
+      type="button"
+      aria-controls="channel-menu-overlay"
+      aria-expanded="false"
+      hidden
+    >Channels</button>
+    <div id="channel-menu-overlay" role="region" aria-label="Select Channel" hidden>
+      <div class="menu-title">Select Channel</div>
+      <ul id="channel-list"></ul>
+    </div>
   </div>
 
   <!-- No sw.js registration here, unlike index.html/about.html: this page

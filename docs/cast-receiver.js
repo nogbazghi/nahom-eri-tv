@@ -1,15 +1,17 @@
 // Cast receiver page: plays the live broadcast when docs/cast-receiver.html
 // is opened directly in a browser (ticket #37), and also when launched as an
 // actual Cast session and handed a channel via a "tune" message from
-// docs/cast-sender.js (ticket #39, part of spec #35). On-screen channel menu
-// and remote command interception are later tickets under #35. Reuses the
-// exact same shared, tested modules app.js uses for position math
+// docs/cast-sender.js (ticket #39, part of spec #35). The receiver also has
+// its own D-pad/touch channel menu and remote playback controls. It reuses
+// the same shared modules app.js uses for position math
 // (schedule.js) and offline/error messaging (offline-message.js) so the two
 // surfaces can never drift out of sync or duplicate buggy math.
 import { selectLineupMessage } from "./offline-message.js";
 import { t } from "./i18n-ui.js";
 import { currentPosition, videosForChannel } from "./schedule.js";
 import { TUNE_NAMESPACE, TUNE_MESSAGE_TYPE } from "./cast-protocol.js";
+import { isChannelAvailable } from "./channel-availability.js";
+import { createReceiverChannelMenu } from "./cast-receiver-menu.js";
 
 let allVideos = [];
 let schedules = {};
@@ -32,6 +34,15 @@ let lineupStatus = "success";
 let pendingTuneChannel = null;
 
 const messageEl = document.getElementById("receiver-message");
+const channelMenu = createReceiverChannelMenu({
+  document,
+  menuOverlay: document.getElementById("channel-menu-overlay"),
+  channelList: document.getElementById("channel-list"),
+  menuToggle: document.getElementById("channel-menu-toggle"),
+  getCurrentChannel: () => currentChannel,
+  getPlayer: () => player,
+  onSelectChannel: tuneToChannel,
+});
 
 // Fetches the live lineup. Never throws — a network failure or a bad
 // response is recorded in lineupStatus instead, mirroring app.js's
@@ -44,6 +55,12 @@ async function loadLineup() {
     allVideos = data.videos || [];
     schedules = data.schedules || {};
     channelNames = Object.keys(schedules);
+    channelMenu.render(
+      channelNames.map((name) => ({
+        name,
+        available: isChannelAvailable(videosForChannel(allVideos, name)),
+      }))
+    );
     lineupStatus = "success";
   } catch (err) {
     lineupStatus = "error";
