@@ -18,7 +18,7 @@ import { TUNE_NAMESPACE, tuneMessage } from "./cast-protocol.js";
 // human step — see docs/agents for context). #38 is not done yet as of this
 // ticket, so this is a placeholder: swap in the real App ID once #38
 // completes, and this file's behavior needs no other changes.
-const RECEIVER_APP_ID = "YOUR_CAST_APP_ID";
+const RECEIVER_APP_ID = "68838A21";
 
 const castButton = document.getElementById("cast-button");
 
