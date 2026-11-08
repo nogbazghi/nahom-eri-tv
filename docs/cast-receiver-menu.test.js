@@ -65,7 +65,6 @@ class FakeElement extends FakeTarget {
 
 function createHarness({
   currentChannel = "News",
-  player = null,
   onSelectChannel = () => {},
 } = {}) {
   const document = new FakeTarget();
@@ -83,7 +82,6 @@ function createHarness({
     channelList,
     menuToggle,
     getCurrentChannel: () => currentChannel,
-    getPlayer: () => player,
     onSelectChannel,
   });
 
@@ -135,55 +133,6 @@ test("remote opens the menu, navigates available channels, and selects the focus
 
   assert.deepEqual(selectedChannels, ["Sports"]);
   assert.equal(menuOverlay.hidden, true);
-});
-
-test("touch swipes navigate and select channels in the open menu", () => {
-  const selectedChannels = [];
-  const { menuOverlay, channelList, menuToggle, menu } = createHarness({
-    onSelectChannel: (name) => selectedChannels.push(name),
-  });
-
-  menu.render([
-    { name: "News", available: true },
-    { name: "Sports", available: true },
-  ]);
-  menuToggle.dispatch("click");
-  menuOverlay.dispatch("touchstart", {
-    touches: [{ clientX: 100, clientY: 160 }],
-  });
-  menuOverlay.dispatch("touchend", {
-    changedTouches: [{ clientX: 100, clientY: 100 }],
-  });
-  menuOverlay.dispatch("touchstart", {
-    touches: [{ clientX: 100, clientY: 100 }],
-  });
-  menuOverlay.dispatch("touchend", {
-    changedTouches: [{ clientX: 160, clientY: 100 }],
-  });
-
-  assert.deepEqual(selectedChannels, ["Sports"]);
-  assert.equal(menuOverlay.hidden, true);
-  assert.equal(channelList.children[1].textContent, "Sports");
-});
-
-test("remote left and right seek by ten seconds only while the menu is closed", () => {
-  const seeks = [];
-  const player = {
-    getCurrentTime: () => 5,
-    seekTo: (...args) => seeks.push(args),
-  };
-  const { document, menuToggle, menu } = createHarness({ player });
-
-  menu.render([{ name: "News", available: true }]);
-  document.dispatch("keydown", { key: "ArrowLeft" });
-  document.dispatch("keydown", { key: "ArrowRight" });
-  menuToggle.dispatch("click");
-  document.dispatch("keydown", { key: "ArrowLeft" });
-
-  assert.deepEqual(seeks, [
-    [0, true],
-    [15, true],
-  ]);
 });
 
 test("the Channels button toggles the menu and tapping an available channel tunes it", () => {

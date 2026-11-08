@@ -2,7 +2,8 @@
 // is opened directly in a browser (ticket #37), and also when launched as an
 // actual Cast session and handed a channel via a "tune" message from
 // docs/cast-sender.js (ticket #39, part of spec #35). The receiver also has
-// its own D-pad/touch channel menu and remote playback controls. It reuses
+// its own D-pad-navigable channel menu and remote playback controls. It
+// reuses
 // the same shared modules app.js uses for position math
 // (schedule.js) and offline/error messaging (offline-message.js) so the two
 // surfaces can never drift out of sync or duplicate buggy math.
@@ -40,7 +41,6 @@ const channelMenu = createReceiverChannelMenu({
   channelList: document.getElementById("channel-list"),
   menuToggle: document.getElementById("channel-menu-toggle"),
   getCurrentChannel: () => currentChannel,
-  getPlayer: () => player,
   onSelectChannel: tuneToChannel,
 });
 
