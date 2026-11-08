@@ -15,10 +15,9 @@
 import { TUNE_NAMESPACE, tuneMessage } from "./cast-protocol.js";
 
 // Registered in the Google Cast Developer Console by ticket #38 (a one-time
-// human step — see docs/agents for context). #38 is not done yet as of this
-// ticket, so this is a placeholder: swap in the real App ID once #38
-// completes, and this file's behavior needs no other changes.
-const RECEIVER_APP_ID = "68838A21";
+// human step — see docs/agents for context). #38 is done; this is the real
+// receiver App ID.
+const RECEIVER_APP_ID = "39BF38D7";
 
 const castButton = document.getElementById("cast-button");
 
