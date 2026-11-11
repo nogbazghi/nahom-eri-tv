@@ -274,7 +274,7 @@ function playLiveEvent(event) {
   currentIndex = -1;
   updateLiveEventBadge(event);
   updateGoLiveButton();
-  player.loadVideoById({ videoId: event.videoId });
+  player.loadVideoById({ videoId: event.id });
 }
 
 function tuneLiveEvent(event) {
@@ -289,7 +289,7 @@ function tuneLiveEvent(event) {
 // activation pattern switchChannel(row.dataset.channel) already uses.
 function tuneLiveEventFromRow(row) {
   tuneLiveEvent({
-    videoId: row.dataset.liveEventVideoId,
+    id: row.dataset.liveEventVideoId,
     displayName: row.dataset.liveEventDisplayName,
     title: row.dataset.liveEventTitle,
   });
@@ -320,7 +320,7 @@ function pickInitialChannel() {
 function renderLiveEventRow(event, nowMs) {
   const row = document.createElement("div");
   row.className = "guide-row";
-  row.dataset.liveEventVideoId = event.videoId;
+  row.dataset.liveEventVideoId = event.id;
   row.dataset.liveEventDisplayName = event.displayName;
   row.dataset.liveEventTitle = event.title || event.displayName;
   row.tabIndex = -1;
@@ -448,7 +448,7 @@ function openGuide() {
   guideToggle.setAttribute("aria-expanded", "true");
   guideNav.focusWhere((row) =>
     currentLiveEvent
-      ? row.dataset.liveEventVideoId === currentLiveEvent.videoId
+      ? row.dataset.liveEventVideoId === currentLiveEvent.id
       : row.dataset.channel === currentChannel,
   );
 }

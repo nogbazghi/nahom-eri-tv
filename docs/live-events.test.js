@@ -9,9 +9,10 @@ const HOUR_MS = 60 * 60 * 1000;
 
 function eventAt(overrides = {}) {
   return {
-    videoId: "abc123",
+    id: "abc123",
     displayName: "Test Wedding",
     title: "Test Wedding — Live",
+    channel: "Organizer Channel",
     scheduledStart: START.toISOString(),
     ...overrides,
   };
@@ -44,19 +45,19 @@ test("an overridden lead time is respected instead of the default", () => {
 });
 
 test("an overridden expiry is respected instead of the default", () => {
-  const event = eventAt({ expiryHours: 72 });
+  const event = eventAt({ expireAfterHours: 72 });
   const nowMs = START_MS + 48 * HOUR_MS; // outside the 24h default, inside the 72h override
   assert.equal(isLiveEventVisible(event, nowMs), true);
 });
 
 test("visibleLiveEvents: keeps only the entries currently inside their own window", () => {
-  const visible = eventAt({ videoId: "visible" });
+  const visible = eventAt({ id: "visible" });
   const notYet = eventAt({
-    videoId: "not-yet",
+    id: "not-yet",
     scheduledStart: new Date(START_MS + 100 * HOUR_MS).toISOString(),
   });
   const expired = eventAt({
-    videoId: "expired",
+    id: "expired",
     scheduledStart: new Date(START_MS - 100 * HOUR_MS).toISOString(),
   });
   assert.deepEqual(visibleLiveEvents([visible, notYet, expired], START_MS), [visible]);
