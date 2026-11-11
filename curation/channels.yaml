@@ -25,6 +25,22 @@ weddings:
   view_count_min: 1000
   duration_min_sec: 120
 
+# Eritrean/Tigrinya/Habesha comedy, including political satire — per issue
+# #84 (part of #82). Same unvetted-pool shape as Weddings: type: search,
+# no trusted single source to point a type: channel rule at, so this
+# follows Weddings' thresholds exactly (view_count_min: 1000,
+# duration_min_sec: 120). No query-level exclusion for political satire,
+# per the ticket's acceptance criteria — it's in scope, not filtered out.
+comedy:
+  type: search
+  display_name: Comedy
+  queries:
+    - "Tigrinya comedy"
+    - "Eritrean comedy"
+    - "Habesha comedy"
+  view_count_min: 1000
+  duration_min_sec: 120
+
 kebire:
   type: channel
   display_name: Kebire
