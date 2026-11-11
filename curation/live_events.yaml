@@ -1,0 +1,17 @@
+# Manually-submitted Live events: a temporary guide row featuring an
+# existing third-party live YouTube stream of a single scheduled occasion
+# (a wedding, a festival). Add one entry per event via a normal PR — this
+# file is never touched by the automated curation pipeline (see jobs.yaml);
+# run merge_live_events.py by hand after editing it.
+#
+# Required fields: id (the source video's YouTube ID), display_name (the
+# guide row's label), scheduled_start (ISO-8601, e.g. 2026-12-01T18:00:00+00:00).
+# Optional overrides: lead_time_hours (default 2 — how long before
+# scheduled_start the row becomes visible), expire_after_hours (default 24
+# — how long after scheduled_start the row is automatically removed).
+#
+# - id: dQw4w9WgXcQ
+#   display_name: Stockholm Wedding
+#   scheduled_start: "2026-12-01T18:00:00+00:00"
+#   lead_time_hours: 2
+#   expire_after_hours: 24

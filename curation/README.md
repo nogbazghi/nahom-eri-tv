@@ -32,6 +32,20 @@ Automated discovery (M4, replaces hand-picking — see `discover.py`'s `RULES`):
 Every public, embeddable video from Kebire's YouTube channel containing `#eritrea` in its title or description (no view-count filter — this is one known creator's catalog, not an unvetted pool):
 - `python kebire_channel.py`
 
+## Live events
+
+A temporary guide row featuring an existing third-party live YouTube stream
+of a single scheduled occasion (a wedding, a festival) — manually submitted,
+never run by the automated pipeline:
+1. Add an entry to `live_events.yaml` via a normal PR (one entry per event).
+2. `export YOUTUBE_API_KEY=...`
+3. `python merge_live_events.py`
+
+This writes/updates the top-level `liveEvents` array in `../docs/data/videos.json`,
+leaving `videos`/`schedules` untouched. A malformed entry (missing a
+required field, or an unparseable `scheduled_start`) is rejected with a
+warning rather than written.
+
 ## Excluding a video
 
 Add it to `blocklist.yaml` (with a reason and date) and re-run whichever script generated it.
