@@ -75,6 +75,12 @@ export function createReceiverChannelMenu({
   }
 
   menuToggle.addEventListener("click", toggleMenu);
+  // ArrowLeft/ArrowRight are deliberately unhandled here, matching app.js's
+  // channel guide (same reasoning: a channel is one selectable unit, with
+  // no horizontal target to move to). This isn't an oversight — remote
+  // seek/skip controls were considered and declined, since the broadcast
+  // position is intentionally never a per-viewer offset to seek within
+  // (see GLOSSARY.md's "Live broadcast position").
   document.addEventListener("keydown", (event) => {
     if (menuOverlay.hidden) {
       if (event.key === "ArrowUp" || event.key === "ArrowDown") {

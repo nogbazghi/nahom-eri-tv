@@ -4,6 +4,17 @@ A narrative history of what's changed in Nahom Eri TV, grouped by major version.
 
 Versions here mark real service-level milestones, not package releases.
 
+## v4 — Cast to Chromecast/Android TV (2026-11-10)
+
+- Added Cast support: the live broadcast can now be cast to a Chromecast or Android TV device, with the TV's own remote driving channel switching directly — no phone required once casting has started. Built as a sender (`docs/cast-sender.js`, launches the receiver and hands off the channel currently showing locally) and an independent receiver page (`docs/cast-receiver.html`/`cast-receiver.js`) that reuses the exact same `schedule.js` position math and `offline-message.js` messaging as the main site, so the two surfaces can never drift out of sync.
+- The receiver has its own large, high-contrast, D-pad-navigable channel menu (`docs/cast-receiver-menu.js`), built on the same `createListNav` module the main site's guide already uses: Up/Down moves focus, select/Enter retunes, Back/Escape closes.
+- The physical remote's play/pause/volume/mute are wired directly into the YouTube player via `PlayerManager` message interceptors, since this receiver's actual playback happens outside the Cast Framework's own default media element.
+- Fixed a race condition only reproducible on real Chromecast hardware: the YouTube IFrame API's readiness callback could fire before the receiver's module script (always deferred until after the document parses) had registered it, silently dropping the callback forever and leaving the receiver stuck on a black screen. Fixed with an early, non-module shim that records readiness regardless of which finishes first.
+- Fixed a matching race on the sender side: the Cast Sender SDK can report `isAvailable === true` as soon as `chrome.cast` is ready, which isn't always the same moment the separate `?loadCastFramework=1` fetch finishes attaching the `cast` (CAF) namespace `cast-sender.js` actually needs. Hitting that gap threw `ReferenceError: cast is not defined` out of the readiness callback and left `#cast-button` stuck hidden for the rest of that page load — the intermittent "Cast button doesn't show up" symptom. Fixed by polling briefly for `cast.framework` before initializing instead of assuming it's already there.
+- Remote Left/Right is deliberately left unbound, matching the same decision already made for the main site's channel guide — the broadcast position is intentionally never a per-viewer offset to seek within (see `GLOSSARY.md`'s "Live broadcast position").
+- Known follow-up: the remote's select/Enter button doesn't yet reliably retune a focused channel on at least one real device — tracked as #81.
+- Spec: GitHub issue #35; implemented as tickets #38–#42.
+
 ## v3 — Automated Curation Pipeline (in progress, started 2026-11-01)
 
 - Added a **Go to Live** control, always visible as an overlay bottom-left on the player: re-tunes the current channel to its live broadcast position and resumes playback in one tap (or the `l` key) — reusing the exact same re-tune path as reselecting a channel from the guide, rather than a second resync mechanism. Translated label, consistent with the rest of the app's chrome text.

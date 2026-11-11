@@ -183,7 +183,13 @@ function onPlayerError() {
 
 // Cast receivers aren't subject to normal browser autoplay-mute
 // restrictions, so playback starts unmuted with no tap-to-unmute step.
-window.onYouTubeIframeAPIReady = function () {
+//
+// window.onYouTubeIframeAPIReady is registered here too, but this module
+// script is deferred until after the document parses — the YouTube API's
+// own readiness check can fire before that and, finding nothing defined
+// yet, skip calling it for good (see the inline shim in cast-receiver.html
+// that this checks/overwrites below).
+function initYouTubePlayer() {
   player = new YT.Player("player", {
     height: "100%",
     width: "100%",
@@ -199,7 +205,13 @@ window.onYouTubeIframeAPIReady = function () {
       onError: onPlayerError,
     },
   });
-};
+}
+
+if (window.__ytIframeApiReady) {
+  initYouTubePlayer();
+} else {
+  window.onYouTubeIframeAPIReady = initYouTubePlayer;
+}
 
 // Auto-recovery: when connectivity returns, reload the schedule with no
 // manual refresh possible on a receiver — same as app.js's "online"
