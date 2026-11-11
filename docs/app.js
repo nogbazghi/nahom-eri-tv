@@ -6,6 +6,7 @@ import {
   channelNowState as channelNowStatePure,
 } from "./schedule.js";
 import { isChannelAvailable } from "./channel-availability.js";
+import { createListNav } from "./nav.js";
 
 let allVideos = [];
 let schedules = {};

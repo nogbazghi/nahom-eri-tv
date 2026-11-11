@@ -13,7 +13,7 @@ The point in a channel's cyclic lineup that corresponds to right now, computed f
 _Avoid_: Live edge (implies a real-time stream buffer, which doesn't exist here), live position
 
 **Go to Live**:
-A player control that re-tunes the current channel to its live broadcast position and resumes playback — the same outcome as reselecting the channel's row in the guide, offered as a one-tap shortcut from the player itself.
+A player control that jumps back to "what's happening right now" and resumes playback, offered as a one-tap shortcut from the player itself. For a channel, that means re-tuning to its computed live broadcast position (the same outcome as reselecting the channel's row in the guide). For a Live event, it means an actual live-edge jump on the real stream, since there a viewer genuinely can fall behind. Same control and label in both contexts; the mechanism underneath differs by what's playing.
 _Avoid_: Live button (ambiguous with a stream's live edge)
 
 **Language toggle**:
@@ -27,3 +27,15 @@ _Avoid_: UI text, labels (when the static/dynamic distinction matters)
 **Content text**:
 Text sourced from channel or video data (titles, channel names) rather than written by the app itself. Not translated by the language toggle — it already carries whatever language its source used.
 _Avoid_: Dynamic text, data text
+
+**Live event**:
+A single scheduled occasion (e.g. a wedding or festival) whose organizer is live-streaming it on their own YouTube channel, which Nahom Eri TV features for the occasion by adding a temporary row to the guide pointing at that live video.
+_Avoid_: Live channel (a Live event has no `channels.yaml` entry and no cyclic lineup — it's a different mechanism from a Channel row, not a special case of one)
+
+**Live event row**:
+The temporary guide entry for a Live event — added by a reviewed PR naming a source video and scheduled start time, visible some lead time before that start, and removed automatically a fixed window afterward. Unlike a Channel row, it points directly at one real live stream rather than computing a position in a cyclic lineup.
+_Avoid_: Channel row (when specifically distinguishing the two)
+
+**Favorite**:
+A viewer's own marking of a Channel for quick return, kept only in that browser/device's storage (nothing is synced or shared). Favoriting doesn't reorganize the guide — it only pins the channel into its own section for faster access. Applies to Channel rows only; a Live event row is too short-lived to be worth favoriting.
+_Avoid_: Bookmark (already used elsewhere for the channel-in-URL shareability behavior, a different concept), Pin, Star (these name the UI affordance, not the concept)

@@ -1,15 +1,18 @@
 // Cast receiver page: plays the live broadcast when docs/cast-receiver.html
 // is opened directly in a browser (ticket #37), and also when launched as an
 // actual Cast session and handed a channel via a "tune" message from
-// docs/cast-sender.js (ticket #39, part of spec #35). On-screen channel menu
-// and remote command interception are later tickets under #35. Reuses the
-// exact same shared, tested modules app.js uses for position math
+// docs/cast-sender.js (ticket #39, part of spec #35). The receiver also has
+// its own D-pad-navigable channel menu and remote playback controls. It
+// reuses
+// the same shared modules app.js uses for position math
 // (schedule.js) and offline/error messaging (offline-message.js) so the two
 // surfaces can never drift out of sync or duplicate buggy math.
 import { selectLineupMessage } from "./offline-message.js";
 import { t } from "./i18n-ui.js";
 import { currentPosition, videosForChannel } from "./schedule.js";
 import { TUNE_NAMESPACE, TUNE_MESSAGE_TYPE } from "./cast-protocol.js";
+import { isChannelAvailable } from "./channel-availability.js";
+import { createReceiverChannelMenu } from "./cast-receiver-menu.js";
 
 let allVideos = [];
 let schedules = {};
@@ -32,6 +35,14 @@ let lineupStatus = "success";
 let pendingTuneChannel = null;
 
 const messageEl = document.getElementById("receiver-message");
+const channelMenu = createReceiverChannelMenu({
+  document,
+  menuOverlay: document.getElementById("channel-menu-overlay"),
+  channelList: document.getElementById("channel-list"),
+  menuToggle: document.getElementById("channel-menu-toggle"),
+  getCurrentChannel: () => currentChannel,
+  onSelectChannel: tuneToChannel,
+});
 
 // Fetches the live lineup. Never throws — a network failure or a bad
 // response is recorded in lineupStatus instead, mirroring app.js's
@@ -44,6 +55,12 @@ async function loadLineup() {
     allVideos = data.videos || [];
     schedules = data.schedules || {};
     channelNames = Object.keys(schedules);
+    channelMenu.render(
+      channelNames.map((name) => ({
+        name,
+        available: isChannelAvailable(videosForChannel(allVideos, name)),
+      }))
+    );
     lineupStatus = "success";
   } catch (err) {
     lineupStatus = "error";
@@ -166,7 +183,13 @@ function onPlayerError() {
 
 // Cast receivers aren't subject to normal browser autoplay-mute
 // restrictions, so playback starts unmuted with no tap-to-unmute step.
-window.onYouTubeIframeAPIReady = function () {
+//
+// window.onYouTubeIframeAPIReady is registered here too, but this module
+// script is deferred until after the document parses — the YouTube API's
+// own readiness check can fire before that and, finding nothing defined
+// yet, skip calling it for good (see the inline shim in cast-receiver.html
+// that this checks/overwrites below).
+function initYouTubePlayer() {
   player = new YT.Player("player", {
     height: "100%",
     width: "100%",
@@ -182,7 +205,13 @@ window.onYouTubeIframeAPIReady = function () {
       onError: onPlayerError,
     },
   });
-};
+}
+
+if (window.__ytIframeApiReady) {
+  initYouTubePlayer();
+} else {
+  window.onYouTubeIframeAPIReady = initYouTubePlayer;
+}
 
 // Auto-recovery: when connectivity returns, reload the schedule with no
 // manual refresh possible on a receiver — same as app.js's "online"

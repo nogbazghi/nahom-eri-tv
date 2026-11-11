@@ -45,17 +45,127 @@
     #receiver-message[hidden] {
       display: none;
     }
+
+    #channel-menu-toggle {
+      position: absolute;
+      z-index: 4;
+      top: 4vh;
+      right: 4vw;
+      padding: 16px 24px;
+      border: 3px solid #fff;
+      border-radius: 8px;
+      color: #fff;
+      background: #b00020;
+      font: 700 28px/1.2 sans-serif;
+    }
+
+    #channel-menu-overlay {
+      position: absolute;
+      z-index: 3;
+      inset: 0;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8vh 8vw;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.92);
+      font-family: sans-serif;
+    }
+
+    #channel-menu-overlay[hidden] {
+      display: none;
+    }
+
+    /* We never show the SDK's own player/touch-controls UI — this page is
+       entirely custom-rendered — but cast-media-player must still exist in
+       the DOM or the framework never wires up remote/D-pad key events to
+       the page at all (confirmed against a real device; see
+       https://github.com/joeyparrish/chromecast-receivers). */
+    cast-media-player,
+    touch-controls {
+      display: none;
+    }
+
+    .menu-title {
+      width: min(80vw, 900px);
+      margin-bottom: 24px;
+      font-size: 36px;
+      font-weight: 700;
+      text-align: left;
+    }
+
+    #channel-list {
+      box-sizing: border-box;
+      width: min(80vw, 900px);
+      max-height: 72vh;
+      margin: 0;
+      padding: 0;
+      overflow-y: auto;
+      list-style: none;
+    }
+
+    .channel-item {
+      margin-bottom: 8px;
+      padding: 16px 24px;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 8px;
+      font-size: clamp(28px, 4vw, 48px);
+    }
+
+    .channel-item:focus {
+      background: #ff0033; /* High-contrast focus state */
+      outline: 4px solid #fff;
+      outline-offset: 2px;
+    }
+
+    .channel-item[aria-disabled="true"] {
+      color: #a4a4a4;
+      background: #252525;
+    }
   </style>
 </head>
 <body>
+  <!-- Required for the SDK to deliver remote/D-pad keydown events to the
+       page at all — see the CSS rule hiding it above. -->
+  <cast-media-player></cast-media-player>
   <div id="player-wrap">
     <div id="player"></div>
     <div id="receiver-message" role="status" hidden></div>
+    <button
+      id="channel-menu-toggle"
+      type="button"
+      aria-controls="channel-menu-overlay"
+      aria-expanded="false"
+      hidden
+    >Channels</button>
+    <div id="channel-menu-overlay" role="region" aria-label="Select Channel" hidden>
+      <div class="menu-title">Select Channel</div>
+      <ul id="channel-list"></ul>
+    </div>
   </div>
 
   <!-- No sw.js registration here, unlike index.html/about.html: this page
        runs in a Cast receiver context that always has live network, so
        there's no offline PWA-shell use case to precache it for. -->
+  <!-- cast-receiver.js is a module script, which is always deferred until
+       after the document finishes parsing. The YouTube IFrame API's
+       asynchronously-injected widget script can finish loading (and run its
+       one-shot check for window.onYouTubeIframeAPIReady) before that —
+       if it finds nothing defined yet, it skips calling it permanently,
+       with no retry. This inline classic script runs immediately, before
+       that race can lose, and just records that the API is ready; the
+       module below checks the flag (for the case the race already resolved
+       by the time it loads) and also overwrites this with its real handler
+       (for the case it hasn't resolved yet). -->
+  <script>
+    window.__ytIframeApiReady = false;
+    window.onYouTubeIframeAPIReady = function () {
+      window.__ytIframeApiReady = true;
+    };
+  </script>
   <script src="https://www.youtube.com/iframe_api"></script>
   <script src="https://www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>
   <script type="module" src="cast-receiver.js"></script>

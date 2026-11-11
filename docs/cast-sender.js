@@ -9,15 +9,19 @@
 // session starts, resumes, or ends, which is what tells app.js to swap
 // into (or out of) the remote-view UI.
 //
-// Not unit-testable: this is Cast Framework session-lifecycle wiring, which
-// only runs against a real Cast-capable browser and a real or emulated
-// receiver (see spec #35's Testing Decisions). Verified manually.
+// Session-lifecycle wiring itself isn't unit-testable: it only runs against
+// a real Cast-capable browser and a real or emulated receiver (see spec
+// #35's Testing Decisions) — verified manually. The __onGCastApiAvailable
+// readiness race (see waitForCastFrameworkThenInitialize below) is narrow
+// enough to fake the host globals for; see cast-sender.test.js.
 import { TUNE_NAMESPACE, tuneMessage } from "./cast-protocol.js";
 
 // Registered in the Google Cast Developer Console by ticket #38 (a one-time
-// human step — see docs/agents for context). #38 is not done yet as of this
-// ticket, so this is a placeholder: swap in the real App ID once #38
-// completes, and this file's behavior needs no other changes.
+// human step — see docs/agents for context). #38 is done; this is the real
+// receiver App ID. For local manual testing against a separate dev receiver
+// app instead, don't edit this — set CAST_DEV_RECEIVER_APP_ID in the
+// git-ignored .env and serve docs/ with scratch/serve_cast_test.py, which
+// substitutes it in at request time.
 const RECEIVER_APP_ID = "68838A21";
 
 const castButton = document.getElementById("cast-button");
@@ -102,6 +106,26 @@ function initializeCastApi() {
 // else in this file runs.
 window["__onGCastApiAvailable"] = function (isAvailable) {
   if (isAvailable) {
-    initializeCastApi();
+    waitForCastFrameworkThenInitialize();
   }
 };
+
+// isAvailable === true only promises that `chrome.cast` is ready; the `cast`
+// (CAF) namespace initializeCastApi() actually uses comes from a second,
+// independent fetch (triggered by `?loadCastFramework=1` on the same script
+// tag) that doesn't always finish first. Hitting that gap used to throw out
+// of this callback — "ReferenceError: cast is not defined" — leaving
+// #cast-button permanently hidden for the rest of the page's life, visible
+// as Cast intermittently not showing up on reload. Poll briefly instead of
+// assuming readiness.
+function waitForCastFrameworkThenInitialize(attemptsLeft = 20) {
+  if (window.cast && window.cast.framework) {
+    initializeCastApi();
+    return;
+  }
+  if (attemptsLeft <= 0) {
+    console.warn("Cast API reported available, but cast.framework never attached; Cast disabled for this page load.");
+    return;
+  }
+  setTimeout(() => waitForCastFrameworkThenInitialize(attemptsLeft - 1), 50);
+}
