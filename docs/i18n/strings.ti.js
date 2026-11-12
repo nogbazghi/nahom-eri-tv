@@ -22,6 +22,11 @@ export const strings = {
   nowLabel: "ሕጂ",
   nothingScheduledLabel: "ዝተመደበ የለን",
 
+  // Per-row favorite toggle (docs/favorites-ui.js), ticket #92, part of #89.
+  // Best-effort draft — see the reviewer note at the top of this file.
+  addToFavoritesAriaLabel: "ናብ ፍሉያት ወስኽ",
+  removeFromFavoritesAriaLabel: "ካብ ፍሉያት ኣልግስ",
+
   // Corner badge empty state (docs/app.js showEmptyState()).
   nothingInLineupLabel: "ገና ኣብ መስርዕ የለን",
 

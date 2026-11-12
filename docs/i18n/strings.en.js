@@ -18,6 +18,12 @@ export const strings = {
   nowLabel: "NOW",
   nothingScheduledLabel: "Nothing scheduled",
 
+  // Per-row favorite toggle (docs/favorites-ui.js), ticket #92, part of #89.
+  // State-dependent — which one shows depends on whether the channel is
+  // already favorited.
+  addToFavoritesAriaLabel: "Add to Favorites",
+  removeFromFavoritesAriaLabel: "Remove from Favorites",
+
   // Corner badge empty state (docs/app.js showEmptyState()).
   nothingInLineupLabel: "Nothing in the lineup yet",
 
