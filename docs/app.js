@@ -19,9 +19,10 @@ let currentVideos = [];
 // instead — mutually exclusive with a cyclic-lineup position, since a Live
 // event has exactly one video and no lineup to compute a position within
 // (ticket #86, part of spec #82). currentChannel is left alone when this is
-// set, so e.g. the guide can still remember "the last real channel" — Cast
-// (out of scope for Live events here) only ever learns about a tune via the
-// "neritv:channel" event, which tuneLiveEvent() deliberately never fires.
+// set, so e.g. the guide can still remember "the last real channel" for
+// openGuide()'s focus restore once a Channel is tuned again — Cast (out of
+// scope for Live events here) is told separately, via tuneLiveEvent()'s own
+// "neritv:channel" dispatch with a null channel.
 let currentLiveEvent = null;
 let player = null;
 let currentIndex = -1;
@@ -280,6 +281,11 @@ function playLiveEvent(event) {
 function tuneLiveEvent(event) {
   currentLiveEvent = event;
   currentVideos = [];
+  // Tells cast-sender.js there's no Channel to hand off right now, same
+  // contract switchChannel() uses — Live events stay unsupported for Cast
+  // (spec #82), so a session started while one is tuned should find nothing
+  // to send rather than silently casting whatever Channel played last.
+  window.dispatchEvent(new CustomEvent("neritv:channel", { detail: { channel: null } }));
   closeGuide();
   playLiveEvent(event);
 }
