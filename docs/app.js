@@ -7,12 +7,23 @@ import {
 } from "./schedule.js";
 import { isChannelAvailable } from "./channel-availability.js";
 import { createListNav } from "./nav.js";
+import { visibleLiveEvents } from "./live-events.js";
 
 let allVideos = [];
 let schedules = {};
 let channelNames = [];
+let liveEvents = []; // docs/data/videos.json's top-level liveEvents array, as-is
 let currentChannel = null;
 let currentVideos = [];
+// The Live event row currently tuned into, or null while a Channel is tuned
+// instead — mutually exclusive with a cyclic-lineup position, since a Live
+// event has exactly one video and no lineup to compute a position within
+// (ticket #86, part of spec #82). currentChannel is left alone when this is
+// set, so e.g. the guide can still remember "the last real channel" for
+// openGuide()'s focus restore once a Channel is tuned again — Cast (out of
+// scope for Live events here) is told separately, via tuneLiveEvent()'s own
+// "neritv:channel" dispatch with a null channel.
+let currentLiveEvent = null;
 let player = null;
 let currentIndex = -1;
 let guideOpen = false;
@@ -47,7 +58,13 @@ const guideNav = createListNav({
     Array.from(guideRows.querySelectorAll(".guide-row")).filter(
       (row) => row.getAttribute("aria-disabled") !== "true",
     ),
-  onActivate: (row) => switchChannel(row.dataset.channel),
+  onActivate: (row) => {
+    if (row.dataset.liveEventVideoId) {
+      tuneLiveEventFromRow(row);
+    } else {
+      switchChannel(row.dataset.channel);
+    }
+  },
 });
 
 const playerWrap = document.getElementById("player-wrap");
@@ -86,6 +103,7 @@ async function loadLineup() {
     allVideos = data.videos || [];
     schedules = data.schedules || {};
     channelNames = Object.keys(schedules);
+    liveEvents = data.liveEvents || [];
     lineupStatus = "success";
   } catch (err) {
     lineupStatus = "error";
@@ -169,20 +187,49 @@ function formatStartsIn(seconds) {
   return rem === 0 ? `+${hrs}h` : `+${hrs}h ${rem}m`;
 }
 
+// The guide-row countdown for a not-yet-started Live event — same
+// min/hour formatting convention as formatStartsIn() above (and, like that
+// function, chrome text that isn't run through t(): both describe a
+// relative duration, which the i18n copy deck has never covered).
+function formatLiveEventCountdown(secondsUntilStart) {
+  const mins = Math.max(1, Math.round(secondsUntilStart / 60));
+  if (mins < 60) return `Starts in ${mins} min`;
+  const hrs = Math.floor(mins / 60);
+  const rem = mins % 60;
+  return rem === 0 ? `Starts in ${hrs}h` : `Starts in ${hrs}h ${rem}m`;
+}
+
+// The corner badge + toolbar label's shared shape, whatever is tuned —
+// a Channel (updateBadge()) and a Live event (updateLiveEventBadge()) only
+// differ in where `num`/`name`/`title` come from, not in which DOM nodes
+// get written.
+function setBadge({ num, name, title }) {
+  badgeNum.textContent = num;
+  badgeName.textContent = name;
+  badgeTitle.textContent = title;
+  toolbarChan.textContent = name;
+}
+
 function updateBadge(video, channelName) {
   const num = channelNames.indexOf(channelName) + 1;
-  badgeNum.textContent = String(num).padStart(2, "0");
-  badgeName.textContent = channelName;
-  badgeTitle.textContent = video.title;
-  toolbarChan.textContent = channelName;
+  setBadge({ num: String(num).padStart(2, "0"), name: channelName, title: video.title });
+}
+
+// Badge equivalent of updateBadge(), for a tuned Live event — no channel
+// index to show (a Live event isn't in channelNames), so the num slot
+// carries the same 🔴 marker renderGuide() uses for its row instead.
+function updateLiveEventBadge(event) {
+  setBadge({ num: "🔴", name: event.displayName, title: event.title || event.displayName });
 }
 
 // Enabled/disabled state is driven entirely by isChannelAvailable(currentVideos)
 // — the same check #53/#54 use for the guide row/player empty state (ticket
 // #52) — so all three consumers can never disagree about whether the current
-// channel has anything scheduled.
+// channel has anything scheduled. A tuned Live event has no lineup to check
+// availability against at all, so it's unconditionally enabled instead
+// (ticket #86) — "Go to Live" always has a real live edge to jump back to.
 function updateGoLiveButton() {
-  goLiveButton.disabled = !isChannelAvailable(currentVideos);
+  goLiveButton.disabled = currentLiveEvent ? false : !isChannelAvailable(currentVideos);
 }
 
 function showEmptyState() {
@@ -195,9 +242,15 @@ function showEmptyState() {
   updateGoLiveButton();
 }
 
-function playAt(index, offsetSeconds) {
+// Shared by playAt() and playLiveEvent(): whatever's about to play, the
+// empty-state styling from a previous showEmptyState() needs clearing first.
+function clearEmptyState() {
   lineupEmpty = false;
   playerWrap.classList.remove("is-unavailable");
+}
+
+function playAt(index, offsetSeconds) {
+  clearEmptyState();
   currentIndex = index;
   const video = currentVideos[index];
   updateBadge(video, currentChannel);
@@ -208,9 +261,44 @@ function playAt(index, offsetSeconds) {
 // Used when a video ends or errors out mid-playback — just move on within
 // the current channel, rather than recomputing the broadcast position
 // (which would skip back to wherever the schedule "really" is right now).
+// A no-op while a Live event is tuned (currentVideos is always empty then —
+// there's exactly one video, not a lineup to advance within).
 function advanceToNext() {
   if (currentVideos.length === 0) return;
   playAt((currentIndex + 1) % currentVideos.length, 0);
+}
+
+// Tunes the player directly to a Live event's own video id — no lineup,
+// no computed position, just that one video (ticket #86, part of spec #82).
+function playLiveEvent(event) {
+  clearEmptyState();
+  currentIndex = -1;
+  updateLiveEventBadge(event);
+  updateGoLiveButton();
+  player.loadVideoById({ videoId: event.id });
+}
+
+function tuneLiveEvent(event) {
+  currentLiveEvent = event;
+  currentVideos = [];
+  // Tells cast-sender.js there's no Channel to hand off right now, same
+  // contract switchChannel() uses — Live events stay unsupported for Cast
+  // (spec #82), so a session started while one is tuned should find nothing
+  // to send rather than silently casting whatever Channel played last.
+  window.dispatchEvent(new CustomEvent("neritv:channel", { detail: { channel: null } }));
+  closeGuide();
+  playLiveEvent(event);
+}
+
+// Reads the event's own fields back off the row renderGuide() built for it
+// (see the data-live-event-* attributes there) — the same dataset-driven
+// activation pattern switchChannel(row.dataset.channel) already uses.
+function tuneLiveEventFromRow(row) {
+  tuneLiveEvent({
+    id: row.dataset.liveEventVideoId,
+    displayName: row.dataset.liveEventDisplayName,
+    title: row.dataset.liveEventTitle,
+  });
 }
 
 function pickInitialChannel() {
@@ -229,9 +317,66 @@ function pickInitialChannel() {
   return channelNames[0];
 }
 
+// Builds one guide row for a currently-visible Live event — deliberately
+// kept the same shape (.guide-row > .guide-chan + .guide-track > .guide-cell)
+// as a Channel row below, so the two read as one list rather than two
+// different kinds of thing (ticket #86, part of spec #82). Always
+// selectable (a visible Live event always has its one video to tune to),
+// unlike a Channel row, which can be disabled when nothing's scheduled.
+function renderLiveEventRow(event, nowMs) {
+  const row = document.createElement("div");
+  row.className = "guide-row";
+  row.dataset.liveEventVideoId = event.id;
+  row.dataset.liveEventDisplayName = event.displayName;
+  row.dataset.liveEventTitle = event.title || event.displayName;
+  row.tabIndex = -1;
+  row.setAttribute("role", "button");
+  row.addEventListener("click", () => tuneLiveEventFromRow(row));
+  row.addEventListener("keydown", (keyEvent) => {
+    if (keyEvent.key === "Enter" || keyEvent.key === " ") {
+      keyEvent.preventDefault();
+      guideNav.activate();
+    }
+  });
+
+  const chan = document.createElement("div");
+  chan.className = "guide-chan";
+  chan.innerHTML =
+    `<span class="num mono">🔴</span>` +
+    `<span class="dot" style="background:var(--accent)"></span>` +
+    `<span class="name"></span>`;
+  chan.querySelector(".name").textContent = event.displayName;
+  row.appendChild(chan);
+
+  const track = document.createElement("div");
+  track.className = "guide-track";
+
+  const startMs = new Date(event.scheduledStart).getTime();
+  const started = nowMs >= startMs;
+
+  const cell = document.createElement("div");
+  cell.className = started ? "guide-cell now" : "guide-cell";
+  const start = document.createElement("span");
+  start.className = "start mono";
+  start.textContent = started
+    ? t("nowLabel")
+    : formatLiveEventCountdown((startMs - nowMs) / 1000);
+  cell.appendChild(start);
+  cell.appendChild(document.createTextNode(event.title || event.displayName));
+  track.appendChild(cell);
+
+  row.appendChild(track);
+  return row;
+}
+
 function renderGuide() {
   guideRows.innerHTML = "";
   guideNav.reset();
+
+  const nowMs = Date.now();
+  visibleLiveEvents(liveEvents, nowMs).forEach((event) => {
+    guideRows.appendChild(renderLiveEventRow(event, nowMs));
+  });
 
   channelNames.forEach((name, i) => {
     const { videos, index } = channelNowState(name);
@@ -307,7 +452,11 @@ function openGuide() {
   guidePanel.hidden = false;
   guideToggle.textContent = t("guideToggleCloseLabel");
   guideToggle.setAttribute("aria-expanded", "true");
-  guideNav.focusWhere((row) => row.dataset.channel === currentChannel);
+  guideNav.focusWhere((row) =>
+    currentLiveEvent
+      ? row.dataset.liveEventVideoId === currentLiveEvent.id
+      : row.dataset.channel === currentChannel,
+  );
 }
 
 function closeGuide() {
@@ -330,6 +479,7 @@ function toggleGuide() {
 
 function switchChannel(name) {
   currentChannel = name;
+  currentLiveEvent = null;
   // Lets cast-sender.js (ticket #39) know which channel is showing locally,
   // without importing it here — app.js stays ignorant of casting entirely.
   window.dispatchEvent(new CustomEvent("neritv:channel", { detail: { channel: name } }));
@@ -352,6 +502,16 @@ function switchChannel(name) {
   playAt(index, offset);
 }
 
+// While tuned to a Live event: a real live-edge jump on the stream itself
+// (ticket #86, part of spec #82) — seeking to the end of the currently
+// buffered range is the standard way to catch a live YouTube broadcast back
+// up to "now", as opposed to switchChannel()'s reload-and-recompute, which
+// only makes sense for a Channel's cyclic lineup.
+function goLiveOnLiveEvent() {
+  player.seekTo(player.getDuration(), true);
+  player.playVideo();
+}
+
 // Re-tunes the current channel to its live broadcast position and resumes
 // playback — identical in effect to reselecting the channel from the guide,
 // since it's the same switchChannel() call (ticket #55, part of #46). A
@@ -360,6 +520,10 @@ function switchChannel(name) {
 // isn't gated by it, so this checks the same isChannelAvailable() source of
 // truth updateGoLiveButton() drives the button's `disabled` state from.
 function goLive() {
+  if (currentLiveEvent) {
+    goLiveOnLiveEvent();
+    return;
+  }
   if (!currentChannel || !isChannelAvailable(currentVideos)) return;
   switchChannel(currentChannel);
 }
