@@ -8,6 +8,7 @@ import {
 import { isChannelAvailable } from "./channel-availability.js";
 import { createListNav } from "./nav.js";
 import { visibleLiveEvents } from "./live-events.js";
+import { createFavoriteToggle } from "./favorites-ui.js";
 
 let allVideos = [];
 let schedules = {};
@@ -409,6 +410,7 @@ function renderGuide() {
       `<span class="dot" style="background:${dotColor}"></span>` +
       `<span class="name"></span>`;
     chan.querySelector(".name").textContent = name;
+    chan.appendChild(createFavoriteToggle(name));
     row.appendChild(chan);
 
     const track = document.createElement("div");

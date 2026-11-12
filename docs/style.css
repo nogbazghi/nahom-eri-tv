@@ -433,7 +433,9 @@ main {
 
 .guide-row {
   display: grid;
-  grid-template-columns: 150px 1fr;
+  /* 180px, not 150px — widened to make room for .favorite-toggle without
+     squeezing .guide-chan .name into premature ellipsis truncation. */
+  grid-template-columns: 180px 1fr;
   border-bottom: 1px solid var(--border);
   cursor: pointer;
   min-height: 48px; /* touch-target minimum (~44-48px), not just text line height */
@@ -506,6 +508,31 @@ main {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/* Per-row favorite toggle (docs/favorites-ui.js), ticket #92. Pushed to the
+   row's right edge within .guide-chan's flex layout; works on an
+   aria-disabled (nothing-scheduled) row same as an available one, so it's
+   never greyed out by .guide-row[aria-disabled="true"]'s opacity alone. */
+.favorite-toggle {
+  margin-left: auto;
+  flex-shrink: 0;
+  background: transparent;
+  border: none;
+  padding: 0.3rem;
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--muted-dim);
+  cursor: pointer;
+}
+
+.favorite-toggle.is-favorited {
+  color: var(--accent);
+}
+
+.favorite-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
 }
 
 .guide-track {
