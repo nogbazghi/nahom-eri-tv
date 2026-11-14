@@ -272,4 +272,8 @@ playerManager.setMessageInterceptor(cast.framework.messages.MessageType.SET_VOLU
   return request;
 });
 
-castReceiverContext.start();
+// disableIdleTimeout: this receiver never calls playerManager.load() — video
+// plays via the YouTube IFrame API directly, driven by the "tune" message
+// above — so CAF has no media session to call "active" and would otherwise
+// tear the app down on its default idle timeout shortly after launch.
+castReceiverContext.start({ disableIdleTimeout: true });
