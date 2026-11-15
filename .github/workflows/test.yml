@@ -21,6 +21,28 @@ jobs:
       - name: Run node test suite
         run: node --test docs/*.test.js
 
+  browser-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        working-directory: docs
+        run: npm ci
+
+      - name: Install Playwright's Chromium browser
+        working-directory: docs
+        run: npx playwright install --with-deps chromium
+
+      - name: Run browser-based test suite
+        run: node --test docs/browser-tests/*.test.js
+
   python-tests:
     runs-on: ubuntu-latest
     steps:

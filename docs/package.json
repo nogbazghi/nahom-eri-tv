@@ -1,0 +1,8 @@
+{
+  "name": "nahom-eri-tv-docs",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "playwright": "1.65.1"
+  }
+}
