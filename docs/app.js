@@ -7,6 +7,7 @@ import {
 } from "./schedule.js";
 import { isChannelAvailable } from "./channel-availability.js";
 import { createListNav } from "./nav.js";
+import { translateSpecialKey } from "./special-keys.js";
 import { visibleLiveEvents } from "./live-events.js";
 import { createFavoriteToggle, getFavorites, pruneFavorites } from "./favorites-ui.js";
 import { visibleFavorites } from "./favorites.js";
@@ -730,7 +731,16 @@ document.addEventListener("keydown", (event) => {
   // local shortcuts should fire.
   if (casting) return;
 
-  const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
+  // A TV platform's registered non-standard remote key (e.g. Tizen's Back
+  // key) arrives here as a plain keydown like any other — special-keys.js
+  // translates its raw keyCode into the same KeyboardEvent.key vocabulary
+  // (e.g. "Escape") this handler already understands, so it needs no
+  // separate branch of its own (see docs/special-keys.js, ticket #99, part
+  // of spec #98). Standard arrows/Enter aren't in that translation table
+  // and fall through to event.key unchanged.
+  const key =
+    translateSpecialKey(event.keyCode) ??
+    (event.key.length === 1 ? event.key.toLowerCase() : event.key);
 
   if (key === "m") {
     toggleMute();

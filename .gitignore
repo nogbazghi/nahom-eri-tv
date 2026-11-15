@@ -15,3 +15,9 @@ scratch/
 
 # Curation pipeline transient output (hand-off to the GitHub Actions workflow)
 curation/.pending/
+
+# Tizen build/signing output and wizard-local state (machine-specific, not
+# the config.xml manifest or emulator-observations.md record this produces)
+tizen/.wizard-state.env
+tizen/.buildResult/
+tizen/*.wgt

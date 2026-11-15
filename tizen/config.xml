@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Tizen web-app manifest for the Samsung TV Platform App (ticket #99, part of
+  spec #98). <content> points at the hosted entry page on GitHub Pages rather
+  than bundling a local copy of app.js/nav.js/etc. — the whole point of this
+  wrapper is to reuse the one hosted web app as-is, so a fix or feature ships
+  to every platform (and the plain website) at once rather than needing a
+  second copy kept in sync by hand.
+
+  PLACEHOLDER VALUES that must be replaced before a real signed build:
+  - tizen:application id/package: Tizen requires a 10-character alphanumeric
+    package id issued by (and tied to) the signing certificate's author
+    profile, created in Tizen Studio's Certificate Manager / the Samsung
+    Certificate Extension. "NErITV001" below is not a real registered id.
+-->
+<widget xmlns="http://www.w3.org/ns/widgets"
+        xmlns:tizen="http://tizen.org/ns/widgets"
+        id="https://nogbazghi.github.io/nahom-eri-tv/tizen"
+        version="1.0.0"
+        viewmodes="maximized">
+  <tizen:application id="NErITV001.NahomEriTV" package="NErITV001" required_version="2.3"/>
+  <name>Nahom Eri TV</name>
+  <icon src="icon.png"/>
+  <content src="https://nogbazghi.github.io/nahom-eri-tv/tizen-entry.html"/>
+  <tizen:profile name="tv"/>
+  <tizen:setting screen-orientation="landscape"
+                 context-menu="disable"
+                 background-support="disable"
+                 encryption="disable"
+                 install-location="auto"
+                 hwkey-event="enable"/>
+  <!-- The hosted entry page itself, plus the origins it loads at runtime:
+       the YouTube iframe/thumbnail/API hosts for the embedded player. No
+       Cast-related origins — tizen-entry.html never loads the Cast sender
+       scripts (see docs/browser-tests/tizen-entry-no-cast.test.js). -->
+  <access origin="https://nogbazghi.github.io" subdomains="true"/>
+  <access origin="https://www.youtube.com" subdomains="true"/>
+  <access origin="https://www.google.com" subdomains="true"/>
+  <access origin="https://i.ytimg.com" subdomains="true"/>
+  <tizen:privilege name="http://tizen.org/privilege/tvinputdevice"/>
+</widget>
