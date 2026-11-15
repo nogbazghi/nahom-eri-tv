@@ -93,6 +93,19 @@ def run_channel(channel_key, cfg, api_key, blocked_ids, existing_data):
     candidates = dedup_candidates(per_query_results)
     candidates = pipeline.filter_new_ids(candidates, stored_ids, blocked_ids)
 
+    # search.list's own relevance ranking is enough for most queries, but
+    # channels.yaml documents several where it isn't: once a thin/specific
+    # query's genuinely on-topic supply is exhausted, search.list falls
+    # back to generic popular/trending results that merely share a keyword
+    # (confirmed live for sports_diaspora, protestant, fenkil_diaspora — see
+    # their channels.yaml comments) — and nothing downstream catches this,
+    # since validate_record only checks view/duration/public/embeddable,
+    # never topic. An entry can opt into the same text_filter relevance
+    # gate kebire_channel.py's type: channel rules already use, by setting
+    # `text_filter` in channels.yaml; entries that don't set one keep
+    # today's behavior (and today's API cost) exactly as-is.
+    candidates = pipeline.filter_candidates_by_text_filter(candidates, cfg, api_key)
+
     rules = pipeline.rules_from_config(cfg)
     result = pipeline.compute_run(
         channel_key=channel_key,

@@ -111,49 +111,6 @@ def resolve_playlist_id(entry, api_key, get_uploads_playlist_id=get_uploads_play
     return get_uploads_playlist_id(entry["channel_id"], api_key)
 
 
-def matches_text_filter(title, description, text_filter):
-    """Pure — case-insensitive substring match against title OR description.
-
-    Relevance matching, not quality validation: this runs BEFORE
-    pipeline.validate_record, which knows nothing about text_filter.
-    """
-    if not text_filter:
-        return True
-    needle = text_filter.lower()
-    return needle in (title or "").lower() or needle in (description or "").lower()
-
-
-def matches_text_filter_title_only(title, description, text_filter):
-    """Pure — case-insensitive substring match against title ONLY.
-
-    `description` is accepted (and ignored) to keep the same shape as
-    matches_text_filter, so candidate_matches() can call either
-    interchangeably. Use this for a channel whose descriptions are
-    unreliable for genre isolation — e.g. a creator who pastes the same
-    cross-genre hashtag boilerplate (covering both the wanted series and
-    unrelated content) onto most of their uploads' descriptions, making
-    a description hit meaningless as a relevance signal.
-    """
-    if not text_filter:
-        return True
-    return text_filter.lower() in (title or "").lower()
-
-
-def candidate_matches(entry, title, description):
-    """Pure — whether a video satisfies a `type: channel` entry's
-    text_filter, respecting that entry's `text_filter_title_only` flag.
-
-    Defaults to matches_text_filter's title-OR-description behavior
-    (Kebire's existing, unchanged path). Set `text_filter_title_only:
-    true` on an entry to restrict matching to the title only, for a
-    channel where description-based matching produces false positives
-    (see matches_text_filter_title_only's docstring).
-    """
-    text_filter = entry.get("text_filter", "")
-    matcher = matches_text_filter_title_only if entry.get("text_filter_title_only") else matches_text_filter
-    return matcher(title, description, text_filter)
-
-
 def tag_for(text_filter):
     """'#eritrea' -> 'eritrea'; '' -> ''. Generic, not hardcoded to any
     one channel's filter text."""
@@ -173,17 +130,7 @@ def run_channel(channel_key, entry, api_key, blocked_ids, existing_data):
     stored_ids = {v["id"] for v in stored_videos}
 
     fresh_ids = pipeline.filter_new_ids(all_video_ids, stored_ids, blocked_ids)
-
-    # Need title/description to apply text_filter, so fetch metadata for
-    # fresh IDs up front. compute_run() will fetch it again internally for
-    # the IDs that pass this filter, to run full validation — a small,
-    # acceptable duplication given how cheap videos.list batches are.
-    metadata = pipeline.fetch_video_metadata(fresh_ids, api_key) if fresh_ids else {}
-    candidate_ids = [
-        vid
-        for vid in fresh_ids
-        if vid in metadata and candidate_matches(entry, metadata[vid]["title"], metadata[vid]["description"])
-    ]
+    candidate_ids = pipeline.filter_candidates_by_text_filter(fresh_ids, entry, api_key)
 
     rules = pipeline.rules_from_config(entry)
     result = pipeline.compute_run(
