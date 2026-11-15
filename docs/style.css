@@ -399,6 +399,17 @@ main {
   flex-shrink: 0;
 }
 
+/* Same `[hidden]`-vs-author-styles conflict as .install-hint above:
+   .touch-target's `display: inline-flex` outranks the UA stylesheet's
+   `[hidden] { display: none }`, so cast-sender.js's `castButton.hidden =
+   true` default did nothing visible — the button rendered on every
+   browser, Cast-capable or not, with no click handler attached on the
+   ones where it never becomes available (e.g. iOS). Restate display:none
+   here so [hidden] actually hides it. */
+.btn-cast[hidden] {
+  display: none;
+}
+
 .btn-guide {
   font-family: var(--font-mono);
   font-size: 0.72rem;
@@ -429,6 +440,26 @@ main {
 #guide-panel {
   background: var(--surface);
   border-top: 1px solid var(--border);
+}
+
+/* Favorites section (ticket #93, part of spec #89) — a pinned group of
+   .guide-row copies ahead of the full channel list. nav.js's getItems()
+   already walks every .guide-row under #guide-rows via querySelectorAll
+   regardless of nesting (ADR-0001), so wrapping these in .guide-favorites
+   needs no nav.js change. */
+.guide-favorites {
+  border-bottom: 1px solid var(--border);
+}
+
+.guide-section-heading {
+  padding: 0.5rem 0.9rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted-dim);
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
 }
 
 .guide-row {
