@@ -8,7 +8,8 @@ import {
 import { isChannelAvailable } from "./channel-availability.js";
 import { createListNav } from "./nav.js";
 import { visibleLiveEvents } from "./live-events.js";
-import { createFavoriteToggle } from "./favorites-ui.js";
+import { createFavoriteToggle, getFavorites, pruneFavorites } from "./favorites-ui.js";
+import { visibleFavorites } from "./favorites.js";
 
 let allVideos = [];
 let schedules = {};
@@ -104,6 +105,7 @@ async function loadLineup() {
     allVideos = data.videos || [];
     schedules = data.schedules || {};
     channelNames = Object.keys(schedules);
+    pruneFavorites(channelNames);
     liveEvents = data.liveEvents || [];
     lineupStatus = "success";
   } catch (err) {
@@ -370,6 +372,119 @@ function renderLiveEventRow(event, nowMs) {
   return row;
 }
 
+// Rebuilds the whole guide from the current favorites + lineup state, so a
+// toggle's Favorites-section copy and full-list copy — and the section's own
+// presence — can never drift out of sync with each other (ticket #93, part
+// of #89). Passed to createFavoriteToggle() as its onChange.
+//
+// Refocuses the full-list copy specifically, never the Favorites-section
+// one: every channel always has exactly one full-list copy, whichever copy
+// was just toggled, so it's the one stable target to land back on — unlike
+// the Favorites-section copy, which can vanish out from under an
+// un-favorite (or a findIndex() match would otherwise land on the "wrong"
+// copy's row, document order being all that distinguishes two rows sharing
+// the same dataset.channel).
+function onFavoriteToggled(channelName) {
+  renderGuide();
+  guideNav.focusWhere(
+    (row) => row.dataset.channel === channelName && !row.closest(".guide-favorites"),
+  );
+}
+
+// Builds one guide row for a Channel — the shared markup/behavior between a
+// favorited channel's copy in the Favorites section and its copy in the full
+// channel list (ticket #93, part of #89). `name`'s fixed position in
+// channelNames (not wherever it happens to render) decides its row
+// number/dot color, so both copies always agree.
+function buildChannelRow(name) {
+  const position = channelNames.indexOf(name);
+  const { videos, index } = channelNowState(name);
+  const available = isChannelAvailable(videos);
+
+  const row = document.createElement("div");
+  row.className = "guide-row";
+  row.dataset.channel = name;
+  row.tabIndex = -1; // focus is managed entirely by guideNav, not Tab order
+  // A role is required for aria-disabled to be exposed by assistive tech at
+  // all — a roleless div's aria-disabled is commonly ignored by screen readers.
+  row.setAttribute("role", "button");
+  if (available) {
+    row.addEventListener("click", () => switchChannel(name));
+    row.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault(); // stop Space from also scrolling the page
+        guideNav.activate();
+      }
+    });
+  } else {
+    row.setAttribute("aria-disabled", "true");
+  }
+
+  const chan = document.createElement("div");
+  chan.className = "guide-chan";
+  const dotColor = CHANNEL_DOT_COLORS[position % CHANNEL_DOT_COLORS.length];
+  chan.innerHTML =
+    `<span class="num mono">${String(position + 1).padStart(2, "0")}</span>` +
+    `<span class="dot" style="background:${dotColor}"></span>` +
+    `<span class="name"></span>`;
+  chan.querySelector(".name").textContent = name;
+  chan.appendChild(createFavoriteToggle(name, onFavoriteToggled));
+  row.appendChild(chan);
+
+  const track = document.createElement("div");
+  track.className = "guide-track";
+
+  if (index === -1) {
+    const cell = document.createElement("div");
+    cell.className = "guide-cell";
+    cell.textContent = t("nothingScheduledLabel");
+    track.appendChild(cell);
+  } else {
+    const nowCell = document.createElement("div");
+    nowCell.className = "guide-cell now";
+    const nowStart = document.createElement("span");
+    nowStart.className = "start mono";
+    nowStart.textContent = t("nowLabel");
+    nowCell.appendChild(nowStart);
+    nowCell.appendChild(document.createTextNode(videos[index].title));
+    track.appendChild(nowCell);
+
+    upcomingForChannel(name, 2).forEach(({ video, startsInSeconds }) => {
+      const cell = document.createElement("div");
+      cell.className = "guide-cell";
+      const start = document.createElement("span");
+      start.className = "start mono";
+      start.textContent = formatStartsIn(startsInSeconds);
+      cell.appendChild(start);
+      cell.appendChild(document.createTextNode(video.title));
+      track.appendChild(cell);
+    });
+  }
+
+  row.appendChild(track);
+  return row;
+}
+
+// The Favorites section pinned near the top of the guide (ticket #93, part
+// of #89): a heading plus one buildChannelRow() per currently-visible
+// favorite, in favorited order. Only ever called with a non-empty list —
+// renderGuide() omits the section entirely otherwise.
+function buildFavoritesSection(favoriteNames) {
+  const section = document.createElement("div");
+  section.className = "guide-favorites";
+
+  const heading = document.createElement("div");
+  heading.className = "guide-section-heading";
+  heading.textContent = t("favoritesSectionLabel");
+  section.appendChild(heading);
+
+  favoriteNames.forEach((name) => {
+    section.appendChild(buildChannelRow(name));
+  });
+
+  return section;
+}
+
 function renderGuide() {
   guideRows.innerHTML = "";
   guideNav.reset();
@@ -379,72 +494,13 @@ function renderGuide() {
     guideRows.appendChild(renderLiveEventRow(event, nowMs));
   });
 
-  channelNames.forEach((name, i) => {
-    const { videos, index } = channelNowState(name);
-    const available = isChannelAvailable(videos);
+  const favoriteNames = visibleFavorites(getFavorites(), channelNames);
+  if (favoriteNames.length > 0) {
+    guideRows.appendChild(buildFavoritesSection(favoriteNames));
+  }
 
-    const row = document.createElement("div");
-    row.className = "guide-row";
-    row.dataset.channel = name;
-    row.tabIndex = -1; // focus is managed entirely by guideNav, not Tab order
-    // A role is required for aria-disabled to be exposed by assistive tech at
-    // all — a roleless div's aria-disabled is commonly ignored by screen readers.
-    row.setAttribute("role", "button");
-    if (available) {
-      row.addEventListener("click", () => switchChannel(name));
-      row.addEventListener("keydown", (event) => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault(); // stop Space from also scrolling the page
-          guideNav.activate();
-        }
-      });
-    } else {
-      row.setAttribute("aria-disabled", "true");
-    }
-
-    const chan = document.createElement("div");
-    chan.className = "guide-chan";
-    const dotColor = CHANNEL_DOT_COLORS[i % CHANNEL_DOT_COLORS.length];
-    chan.innerHTML =
-      `<span class="num mono">${String(i + 1).padStart(2, "0")}</span>` +
-      `<span class="dot" style="background:${dotColor}"></span>` +
-      `<span class="name"></span>`;
-    chan.querySelector(".name").textContent = name;
-    chan.appendChild(createFavoriteToggle(name));
-    row.appendChild(chan);
-
-    const track = document.createElement("div");
-    track.className = "guide-track";
-
-    if (index === -1) {
-      const cell = document.createElement("div");
-      cell.className = "guide-cell";
-      cell.textContent = t("nothingScheduledLabel");
-      track.appendChild(cell);
-    } else {
-      const nowCell = document.createElement("div");
-      nowCell.className = "guide-cell now";
-      const nowStart = document.createElement("span");
-      nowStart.className = "start mono";
-      nowStart.textContent = t("nowLabel");
-      nowCell.appendChild(nowStart);
-      nowCell.appendChild(document.createTextNode(videos[index].title));
-      track.appendChild(nowCell);
-
-      upcomingForChannel(name, 2).forEach(({ video, startsInSeconds }) => {
-        const cell = document.createElement("div");
-        cell.className = "guide-cell";
-        const start = document.createElement("span");
-        start.className = "start mono";
-        start.textContent = formatStartsIn(startsInSeconds);
-        cell.appendChild(start);
-        cell.appendChild(document.createTextNode(video.title));
-        track.appendChild(cell);
-      });
-    }
-
-    row.appendChild(track);
-    guideRows.appendChild(row);
+  channelNames.forEach((name) => {
+    guideRows.appendChild(buildChannelRow(name));
   });
 }
 

@@ -5,7 +5,7 @@
 // (localStorage/DOM) code lives here, so the decision logic stays pure and
 // unit-testable. Untested glue, same role as i18n-ui.js/ios-install-hint-ui.js
 // — verified by running the app.
-import { toggleFavorite, isFavorite } from "./favorites.js";
+import { toggleFavorite, isFavorite, visibleFavorites } from "./favorites.js";
 import { t } from "./i18n-ui.js";
 
 const STORAGE_KEY = "eriTvFavorites";
@@ -33,6 +33,26 @@ function persistFavorites(favorites) {
 
 let favorites = readFavorites();
 
+// Read-only snapshot for app.js's Favorites section render (ticket #93, part
+// of #89) — a copy, so renderGuide() filtering it through visibleFavorites()
+// can never itself mutate this module's own storage-backed state.
+export function getFavorites() {
+  return [...favorites];
+}
+
+// Drops any stored favorite that no longer matches a current channel name
+// (renamed/removed by curation) and re-persists if that changed anything —
+// called once per successful lineup load (app.js's loadLineup()) so a stale
+// entry doesn't linger in storage indefinitely, on top of renderGuide()'s own
+// per-render filtering (ticket #93, part of #89).
+export function pruneFavorites(channelNames) {
+  const pruned = visibleFavorites(favorites, channelNames);
+  if (pruned.length !== favorites.length) {
+    favorites = pruned;
+    persistFavorites(favorites);
+  }
+}
+
 // Applies `channelName`'s current favorited state to its own toggle button —
 // called right after building it, and again after every tap of it. A full
 // guide re-render isn't needed for either case: favorite state doesn't yet
@@ -50,8 +70,13 @@ function applyToggleState(button, channelName) {
 }
 
 // Builds one row's favorite-toggle button — app.js's renderGuide() appends
-// this to each row's .guide-chan, available and unavailable rows alike.
-export function createFavoriteToggle(channelName) {
+// this to each row's .guide-chan, available and unavailable rows alike, once
+// for a channel's Favorites-section copy and once for its full-list copy
+// (ticket #93, part of #89). `onChange` is called after every toggle, so the
+// caller can rebuild both copies plus the Favorites section's own
+// membership/visibility from the single source of truth this module owns,
+// rather than this button only ever knowing how to update itself.
+export function createFavoriteToggle(channelName, onChange) {
   const button = document.createElement("button");
   button.type = "button";
   button.className = "favorite-toggle touch-target";
@@ -64,7 +89,7 @@ export function createFavoriteToggle(channelName) {
     event.stopPropagation();
     favorites = toggleFavorite(favorites, channelName);
     persistFavorites(favorites);
-    applyToggleState(button, channelName);
+    onChange(channelName);
   };
 
   button.addEventListener("click", toggle);

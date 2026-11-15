@@ -24,6 +24,10 @@ export const strings = {
   addToFavoritesAriaLabel: "Add to Favorites",
   removeFromFavoritesAriaLabel: "Remove from Favorites",
 
+  // Favorites section heading (docs/app.js buildFavoritesSection()), ticket
+  // #93, part of #89.
+  favoritesSectionLabel: "Favorites",
+
   // Corner badge empty state (docs/app.js showEmptyState()).
   nothingInLineupLabel: "Nothing in the lineup yet",
 

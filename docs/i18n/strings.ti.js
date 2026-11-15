@@ -27,6 +27,11 @@ export const strings = {
   addToFavoritesAriaLabel: "ናብ ፍሉያት ወስኽ",
   removeFromFavoritesAriaLabel: "ካብ ፍሉያት ኣልግስ",
 
+  // Favorites section heading (docs/app.js buildFavoritesSection()), ticket
+  // #93, part of #89. Best-effort draft — see the reviewer note at the top
+  // of this file.
+  favoritesSectionLabel: "ፍሉያት",
+
   // Corner badge empty state (docs/app.js showEmptyState()).
   nothingInLineupLabel: "ገና ኣብ መስርዕ የለን",
 
