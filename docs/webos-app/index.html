@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Nahom Eri TV</title>
+  <!--
+    This is the *local* dummy page webOS's "main" field in appinfo.json
+    points at — it ships inside the installed .ipk itself. Its only job is
+    redirecting straight to the real, hosted entry page
+    (docs/webos.html, deployed at the URL below) per webOS's documented
+    hosted-web-app pattern, because a packaged/file://-origin app is
+    confirmed to block YouTube's iframe embed from loading at all (ticket
+    #100, part of spec #98) — the actual guide/player never runs from this
+    file:// page.
+  -->
+  <meta http-equiv="refresh" content="0;url=https://nogbazghi.github.io/nahom-eri-tv/webos.html" />
+  <script>
+    location.replace("https://nogbazghi.github.io/nahom-eri-tv/webos.html");
+  </script>
+</head>
+<body></body>
+</html>

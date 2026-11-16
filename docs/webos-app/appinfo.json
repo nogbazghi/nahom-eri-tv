@@ -1,0 +1,10 @@
+{
+  "id": "org.atleritrea.nahomeritv",
+  "version": "1.0.0",
+  "vendor": "Nahom Eri TV",
+  "type": "web",
+  "main": "index.html",
+  "title": "Nahom Eri TV",
+  "icon": "icon.png",
+  "largeIcon": "largeIcon.png"
+}
