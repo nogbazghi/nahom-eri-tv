@@ -36,3 +36,27 @@
 - id: bjv27xI7RQU
   reason: "music_modern noise: an unrelated PBS travel episode about Montana/Wyoming"
   date: 2026-11-05
+
+# independence_day_diaspora/martyrs_day_diaspora (PR #13 bug report,
+# 2026-11-15): same search.list exhaustion pattern as music_modern above,
+# now confirmed hitting these two entries — fixed going forward by
+# channels.yaml's new text_filter: "eritrea" on both, these six are the
+# already-admitted backlog from before that fix existed.
+- id: YDcruSisgQw
+  reason: "independence_day_diaspora noise: Putin/Abiy Ahmed meeting recap, unrelated to Eritrean Independence Day"
+  date: 2026-11-15
+- id: Qs7hlhI0c-A
+  reason: "independence_day_diaspora noise: Ethiopia WEDET political discussion episode, unrelated to Eritrean Independence Day"
+  date: 2026-11-15
+- id: tInamPbcbZo
+  reason: "independence_day_diaspora noise: Isaias Afwerki/Ethiopia confederation history piece, unrelated to Eritrean Independence Day"
+  date: 2026-11-15
+- id: 9FSWcYiCeVs
+  reason: "independence_day_diaspora noise: generic history-facts short, unrelated to Eritrea"
+  date: 2026-11-15
+- id: XTsrQwCCKk0
+  reason: "independence_day_diaspora noise: Ethiopia WEDET political discussion episode, unrelated to Eritrean Independence Day"
+  date: 2026-11-15
+- id: kzkZlFNiU7A
+  reason: "martyrs_day_diaspora noise: Catholic apologetics video, unrelated to Eritrea or Martyrs Day"
+  date: 2026-11-15

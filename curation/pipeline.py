@@ -163,6 +163,80 @@ def videos_for_channel(existing_data, *, display_name, source):
     ]
 
 
+def matches_text_filter(title, description, text_filter):
+    """Pure — case-insensitive substring match against title OR description.
+
+    Relevance matching, not quality validation: this runs BEFORE
+    validate_record, which knows nothing about text_filter. Shared by
+    discover.py and kebire_channel.py — the only two scripts that admit
+    candidates from an unvetted source (a search query, or a channel's
+    whole upload history) where "is this actually about the right
+    subject" needs an explicit check.
+    """
+    if not text_filter:
+        return True
+    needle = text_filter.lower()
+    return needle in (title or "").lower() or needle in (description or "").lower()
+
+
+def matches_text_filter_title_only(title, description, text_filter):
+    """Pure — case-insensitive substring match against title ONLY.
+
+    `description` is accepted (and ignored) to keep the same shape as
+    matches_text_filter, so candidate_matches() can call either
+    interchangeably. Use this for a source whose descriptions are
+    unreliable for genre isolation — e.g. a creator who pastes the same
+    cross-genre hashtag boilerplate (covering both the wanted series and
+    unrelated content) onto most of their uploads' descriptions, making
+    a description hit meaningless as a relevance signal.
+    """
+    if not text_filter:
+        return True
+    return text_filter.lower() in (title or "").lower()
+
+
+def candidate_matches(entry, title, description):
+    """Pure — whether a video satisfies a channels.yaml entry's
+    text_filter, respecting that entry's `text_filter_title_only` flag.
+
+    Defaults to matches_text_filter's title-OR-description behavior. Set
+    `text_filter_title_only: true` on an entry to restrict matching to the
+    title only, for a source where description-based matching produces
+    false positives (see matches_text_filter_title_only's docstring). An
+    entry with no `text_filter` configured matches everything, unchanged.
+    """
+    text_filter = entry.get("text_filter", "")
+    matcher = matches_text_filter_title_only if entry.get("text_filter_title_only") else matches_text_filter
+    return matcher(title, description, text_filter)
+
+
+def filter_candidates_by_text_filter(candidate_ids, entry, api_key, fetch_fn=fetch_video_metadata):
+    """Drop candidate IDs that fail `entry`'s text_filter (via
+    candidate_matches). Shared by discover.py and kebire_channel.py — both
+    need title/description to evaluate text_filter, which `compute_run`
+    doesn't fetch until later, so this re-fetches metadata for the same
+    IDs compute_run will fetch again internally. A small, acceptable
+    duplication given how cheap videos.list batches are (kebire_channel.py
+    established this tradeoff first; see its run_channel).
+
+    Skips the fetch entirely (and returns candidate_ids unchanged) when
+    `entry` has no text_filter configured — the common case — so a channel
+    that doesn't need relevance filtering pays no extra API cost for it.
+
+    `fetch_fn` is injectable for testing (defaults to the real
+    fetch_video_metadata); callers in discover.py/kebire_channel.py should
+    not pass it.
+    """
+    if not entry.get("text_filter") or not candidate_ids:
+        return candidate_ids
+    metadata = fetch_fn(candidate_ids, api_key)
+    return [
+        vid
+        for vid in candidate_ids
+        if vid in metadata and candidate_matches(entry, metadata[vid]["title"], metadata[vid]["description"])
+    ]
+
+
 def rules_from_config(cfg):
     """Extract the documented validate_record/compute_run rules subset
     (view_count_min, duration_min_sec) from a channels.yaml entry, ignoring

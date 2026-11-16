@@ -375,3 +375,142 @@ def test_load_pending_summaries_empty_dir_returns_empty_list(tmp_path):
 def test_load_pending_summaries_missing_dir_returns_empty_list(tmp_path):
     missing = tmp_path / "does-not-exist"
     assert pipeline.load_pending_summaries(missing) == []
+
+
+def test_matches_text_filter_in_title():
+    assert pipeline.matches_text_filter("A trip across #Eritrea", "", "#eritrea") is True
+
+
+def test_matches_text_filter_in_description_case_insensitive():
+    assert (
+        pipeline.matches_text_filter("Countryside ride", "Filmed in #ERITREA this summer", "#eritrea")
+        is True
+    )
+
+
+def test_matches_text_filter_no_match():
+    assert pipeline.matches_text_filter("A trip across Ethiopia", "no mention here", "#eritrea") is False
+
+
+def test_matches_text_filter_empty_fields():
+    assert pipeline.matches_text_filter("", "", "#eritrea") is False
+
+
+def test_matches_text_filter_empty_filter_matches_everything():
+    assert pipeline.matches_text_filter("anything at all", "", "") is True
+
+
+def test_matches_text_filter_title_only_matches_in_title():
+    assert pipeline.matches_text_filter_title_only("ERITREAN ORTHODOX NEW SBKET 2025", "", "sbket") is True
+
+
+def test_matches_text_filter_title_only_ignores_description_matches():
+    # Regression case: Anastasia's channel pastes the same cross-genre
+    # hashtag boilerplate (including "#sbket") onto mezmur, podcast, and
+    # other non-sermon video descriptions alike, so a description hit
+    # alone must NOT count as a match — unlike matches_text_filter, which
+    # would wrongly match this as "in description".
+    assert (
+        pipeline.matches_text_filter_title_only(
+            "New Eritrean Orthodox Tewahdo Mezmur 2026", "...#mezmur #sbket #orthodox...", "sbket"
+        )
+        is False
+    )
+
+
+def test_matches_text_filter_title_only_case_insensitive():
+    assert pipeline.matches_text_filter_title_only("eritrean orthodox new sbket 2025", "", "SBKET") is True
+
+
+def test_matches_text_filter_title_only_empty_filter_matches_everything():
+    assert pipeline.matches_text_filter_title_only("anything at all", "", "") is True
+
+
+def test_candidate_matches_uses_title_and_description_by_default():
+    entry = {"text_filter": "#eritrea"}
+    assert pipeline.candidate_matches(entry, "Countryside ride", "Filmed in #ERITREA this summer") is True
+
+
+def test_candidate_matches_restricts_to_title_when_flag_set():
+    entry = {"text_filter": "sbket", "text_filter_title_only": True}
+    assert (
+        pipeline.candidate_matches(entry, "New Eritrean Orthodox Tewahdo Mezmur 2026", "...#sbket...")
+        is False
+    )
+
+
+def test_candidate_matches_title_only_flag_still_matches_real_titles():
+    entry = {"text_filter": "sbket", "text_filter_title_only": True}
+    assert pipeline.candidate_matches(entry, "ERITREAN ORTHODOX NEW SBKET 2025 | ቀሲስ ዕርዶም", "") is True
+
+
+def test_candidate_matches_rejects_the_real_off_topic_video_from_pr13s_bug():
+    # Regression test for the bug reported against PR #13 ("Weekly curation
+    # update"): this exact video was live in docs/data/videos.json under
+    # source=independence_day_diaspora before this fix — it cleared
+    # view_count_min/duration_min_sec with nothing checking whether it was
+    # actually about Eritrea. discover.py's run_channel now runs every
+    # type: search candidate through candidate_matches when channels.yaml
+    # sets a text_filter (see channels.yaml's independence_day_diaspora).
+    entry = {"text_filter": "eritrea"}
+    assert (
+        pipeline.candidate_matches(
+            entry,
+            "Did Isaias Afwerki Want a Confederation With Ethiopia? His Own Words From 1994",
+            "",
+        )
+        is False
+    )
+
+
+def test_candidate_matches_keeps_genuine_diaspora_celebration_content():
+    entry = {"text_filter": "eritrea"}
+    assert (
+        pipeline.candidate_matches(
+            entry,
+            "35TH ERITREAN INDEPENDENCE DAY CELEBRATION AT ERITREAN EMBASSY WASHINGTON DC",
+            "",
+        )
+        is True
+    )
+
+
+def test_filter_candidates_by_text_filter_skips_fetch_when_no_text_filter_configured():
+    entry = {"display_name": "Podcasters"}  # no text_filter, like channels.yaml's real podcasters entry
+
+    def fetch_fn(ids, api_key):
+        raise AssertionError("should not fetch metadata when entry has no text_filter")
+
+    result = pipeline.filter_candidates_by_text_filter(["v1", "v2"], entry, "key", fetch_fn=fetch_fn)
+    assert result == ["v1", "v2"]
+
+
+def test_filter_candidates_by_text_filter_skips_fetch_for_empty_candidate_list():
+    entry = {"text_filter": "eritrea"}
+
+    def fetch_fn(ids, api_key):
+        raise AssertionError("should not fetch metadata for an empty candidate list")
+
+    assert pipeline.filter_candidates_by_text_filter([], entry, "key", fetch_fn=fetch_fn) == []
+
+
+def test_filter_candidates_by_text_filter_drops_non_matching_candidates():
+    entry = {"text_filter": "eritrea"}
+
+    def fetch_fn(ids, api_key):
+        return {
+            "good1": make_record(title="35th Eritrean Independence Day Celebration"),
+            "bad1": make_record(title="Did Isaias Afwerki Want a Confederation With Ethiopia?"),
+        }
+
+    result = pipeline.filter_candidates_by_text_filter(["good1", "bad1"], entry, "key", fetch_fn=fetch_fn)
+    assert result == ["good1"]
+
+
+def test_filter_candidates_by_text_filter_drops_ids_missing_from_fetched_metadata():
+    entry = {"text_filter": "eritrea"}
+
+    def fetch_fn(ids, api_key):
+        return {}  # API didn't return this ID at all
+
+    assert pipeline.filter_candidates_by_text_filter(["gone1"], entry, "key", fetch_fn=fetch_fn) == []
