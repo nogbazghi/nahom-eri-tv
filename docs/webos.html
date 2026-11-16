@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nahom Eri TV</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16.png" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <meta name="theme-color" content="#0b0b0d" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Eri TV" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!--
+    The LG webOS TV Platform App's hosted entry page (ticket #100, part of
+    spec #98): the webOS packaging shell (docs/webos-app/) is a *hosted* web
+    app whose local dummy index.html redirects here, per the confirmed
+    file://-origin block on YouTube's iframe embed. Everything below is the
+    same guide/player markup as index.html, reusing app.js/nav.js/style.css
+    unmodified for full feature parity — the only differences are the ones
+    called out inline: no Cast sender scripts, no #cast-button, and the
+    webOS special-keys wiring (webos-keys-ui.js) added at the bottom.
+  -->
+  <header>
+    <h1>Nahom Eri TV</h1>
+    <nav class="site-nav">
+      <a href="about.html">About</a>
+      <button id="lang-toggle" type="button">ትግርኛ</button>
+    </nav>
+  </header>
+
+  <div id="ios-install-hint" class="install-hint" hidden>
+    <p data-i18n-html="installHintHtml">
+      Install Nahom Eri TV: tap <strong>Share</strong>
+      <span aria-hidden="true">⎋</span> then <strong>Add to Home Screen</strong>.
+    </p>
+    <button id="ios-install-hint-dismiss" class="touch-target" type="button" data-i18n-aria-label="installHintDismissAriaLabel" aria-label="Dismiss install hint">✕</button>
+  </div>
+
+  <main>
+    <div id="screen">
+      <div id="local-view">
+        <div id="player-wrap">
+          <div id="player"></div>
+          <button id="unmute" class="touch-target" type="button">🔇 Tap to unmute</button>
+          <button id="go-live" class="touch-target" type="button" disabled>🔴 Go to Live</button>
+          <div id="corner-badge">
+            <div class="badge-top">
+              <span id="badge-num" class="num mono"></span>
+              <span id="badge-name" class="name"></span>
+            </div>
+            <div id="badge-title"></div>
+          </div>
+        </div>
+
+        <div id="schedule-message" class="schedule-message" role="status" hidden></div>
+
+        <div id="guide-panel" hidden>
+          <div id="guide-rows"></div>
+        </div>
+
+        <div class="toolbar">
+          <span id="toolbar-chan" class="toolbar-chan"></span>
+          <!-- No #cast-button here: a TV Platform App is already the
+               destination device, never a Cast sender (spec #98). -->
+          <button id="guide-toggle" class="btn-guide touch-target" type="button" aria-expanded="false">Guide ▾</button>
+        </div>
+      </div>
+
+      <!-- #casting-view stays in the markup, unchanged, because app.js
+           references its children unconditionally (e.g. #stop-casting's
+           click listener is wired at load time) — see ADR note in
+           docs/webos-app/README.md. It's never shown: nothing on this page
+           ever dispatches the "neritv:cast-session" event that's the only
+           thing that un-hides it, since cast-sender.js is never loaded
+           below. -->
+      <div id="casting-view" hidden>
+        <p class="casting-status">
+          <span data-i18n="castingToLabel">Casting to</span>
+          <span id="casting-device-name"></span>
+        </p>
+        <p id="casting-channel-name" class="casting-channel-name"></p>
+        <div id="casting-channel-list" class="casting-channel-list"></div>
+        <button id="stop-casting" class="btn-stop-casting touch-target" type="button" data-i18n="stopCastingLabel">Stop Casting</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>No video is downloaded or rehosted — everything plays directly from YouTube.</p>
+    <p><a href="about.html">About</a></p>
+  </footer>
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script type="module" src="app.js"></script>
+  <!-- Deliberately no cast_sender.js / cast-sender.js here (spec #98: "no
+       Cast-to-TV UI present since the TV itself is the destination
+       device") — see docs/browser-tests/cast-sender-omitted.test.js
+       for the guardrail against this regressing. -->
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("sw.js").catch((err) => {
+          console.error("Service worker registration failed:", err);
+        });
+      });
+    }
+  </script>
+  <script type="module" src="ios-install-hint-ui.js"></script>
+  <script type="module" src="webos-keys-ui.js"></script>
+</body>
+</html>

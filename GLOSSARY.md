@@ -39,3 +39,7 @@ _Avoid_: Channel row (when specifically distinguishing the two)
 **Favorite**:
 A viewer's own marking of a Channel for quick return, kept only in that browser/device's storage (nothing is synced or shared). Favoriting doesn't reorganize the guide — it only pins the channel into its own section for faster access. Applies to Channel rows only; a Live event row is too short-lived to be worth favoriting.
 _Avoid_: Bookmark (already used elsewhere for the channel-in-URL shareability behavior, a different concept), Pin, Star (these name the UI affordance, not the concept)
+
+**TV Platform App**:
+A thin, per-platform store-distributed wrapper around the existing hosted web guide/player, reusing the same `index.html`/`app.js` nearly as-is rather than reimplementing the guide for that platform. Controlled entirely by the TV's own remote (D-pad/5-way), with no Cast-to-TV UI, since the TV itself is already the destination device. Samsung Tizen, LG webOS, and Fire TV are each one (spec #98); Apple TV/Roku are explicitly not (see ADR-0012).
+_Avoid_: Smart TV app (ambiguous with any app on the TV's own OS home screen, including ones unrelated to this project)
