@@ -6,7 +6,7 @@ import {
   channelNowState as channelNowStatePure,
 } from "./schedule.js";
 import { isChannelAvailable } from "./channel-availability.js";
-import { createListNav } from "./nav.js";
+import { createListNav, filterFocusable, focusDescendant, focusAncestor } from "./nav.js";
 import { visibleLiveEvents } from "./live-events.js";
 import { createFavoriteToggle, getFavorites, pruneFavorites } from "./favorites-ui.js";
 import { visibleFavorites } from "./favorites.js";
@@ -52,14 +52,32 @@ let scheduleMessage = null;
 
 const CHANNEL_DOT_COLORS = ["var(--accent)", "var(--kebire)", "#9a7fd1", "#d97757"];
 
-// Drives focus through the guide's channel rows — see nav.js. Keyboard and
-// touch (swipe) are the two input sources wired up so far; a later TV-stick
-// remote feeds the same move()/activate() calls from its own input events.
+// A D-pad-only remote (ticket #101) has no Tab key and no letter keys, so
+// lang-toggle/unmute/go-live/guide-toggle — each independently focusable by
+// mouse/Tab today — need to be reachable by continuing Up/Down past the
+// guide's row list, the same way "m"/"g"/"l" give keyboard users a shortcut
+// to them. Filtered to skip whichever of these happen to be hidden/disabled
+// right now, matching how a disabled Channel row is already skipped below,
+// rather than landing focus somewhere invisible or inert.
+function toolbarFocusables() {
+  return filterFocusable([langToggle, unmuteButton, goLiveButton, guideToggle]);
+}
+
+// Drives focus through lang-toggle/unmute/go-live/guide-toggle plus the
+// guide's channel rows — see nav.js. Keyboard and touch (swipe) are the two
+// input sources wired up so far; a later TV-stick remote feeds the same
+// move()/activate() calls from its own input events. Only the toolbar
+// buttons' *reachability* goes through this shared list — activating one
+// still goes through its own native button behavior (see the ArrowLeft/
+// ArrowRight and VERTICAL_ARROWS handling below), never onActivate, which
+// stays scoped to rows the way it always has.
 const guideNav = createListNav({
-  getItems: () =>
-    Array.from(guideRows.querySelectorAll(".guide-row")).filter(
+  getItems: () => [
+    ...toolbarFocusables(),
+    ...Array.from(guideRows.querySelectorAll(".guide-row")).filter(
       (row) => row.getAttribute("aria-disabled") !== "true",
     ),
+  ],
   onActivate: (row) => {
     if (row.dataset.liveEventVideoId) {
       tuneLiveEventFromRow(row);
@@ -75,6 +93,7 @@ const badgeName = document.getElementById("badge-name");
 const badgeTitle = document.getElementById("badge-title");
 const unmuteButton = document.getElementById("unmute");
 const goLiveButton = document.getElementById("go-live");
+const langToggle = document.getElementById("lang-toggle");
 const guidePanel = document.getElementById("guide-panel");
 const guideRows = document.getElementById("guide-rows");
 const guideToggle = document.getElementById("guide-toggle");
@@ -758,12 +777,33 @@ document.addEventListener("keydown", (event) => {
     return;
   }
 
-  // ArrowLeft/ArrowRight do nothing once the guide is open — a channel row
-  // is one selectable unit (see GLOSSARY.md: Channel row), there's no
-  // horizontal target within it to move to.
   if (guideOpen && key in VERTICAL_ARROWS) {
     event.preventDefault();
     guideNav.move(VERTICAL_ARROWS[key]);
+    return;
+  }
+
+  // ArrowLeft/ArrowRight still don't move between rows — a Channel row is
+  // one selectable unit (see GLOSSARY.md: Channel row), there's no
+  // horizontal target to move to *there*. But a focused row's own favorite
+  // toggle (ticket #101: a D-pad has neither Tab nor the mouse a non-TV
+  // visitor would use to reach it) is a real horizontal target, so Right
+  // steps onto it and Left steps back — guideNav's own index is untouched
+  // either way, so Up/Down from the toggle still move by its row.
+  if (guideOpen && key === "ArrowRight") {
+    if (focusDescendant(document.activeElement, ".favorite-toggle")) {
+      event.preventDefault();
+    }
+    return;
+  }
+
+  if (
+    guideOpen &&
+    key === "ArrowLeft" &&
+    document.activeElement?.classList?.contains("favorite-toggle") &&
+    focusAncestor(document.activeElement, ".guide-row")
+  ) {
+    event.preventDefault();
   }
 });
 
