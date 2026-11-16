@@ -10,6 +10,34 @@
 // focus." It manages focus directly (a fully-scripted roving focus) rather
 // than juggling tabindex values on every item.
 
+// Drops whichever of a fixed set of candidate elements isn't actually
+// reachable right now — absent (this page doesn't have that control at
+// all), hidden, or disabled — rather than landing a roving-focus list on
+// something invisible or inert.
+export function filterFocusable(elements) {
+  return elements.filter((el) => el && !el.hidden && !el.disabled);
+}
+
+// Focuses the first descendant of `container` matching `selector`, if any.
+// Returns whether it found (and focused) one, so a caller can decide whether
+// to preventDefault() the key that triggered it.
+export function focusDescendant(container, selector) {
+  const target = container?.querySelector?.(selector);
+  if (!target) return false;
+  target.focus();
+  return true;
+}
+
+// Focuses the closest ancestor (inclusive) of `element` matching `selector`,
+// if any — the inverse of focusDescendant, for stepping back out of a
+// secondary focus target to the container it belongs to.
+export function focusAncestor(element, selector) {
+  const target = element?.closest?.(selector);
+  if (!target) return false;
+  target.focus();
+  return true;
+}
+
 export function createListNav({ getItems, onActivate }) {
   let focusedIndex = -1;
 
