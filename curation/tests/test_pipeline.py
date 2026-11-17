@@ -514,3 +514,11 @@ def test_filter_candidates_by_text_filter_drops_ids_missing_from_fetched_metadat
         return {}  # API didn't return this ID at all
 
     assert pipeline.filter_candidates_by_text_filter(["gone1"], entry, "key", fetch_fn=fetch_fn) == []
+
+
+def test_has_open_review_pr_true_when_prs_list_non_empty():
+    assert pipeline.has_open_review_pr([{"number": 13}]) is True
+
+
+def test_has_open_review_pr_false_when_prs_list_empty():
+    assert pipeline.has_open_review_pr([]) is False
