@@ -409,6 +409,14 @@ martyrs_day:
 # last run, not to backfill the whole historical corpus, so this channel's
 # diaspora pool is expected to fill in gradually, concentrated around each
 # June 20 anniversary.
+# text_filter added 2026-11-15: a live run surfaced completely off-topic
+# content that still cleared view_count_min/duration_min_sec — a Catholic
+# apologetics video ("Oriental Orthodoxy w/ William Albrecht") and, in a
+# pending PR, an unrelated Arabic-language podcast — confirming the
+# exhaustion pattern documented above for sports_diaspora/protestant now
+# hitting this entry too. "eritrea" (title-or-description, same value and
+# shape as Kebire's own text_filter) excludes every confirmed-bad example
+# above without excluding any currently-stored genuine video.
 martyrs_day_diaspora:
   type: search
   display_name: Martyrs Day
@@ -417,6 +425,7 @@ martyrs_day_diaspora:
     - "Martyrs Day Eritrea"
   view_count_min: 500
   duration_min_sec: 120
+  text_filter: "eritrea"
 
 independence_day:
   type: channel
@@ -455,6 +464,17 @@ independence_day:
 # Kristiansand, Melbourne, Dubai, Cairo) while returning zero results
 # from Eri-TV's own official channel across a 25-result page for either
 # query — unlike the unqualified terms above.
+# text_filter added 2026-11-15: a live run and a pending PR both surfaced
+# completely off-topic additions that still cleared view_count_min/
+# duration_min_sec — Ethiopia-politics videos ("Did Isaias Afwerki Want a
+# Confederation With Ethiopia?", a Putin/Abiy Ahmed meeting recap, two
+# "Ethiopia WEDET" discussion episodes), a generic history-facts short,
+# and (pending PR) Burmese-language news and an unrelated Arabic-language
+# podcast — the same search.list exhaustion pattern documented above for
+# sports_diaspora/protestant/fenkil_diaspora. "eritrea" (title-or-
+# description, same value and shape as Kebire's own text_filter) excludes
+# every confirmed-bad example above without excluding any currently-stored
+# genuine video.
 independence_day_diaspora:
   type: search
   display_name: Independence Day
@@ -463,6 +483,7 @@ independence_day_diaspora:
     - "Eritrean Independence Day community celebration"
   view_count_min: 500
   duration_min_sec: 120
+  text_filter: "eritrea"
 
 # Catholic sermon/teaching content, per docs/research/channel-demand-signals.md
 # §8. §8 found no clean single-source Catholic teaching channel to point a

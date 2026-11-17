@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Curation Review — Nahom Eri TV</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png" />
+  <style>
+    html, body {
+      margin: 0;
+      background: #0b0b0d;
+      color: #f2f2f2;
+      font-family: system-ui, sans-serif;
+    }
+
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+    }
+
+    #pat-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      max-width: 28rem;
+    }
+
+    #pat-form input {
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+
+    #pat-form button {
+      align-self: flex-start;
+      padding: 0.5rem 1rem;
+    }
+
+    /* `display: flex` above outranks the UA stylesheet's `[hidden] {
+       display: none }` (author styles beat it regardless of selector
+       specificity — ADR-0011), so restate it here. */
+    #pat-form[hidden] {
+      display: none;
+    }
+
+    #status-message {
+      padding: 0.75rem;
+      background: #1c1c1f;
+      border-radius: 0.25rem;
+    }
+
+    .channel-group h2 {
+      border-bottom: 1px solid #333;
+      padding-bottom: 0.25rem;
+    }
+
+    .candidate-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .candidate-row {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+
+    .candidate-thumbnail {
+      width: 120px;
+      height: 90px;
+      object-fit: cover;
+      flex-shrink: 0;
+      background: #1c1c1f;
+    }
+
+    .candidate-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .candidate-title {
+      margin: 0;
+      font-weight: 600;
+    }
+
+    .candidate-meta {
+      margin: 0;
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Curation Review</h1>
+
+    <form id="pat-form" hidden>
+      <label for="pat-input">GitHub personal access token (fine-grained, scoped to this repo's contents + pull requests, read/write)</label>
+      <input id="pat-input" type="password" autocomplete="off" required />
+      <button type="submit">Save token</button>
+    </form>
+
+    <p id="status-message" role="status" hidden></p>
+
+    <div id="candidate-groups"></div>
+  </main>
+
+  <script type="module" src="curation-review-ui.js"></script>
+</body>
+</html>
