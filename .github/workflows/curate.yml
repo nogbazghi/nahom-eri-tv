@@ -115,8 +115,33 @@ jobs:
           print(f"count={total}")
           PYEOF
 
-      - name: Push additions to the standing branch
+      - name: Check whether a review is already in progress
+        id: review
         if: steps.additions.outputs.count != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr list --head "$STANDING_BRANCH" --base main --state open --json number > /tmp/open-prs.json
+          python3 << 'PYEOF' >> "$GITHUB_OUTPUT"
+          import json
+          import sys
+
+          sys.path.insert(0, "curation")
+          from pipeline import has_open_review_pr
+
+          with open("/tmp/open-prs.json") as f:
+              prs = json.load(f)
+
+          print(f"open={'true' if has_open_review_pr(prs) else 'false'}")
+          PYEOF
+
+      - name: Log skipped branch update
+        if: steps.additions.outputs.count != '0' && steps.review.outputs.open == 'true'
+        run: |
+          echo "Skipping update to $STANDING_BRANCH: a review PR is already open. This run's additions will be re-evaluated next run."
+
+      - name: Push additions to the standing branch
+        if: steps.additions.outputs.count != '0' && steps.review.outputs.open != 'true'
         run: |
           git fetch origin main
           git checkout -B "$STANDING_BRANCH" origin/main
@@ -125,20 +150,15 @@ jobs:
           git commit -m "Weekly curation update: new videos pending review [automated]"
           git push --force origin "$STANDING_BRANCH"
 
-      - name: Open or update the review PR
-        if: steps.additions.outputs.count != '0'
+      - name: Open the review PR
+        if: steps.additions.outputs.count != '0' && steps.review.outputs.open != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           BODY=$(cat /tmp/pr-body.md)
-          existing_pr=$(gh pr list --head "$STANDING_BRANCH" --base main --json number --jq '.[0].number')
-          if [ -n "$existing_pr" ]; then
-            gh pr edit "$existing_pr" --body "$BODY"
-          else
-            gh pr create \
-              --head "$STANDING_BRANCH" \
-              --base main \
-              --title "Weekly curation update" \
-              --body "$BODY" \
-              --reviewer nogbazghi
-          fi
+          gh pr create \
+            --head "$STANDING_BRANCH" \
+            --base main \
+            --title "Weekly curation update" \
+            --body "$BODY" \
+            --reviewer nogbazghi

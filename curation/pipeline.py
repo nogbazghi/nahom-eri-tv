@@ -417,6 +417,20 @@ def load_pending_summaries(pending_dir=PENDING_DIR):
     return summaries
 
 
+def has_open_review_pr(prs):
+    """True if `prs` — the parsed JSON from `gh pr list --state open
+    --json number` against the standing branch — is non-empty, i.e. a
+    review is already in progress.
+
+    Pure — takes the already-fetched PR list so the decision is testable
+    without invoking `gh`. The GitHub Actions workflow uses this to
+    decide whether to skip this run's branch update (queuing its
+    additions for the following run) instead of force-pushing over a
+    branch a reviewer is already working through.
+    """
+    return bool(prs)
+
+
 def write_run_summary(channel_key, additions, removals, out_dir="curation/.pending"):
     """Write {out_dir}/{channel_key}.json: {"channel", "additions", "removals"}.
 
