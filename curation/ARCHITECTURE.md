@@ -2,13 +2,19 @@
 
 ![Curation pipeline architecture](architecture.svg)
 
-This describes the designed automated curation pipeline: a scheduled job that
-replaces manually running `discover.py`/`kebire_channel.py` by hand. Some of
-this is built already (`channels.yaml`, `jobs.yaml` — ticket 019); the rest
-(`curation/pipeline.py`, the rewritten channel scripts, the GitHub Actions
-workflow) is tracked in tickets 020–023. This doc describes the settled
-design those tickets implement — if something shipped differently than
-described here, trust the code and fix this doc, not the other way around.
+This describes the automated curation pipeline: a scheduled job that replaces
+manually running `discover.py`/`kebire_channel.py` by hand. Built in full
+(tickets 019–023, landed 2026-11-01) and running weekly since — if something
+shipped differently than described here, trust the code and fix this doc,
+not the other way around.
+
+Two follow-ons have since been built on top of this, so they're not
+described in full below: a per-candidate review dashboard augmenting the
+all-or-nothing PR review in "Why removals bypass PR review but additions
+don't" (issue #105, `docs/curation-review-ui.js` et al.,
+[ADR-0013](../docs/adr/0013-curation-review-dashboard-uses-client-side-pat.md)),
+and a first-party anonymous viewership signal to prioritize curation effort
+(issue #113, [ADR-0014](../docs/adr/0014-first-party-anonymous-viewership-counting-for-curation.md)).
 
 ## The three pillars
 
@@ -53,6 +59,8 @@ could be low-quality, miscategorized, or (per tickets 002 and 016's
 precedent) carry a real copyright or relevance risk a human should glance at
 before it goes live. So additions route through a Pull Request with a
 readable per-channel summary, and removals are committed straight to `main`.
+
+**Note (see issue #105 / [ADR-0013](../docs/adr/0013-curation-review-dashboard-uses-client-side-pat.md)):** the per-candidate review dashboard augments this rather than replacing it — it adds approve/reject per candidate, but merging the run's PR is still the one action that publishes approved additions to `main`.
 
 ## Why `channels.yaml` instead of hardcoded Python
 

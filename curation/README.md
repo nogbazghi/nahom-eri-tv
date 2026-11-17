@@ -8,13 +8,13 @@ See [`ARCHITECTURE.md`](ARCHITECTURE.md) for the full design of the automated cu
 
 ## Automated runs
 
-Once ticket 023 ships, the pipeline runs weekly on its own via GitHub Actions, and a run can also be forced on demand:
+The pipeline runs weekly on its own via GitHub Actions (`.github/workflows/curate.yml`, Mondays 13:00 UTC), and a run can also be forced on demand:
 
 ```
 gh workflow run curate.yml
 ```
 
-(Not available yet — `.github/workflows/curate.yml` doesn't exist until ticket 023 lands. Until then, run the scripts below by hand.)
+Additions from each run land on a Pull Request (standing `curation/weekly-update` branch) for review before they reach `main`; see issue #105 for the per-candidate review dashboard (`docs/curation-review-ui.js`) that augments this PR-based review.
 
 ## Weddings channel
 

@@ -1,0 +1,623 @@
+<!--
+  PROTOTYPE — throwaway UI exploration, not production code.
+  Answers: "what should the Curation review dashboard look like?"
+  Three structurally different variants of the same review task, switchable
+  via ?variant=A|B|C (floating bar at the bottom, or ← / → keys).
+  Mock data only, in-memory decisions, no network calls, nothing persists.
+  Run it: open this file directly in a browser. No build step, no server.
+-->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>[Prototype] Curation review dashboard</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #0b0b0d;
+    --panel: #17171b;
+    --panel-2: #1f1f25;
+    --border: #2d2d35;
+    --text: #e9e9ee;
+    --muted: #9a9aa5;
+    --accent: #5b8cff;
+    --good: #35b06a;
+    --bad: #e2554f;
+    --warn: #e2b24f;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 14px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  header.app-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 5;
+  }
+  header.app-header h1 { font-size: 16px; margin: 0; }
+  header.app-header .run-label { color: var(--muted); font-size: 12px; }
+  .progress-pill {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  button.finish {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  button.finish:disabled {
+    background: var(--panel-2);
+    color: var(--muted);
+    cursor: not-allowed;
+  }
+  #app { padding: 20px 24px 100px; max-width: 1100px; margin: 0 auto; }
+
+  .thumb {
+    width: 96px;
+    height: 54px;
+    border-radius: 4px;
+    flex: none;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: rgba(255,255,255,0.85);
+    overflow: hidden;
+  }
+  .thumb .dur {
+    position: absolute;
+    right: 3px;
+    bottom: 2px;
+    background: rgba(0,0,0,0.75);
+    font-size: 9px;
+    padding: 1px 3px;
+    border-radius: 2px;
+  }
+  .meta-line { color: var(--muted); font-size: 12px; }
+  .flag {
+    display: inline-block;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    padding: 1px 6px;
+    border-radius: 999px;
+    background: rgba(226,178,79,0.15);
+    color: var(--warn);
+    margin-left: 6px;
+  }
+  a.yt-link { color: var(--accent); text-decoration: none; font-size: 11px; }
+  a.yt-link:hover { text-decoration: underline; }
+
+  textarea.reason {
+    width: 100%;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    padding: 6px 8px;
+    font: inherit;
+    resize: vertical;
+    min-height: 44px;
+  }
+  .btn {
+    border: 1px solid var(--border);
+    background: var(--panel-2);
+    color: var(--text);
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font: inherit;
+  }
+  .btn.approve { border-color: var(--good); color: var(--good); }
+  .btn.approve:hover { background: rgba(53,176,106,0.12); }
+  .btn.reject { border-color: var(--bad); color: var(--bad); }
+  .btn.reject:hover { background: rgba(226,85,79,0.12); }
+  .btn.small { padding: 4px 8px; font-size: 12px; }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .status-chip {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-weight: 600;
+  }
+  .status-chip.pending { background: var(--panel-2); color: var(--muted); }
+  .status-chip.approved { background: rgba(53,176,106,0.15); color: var(--good); }
+  .status-chip.rejected { background: rgba(226,85,79,0.15); color: var(--bad); }
+
+  /* ---------- Variant A: dense list ---------- */
+  .a-channel-group { margin-bottom: 22px; }
+  .a-channel-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  .a-channel-header .count { color: var(--muted); font-weight: 400; font-size: 12px; }
+  .a-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 4px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .a-row .title-block { flex: 1; min-width: 0; }
+  .a-row .title-block .t { font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .a-row .actions { display: flex; gap: 6px; align-items: center; flex: none; }
+  .a-reason-row { padding: 0 4px 10px 108px; }
+
+  /* ---------- Variant B: one-at-a-time deck ---------- */
+  .b-wrap { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+  .b-progressbar {
+    width: 100%;
+    max-width: 560px;
+    height: 4px;
+    background: var(--panel-2);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .b-progressbar > div { height: 100%; background: var(--accent); }
+  .b-card {
+    width: 100%;
+    max-width: 560px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .b-card .thumb { width: 100%; height: 260px; border-radius: 8px; font-size: 40px; margin-bottom: 14px; }
+  .b-card h2 { margin: 0 0 4px; font-size: 18px; }
+  .b-card .meta-line { margin-bottom: 14px; }
+  .b-actions { display: flex; gap: 10px; margin-top: 16px; }
+  .b-actions .btn { flex: 1; padding: 10px; font-size: 14px; font-weight: 600; }
+  .b-filmstrip { display: flex; gap: 6px; flex-wrap: wrap; max-width: 560px; justify-content: center; }
+  .b-filmstrip .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--panel-2); border: 1px solid var(--border);
+    cursor: pointer;
+  }
+  .b-filmstrip .dot.current { outline: 2px solid var(--accent); }
+  .b-filmstrip .dot.approved { background: var(--good); border-color: var(--good); }
+  .b-filmstrip .dot.rejected { background: var(--bad); border-color: var(--bad); }
+  .b-done {
+    max-width: 560px; text-align: center; padding: 40px 20px;
+    background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+  }
+
+  /* ---------- Variant C: sidebar + detail ---------- */
+  .c-layout { display: grid; grid-template-columns: 270px 1fr; gap: 20px; align-items: start; }
+  .c-sidebar {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    position: sticky;
+    top: 70px;
+  }
+  .c-sidebar .c-group-label {
+    padding: 8px 12px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    background: var(--panel-2);
+  }
+  .c-sidebar .c-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    font-size: 12.5px;
+  }
+  .c-sidebar .c-item:hover { background: var(--panel-2); }
+  .c-sidebar .c-item.selected { background: rgba(91,140,255,0.12); border-left: 2px solid var(--accent); }
+  .c-sidebar .c-item .t { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .c-sidebar .c-item .dot { width: 7px; height: 7px; border-radius: 50%; flex: none; background: var(--muted); }
+  .c-sidebar .c-item.approved .dot { background: var(--good); }
+  .c-sidebar .c-item.rejected .dot { background: var(--bad); }
+  .c-detail {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+  }
+  .c-detail .thumb { width: 320px; height: 180px; font-size: 32px; margin-bottom: 16px; }
+  .c-detail h2 { margin: 0 0 6px; font-size: 19px; }
+  .c-detail .meta-line { margin-bottom: 16px; }
+  .c-detail .btn { padding: 8px 16px; font-weight: 600; }
+
+  /* ---------- switcher bar (shared) ---------- */
+  #proto-switcher {
+    position: fixed;
+    left: 50%;
+    bottom: 18px;
+    transform: translateX(-50%);
+    background: #000;
+    border: 1px solid #444;
+    color: #fff;
+    border-radius: 999px;
+    padding: 8px 6px 8px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.5);
+    z-index: 999;
+  }
+  #proto-switcher button {
+    background: #222;
+    border: 1px solid #555;
+    color: #fff;
+    border-radius: 999px;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  #proto-switcher .label { min-width: 190px; text-align: center; }
+  #proto-switcher .proto-tag { color: #ffb84d; font-weight: 700; margin-right: 4px; }
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <h1>Curation review dashboard</h1>
+  <span class="run-label">Run 2026-11-15 · curation/weekly-update (PR #124)</span>
+  <div class="progress-pill">
+    <span id="progress-label"></span>
+    <button class="finish" id="finish-btn" disabled>Finish review &amp; merge to main</button>
+  </div>
+</header>
+
+<div id="app"></div>
+
+<div id="proto-switcher">
+  <span class="proto-tag">PROTOTYPE</span>
+  <button id="proto-prev" aria-label="Previous variant">&larr;</button>
+  <span class="label" id="proto-label"></span>
+  <button id="proto-next" aria-label="Next variant">&rarr;</button>
+</div>
+
+<script>
+/* =========================================================
+   Mock data — one curation run, four channels, deliberately
+   mixing clean candidates with off-topic noise (the exact
+   failure mode that motivated per-candidate review).
+   ========================================================= */
+const CANDIDATES = [
+  // Weddings — mostly clean
+  { id: "w1", channelKey: "weddings", channelDisplay: "Weddings", title: "Tigrinya Wedding Highlights — Asmara, 2026", uploader: "Selam Events", duration: "8:42", views: "12,400", color: "#5b4b8c" },
+  { id: "w2", channelKey: "weddings", channelDisplay: "Weddings", title: "Eritrean Wedding Traditional Dance Set", uploader: "Habesha Weddings Diaspora", duration: "14:10", views: "6,900", color: "#5b4b8c" },
+  { id: "w3", channelKey: "weddings", channelDisplay: "Weddings", title: "Melbourne Car Meet Highlights 2026", uploader: "AuzzieRides", duration: "5:03", views: "41,200", color: "#5b4b8c", suspect: true },
+
+  // Comedy — clean
+  { id: "c1", channelKey: "comedy", channelDisplay: "Comedy", title: "Tigrinya Stand-Up Night — Full Set", uploader: "Asmara Laughs", duration: "22:15", views: "18,300", color: "#8c5b4b" },
+  { id: "c2", channelKey: "comedy", channelDisplay: "Comedy", title: "Habesha Comedy Sketch: The Diaspora Wedding Guest", uploader: "Kebessa Comedy", duration: "6:48", views: "9,250", color: "#8c5b4b" },
+
+  // Independence Day Diaspora — the pattern from the real bug
+  { id: "i1", channelKey: "independence_day_diaspora", channelDisplay: "Independence Day Diaspora", title: "Eritrean Independence Day Parade — Toronto 2026", uploader: "Tewahdo Diaspora TV", duration: "11:30", views: "7,800", color: "#4b8c6b" },
+  { id: "i2", channelKey: "independence_day_diaspora", channelDisplay: "Independence Day Diaspora", title: "Asmara Street Celebrations, May 24", uploader: "Dehai Media", duration: "9:05", views: "15,600", color: "#4b8c6b" },
+  { id: "i3", channelKey: "independence_day_diaspora", channelDisplay: "Independence Day Diaspora", title: "Ethiopia Politics Roundtable — This Week", uploader: "Horn Affairs Talk", duration: "34:20", views: "88,000", color: "#4b8c6b", suspect: true },
+  { id: "i4", channelKey: "independence_day_diaspora", channelDisplay: "Independence Day Diaspora", title: "Catholic Apologetics: Answering Common Objections", uploader: "Reasoned Faith", duration: "19:47", views: "52,300", color: "#4b8c6b", suspect: true },
+
+  // Music Modern — mostly clean, one stray
+  { id: "m1", channelKey: "music_modern", channelDisplay: "Music · Modern", title: "New Eritrean Music 2026 — Official Video", uploader: "Eri Records", duration: "4:12", views: "22,100", color: "#8c4b7a" },
+  { id: "m2", channelKey: "music_modern", channelDisplay: "Music · Modern", title: "Tigrigna Music Mix — New Releases", uploader: "Adey Vibes", duration: "3:58", views: "17,400", color: "#8c4b7a" },
+  { id: "m3", channelKey: "music_modern", channelDisplay: "Music · Modern", title: "Habesha Love Song (Official Audio)", uploader: "Noni TV", duration: "4:40", views: "9,870", color: "#8c4b7a" },
+  { id: "m4", channelKey: "music_modern", channelDisplay: "Music · Modern", title: "Athens Marathon 2026 — Live Map & Results", uploader: "Marathon Trip", duration: "41:02", views: "3,100", color: "#8c4b7a", suspect: true },
+];
+
+/* =========================================================
+   In-memory review state — no persistence, no network.
+   decisions[id] = { status: 'pending'|'approved'|'rejected', reason }
+   ========================================================= */
+const decisions = {};
+CANDIDATES.forEach(c => decisions[c.id] = { status: "pending", reason: "" });
+
+function groupByChannel(list) {
+  const order = [];
+  const map = {};
+  list.forEach(c => {
+    if (!map[c.channelKey]) { map[c.channelKey] = []; order.push(c.channelKey); }
+    map[c.channelKey].push(c);
+  });
+  return order.map(key => ({ key, display: map[key][0].channelDisplay, items: map[key] }));
+}
+
+function approve(id) {
+  decisions[id] = { status: "approved", reason: "" };
+  render();
+}
+function reject(id, reason) {
+  decisions[id] = { status: "rejected", reason: reason || "(no reason given)" };
+  render();
+}
+function resetToPending(id) {
+  decisions[id] = { status: "pending", reason: "" };
+  render();
+}
+function allDecided() {
+  return CANDIDATES.every(c => decisions[c.id].status !== "pending");
+}
+function counts() {
+  const vals = Object.values(decisions);
+  return {
+    total: vals.length,
+    decided: vals.filter(d => d.status !== "pending").length,
+    approved: vals.filter(d => d.status === "approved").length,
+    rejected: vals.filter(d => d.status === "rejected").length,
+  };
+}
+function thumbHtml(c, big) {
+  return `<div class="thumb" style="background:${c.color}">▶
+    <span class="dur">${c.duration}</span>
+  </div>`;
+}
+function ytLink(c) {
+  return `<a class="yt-link" href="https://youtu.be/${c.id}-mock" target="_blank" rel="noopener">Open on YouTube ↗</a>`;
+}
+function statusChip(id) {
+  const s = decisions[id].status;
+  const label = s === "pending" ? "Pending" : s === "approved" ? "Approved" : "Rejected";
+  return `<span class="status-chip ${s}">${label}</span>`;
+}
+
+let finishedState = false;
+
+/* =========================================================
+   Variant A — dense list, grouped by channel, inline actions.
+   Fast keyboard-adjacent triage for someone scanning many rows.
+   ========================================================= */
+function renderVariantA(root) {
+  if (finishedState) { root.innerHTML = finishedHtml(); return; }
+  const groups = groupByChannel(CANDIDATES);
+  root.innerHTML = groups.map(g => `
+    <div class="a-channel-group">
+      <div class="a-channel-header">${g.display} <span class="count">${g.items.length} candidate${g.items.length === 1 ? "" : "s"}</span></div>
+      ${g.items.map(c => rowA(c)).join("")}
+    </div>
+  `).join("");
+  root.querySelectorAll("[data-approve]").forEach(b => b.onclick = () => approve(b.dataset.approve));
+  root.querySelectorAll("[data-reject-toggle]").forEach(b => b.onclick = () => {
+    const panel = root.querySelector(`#reason-${b.dataset.rejectToggle}`);
+    panel.style.display = panel.style.display === "none" ? "block" : "none";
+  });
+  root.querySelectorAll("[data-reject-confirm]").forEach(b => b.onclick = () => {
+    const id = b.dataset.rejectConfirm;
+    reject(id, root.querySelector(`#reason-text-${id}`).value.trim());
+  });
+  root.querySelectorAll("[data-undo]").forEach(b => b.onclick = () => resetToPending(b.dataset.undo));
+}
+function rowA(c) {
+  const d = decisions[c.id];
+  return `
+    <div class="a-row">
+      ${thumbHtml(c)}
+      <div class="title-block">
+        <div class="t">${c.title}${c.suspect ? '<span class="flag">off-topic?</span>' : ""}</div>
+        <div class="meta-line">${c.uploader} · ${c.views} views · ${ytLink(c)}</div>
+      </div>
+      ${statusChip(c.id)}
+      <div class="actions">
+        ${d.status === "pending" ? `
+          <button class="btn approve small" data-approve="${c.id}">Approve</button>
+          <button class="btn reject small" data-reject-toggle="${c.id}">Reject…</button>
+        ` : `<button class="btn small" data-undo="${c.id}">Undo</button>`}
+      </div>
+    </div>
+    <div class="a-reason-row" id="reason-${c.id}" style="display:none">
+      <textarea class="reason" id="reason-text-${c.id}" placeholder="Reason (required, saved to blocklist.yaml)"></textarea>
+      <button class="btn reject small" style="margin-top:6px" data-reject-confirm="${c.id}">Confirm reject</button>
+    </div>
+  `;
+}
+
+/* =========================================================
+   Variant B — one-at-a-time deck. Deliberate attention per
+   candidate, auto-advances, progress bar + filmstrip of dots.
+   ========================================================= */
+let bCursor = CANDIDATES.findIndex(c => decisions[c.id].status === "pending");
+let bRejecting = false;
+
+function renderVariantB(root) {
+  if (finishedState) { root.innerHTML = `<div class="b-wrap">${finishedHtml()}</div>`; return; }
+  if (bCursor === -1 || bCursor >= CANDIDATES.length) bCursor = CANDIDATES.findIndex(c => decisions[c.id].status === "pending");
+  const { decided, total } = counts();
+
+  if (bCursor === -1) {
+    root.innerHTML = `<div class="b-wrap"><div class="b-done">
+      <h2 style="margin-top:0">All ${total} candidates reviewed</h2>
+      <p class="meta-line">Use "Finish review &amp; merge to main" above, or jump back to any item below.</p>
+      ${filmstrip()}
+    </div></div>`;
+    wireFilmstrip(root);
+    return;
+  }
+
+  const c = CANDIDATES[bCursor];
+  root.innerHTML = `
+    <div class="b-wrap">
+      <div class="b-progressbar"><div style="width:${(decided/total*100).toFixed(0)}%"></div></div>
+      <div class="b-card">
+        ${thumbHtml(c)}
+        <h2>${c.title}${c.suspect ? '<span class="flag">off-topic?</span>' : ""}</h2>
+        <div class="meta-line">${c.channelDisplay} · ${c.uploader} · ${c.duration} · ${c.views} views · ${ytLink(c)}</div>
+        ${bRejecting ? `
+          <textarea class="reason" id="b-reason" placeholder="Reason (required, saved to blocklist.yaml)" autofocus></textarea>
+          <div class="b-actions">
+            <button class="btn" id="b-cancel">Back</button>
+            <button class="btn reject" id="b-confirm-reject">Confirm reject</button>
+          </div>
+        ` : `
+          <div class="b-actions">
+            <button class="btn reject" id="b-reject">Reject</button>
+            <button class="btn approve" id="b-approve">Approve</button>
+          </div>
+        `}
+      </div>
+      ${filmstrip()}
+    </div>
+  `;
+  if (bRejecting) {
+    root.querySelector("#b-cancel").onclick = () => { bRejecting = false; render(); };
+    root.querySelector("#b-confirm-reject").onclick = () => {
+      reject(c.id, root.querySelector("#b-reason").value.trim());
+      bRejecting = false; bCursor++; render();
+    };
+  } else {
+    root.querySelector("#b-approve").onclick = () => { approve(c.id); bCursor++; render(); };
+    root.querySelector("#b-reject").onclick = () => { bRejecting = true; render(); };
+  }
+  wireFilmstrip(root);
+}
+function filmstrip() {
+  return `<div class="b-filmstrip">${CANDIDATES.map((c, i) => {
+    const d = decisions[c.id];
+    return `<span class="dot ${d.status} ${i === bCursor ? "current" : ""}" data-jump="${i}" title="${c.title}"></span>`;
+  }).join("")}</div>`;
+}
+function wireFilmstrip(root) {
+  root.querySelectorAll("[data-jump]").forEach(d => d.onclick = () => {
+    bCursor = parseInt(d.dataset.jump, 10); bRejecting = false; render();
+  });
+}
+
+/* =========================================================
+   Variant C — sidebar navigator + detail panel. Keeps the
+   whole run's progress visible while reviewing one at a time.
+   ========================================================= */
+let cSelected = CANDIDATES[0].id;
+
+function renderVariantC(root) {
+  if (finishedState) { root.innerHTML = finishedHtml(); return; }
+  const groups = groupByChannel(CANDIDATES);
+  const c = CANDIDATES.find(x => x.id === cSelected);
+  const d = decisions[cSelected];
+  root.innerHTML = `
+    <div class="c-layout">
+      <div class="c-sidebar">
+        ${groups.map(g => `
+          <div class="c-group-label">${g.display}</div>
+          ${g.items.map(item => `
+            <div class="c-item ${decisions[item.id].status} ${item.id === cSelected ? "selected" : ""}" data-select="${item.id}">
+              <span class="dot"></span>
+              <span class="t">${item.title}</span>
+            </div>
+          `).join("")}
+        `).join("")}
+      </div>
+      <div class="c-detail">
+        ${thumbHtml(c, true)}
+        <h2>${c.title}${c.suspect ? '<span class="flag">off-topic?</span>' : ""}</h2>
+        <div class="meta-line">${c.channelDisplay} · ${c.uploader} · ${c.duration} · ${c.views} views · ${ytLink(c)} &nbsp; ${statusChip(c.id)}</div>
+        ${d.status === "rejected" ? `<p class="meta-line">Reason: ${d.reason}</p>` : ""}
+        <div style="display:flex; gap:10px; align-items:flex-start;">
+          <button class="btn approve" id="c-approve">Approve</button>
+          <button class="btn reject" id="c-reject-toggle">Reject…</button>
+          ${d.status !== "pending" ? `<button class="btn" id="c-undo">Undo</button>` : ""}
+        </div>
+        <div id="c-reason-wrap" style="display:none; margin-top:12px;">
+          <textarea class="reason" id="c-reason" placeholder="Reason (required, saved to blocklist.yaml)"></textarea>
+          <button class="btn reject" style="margin-top:6px" id="c-confirm-reject">Confirm reject</button>
+        </div>
+      </div>
+    </div>
+  `;
+  root.querySelectorAll("[data-select]").forEach(el => el.onclick = () => { cSelected = el.dataset.select; render(); });
+  root.querySelector("#c-approve").onclick = () => approve(c.id);
+  root.querySelector("#c-reject-toggle").onclick = () => { root.querySelector("#c-reason-wrap").style.display = "block"; };
+  root.querySelector("#c-confirm-reject").onclick = () => reject(c.id, root.querySelector("#c-reason").value.trim());
+  const undoBtn = root.querySelector("#c-undo");
+  if (undoBtn) undoBtn.onclick = () => resetToPending(c.id);
+}
+
+function finishedHtml() {
+  const k = counts();
+  return `
+    <div class="b-done" style="max-width:640px; margin: 40px auto;">
+      <h2 style="margin-top:0">Review finished</h2>
+      <p class="meta-line">
+        ${k.approved} approved · ${k.rejected} rejected, out of ${k.total} candidates.
+      </p>
+      <p class="meta-line">
+        (Stub) Would now: merge PR #124's branch into <code>main</code> with the ${k.approved}
+        approved videos, and append ${k.rejected} rejected video${k.rejected === 1 ? "" : "s"}
+        to <code>curation/blocklist.yaml</code> with the reasons given.
+      </p>
+    </div>
+  `;
+}
+
+/* =========================================================
+   Variant switcher
+   ========================================================= */
+const VARIANTS = [
+  { key: "A", name: "Dense list", render: renderVariantA },
+  { key: "B", name: "One-at-a-time deck", render: renderVariantB },
+  { key: "C", name: "Sidebar + detail", render: renderVariantC },
+];
+
+function currentVariantIndex() {
+  const params = new URLSearchParams(location.search);
+  const key = (params.get("variant") || "A").toUpperCase();
+  const idx = VARIANTS.findIndex(v => v.key === key);
+  return idx === -1 ? 0 : idx;
+}
+
+function setVariantIndex(idx) {
+  const wrapped = (idx + VARIANTS.length) % VARIANTS.length;
+  const params = new URLSearchParams(location.search);
+  params.set("variant", VARIANTS[wrapped].key);
+  history.replaceState(null, "", `${location.pathname}?${params.toString()}`);
+  render();
+}
+
+function render() {
+  const idx = currentVariantIndex();
+  const variant = VARIANTS[idx];
+  document.getElementById("proto-label").textContent = `${variant.key} — ${variant.name}`;
+  const k = counts();
+  document.getElementById("progress-label").textContent = `${k.decided}/${k.total} reviewed (${k.approved} approved, ${k.rejected} rejected)`;
+  const finishBtn = document.getElementById("finish-btn");
+  finishBtn.disabled = !allDecided() || finishedState;
+  finishBtn.onclick = () => { finishedState = true; render(); };
+  variant.render(document.getElementById("app"));
+}
+
+document.getElementById("proto-prev").onclick = () => setVariantIndex(currentVariantIndex() - 1);
+document.getElementById("proto-next").onclick = () => setVariantIndex(currentVariantIndex() + 1);
+document.addEventListener("keydown", e => {
+  const tag = (e.target.tagName || "").toLowerCase();
+  if (tag === "input" || tag === "textarea" || e.target.isContentEditable) return;
+  if (e.key === "ArrowLeft") setVariantIndex(currentVariantIndex() - 1);
+  if (e.key === "ArrowRight") setVariantIndex(currentVariantIndex() + 1);
+});
+
+render();
+</script>
+</body>
+</html>

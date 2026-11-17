@@ -36,9 +36,35 @@ _Avoid_: Live channel (a Live event has no `channels.yaml` entry and no cyclic l
 The temporary guide entry for a Live event — added by a reviewed PR naming a source video and scheduled start time, visible some lead time before that start, and removed automatically a fixed window afterward. Unlike a Channel row, it points directly at one real live stream rather than computing a position in a cyclic lineup.
 _Avoid_: Channel row (when specifically distinguishing the two)
 
+**Cast**:
+A viewer sending the channel to a Chromecast or Android TV device running Nahom Eri TV's own registered receiver app, after which the TV's remote drives channel switching directly. Only available where the Cast SDK exists (Chrome/Android); the Cast button stays hidden everywhere else, including Safari.
+_Avoid_: Casting (ambiguous with AirPlay), Chromecast (names one brand of receiving device, not the viewer action)
+
+**AirPlay**:
+A viewer's own device/browser feature for sending the player's video and audio to an AirPlay-capable receiver (an Apple TV, or a smart TV/soundbar with AirPlay 2 built in) — offered entirely by the browser's native video controls. Nahom Eri TV has no sender code or receiver app of its own for it, unlike Cast, and it cannot reach a Chromecast or Android TV device (they don't speak AirPlay).
+_Avoid_: Casting (ambiguous with Cast), Airplay-casting
+
+**TV Platform App**:
+A dedicated, store-distributed packaging of the existing web guide/player for a smart-TV platform whose own web engine can host it (Samsung Tizen, LG webOS, Fire TV) — the viewer installs and launches it directly on the TV, remote-driven, rather than reaching Nahom Eri TV via Cast or AirPlay from another device. See [ADR-0012](./docs/adr/0012-tv-platform-support-scoped-to-tizen-webos-firetv.md) for which platforms qualify and why Apple TV and Roku don't.
+_Avoid_: Native app (implies a rebuild; these reuse the existing web codebase as-is), Smart TV app (ambiguous with a TV's own built-in apps)
+
 **Favorite**:
 A viewer's own marking of a Channel for quick return, kept only in that browser/device's storage (nothing is synced or shared). Favoriting doesn't reorganize the guide — it only pins the channel into its own section for faster access. Applies to Channel rows only; a Live event row is too short-lived to be worth favoriting.
 _Avoid_: Bookmark (already used elsewhere for the channel-in-URL shareability behavior, a different concept), Pin, Star (these name the UI affordance, not the concept)
+
+**Favorites section**:
+The guide section listing a viewer's Favorites, positioned below Live event rows but above the full channel list. Hidden entirely until the viewer has favorited at least one channel; a favorited channel still appears in its normal place in the full list as well.
+_Avoid_: Favorites row (it's a section that can hold several rows, not a single row)
+
+### Viewership
+
+**Viewership count**:
+A Channel's weekly tally of real watches, counted anonymously with no per-viewer or per-session identifier — one per sustained playback of that channel, not per row selection. Used only to prioritize curation effort; never shown to viewers. See [ADR-0014](./docs/adr/0014-first-party-anonymous-viewership-counting-for-curation.md).
+_Avoid_: View count (ambiguous with YouTube's own per-video metric, which counts plays anywhere a video is embedded, not just inside this app), Analytics (implies broader tracking than this narrow signal)
+
+**Viewership snapshot**:
+The weekly git-committed file recording each Channel's Viewership count for that week, written alongside the existing curation run rather than served as part of the live site or shown on any dashboard.
+_Avoid_: Analytics dashboard (there isn't one — the committed file is read directly)
 
 ## Curation review
 
