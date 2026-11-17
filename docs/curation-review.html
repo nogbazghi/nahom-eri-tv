@@ -97,6 +97,59 @@
       color: #aaa;
       font-size: 0.9rem;
     }
+
+    .candidate-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-left: auto;
+      flex-shrink: 0;
+      align-items: flex-end;
+    }
+
+    .candidate-actions button {
+      padding: 0.35rem 0.75rem;
+    }
+
+    .reject-form {
+      align-items: stretch;
+      min-width: 16rem;
+    }
+
+    .reject-form label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      font-size: 0.85rem;
+      color: #aaa;
+    }
+
+    .reject-reason-input {
+      font: inherit;
+      padding: 0.4rem;
+      resize: vertical;
+    }
+
+    .reject-reason-error {
+      margin: 0;
+      color: #e36b6b;
+      font-size: 0.85rem;
+    }
+
+    .decision-status {
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+
+    #progress-message {
+      font-weight: 600;
+    }
+
+    #finish-review-btn {
+      margin-top: 1rem;
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+    }
   </style>
 </head>
 <body>
@@ -111,7 +164,11 @@
 
     <p id="status-message" role="status" hidden></p>
 
+    <p id="progress-message" role="status" hidden></p>
+
     <div id="candidate-groups"></div>
+
+    <button id="finish-review-btn" type="button" disabled hidden>Finish review</button>
   </main>
 
   <script type="module" src="curation-review-ui.js"></script>

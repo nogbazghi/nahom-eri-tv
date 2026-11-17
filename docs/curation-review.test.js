@@ -5,6 +5,13 @@ import {
   buildThumbnailUrl,
   buildYoutubeUrl,
   groupCandidatesByChannel,
+  approveCandidate,
+  rejectCandidate,
+  undoDecision,
+  countReviewed,
+  countTotalCandidates,
+  isReviewComplete,
+  computeWriteBackPayload,
 } from "./curation-review.js";
 
 test("formatDuration: under a minute renders M:SS with no leading zero on minutes", () => {
@@ -98,4 +105,88 @@ test("groupCandidatesByChannel: groups are sorted alphabetically by channel name
 test("groupCandidatesByChannel: a summary with no additions contributes no group", () => {
   const summaries = [{ channel: "weddings", additions: [], removals: [] }];
   assert.deepEqual(groupCandidatesByChannel(summaries), []);
+});
+
+test("approveCandidate: records an approved decision for the candidate id, leaving other decisions untouched", () => {
+  const decisions = { other1: { status: "approved" } };
+  assert.deepEqual(approveCandidate(decisions, "abc123"), {
+    other1: { status: "approved" },
+    abc123: { status: "approved" },
+  });
+});
+
+test("rejectCandidate: records a rejected decision with the trimmed reason", () => {
+  assert.deepEqual(rejectCandidate({}, "abc123", "  off-topic, Burmese-language news  "), {
+    abc123: { status: "rejected", reason: "off-topic, Burmese-language news" },
+  });
+});
+
+test("rejectCandidate: throws when the reason is empty or all whitespace", () => {
+  assert.throws(() => rejectCandidate({}, "abc123", ""));
+  assert.throws(() => rejectCandidate({}, "abc123", "   "));
+});
+
+test("undoDecision: removes the candidate's decision, reverting it to pending, leaving other decisions untouched", () => {
+  const decisions = {
+    abc123: { status: "approved" },
+    other1: { status: "rejected", reason: "off-topic" },
+  };
+  assert.deepEqual(undoDecision(decisions, "abc123"), {
+    other1: { status: "rejected", reason: "off-topic" },
+  });
+});
+
+test("countTotalCandidates: sums candidates across every group", () => {
+  const groups = [
+    { channel: "Music - Modern", candidates: [{ id: "m1" }, { id: "m2" }] },
+    { channel: "Weddings", candidates: [{ id: "w1" }] },
+  ];
+  assert.equal(countTotalCandidates(groups), 3);
+});
+
+test("countReviewed: counts the number of decided candidates", () => {
+  const decisions = {
+    abc123: { status: "approved" },
+    def456: { status: "rejected", reason: "off-topic" },
+  };
+  assert.equal(countReviewed(decisions), 2);
+});
+
+test("isReviewComplete: false while any candidate across any group is undecided", () => {
+  const groups = [
+    { channel: "Music - Modern", candidates: [{ id: "m1" }, { id: "m2" }] },
+    { channel: "Weddings", candidates: [{ id: "w1" }] },
+  ];
+  const decisions = { m1: { status: "approved" }, w1: { status: "approved" } };
+  assert.equal(isReviewComplete(groups, decisions), false);
+});
+
+test("isReviewComplete: true once every candidate across every group has a decision", () => {
+  const groups = [
+    { channel: "Music - Modern", candidates: [{ id: "m1" }, { id: "m2" }] },
+    { channel: "Weddings", candidates: [{ id: "w1" }] },
+  ];
+  const decisions = {
+    m1: { status: "approved" },
+    m2: { status: "rejected", reason: "off-topic" },
+    w1: { status: "approved" },
+  };
+  assert.equal(isReviewComplete(groups, decisions), true);
+});
+
+test("computeWriteBackPayload: sorts approved candidates into approvedIds and rejected candidates into rejected with their reason, ignoring undecided ones", () => {
+  const groups = [
+    {
+      channel: "Music - Modern",
+      candidates: [{ id: "m1" }, { id: "m2" }, { id: "m3" }],
+    },
+  ];
+  const decisions = {
+    m1: { status: "approved" },
+    m2: { status: "rejected", reason: "off-topic" },
+  };
+  assert.deepEqual(computeWriteBackPayload(groups, decisions), {
+    approvedIds: ["m1"],
+    rejected: [{ id: "m2", reason: "off-topic" }],
+  });
 });
