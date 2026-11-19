@@ -51,6 +51,14 @@ jobs:
             exit 0
           fi
           git commit -m "Weekly viewership snapshot [automated]"
+
+          # Rebase before pushing: this workflow shares curate.yml's exact
+          # cron trigger time, and curate.yml's "Commit removals directly
+          # to main" step also pushes straight to main — a plain push
+          # here could race that and get rejected. Safe to rebase rather
+          # than retry: this step only ever adds a new
+          # curation/viewership/<week>.json file, which can't conflict
+          # with curate.yml's docs/data/videos.json changes.
           git fetch origin main
           git rebase origin/main
           git push origin HEAD:main
