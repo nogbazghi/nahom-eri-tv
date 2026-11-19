@@ -2,9 +2,11 @@
 // "Reviewer / auth" decision: a fine-grained PAT scoped to just this
 // repository, kept in the browser, no backend service). Implements the
 // {listOpenPulls, listDirectory, getFileContent} shape curation-review-data.js
-// calls — untested glue, same role as favorites-ui.js/i18n-ui.js, verified
-// by running the page against a real PR (ticket #106's "prove the read path
-// end to end").
+// calls, plus the {getFileSha, updateFile, mergePull} shape
+// curation-review-writeback.js calls — untested glue, same role as
+// favorites-ui.js/i18n-ui.js, verified by running the page against a real
+// PR (ticket #106's "prove the read path end to end", ticket #108's write
+// path).
 
 const OWNER = "nogbazghi";
 const REPO = "nahom-eri-tv";
@@ -23,13 +25,29 @@ function decodeBase64Content(base64) {
   return new TextDecoder("utf-8").decode(bytes);
 }
 
+// Inverse of decodeBase64Content — goes through TextEncoder/byte-string
+// rather than a plain btoa(text), the same way decodeBase64Content goes
+// through TextDecoder, so a reason containing non-ASCII text round-trips
+// correctly rather than btoa throwing on it.
+function encodeBase64Content(text) {
+  const bytes = new TextEncoder().encode(text);
+  let binary = "";
+  for (const byte of bytes) {
+    binary += String.fromCharCode(byte);
+  }
+  return btoa(binary);
+}
+
 export function createGithubClient(token) {
-  async function request(path) {
+  async function request(path, options = {}) {
     const response = await fetch(`${API_BASE}${path}`, {
+      method: options.method ?? "GET",
+      body: options.body,
       headers: {
         Authorization: `Bearer ${token}`,
         Accept: "application/vnd.github+json",
         "X-GitHub-Api-Version": "2022-11-28",
+        ...(options.body ? { "Content-Type": "application/json" } : {}),
       },
     });
     if (!response.ok) {
@@ -67,6 +85,27 @@ export function createGithubClient(token) {
     async getFileContent(ref, path) {
       const file = await request(`/contents/${path}?ref=${ref}`);
       return decodeBase64Content(file.content);
+    },
+
+    // The Contents API's update endpoint needs the current file's blob
+    // sha to accept an update (it 409s against a stale one) — fetched
+    // fresh right before the write rather than reused from an earlier
+    // read, since by curation-review-writeback.js's call time that read
+    // may be stale.
+    async getFileSha(ref, path) {
+      const file = await request(`/contents/${path}?ref=${ref}`);
+      return file.sha;
+    },
+
+    async updateFile(branch, path, content, sha, message) {
+      await request(`/contents/${path}`, {
+        method: "PUT",
+        body: JSON.stringify({ message, content: encodeBase64Content(content), sha, branch }),
+      });
+    },
+
+    async mergePull(number) {
+      await request(`/pulls/${number}/merge`, { method: "PUT" });
     },
   };
 }
