@@ -1,0 +1,56 @@
+name: Weekly Viewership Export
+
+# Reads this week's per-channel watch counts from the Cloudflare Worker's
+# KV store (ticket #114) and commits a JSON snapshot under curation/
+# viewership/ straight to main — ticket #116, part of #113. Kept as its
+# own workflow file, on the same schedule as the curation pipeline
+# (curate.yml), so a bug in one job never blocks or masks failures in the
+# other.
+
+on:
+  schedule:
+    - cron: '0 13 * * 1' # Mondays 13:00 UTC — same cadence as curate.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install -r curation/requirements.txt
+
+      - name: Configure git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Export this week's viewership snapshot
+        working-directory: curation
+        env:
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_KV_NAMESPACE_ID: ${{ secrets.CF_KV_NAMESPACE_ID }}
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+        run: python3 export_weekly_snapshot.py
+
+      - name: Commit snapshot directly to main
+        run: |
+          git add curation/viewership/
+          if git diff --cached --quiet; then
+            echo "No snapshot changes to commit."
+            exit 0
+          fi
+          git commit -m "Weekly viewership snapshot [automated]"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
