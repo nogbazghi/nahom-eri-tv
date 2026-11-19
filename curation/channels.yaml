@@ -806,3 +806,48 @@ music_diaspora_artists:
     - "Afrob"
   view_count_min: 1000
   duration_min_sec: 120
+
+# Independence Day performances/commemorations, per issue #45's
+# Implementation Decisions and ticket #51. Independence Day was already
+# identified by docs/research/channel-demand-signals.md §6 as having strong,
+# recurring annual supply (the same research that backs the existing
+# `independence_day`/`independence_day_diaspora` holiday-general channels
+# below) — this is a separate, music/performance-angled channel built on top
+# of that same verified supply, not a duplicate of either: `independence_day`
+# is Eri-TV's own single trusted playlist (`type: channel`, display_name
+# "Independence Day"), and `independence_day_diaspora` is the general
+# diaspora-celebration search channel (embassy events, city-by-city recaps,
+# display_name also "Independence Day"). This entry gets its own standalone
+# display_name, "Music · Independence Day", as its own distinct row — the
+# same five-Music-channel pattern as `music_modern`/
+# `music_post_independence_classics` above (see ADR-0007), scoped to
+# performances and commemorations specifically rather than Independence Day
+# content generally.
+#
+# Per ADR-0005, Eri-TV's own Independence Day uploads are welcome in this
+# channel's results, not excluded as "incumbent-covered" — unlike
+# `independence_day_diaspora`'s text_filter/query-qualifier approach (added
+# specifically to steer search.list *away* from Eri-TV's own channel so the
+# two independence_day-display_name rules wouldn't double-add the same
+# video), this entry has no such exclusion, by design.
+#
+# Queries are the three given directly in issue #45's Implementation
+# Decisions: the two broad English phrasings plus "ናጽነት ኤርትራ" (Tigrinya for
+# "Independence of Eritrea"), covering both English- and Tigrinya-language
+# supply rather than relying on the diaspora channel's embassy/community
+# qualifiers, since Eri-TV's own-channel results are in scope here.
+#
+# Thresholds (view_count_min: 500, duration_min_sec: 120) are #45's suggested
+# values taken as-is, matching independence_day_diaspora's/sports_diaspora's
+# unvetted-search-pool precedent. Per #45's Testing Decisions, the first live
+# discover.py run is where these get confirmed or adjusted against real
+# data, same as every other channel.
+music_independence_day:
+  type: search
+  display_name: "Music · Independence Day"
+  queries:
+    - "Eritrean Independence Day"
+    - "Eritrea Independence Day celebration"
+    - "ናጽነት ኤርትራ"
+  view_count_min: 500
+  duration_min_sec: 120
