@@ -285,6 +285,82 @@ music_modern:
   view_count_min: 1000
   duration_min_sec: 120
 
+# Pre-independence (1960s-1991) EPLF/revolutionary-era Eritrean music, per
+# issue #45 (five themed Music channels) and its Implementation Decisions
+# for `music_liberation_era`, ticket #47. Like Post-Independence Classics
+# below, this is a phrase/named-era query list rather than generic decade
+# search — #45 verified plain decade-qualified queries don't differentiate
+# eras before ~2010 (see `music_modern`'s comment above), so this instead
+# targets the EPLF/revolutionary-struggle phrasing directly.
+#
+# "Eritrean guerrilla songs" was deliberately tried and dropped during
+# design — it was verified to return unrelated generic viral pop with no
+# liberation theme, not this era's actual content (#45's Implementation
+# Decisions and User Story 15). Do not re-add it without re-verifying.
+#
+# Query list adjusted from #45's suggested seed after a live discover.py
+# run on ticket #47 (per its "iterate after seeing real data" instruction,
+# same pattern as Kebire's rule-loosening/ticket #016 and Sports_diaspora's
+# query tuning): discover.py restricts YouTube search to the last 10 days
+# (`PUBLISHED_WINDOW_DAYS`), and under that recency window, #45's suggested
+# "Eritrean liberation music" and "EPLF songs" queries surfaced ZERO
+# genuine liberation-era content — 100% unrelated material (Ethiopian
+# political talk shows, a wars-ranking clickbait video, weddings,
+# general-entertainment channel filler), the same degradation pattern
+# "Eritrean guerrilla songs" was already known to hit, just via different
+# phrasing. Both were dropped. Direct YouTube Data API spot-checks (outside
+# discover.py, no publishedAfter restriction) confirmed "ባህሊ ሰውራ ኤርትራ"
+# ("culture of the Eritrean revolution") reliably surfaces genuine content
+# instead — repeated hits from one archival channel ("Zema Entertainment")
+# systematically re-uploading EPLF cultural-troupe recordings under titles
+# literally reading "Eritrean EPLF Revolutionary Music" / "Eritrean
+# Revolutionary Songs" / "ጉጂለ ባህሊ <year>", a years-spanning series whose
+# ongoing-upload cadence gives it a real shot at landing inside future
+# 10-day recency windows. Added it plus the matching English phrase
+# ("Eritrean Revolutionary Songs") that the same channel's titles use,
+# alongside #45's original, still-untainted "Eritrean EPLF revolutionary
+# music" query.
+#
+# IMPORTANT — unresolved as of this change: the YouTube Data API's daily
+# Search Queries quota was exhausted (HTTP 429, "Quota exceeded for quota
+# metric 'Search Queries' ... per day" — likely from concurrent discover.py
+# runs across this /implement-spec batch's sibling Music tickets sharing
+# one API key) before a second live discover.py run could confirm this
+# revised query list actually lands clean, contamination-free additions
+# under the real 10-day recency restriction. The contaminated additions
+# from the first run were reverted out of docs/data/videos.json rather than
+# shipped (see this ticket's commit) — so as of this commit the channel has
+# zero videos and will not yet appear as a guide row. A follow-up
+# discover.py run (manual, once quota resets, or the normal weekly
+# schedule) is needed to populate it and should have its additions
+# spot-checked again before merging, same as any other channel.
+#
+# view_count_min: 50 — low end of #45's suggested 0-100 range. This pool is
+# archival/reissue-channel content (decades-old recordings re-uploaded by
+# small channels), which skews far lower-view than mainstream pop, similar
+# in spirit to Kebire's/`music`'s view_count_min: 0 for a trusted-but-thin
+# pool. 50 rather than 0 outright: unlike Kebire/`music`, this pulls from
+# arbitrary YouTube search (not one curated source), so a small nonzero
+# floor still screens out zero/near-zero-view noise without excluding
+# genuine archival uploads the way Weddings'/Modern's 1000 would. Not
+# implicated in the contamination above — that was a query-relevance
+# problem, not a threshold problem — so left as originally reasoned.
+# duration_min_sec: 120 matches every other search-type channel in this
+# file.
+#
+# This is its own standalone row (display_name "Music · Liberation Era"),
+# not merged into any other entry's row — see ADR-0007, same reasoning as
+# `music_modern` above.
+music_liberation_era:
+  type: search
+  display_name: "Music · Liberation Era"
+  queries:
+    - "Eritrean EPLF revolutionary music"
+    - "ባህሊ ሰውራ ኤርትራ"
+    - "Eritrean Revolutionary Songs"
+  view_count_min: 50
+  duration_min_sec: 120
+
 fenkil:
   type: channel
   display_name: Fenkil
