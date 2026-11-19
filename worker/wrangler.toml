@@ -1,0 +1,10 @@
+name = "nahom-eri-tv-watch-counter"
+main = "watch-counter.js"
+compatibility_date = "2024-11-01"
+
+kv_namespaces = [
+  { binding = "WATCH_COUNTS", id = "REPLACE_WITH_KV_NAMESPACE_ID" }
+]
+
+[vars]
+ALLOWED_ORIGIN = "https://REPLACE_WITH_APP_ORIGIN"
