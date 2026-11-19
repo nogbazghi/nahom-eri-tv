@@ -39,3 +39,25 @@ _Avoid_: Channel row (when specifically distinguishing the two)
 **Favorite**:
 A viewer's own marking of a Channel for quick return, kept only in that browser/device's storage (nothing is synced or shared). Favoriting doesn't reorganize the guide — it only pins the channel into its own section for faster access. Applies to Channel rows only; a Live event row is too short-lived to be worth favoriting.
 _Avoid_: Bookmark (already used elsewhere for the channel-in-URL shareability behavior, a different concept), Pin, Star (these name the UI affordance, not the concept)
+
+## Curation review
+
+**Addition**:
+A newly discovered video that passed a channel rule's validation and was proposed to join that channel's lineup — `curation/ARCHITECTURE.md`'s pipeline-level term for the record, stored as `additions` in a channel's `.pending/<channel>.json` summary. Once an Addition is in the Curation review dashboard being individually decided on, call it a Curation candidate instead.
+_Avoid_: New video, discovered video
+
+**Curation run**:
+The additions and removals bundled into the standing branch's currently open review Pull Request, produced by one execution of the scheduled curation pipeline. The dashboard only ever has one Curation run to show at a time — a pipeline execution that finds a review already in progress skips updating the branch rather than queuing a second one.
+_Avoid_: Job run (`curation/ARCHITECTURE.md`'s term for the underlying scheduled pipeline execution itself — a run only becomes a Curation run if it actually opens or updates the PR)
+
+**Curation candidate**:
+An Addition while it belongs to the currently open Curation run, awaiting (or already carrying) a Review decision. Use this term, not Addition, whenever the review flow is the context.
+_Avoid_: Addition (within the review flow — see Addition)
+
+**Review decision**:
+The reviewer's recorded disposition for one Curation candidate: Approved, or Rejected with a required reason. A candidate with no Review decision yet is undecided; a decision can be undone, reverting the candidate to undecided, any time before its Curation run is finished.
+_Avoid_: Verdict, judgment
+
+**Curation review dashboard**:
+The page on the existing GitHub Pages site where the owner reviews one Curation run, recording a Review decision on each Curation candidate individually before finishing — which merges the PR and is the only action that publishes approved additions to `main`.
+_Avoid_: Review tool, admin panel
