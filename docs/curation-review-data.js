@@ -11,8 +11,11 @@ export async function findOpenCurationPr(client, branch) {
 }
 
 const PENDING_DIR = "curation/.pending";
-const VIDEOS_JSON_PATH = "docs/data/videos.json";
-const BLOCKLIST_YAML_PATH = "curation/blocklist.yaml";
+// Exported: curation-review-writeback.js (ticket #108) writes back to these
+// same two paths and imports them from here rather than redeclaring its own
+// copies, so the two modules can't silently drift onto different paths.
+export const VIDEOS_JSON_PATH = "docs/data/videos.json";
+export const BLOCKLIST_YAML_PATH = "curation/blocklist.yaml";
 
 // Reads the open PR's .pending/<channel>.json summaries plus that branch's
 // current videos.json/blocklist.yaml off its head sha (ticket #106's read

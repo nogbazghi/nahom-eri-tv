@@ -18,6 +18,7 @@ import {
 } from "./curation-review.js";
 import { findOpenCurationPr, fetchRunData } from "./curation-review-data.js";
 import { createGithubClient } from "./curation-review-github-client.js";
+import { finishReview } from "./curation-review-writeback.js";
 
 const STORAGE_KEY = "eriTvCurationReviewPat";
 const STANDING_BRANCH = "curation/weekly-update";
@@ -29,17 +30,20 @@ const candidateGroupsEl = document.getElementById("candidate-groups");
 const progressMessageEl = document.getElementById("progress-message");
 const finishReviewBtn = document.getElementById("finish-review-btn");
 
-// Review-run state (ticket #107, part of #105): `groups` is set once per
-// loaded run and never mutated; `decisions` and `openReasonFormIds` are
+// Review-run state (tickets #107/#108, part of #105): `groups` is set once
+// per loaded run and never mutated; `decisions` and `openReasonFormIds` are
 // rebuilt immutably on every change, same style as favorites-ui.js's
-// module-level `favorites`. Fully in-memory — no GitHub write-back yet,
-// per this ticket's scope.
+// module-level `favorites`. `client` and `runData` (pr/videosJson/
+// blocklistYamlText) are kept so Finish review can hand them straight to
+// curation-review-writeback.js's finishReview without re-fetching.
 let groups = [];
 let decisions = {};
 // Candidate ids whose inline rejection-reason field is currently open —
 // local UI presentation state, not a review decision, so it lives here
 // rather than in curation-review.js's pure decisions shape.
 let openReasonFormIds = new Set();
+let client = null;
+let runData = null;
 
 function readStoredToken() {
   try {
@@ -294,7 +298,7 @@ async function loadRun(token) {
   candidateGroupsEl.replaceChildren();
   hideReviewControls();
 
-  const client = createGithubClient(token);
+  client = createGithubClient(token);
 
   let pr;
   try {
@@ -309,13 +313,13 @@ async function loadRun(token) {
     return;
   }
 
-  let runData;
   try {
     runData = await fetchRunData(client, pr);
   } catch (error) {
     handleGithubError(error, "Couldn't read the run's data");
     return;
   }
+  runData.pr = pr;
 
   groups = groupCandidatesByChannel(runData.pendingSummaries);
   if (groups.length === 0) {
@@ -339,15 +343,32 @@ function hideTokenForm() {
   tokenForm.hidden = true;
 }
 
-// No GitHub write-back yet (ticket #107's scope stops at "fully demoable
-// in-memory" — the next ticket wires this payload up to actually publish).
-// Confirming here just proves the computed payload against what's on
-// screen, using the write-back-payload pure function #107 exists to add.
-finishReviewBtn.addEventListener("click", () => {
+// Finishing a review (ticket #108, part of #105): commits the rejected
+// candidates' removal from videos.json and their blocklist.yaml entries to
+// the standing branch, then merges the run's PR — the one moment approved
+// additions actually reach main. Disabled for the duration of the call so
+// a double-click can't send the merge twice.
+finishReviewBtn.addEventListener("click", async () => {
   const payload = computeWriteBackPayload(groups, decisions);
+  const today = new Date().toISOString().slice(0, 10);
+
+  finishReviewBtn.disabled = true;
+  finishReviewBtn.textContent = "Publishing…";
+  showStatus("Publishing review to GitHub…");
+
+  try {
+    await finishReview(client, runData, payload, today);
+  } catch (error) {
+    finishReviewBtn.textContent = "Finish review";
+    renderFinishButton();
+    handleGithubError(error, "Couldn't publish the review");
+    return;
+  }
+
+  hideReviewControls();
+  candidateGroupsEl.replaceChildren();
   showStatus(
-    `Review complete: ${payload.approvedIds.length} approved, ${payload.rejected.length} rejected. ` +
-      "Publishing to GitHub isn't wired up yet.",
+    `Review published: ${payload.approvedIds.length} approved, ${payload.rejected.length} rejected.`,
   );
 });
 
