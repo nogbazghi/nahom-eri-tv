@@ -547,6 +547,63 @@ catholic:
   duration_min_sec: 120
   duration_min_sec: 120
 
+# History, per issue #82/#83: three trusted single sources rather than open
+# search, since Eritrean history is politically contested and #82 deliberately
+# ruled out larger but more overtly partisan channels surfaced during
+# research. All three share display_name "History" (ticket #16's
+# (display_name, source) scoping, same pattern as Sports/Fenkil/Martyrs Day/
+# Independence Day) so they land in one guide row.
+#
+# Association of Eritrean Studies (academic perspective) — whole-catalog
+# enumeration, no text_filter, same shape as Podcasters' Kezahta: a single
+# trusted channel whose entire output (academic lectures on Eritrean history,
+# politics, and culture) is in scope.
+history_aes:
+  type: channel
+  display_name: History
+  channel_id: UCERnqWppYihINkSavQXm6mQ
+  view_count_min: 0
+  duration_min_sec: 120
+
+# Mdre Bahri (independent-documentary perspective) — same whole-catalog shape
+# as history_aes above.
+history_mdre_bahri:
+  type: channel
+  display_name: History
+  channel_id: UCqUhMTtMV3YGtJ1yBj01KVA
+  view_count_min: 0
+  duration_min_sec: 120
+
+# Eri-TV's own documentary catalog (official-archive perspective) — reuses
+# the same channel_id already present in this file for News/Sports/Fenkil/
+# Martyrs Day/Independence Day (per #82's Implementation Decisions), rather
+# than a dedicated playlist_id: Eri-TV's documentary output isn't collected
+# into one playlist the way its Music/Fenkil/Martyrs Day/Independence Day
+# content is. `text_filter: "documentary"` scopes the channel-wide
+# enumeration to it instead, matching Kebire's/Orthodox's established
+# text_filter mechanism — confirmed live against real upload titles, which
+# consistently carry an "ERi-TV Documentary:" (or "ERi-TV Documentary
+# (English):") prefix (e.g. "ERi-TV Documentary: Politicizing Eritrean
+# Migration", "Wedding Traditions of the Afar ethnic group in Eritrea -
+# ERi-TV Documentary (English)").
+#
+# `text_filter_title_only: true`, same as Orthodox (ticket #28): the title
+# verification above only confirmed the "ERi-TV Documentary:" prefix in
+# TITLES. Without this flag, matches_text_filter also checks description,
+# and this entry (no playlist_id) enumerates Eri-TV's entire uploads
+# history — News, Sports, Fenkil, Martyrs Day, Independence Day, Music
+# included — so an unrelated upload whose description merely mentions
+# "documentary" would leak into History. Title-only keeps this entry
+# scoped to what was actually verified.
+history_eritv:
+  type: channel
+  display_name: History
+  channel_id: UCpPhzhCfud9ctQSJJv4Kqlw
+  text_filter: "documentary"
+  text_filter_title_only: true
+  view_count_min: 0
+  duration_min_sec: 120
+
 # 1991-2000s Eritrean music, curated by named artist rather than a generic
 # decade search, per issue #45's Implementation Decisions and ticket #48.
 # docs/research/channel-demand-signals.md §2 originally floated a "music per
