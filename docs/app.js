@@ -10,6 +10,11 @@ import { createListNav } from "./nav.js";
 import { visibleLiveEvents } from "./live-events.js";
 import { createFavoriteToggle, getFavorites, pruneFavorites } from "./favorites-ui.js";
 import { visibleFavorites } from "./favorites.js";
+import {
+  retuneWatchTracking,
+  notePlaybackPlaying,
+  notePlaybackInterrupted,
+} from "./viewership-ui.js";
 
 let allVideos = [];
 let schedules = {};
@@ -284,6 +289,10 @@ function playLiveEvent(event) {
 function tuneLiveEvent(event) {
   currentLiveEvent = event;
   currentVideos = [];
+  // A Live event's watch never counts toward the per-Channel viewership
+  // signal (ticket #115, part of #113) — tuningId null means it can never
+  // qualify, however long it plays.
+  retuneWatchTracking(null);
   // Tells cast-sender.js there's no Channel to hand off right now, same
   // contract switchChannel() uses — Live events stay unsupported for Cast
   // (spec #82), so a session started while one is tuned should find nothing
@@ -538,6 +547,11 @@ function toggleGuide() {
 function switchChannel(name) {
   currentChannel = name;
   currentLiveEvent = null;
+  // A Channel switch or re-tune (e.g. "Go to Live") always resets the
+  // per-channel watch-qualification tracking toward this tuning (ticket
+  // #115, part of #113) — never skipped, even when re-selecting the
+  // channel already tuned in.
+  retuneWatchTracking(name);
   // Lets cast-sender.js (ticket #39) know which channel is showing locally,
   // without importing it here — app.js stays ignorant of casting entirely.
   window.dispatchEvent(new CustomEvent("neritv:channel", { detail: { channel: name } }));
@@ -654,12 +668,31 @@ function onPlayerReady() {
 }
 
 function onPlayerStateChange(event) {
+  // Feeds the per-Channel watch-qualification tracking (ticket #115, part
+  // of #113): PLAYING begins/continues the sustained-playback clock for
+  // whatever's actually on screen right now. Only PAUSED counts as a real
+  // interruption — BUFFERING/CUED/UNSTARTED/ENDED all also fire as part of
+  // the player's own loadVideoById() transition into the *next* video of
+  // this same Channel's lineup (advanceToNext(), just below), which per
+  // spec is natural advancement within one tuning, not a reset: tracking
+  // only resets on an explicit Channel switch/re-tune (retuneWatchTracking,
+  // called from switchChannel()/tuneLiveEvent()), never on reaching the end
+  // of one video in the lineup.
+  if (event.data === YT.PlayerState.PLAYING) {
+    const video = currentVideos[currentIndex];
+    if (video) notePlaybackPlaying(video.source);
+  } else if (event.data === YT.PlayerState.PAUSED) {
+    notePlaybackInterrupted();
+  }
+
   if (event.data === YT.PlayerState.ENDED) {
     advanceToNext();
   }
 }
 
 function onPlayerError() {
+  // Same "not a reset" reasoning as ENDED above — a broken video within the
+  // lineup is skipped, not a Channel switch.
   advanceToNext();
 }
 
