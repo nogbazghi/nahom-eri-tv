@@ -16,7 +16,11 @@ legitimate caller is the app itself (ticket #114, part of #113).
 ## Regenerating the known-channel list
 
 `channels.generated.js` is baked in at deploy time rather than fetched live.
-After any change to `curation/channels.yaml`, run:
+It lists distinct Channels (`display_name`), not `channels.yaml`'s keys —
+several keys can share one Channel (e.g. `fenkil`/`fenkil_diaspora` both
+display as "Fenkil"), and counting by key would fragment a single Channel's
+watches across keys nothing downstream reaggregates. After any change to
+`curation/channels.yaml`, run:
 
     python3 worker/generate_channels.py
 

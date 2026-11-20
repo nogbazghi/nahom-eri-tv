@@ -67,6 +67,21 @@ def load_channels_config(path=CHANNELS_FILE):
         return yaml.safe_load(f) or {}
 
 
+def load_channel_display_names(path=CHANNELS_FILE):
+    """The distinct set of Channel identifiers (display_name) a viewer
+    actually sees and tunes to in the guide — sorted for a stable order.
+
+    Several channels.yaml keys can share one display_name (e.g. `fenkil`
+    and `fenkil_diaspora` both display as "Fenkil": one Channel row fed by
+    two curation sources). Callers that need to identify a *Channel* rather
+    than a curation source — the viewership Worker's known-channel list,
+    the weekly export's per-channel grouping — must use this, not
+    load_channels_config().keys(), or they'll double-count/fragment a
+    single Channel's data across its source keys."""
+    config = load_channels_config(path)
+    return sorted({entry["display_name"] for entry in config.values()})
+
+
 def load_jobs_list(path=JOBS_FILE):
     """Parse jobs.yaml, return the list of script filenames."""
     with Path(path).open() as f:

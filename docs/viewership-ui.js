@@ -25,10 +25,6 @@ const WATCH_BEACON_URL = "https://REPLACE_WITH_DEPLOYED_WORKER_URL";
 
 let state = createViewershipState();
 let timer = null;
-// The channel identifier to send if the pending timer fires — captured when
-// sustaining starts, since anything that would change it (switching,
-// pausing, buffering, ending) clears the timer first (see below).
-let pendingChannelIdentifier = null;
 
 function clearPendingTimer() {
   if (timer !== null) {
@@ -43,18 +39,17 @@ function clearPendingTimer() {
 // within a Channel's own lineup; that keeps the same tuning.
 export function retuneWatchTracking(tuningId) {
   clearPendingTimer();
-  pendingChannelIdentifier = null;
   state = tuneChannel(tuningId);
 }
 
 // Called from app.js's onPlayerStateChange when playback enters PLAYING.
-// `channelIdentifier` is the currently-playing video's own channels.yaml
-// `source` field — refreshed on every call (not just when sustaining
-// starts), since a sustained-playback window can now span a natural
-// advance to the lineup's next video (a different `source`, possibly): the
-// beacon should always attribute to whatever's playing when it fires.
-export function notePlaybackPlaying(channelIdentifier) {
-  pendingChannelIdentifier = channelIdentifier;
+// No video-level identifier needed here: the beacon attributes to the
+// Channel currently tuned (state.tuningId), not to whichever
+// channels.yaml source happens to be playing — a single Channel's lineup
+// can draw from more than one source, and those must count as one Channel,
+// not fragment across them. Natural advancement to the lineup's next video
+// never changes tuningId, so there's nothing to refresh here.
+export function notePlaybackPlaying() {
   state = playbackSustaining(state, Date.now());
   if (state.sustainedSinceMs === null || timer !== null) return;
 
@@ -74,8 +69,9 @@ export function notePlaybackInterrupted() {
 
 function maybeSendBeacon() {
   if (!qualifiesForWatch(state, Date.now())) return;
+  const tuningId = state.tuningId;
   state = markWatchFired(state);
-  sendBeacon(pendingChannelIdentifier);
+  sendBeacon(tuningId);
 }
 
 // Fire-and-forget POST — a failed or blocked request (network error,
