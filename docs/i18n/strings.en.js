@@ -74,6 +74,8 @@ export const strings = {
     "Nahom Eri TV is a broadcast-style streaming service for Eritrean and Tigrinya diaspora content. You tune in to a channel already playing — the way a real TV channel works — instead of picking a video from a list. Every channel runs on its own fixed, continuous schedule, so everyone watching at the same moment sees the same thing. The service is organized into channels, each curated around its own topic or creator, with more added over time.",
   aboutNothingDownloaded:
     "Nothing is downloaded, stored, or rehosted: every video plays directly from YouTube's own player, so creators keep their views and control of their uploads.",
+  aboutViewershipDisclosure:
+    "To help decide which channels are worth curating further, the app anonymously counts how many people watch each channel. This is an aggregate count only — no cookie, device identifier, or anything else that could track an individual viewer is ever collected.",
 
   aboutWhoItsForHeading: "Who it's for",
   aboutWhoItsForParagraph:
