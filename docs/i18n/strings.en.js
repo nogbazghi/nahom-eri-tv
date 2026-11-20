@@ -75,7 +75,7 @@ export const strings = {
   aboutNothingDownloaded:
     "Nothing is downloaded, stored, or rehosted: every video plays directly from YouTube's own player, so creators keep their views and control of their uploads.",
   aboutViewershipDisclosure:
-    "To help decide which channels are worth curating further, the app anonymously counts how many people watch each channel. This is an aggregate count only — no cookie, device identifier, or anything else that could track an individual viewer is ever collected.",
+    "To help decide which channels are worth curating further, the app anonymously counts how many times each channel is watched. This is an aggregate count only — no cookie, device identifier, or anything else that could track an individual viewer is ever collected.",
 
   aboutWhoItsForHeading: "Who it's for",
   aboutWhoItsForParagraph:
