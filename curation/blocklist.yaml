@@ -166,3 +166,74 @@
 - id: z63K1zaku-g
   reason: "music_diaspora_artists collision: \"J Holiday singer\" surfaced a third unrelated Johnny Hallyday piece"
   date: 2026-11-18
+
+# music_liberation_era (#47) first live run (2026-11-19): once the quota
+# reset, the "Eritrean EPLF revolutionary music"/"Eritrean Revolutionary
+# Songs" queries' thin, specific on-topic supply in the 10-day publishedAfter
+# window was already exhausted, same search.list exhaustion pattern as
+# music_modern/music_diaspora_artists above — the single candidate that
+# surfaced was pure noise.
+- id: LoXTqsPnz40
+  reason: "music_liberation_era noise: an unrelated Indian food-culture documentary about ragi/millet (\"How Did Ragi Arrive in Karnataka?\"), no connection to EPLF/revolutionary-era music"
+  date: 2026-11-19
+
+# music_independence_day (#51) first live run (2026-11-19): same
+# search.list exhaustion pattern as independence_day_diaspora above, now
+# hitting this new channel — it has no text_filter set, so every candidate
+# below is a genuine-supply-exhaustion or wrong-country/wrong-topic hit, not
+# Eritrean Independence Day content. All 17 candidates from this run were
+# noise; none passed review.
+- id: -Jo5bNAZZOc
+  reason: "music_independence_day noise: Angola's Independence Day celebration, wrong country"
+  date: 2026-11-19
+- id: 68TjOOAT7zo
+  reason: "music_independence_day noise: Angola Independence Day parade coverage, wrong country"
+  date: 2026-11-19
+- id: n2dst06V0X4
+  reason: "music_independence_day noise: Angola Independence Day cultural parade, wrong country"
+  date: 2026-11-19
+- id: VcONlWXhBZs
+  reason: "music_independence_day noise: a new 2026 Eritrean Fgra-style song release with no connection to Independence Day as a theme"
+  date: 2026-11-19
+- id: j5PFEA4O3QE
+  reason: "music_independence_day noise: a WikiLeaks-cables history documentary about 1975 Asmara, unrelated to Independence Day"
+  date: 2026-11-19
+- id: FmoLC8lCPMc
+  reason: "music_independence_day noise: Ethiopia/Eritrea peace-relations explainer, same Ethiopia-politics noise pattern as independence_day_diaspora"
+  date: 2026-11-19
+- id: QEls7t560Pk
+  reason: "music_independence_day noise: a full Eritrean drama film (\"zektime\"), not Independence Day content"
+  date: 2026-11-19
+- id: aQT7nOyWysE
+  reason: "music_independence_day noise: a full Eritrean drama film (\"Ab 24 Seatat\"), not Independence Day content"
+  date: 2026-11-19
+- id: VuuTiOforhY
+  reason: "music_independence_day noise: a full Eritrean drama film (\"Ab fkri hne\"), not Independence Day content"
+  date: 2026-11-19
+- id: yDS-2KOlyyU
+  reason: "music_independence_day noise: a full Eritrean drama film (\"Ab fkri hne\", part 5), not Independence Day content"
+  date: 2026-11-19
+- id: cLJ_gVU97gE
+  reason: "music_independence_day noise: Ethiopia WEDET political discussion episode, same Ethiopia-politics noise pattern as independence_day_diaspora"
+  date: 2026-11-19
+- id: 7Ki18FqRcUY
+  reason: "music_independence_day noise: Ethiopia WEDET political discussion episode, same Ethiopia-politics noise pattern as independence_day_diaspora"
+  date: 2026-11-19
+- id: NoiuFMV0Iak
+  reason: "music_independence_day noise: Ethiopia WEDET political discussion episode, same Ethiopia-politics noise pattern as independence_day_diaspora"
+  date: 2026-11-19
+- id: TNuiFIk8G_k
+  reason: "music_independence_day noise: an unrelated documentary about the French Foreign Legion"
+  date: 2026-11-19
+- id: jYBiVIHiQJc
+  reason: "music_independence_day noise: a personal-memoir piece about the University of Asmara, unrelated to Independence Day"
+  date: 2026-11-19
+- id: 31W58Ob_DUo
+  reason: "music_independence_day noise: a generic BBC Tigrinya live radio broadcast, no Independence Day connection"
+  date: 2026-11-19
+- id: xanVVINoK-0
+  reason: "music_independence_day noise: a BBC Tigrinya News poetry segment about struggle, not Independence Day content"
+  date: 2026-11-19
+- id: HjOyK7FK_gw
+  reason: "music_independence_day noise: a full Eritrean drama film (\"Ab fkri hne\", part 4), not Independence Day content — next-ranked result after blocking other parts of the same series, same genuine-supply-exhaustion pattern"
+  date: 2026-11-19
