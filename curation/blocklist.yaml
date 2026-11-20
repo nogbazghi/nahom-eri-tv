@@ -60,3 +60,180 @@
 - id: kzkZlFNiU7A
   reason: "martyrs_day_diaspora noise: Catholic apologetics video, unrelated to Eritrea or Martyrs Day"
   date: 2026-11-15
+
+# music_diaspora_artists (#50) first live run (2026-11-18): same search.list
+# exhaustion pattern as music_modern/independence_day_diaspora/
+# martyrs_day_diaspora above, now confirmed hitting several of this
+# channel's thin/collision-prone named-artist queries even after the
+# tightening already documented in channels.yaml. Two further query
+# rewrites were live-tested as a fix ("Deno Rak-Su" for "Deno UK singer",
+# "J Holiday Suffocate" for "J Holiday singer") and both came back *worse*
+# than the originals — e.g. "Deno Rak-Su" returned generic "Denon" DJ-gear
+# and "Dino" kids content with nothing about the actual singer, and "J
+# Holiday Suffocate" returned a wall of unrelated Chinese melodrama shorts
+# — before a shared daily search.list quota (100/day across all
+# /implement-spec worktrees) cut testing short. Given live requerying made
+# things worse rather than better, channels.yaml's queries are left exactly
+# as given rather than guessed at further; blocklist is the right tool for
+# this run's backlog, same as the precedent above.
+- id: h8hJwnYWFl4
+  reason: "music_diaspora_artists collision: \"Aminé rapper\" surfaced a different artist (Hamza, via channel \"Amin & Hugo\"), not the diaspora rapper Aminé"
+  date: 2026-11-18
+- id: CNbvAV81WmM
+  reason: "music_diaspora_artists noise: \"Aminé rapper\" surfaced an unrelated \"1NS - KICHTA\" upload with no connection to Aminé"
+  date: 2026-11-18
+- id: 01SyONtoHYQ
+  reason: "music_diaspora_artists noise: \"AWATE rapper\" surfaced an unrelated Evan Carmichael motivational video (Howard Schultz/Starbucks), no connection to AWATE"
+  date: 2026-11-18
+- id: XfNFUUXZX5Y
+  reason: "music_diaspora_artists collision: \"RIMON singer\" surfaced a different, unrelated Bangladeshi singer (Atif Ahmed Niloy), not the diaspora artist RIMON"
+  date: 2026-11-18
+- id: 2P6w2KS99ss
+  reason: "music_diaspora_artists noise: \"Lay Bankz\" surfaced a mixing engineer's portfolio reel that only name-drops her among many clients, not her own content"
+  date: 2026-11-18
+- id: nNowKfnsRd4
+  reason: "music_diaspora_artists noise: \"Deno UK singer\" surfaced an unrelated Korean AI-video-generation channel (also named Deno), not the singer"
+  date: 2026-11-18
+- id: Mx96YWGLvaY
+  reason: "music_diaspora_artists collision: \"Deno UK singer\" surfaced a dancehall mixtape DJ's channel (\"Dj Deno Mixtape\"), not the singer"
+  date: 2026-11-18
+- id: UuqWS6EcZhU
+  reason: "music_diaspora_artists noise: \"Deno UK singer\" surfaced an unrelated Korean travel vlog channel (\"DENO TRIP\")"
+  date: 2026-11-18
+- id: 6Y2wKxLlAS0
+  reason: "music_diaspora_artists collision: \"Deno UK singer\" surfaced an unrelated German rap track crediting a different \"DONDENO\""
+  date: 2026-11-18
+- id: CX9k6EDlQM0
+  reason: "music_diaspora_artists noise: \"Deno UK singer\" surfaced an unrelated Korean AI-software demo channel (also named Deno)"
+  date: 2026-11-18
+- id: 1G4frOeTf70
+  reason: "music_diaspora_artists noise: \"Deno UK singer\" surfaced an unrelated Korean drama-clip channel (\"DENO PICTURES\")"
+  date: 2026-11-18
+- id: aKgNoJQjLTc
+  reason: "music_diaspora_artists noise: \"Deno UK singer\" surfaced a second unrelated upload from the same Korean drama-clip channel (\"DENO PICTURES\")"
+  date: 2026-11-18
+- id: lKnD6gWhwyo
+  reason: "music_diaspora_artists noise: \"Deno UK singer\" surfaced an unrelated comedy-clips channel (\"DENO Tv\")"
+  date: 2026-11-18
+- id: OYNd0tbkHRw
+  reason: "music_diaspora_artists noise: \"Deno UK singer\" surfaced an unrelated hotel-review channel (\"Just Deano\")"
+  date: 2026-11-18
+- id: -sfnrEg567c
+  reason: "music_diaspora_artists noise: \"Deno UK singer\" surfaced unrelated Indonesian news coverage of a Jakarta protest (KOMPASTV)"
+  date: 2026-11-18
+- id: pSXGCFqQKs8
+  reason: "music_diaspora_artists noise: \"Deno UK singer\" surfaced a second unrelated Indonesian news item on the same Jakarta protest (Kompas.com)"
+  date: 2026-11-18
+- id: F4teJn_60Vs
+  reason: "music_diaspora_artists collision: \"Deno UK singer\" surfaced a second dancehall mixtape upload from \"Dj Deno Mixtape\", not the singer"
+  date: 2026-11-18
+- id: iJS7oGDKvvQ
+  reason: "music_diaspora_artists noise: \"Nura rapper\"'s genuinely-on-topic supply exhausted into an unrelated Hindu Chhath Puja festival song"
+  date: 2026-11-18
+- id: EJO_rljUV3c
+  reason: "music_diaspora_artists noise: \"Nura rapper\" exhaustion surfaced an unrelated Vietnamese family-drama clip"
+  date: 2026-11-18
+- id: kjv6ZyL4uPU
+  reason: "music_diaspora_artists noise: \"Nura rapper\" exhaustion surfaced a second unrelated Vietnamese family-drama clip"
+  date: 2026-11-18
+- id: uaSJd5ED2fg
+  reason: "music_diaspora_artists noise: \"Nura rapper\" exhaustion surfaced a third unrelated Vietnamese family-drama clip"
+  date: 2026-11-18
+- id: zRaCAd9KJ2o
+  reason: "music_diaspora_artists noise: \"Nura rapper\" exhaustion surfaced a fourth unrelated Vietnamese family-drama clip"
+  date: 2026-11-18
+- id: E2OzHv6gyBA
+  reason: "music_diaspora_artists collision: \"Nura rapper\" surfaced content about a different German rapper, Juju, not Nura"
+  date: 2026-11-18
+- id: yfglWnVH4ms
+  reason: "music_diaspora_artists noise: \"Nura rapper\" exhaustion surfaced an unrelated Bengali drama clip"
+  date: 2026-11-18
+- id: lQIYpwJ5d9Y
+  reason: "music_diaspora_artists noise: \"Nura rapper\" exhaustion surfaced an unrelated Naruto anime recap"
+  date: 2026-11-18
+- id: E_qFqhVTg2g
+  reason: "music_diaspora_artists noise: \"Nura rapper\" exhaustion surfaced a fifth unrelated Vietnamese family-drama clip"
+  date: 2026-11-18
+- id: V93Mw6E-gio
+  reason: "music_diaspora_artists noise: \"Nura rapper\" exhaustion surfaced a second unrelated Naruto anime recap"
+  date: 2026-11-18
+- id: 0PWeQNTze7Q
+  reason: "music_diaspora_artists collision: \"J Holiday singer\" surfaced French content about Johnny Hallyday (phonetically similar name), not J. Holiday"
+  date: 2026-11-18
+- id: _i4zZCE0o2w
+  reason: "music_diaspora_artists collision: \"J Holiday singer\" surfaced a second unrelated Johnny Hallyday piece"
+  date: 2026-11-18
+- id: z63K1zaku-g
+  reason: "music_diaspora_artists collision: \"J Holiday singer\" surfaced a third unrelated Johnny Hallyday piece"
+  date: 2026-11-18
+
+# music_liberation_era (#47) first live run (2026-11-19): once the quota
+# reset, the "Eritrean EPLF revolutionary music"/"Eritrean Revolutionary
+# Songs" queries' thin, specific on-topic supply in the 10-day publishedAfter
+# window was already exhausted, same search.list exhaustion pattern as
+# music_modern/music_diaspora_artists above — the single candidate that
+# surfaced was pure noise.
+- id: LoXTqsPnz40
+  reason: "music_liberation_era noise: an unrelated Indian food-culture documentary about ragi/millet (\"How Did Ragi Arrive in Karnataka?\"), no connection to EPLF/revolutionary-era music"
+  date: 2026-11-19
+
+# music_independence_day (#51) first live run (2026-11-19): same
+# search.list exhaustion pattern as independence_day_diaspora above, now
+# hitting this new channel — it has no text_filter set, so every candidate
+# below is a genuine-supply-exhaustion or wrong-country/wrong-topic hit, not
+# Eritrean Independence Day content. All 17 candidates from this run were
+# noise; none passed review.
+- id: -Jo5bNAZZOc
+  reason: "music_independence_day noise: Angola's Independence Day celebration, wrong country"
+  date: 2026-11-19
+- id: 68TjOOAT7zo
+  reason: "music_independence_day noise: Angola Independence Day parade coverage, wrong country"
+  date: 2026-11-19
+- id: n2dst06V0X4
+  reason: "music_independence_day noise: Angola Independence Day cultural parade, wrong country"
+  date: 2026-11-19
+- id: VcONlWXhBZs
+  reason: "music_independence_day noise: a new 2026 Eritrean Fgra-style song release with no connection to Independence Day as a theme"
+  date: 2026-11-19
+- id: j5PFEA4O3QE
+  reason: "music_independence_day noise: a WikiLeaks-cables history documentary about 1975 Asmara, unrelated to Independence Day"
+  date: 2026-11-19
+- id: FmoLC8lCPMc
+  reason: "music_independence_day noise: Ethiopia/Eritrea peace-relations explainer, same Ethiopia-politics noise pattern as independence_day_diaspora"
+  date: 2026-11-19
+- id: QEls7t560Pk
+  reason: "music_independence_day noise: a full Eritrean drama film (\"zektime\"), not Independence Day content"
+  date: 2026-11-19
+- id: aQT7nOyWysE
+  reason: "music_independence_day noise: a full Eritrean drama film (\"Ab 24 Seatat\"), not Independence Day content"
+  date: 2026-11-19
+- id: VuuTiOforhY
+  reason: "music_independence_day noise: a full Eritrean drama film (\"Ab fkri hne\"), not Independence Day content"
+  date: 2026-11-19
+- id: yDS-2KOlyyU
+  reason: "music_independence_day noise: a full Eritrean drama film (\"Ab fkri hne\", part 5), not Independence Day content"
+  date: 2026-11-19
+- id: cLJ_gVU97gE
+  reason: "music_independence_day noise: Ethiopia WEDET political discussion episode, same Ethiopia-politics noise pattern as independence_day_diaspora"
+  date: 2026-11-19
+- id: 7Ki18FqRcUY
+  reason: "music_independence_day noise: Ethiopia WEDET political discussion episode, same Ethiopia-politics noise pattern as independence_day_diaspora"
+  date: 2026-11-19
+- id: NoiuFMV0Iak
+  reason: "music_independence_day noise: Ethiopia WEDET political discussion episode, same Ethiopia-politics noise pattern as independence_day_diaspora"
+  date: 2026-11-19
+- id: TNuiFIk8G_k
+  reason: "music_independence_day noise: an unrelated documentary about the French Foreign Legion"
+  date: 2026-11-19
+- id: jYBiVIHiQJc
+  reason: "music_independence_day noise: a personal-memoir piece about the University of Asmara, unrelated to Independence Day"
+  date: 2026-11-19
+- id: 31W58Ob_DUo
+  reason: "music_independence_day noise: a generic BBC Tigrinya live radio broadcast, no Independence Day connection"
+  date: 2026-11-19
+- id: xanVVINoK-0
+  reason: "music_independence_day noise: a BBC Tigrinya News poetry segment about struggle, not Independence Day content"
+  date: 2026-11-19
+- id: HjOyK7FK_gw
+  reason: "music_independence_day noise: a full Eritrean drama film (\"Ab fkri hne\", part 4), not Independence Day content — next-ranked result after blocking other parts of the same series, same genuine-supply-exhaustion pattern"
+  date: 2026-11-19

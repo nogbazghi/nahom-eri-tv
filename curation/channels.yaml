@@ -285,6 +285,82 @@ music_modern:
   view_count_min: 1000
   duration_min_sec: 120
 
+# Pre-independence (1960s-1991) EPLF/revolutionary-era Eritrean music, per
+# issue #45 (five themed Music channels) and its Implementation Decisions
+# for `music_liberation_era`, ticket #47. Like Post-Independence Classics
+# below, this is a phrase/named-era query list rather than generic decade
+# search — #45 verified plain decade-qualified queries don't differentiate
+# eras before ~2010 (see `music_modern`'s comment above), so this instead
+# targets the EPLF/revolutionary-struggle phrasing directly.
+#
+# "Eritrean guerrilla songs" was deliberately tried and dropped during
+# design — it was verified to return unrelated generic viral pop with no
+# liberation theme, not this era's actual content (#45's Implementation
+# Decisions and User Story 15). Do not re-add it without re-verifying.
+#
+# Query list adjusted from #45's suggested seed after a live discover.py
+# run on ticket #47 (per its "iterate after seeing real data" instruction,
+# same pattern as Kebire's rule-loosening/ticket #016 and Sports_diaspora's
+# query tuning): discover.py restricts YouTube search to the last 10 days
+# (`PUBLISHED_WINDOW_DAYS`), and under that recency window, #45's suggested
+# "Eritrean liberation music" and "EPLF songs" queries surfaced ZERO
+# genuine liberation-era content — 100% unrelated material (Ethiopian
+# political talk shows, a wars-ranking clickbait video, weddings,
+# general-entertainment channel filler), the same degradation pattern
+# "Eritrean guerrilla songs" was already known to hit, just via different
+# phrasing. Both were dropped. Direct YouTube Data API spot-checks (outside
+# discover.py, no publishedAfter restriction) confirmed "ባህሊ ሰውራ ኤርትራ"
+# ("culture of the Eritrean revolution") reliably surfaces genuine content
+# instead — repeated hits from one archival channel ("Zema Entertainment")
+# systematically re-uploading EPLF cultural-troupe recordings under titles
+# literally reading "Eritrean EPLF Revolutionary Music" / "Eritrean
+# Revolutionary Songs" / "ጉጂለ ባህሊ <year>", a years-spanning series whose
+# ongoing-upload cadence gives it a real shot at landing inside future
+# 10-day recency windows. Added it plus the matching English phrase
+# ("Eritrean Revolutionary Songs") that the same channel's titles use,
+# alongside #45's original, still-untainted "Eritrean EPLF revolutionary
+# music" query.
+#
+# IMPORTANT — unresolved as of this change: the YouTube Data API's daily
+# Search Queries quota was exhausted (HTTP 429, "Quota exceeded for quota
+# metric 'Search Queries' ... per day" — likely from concurrent discover.py
+# runs across this /implement-spec batch's sibling Music tickets sharing
+# one API key) before a second live discover.py run could confirm this
+# revised query list actually lands clean, contamination-free additions
+# under the real 10-day recency restriction. The contaminated additions
+# from the first run were reverted out of docs/data/videos.json rather than
+# shipped (see this ticket's commit) — so as of this commit the channel has
+# zero videos and will not yet appear as a guide row. A follow-up
+# discover.py run (manual, once quota resets, or the normal weekly
+# schedule) is needed to populate it and should have its additions
+# spot-checked again before merging, same as any other channel.
+#
+# view_count_min: 50 — low end of #45's suggested 0-100 range. This pool is
+# archival/reissue-channel content (decades-old recordings re-uploaded by
+# small channels), which skews far lower-view than mainstream pop, similar
+# in spirit to Kebire's/`music`'s view_count_min: 0 for a trusted-but-thin
+# pool. 50 rather than 0 outright: unlike Kebire/`music`, this pulls from
+# arbitrary YouTube search (not one curated source), so a small nonzero
+# floor still screens out zero/near-zero-view noise without excluding
+# genuine archival uploads the way Weddings'/Modern's 1000 would. Not
+# implicated in the contamination above — that was a query-relevance
+# problem, not a threshold problem — so left as originally reasoned.
+# duration_min_sec: 120 matches every other search-type channel in this
+# file.
+#
+# This is its own standalone row (display_name "Music · Liberation Era"),
+# not merged into any other entry's row — see ADR-0007, same reasoning as
+# `music_modern` above.
+music_liberation_era:
+  type: search
+  display_name: "Music · Liberation Era"
+  queries:
+    - "Eritrean EPLF revolutionary music"
+    - "ባህሊ ሰውራ ኤርትራ"
+    - "Eritrean Revolutionary Songs"
+  view_count_min: 50
+  duration_min_sec: 120
+
 fenkil:
   type: channel
   display_name: Fenkil
@@ -547,6 +623,63 @@ catholic:
   duration_min_sec: 120
   duration_min_sec: 120
 
+# History, per issue #82/#83: three trusted single sources rather than open
+# search, since Eritrean history is politically contested and #82 deliberately
+# ruled out larger but more overtly partisan channels surfaced during
+# research. All three share display_name "History" (ticket #16's
+# (display_name, source) scoping, same pattern as Sports/Fenkil/Martyrs Day/
+# Independence Day) so they land in one guide row.
+#
+# Association of Eritrean Studies (academic perspective) — whole-catalog
+# enumeration, no text_filter, same shape as Podcasters' Kezahta: a single
+# trusted channel whose entire output (academic lectures on Eritrean history,
+# politics, and culture) is in scope.
+history_aes:
+  type: channel
+  display_name: History
+  channel_id: UCERnqWppYihINkSavQXm6mQ
+  view_count_min: 0
+  duration_min_sec: 120
+
+# Mdre Bahri (independent-documentary perspective) — same whole-catalog shape
+# as history_aes above.
+history_mdre_bahri:
+  type: channel
+  display_name: History
+  channel_id: UCqUhMTtMV3YGtJ1yBj01KVA
+  view_count_min: 0
+  duration_min_sec: 120
+
+# Eri-TV's own documentary catalog (official-archive perspective) — reuses
+# the same channel_id already present in this file for News/Sports/Fenkil/
+# Martyrs Day/Independence Day (per #82's Implementation Decisions), rather
+# than a dedicated playlist_id: Eri-TV's documentary output isn't collected
+# into one playlist the way its Music/Fenkil/Martyrs Day/Independence Day
+# content is. `text_filter: "documentary"` scopes the channel-wide
+# enumeration to it instead, matching Kebire's/Orthodox's established
+# text_filter mechanism — confirmed live against real upload titles, which
+# consistently carry an "ERi-TV Documentary:" (or "ERi-TV Documentary
+# (English):") prefix (e.g. "ERi-TV Documentary: Politicizing Eritrean
+# Migration", "Wedding Traditions of the Afar ethnic group in Eritrea -
+# ERi-TV Documentary (English)").
+#
+# `text_filter_title_only: true`, same as Orthodox (ticket #28): the title
+# verification above only confirmed the "ERi-TV Documentary:" prefix in
+# TITLES. Without this flag, matches_text_filter also checks description,
+# and this entry (no playlist_id) enumerates Eri-TV's entire uploads
+# history — News, Sports, Fenkil, Martyrs Day, Independence Day, Music
+# included — so an unrelated upload whose description merely mentions
+# "documentary" would leak into History. Title-only keeps this entry
+# scoped to what was actually verified.
+history_eritv:
+  type: channel
+  display_name: History
+  channel_id: UCpPhzhCfud9ctQSJJv4Kqlw
+  text_filter: "documentary"
+  text_filter_title_only: true
+  view_count_min: 0
+  duration_min_sec: 120
+
 # 1991-2000s Eritrean music, curated by named artist rather than a generic
 # decade search, per issue #45's Implementation Decisions and ticket #48.
 # docs/research/channel-demand-signals.md §2 originally floated a "music per
@@ -599,5 +732,122 @@ music_post_independence_classics:
     - "Dawit Shilan"
     - "Senait Mehari"
     - "Asmara All Stars"
+  view_count_min: 500
+  duration_min_sec: 120
+
+# Eritrean-heritage musicians performing outside the Tigrinya-language/
+# homeland scope (English/Swedish/German/Dutch-language hip-hop, R&B,
+# Afro-house, etc.), per ticket #45's Implementation Decisions and
+# docs/research/eritrean-diaspora-artists-by-decade.md. Distinct from
+# `music` above (Eri-TV's own curated Tigrinya-language catalog) — this is
+# a type: search rule over named artists, the same shape as
+# sports_diaspora/catholic, not a trusted single source.
+#
+# Queries are the named artists from the research doc, not generic terms
+# like "Eritrean diaspora music" — consistent with this project's
+# established finding (sports_diaspora, protestant, catholic) that a
+# distinctive name lets search.list's relevance ranking do useful work,
+# while generic terms either return thin/empty results or degrade into
+# unrelated noise once a thin pool is exhausted.
+#
+# Per ticket #45's Out of Scope note, this query list was NOT individually
+# spot-checked against live YouTube search during design (unlike
+# Liberation Era and Post-Independence Classics) — this ticket's live
+# trial run is where query quality and noise actually got caught, and it
+# caught a lot: of the original 16 bare-name queries, only "Nipsey Hussle"
+# and "Rubi Rose" are distinctive enough on their own to return clean,
+# genuinely on-topic hits. Every other query that returned anything was
+# dominated by namesake/common-word collisions, well past
+# view_count_min's ability to filter them out (the colliding content is
+# often itself popular) — "Aminé" surfaced a wave of unrelated
+# Francophone/Arabic "Amine" creators, "AWATE" surfaced a Marathi
+# finance-exam-prep channel's host surname, "Khadija" surfaced the common
+# Muslim first name across lifestyle/religious/political content (plus
+# footballer Khadija Shaw), "Nura" surfaced a Linux OS, a different Hausa
+# singer, and a river name, "Deno" surfaced an unrelated podcast/DJ and
+# the Deno JS runtime, and "J. Holiday" surfaced generic
+# "holiday"-themed content. Each of those (plus "Denz", "RIMON", "Feven",
+# "Adiam") was re-queried qualified with a genre/role term or the
+# artist's fuller name from
+# docs/research/eritrean-diaspora-artists-by-decade.md, the same fix
+# pattern as `sports_diaspora`'s "Biniam Girmay cycling" and `catholic`'s
+# full-name queries. "Lay Bankz", "Afrob", and "Raheaven" returned zero
+# candidates in this run's 10-day recency window — thin pools, same
+# accepted pattern as Zersenay Tadese in sports_diaspora and Catholic's
+# named clergy. "Kibra" was also tightened to her full name pre-emptively,
+# since the one hit it returned unqualified was an ambiguous,
+# unverifiable namesake match, not confirmed on-topic content.
+#
+# view_count_min: 1000 (matching Weddings, not sports_diaspora's/
+# catholic's lower thresholds) because several of these names are
+# internationally famous (Nipsey Hussle, Aminé) or common enough to
+# collide with unrelated same-name people/channels — a healthy view floor
+# helps, but query qualification above is what actually does the real
+# relevance filtering here, per the collision examples above.
+music_diaspora_artists:
+  type: search
+  display_name: Music · Diaspora Artists
+  queries:
+    - "Nipsey Hussle"
+    - "Aminé rapper"
+    - "Denz rapper Sweden"
+    - "Rubi Rose"
+    - "AWATE rapper"
+    - "Khadija Afro house DJ"
+    - "Raheaven"
+    - "RIMON singer"
+    - "Lay Bankz"
+    - "Kibra Tesfaye"
+    - "Deno UK singer"
+    - "Nura rapper"
+    - "Feven Ghebremicael"
+    - "Adiam Dymott"
+    - "J Holiday singer"
+    - "Afrob"
+  view_count_min: 1000
+  duration_min_sec: 120
+
+# Independence Day performances/commemorations, per issue #45's
+# Implementation Decisions and ticket #51. Independence Day was already
+# identified by docs/research/channel-demand-signals.md §6 as having strong,
+# recurring annual supply (the same research that backs the existing
+# `independence_day`/`independence_day_diaspora` holiday-general channels
+# below) — this is a separate, music/performance-angled channel built on top
+# of that same verified supply, not a duplicate of either: `independence_day`
+# is Eri-TV's own single trusted playlist (`type: channel`, display_name
+# "Independence Day"), and `independence_day_diaspora` is the general
+# diaspora-celebration search channel (embassy events, city-by-city recaps,
+# display_name also "Independence Day"). This entry gets its own standalone
+# display_name, "Music · Independence Day", as its own distinct row — the
+# same five-Music-channel pattern as `music_modern`/
+# `music_post_independence_classics` above (see ADR-0007), scoped to
+# performances and commemorations specifically rather than Independence Day
+# content generally.
+#
+# Per ADR-0005, Eri-TV's own Independence Day uploads are welcome in this
+# channel's results, not excluded as "incumbent-covered" — unlike
+# `independence_day_diaspora`'s text_filter/query-qualifier approach (added
+# specifically to steer search.list *away* from Eri-TV's own channel so the
+# two independence_day-display_name rules wouldn't double-add the same
+# video), this entry has no such exclusion, by design.
+#
+# Queries are the three given directly in issue #45's Implementation
+# Decisions: the two broad English phrasings plus "ናጽነት ኤርትራ" (Tigrinya for
+# "Independence of Eritrea"), covering both English- and Tigrinya-language
+# supply rather than relying on the diaspora channel's embassy/community
+# qualifiers, since Eri-TV's own-channel results are in scope here.
+#
+# Thresholds (view_count_min: 500, duration_min_sec: 120) are #45's suggested
+# values taken as-is, matching independence_day_diaspora's/sports_diaspora's
+# unvetted-search-pool precedent. Per #45's Testing Decisions, the first live
+# discover.py run is where these get confirmed or adjusted against real
+# data, same as every other channel.
+music_independence_day:
+  type: search
+  display_name: "Music · Independence Day"
+  queries:
+    - "Eritrean Independence Day"
+    - "Eritrea Independence Day celebration"
+    - "ናጽነት ኤርትራ"
   view_count_min: 500
   duration_min_sec: 120
