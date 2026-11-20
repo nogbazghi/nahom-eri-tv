@@ -9,6 +9,8 @@ All new feature/dev work in this repo goes through the `/ask-matt` skill flow �
 5. `/code-review` as part of implementation (Standards + Spec, two axes).
 6. `/retro` after a build, especially one that went sideways.
 
+Every step above is `disable-model-invocation`: only a human typing the slash command fires it — the agent can't trigger its own next step, even mid-flow. When a step finishes, the agent should name the next command and wait, not try to reach it another way.
+
 This applies in every worktree, not just the primary checkout — `/setup-matt-pocock-skills` has already been run for this repo (issue tracker, triage labels, and domain-doc layout are configured below).
 
 ## Agent skills
