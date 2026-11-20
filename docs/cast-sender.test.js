@@ -13,7 +13,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 
 function fakeCastButton() {
-  return { hidden: true, addEventListener() {} };
+  return { hidden: true, disabled: true, addEventListener() {} };
 }
 
 // window === globalThis in every real browser, which is what lets the
@@ -73,4 +73,31 @@ test("degrades gracefully (no throw, button stays hidden) when cast.framework ne
 
   await new Promise((resolve) => setTimeout(resolve, 1200));
   assert.equal(castButton.hidden, true);
+});
+
+// Ticket #73: a session started before any channel is picked locally used to
+// reach enterCastingView() with a blank channel name, since latestChannel
+// was still null. Gating the button's `disabled` state on a real channel
+// arriving (not just any "neritv:channel" dispatch — tuneLiveEvent() sends
+// one with a null channel too) keeps that path unreachable.
+test("#cast-button stays disabled until app.js reports a real channel", async () => {
+  const { castButton, window } = await loadFresh("disabled-until-channel");
+
+  assert.equal(castButton.disabled, true, "disabled by default, before any channel is picked");
+
+  window.dispatchEvent(new CustomEvent("neritv:channel", { detail: { channel: null } }));
+  assert.equal(castButton.disabled, true, "a null channel (e.g. a Live event) must not enable it");
+
+  window.dispatchEvent(new CustomEvent("neritv:channel", { detail: { channel: "ChannelA" } }));
+  assert.equal(castButton.disabled, false, "enabled once a real channel is picked");
+});
+
+test("#cast-button stays enabled afterwards, even if a later event reports a null channel", async () => {
+  const { castButton, window } = await loadFresh("stays-enabled");
+
+  window.dispatchEvent(new CustomEvent("neritv:channel", { detail: { channel: "ChannelA" } }));
+  assert.equal(castButton.disabled, false);
+
+  window.dispatchEvent(new CustomEvent("neritv:channel", { detail: { channel: null } }));
+  assert.equal(castButton.disabled, false, "a later Live event tune must not re-disable it");
 });

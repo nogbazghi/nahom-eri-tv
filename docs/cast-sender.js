@@ -31,8 +31,19 @@ const castButton = document.getElementById("cast-button");
 // has no import-time dependency on app.js at all.
 let latestChannel = null;
 
+// #cast-button starts disabled (its default state in index.html, ticket
+// #73) so a session can't be started before there's anything to hand off —
+// enabled the first time a real channel comes through. "neritv:channel" can
+// also carry a null channel (app.js's tuneLiveEvent(), since Live events
+// have nothing to Cast) — that must not enable it, or the exact bug this
+// gating exists to prevent (enterCastingView() rendering blank,
+// sendTuneMessage()'s latestChannel === null no-op) stays reachable via a
+// Live event tuned before any Channel ever was. Once enabled, a later null
+// channel (switching to a Live event after casting was already available)
+// leaves it enabled — only the startup window is gated.
 window.addEventListener("neritv:channel", (event) => {
   latestChannel = event.detail.channel;
+  if (latestChannel !== null) castButton.disabled = false;
 });
 
 function sendTuneMessage() {
