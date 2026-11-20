@@ -34,6 +34,12 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+      - name: Preflight check (API key valid, quota available)
+        working-directory: curation
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: python3 preflight.py
+
       - name: Snapshot original videos.json
         run: cp docs/data/videos.json /tmp/original-videos.json
 
@@ -50,6 +56,22 @@ jobs:
 
       - name: Snapshot final state (post-run, before the removals-only rewrite below)
         run: cp docs/data/videos.json /tmp/final-videos.json
+
+      - name: Report total estimated API usage for this run
+        run: |
+          python3 << 'PYEOF'
+          import sys
+
+          sys.path.insert(0, "curation")
+          from pipeline import estimate_api_units, load_pending_summaries, merge_call_counts
+
+          call_counts = merge_call_counts(*(s.get("api_calls", {}) for s in load_pending_summaries()))
+          estimate = estimate_api_units(call_counts)
+          print(
+              f"Total estimated API usage this run (all jobs): {estimate['total_units']} unit(s) "
+              f"from the shared pool, {estimate['search_calls']} search.list call(s)."
+          )
+          PYEOF
 
       - name: Compute and apply removals to main
         id: removals

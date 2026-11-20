@@ -52,8 +52,13 @@ def get_uploads_playlist_id(channel_id, api_key):
 
 
 def get_all_video_ids(playlist_id, api_key):
+    """Returns (deduped video IDs, number of playlistItems.list calls
+    made) — the call count can't be derived after the fact from the
+    result alone, since it depends on how many pages the live API
+    actually returned, not on the final deduped ID count."""
     video_ids = []
     page_token = None
+    call_count = 0
     while True:
         params = {
             "part": "contentDetails",
@@ -66,11 +71,12 @@ def get_all_video_ids(playlist_id, api_key):
         url = f"{PLAYLIST_ITEMS_URL}?{urllib.parse.urlencode(params)}"
         with urllib.request.urlopen(url) as response:
             payload = json.load(response)
+        call_count += 1
         video_ids.extend(item["contentDetails"]["videoId"] for item in payload.get("items", []))
         page_token = payload.get("nextPageToken")
         if not page_token:
             break
-    return dedup_preserve_order(video_ids)
+    return dedup_preserve_order(video_ids), call_count
 
 
 def dedup_preserve_order(ids):
@@ -90,6 +96,14 @@ def dedup_preserve_order(ids):
             seen.add(vid)
             result.append(vid)
     return result
+
+
+def channels_list_call_count(entry):
+    """Pure. 1 if resolving this entry's playlist needs a channels.list
+    call (no explicit playlist_id configured), else 0 — mirrors
+    resolve_playlist_id's own guard, so a caller can count this call
+    without duplicating resolve_playlist_id's fetch itself."""
+    return 0 if entry.get("playlist_id") else 1
 
 
 def resolve_playlist_id(entry, api_key, get_uploads_playlist_id=get_uploads_playlist_id):
@@ -122,7 +136,7 @@ def run_channel(channel_key, entry, api_key, blocked_ids, existing_data):
     text_filter = entry.get("text_filter", "")
 
     playlist_id = resolve_playlist_id(entry, api_key)
-    all_video_ids = get_all_video_ids(playlist_id, api_key)  # already deduped
+    all_video_ids, playlist_items_calls = get_all_video_ids(playlist_id, api_key)  # already deduped
 
     stored_videos = pipeline.videos_for_channel(
         existing_data, display_name=display_name, source=channel_key
@@ -130,6 +144,7 @@ def run_channel(channel_key, entry, api_key, blocked_ids, existing_data):
     stored_ids = {v["id"] for v in stored_videos}
 
     fresh_ids = pipeline.filter_new_ids(all_video_ids, stored_ids, blocked_ids)
+    text_filter_calls = pipeline.text_filter_call_count(entry, fresh_ids)
     candidate_ids = pipeline.filter_candidates_by_text_filter(fresh_ids, entry, api_key)
 
     rules = pipeline.rules_from_config(entry)
@@ -155,12 +170,20 @@ def run_channel(channel_key, entry, api_key, blocked_ids, existing_data):
         final_videos=result["final_videos"],
         is_default=entry.get("is_default", False),
     )
-    pipeline.write_run_summary(channel_key, result["additions"], result["removals"])
+    call_counts = pipeline.merge_call_counts(
+        result["api_calls"],
+        {
+            "channels.list": channels_list_call_count(entry),
+            "playlistItems.list": playlist_items_calls,
+            "videos.list": text_filter_calls,
+        },
+    )
+    pipeline.write_run_summary(channel_key, result["additions"], result["removals"], api_calls=call_counts)
     print(
         f"{display_name}: {len(result['additions'])} added, "
         f"{len(result['removals'])} removed, {len(result['final_videos'])} total"
     )
-    return updated
+    return updated, call_counts
 
 
 def main():
@@ -177,10 +200,13 @@ def main():
     blocked_ids = {entry["id"] for entry in pipeline.load_yaml_list(BLOCKLIST_FILE)}
     existing_data = pipeline.load_existing()
 
+    run_call_counts = {}
     for channel_key, entry in channel_entries.items():
-        existing_data = run_channel(channel_key, entry, api_key, blocked_ids, existing_data)
+        existing_data, call_counts = run_channel(channel_key, entry, api_key, blocked_ids, existing_data)
+        run_call_counts = pipeline.merge_call_counts(run_call_counts, call_counts)
 
     pipeline.write_output(existing_data)
+    pipeline.print_run_estimate(run_call_counts)
 
 
 if __name__ == "__main__":

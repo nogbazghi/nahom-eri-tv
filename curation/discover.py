@@ -104,6 +104,7 @@ def run_channel(channel_key, cfg, api_key, blocked_ids, existing_data):
     # gate kebire_channel.py's type: channel rules already use, by setting
     # `text_filter` in channels.yaml; entries that don't set one keep
     # today's behavior (and today's API cost) exactly as-is.
+    text_filter_calls = pipeline.text_filter_call_count(cfg, candidates)
     candidates = pipeline.filter_candidates_by_text_filter(candidates, cfg, api_key)
 
     rules = pipeline.rules_from_config(cfg)
@@ -130,6 +131,10 @@ def run_channel(channel_key, cfg, api_key, blocked_ids, existing_data):
         video["city"] = city
         video["tags"] = ["wedding"] if "wedding" in query.lower() else []
 
+    result["api_calls"] = pipeline.merge_call_counts(
+        result["api_calls"],
+        {"search.list": len(cfg["queries"]), "videos.list": text_filter_calls},
+    )
     return result
 
 
@@ -147,6 +152,7 @@ def main():
         print("No type: search channels in channels.yaml — nothing to do.")
         return
 
+    run_call_counts = {}
     for channel_key, cfg in search_channels.items():
         result = run_channel(channel_key, cfg, api_key, blocked_ids, existing)
         existing = pipeline.write_channel_result(
@@ -156,13 +162,17 @@ def main():
             final_videos=result["final_videos"],
             is_default=cfg.get("is_default", False),
         )
-        pipeline.write_run_summary(channel_key, result["additions"], result["removals"])
+        pipeline.write_run_summary(
+            channel_key, result["additions"], result["removals"], api_calls=result["api_calls"]
+        )
+        run_call_counts = pipeline.merge_call_counts(run_call_counts, result["api_calls"])
         print(
             f"{cfg['display_name']}: {len(result['additions'])} added, "
             f"{len(result['removals'])} removed, {len(result['final_videos'])} total"
         )
 
     pipeline.write_output(existing)
+    pipeline.print_run_estimate(run_call_counts)
 
 
 if __name__ == "__main__":
