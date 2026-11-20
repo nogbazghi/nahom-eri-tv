@@ -679,8 +679,7 @@ function onPlayerStateChange(event) {
   // called from switchChannel()/tuneLiveEvent()), never on reaching the end
   // of one video in the lineup.
   if (event.data === YT.PlayerState.PLAYING) {
-    const video = currentVideos[currentIndex];
-    if (video) notePlaybackPlaying(video.source);
+    notePlaybackPlaying();
   } else if (event.data === YT.PlayerState.PAUSED) {
     notePlaybackInterrupted();
   }

@@ -116,7 +116,11 @@ def main():
     if not (account_id and namespace_id and api_token):
         sys.exit("Set CF_ACCOUNT_ID, CF_KV_NAMESPACE_ID, and CF_API_TOKEN before running this script.")
 
-    known_channels = sorted(pipeline.load_channels_config().keys())
+    # Group by Channel (display_name), matching what the Worker validates
+    # and keys by — not by curation source key, which would fragment a
+    # single Channel's watches across every source that feeds its lineup
+    # (e.g. fenkil/fenkil_diaspora both display as "Fenkil").
+    known_channels = pipeline.load_channel_display_names()
     now = datetime.datetime.now(datetime.timezone.utc)
     week = iso_week_key(now)
 

@@ -136,12 +136,14 @@ test("recordWatch: a different ISO week gets its own key, not a reused or reset 
 test("worker.fetch: a valid Origin and known channel increments that channel's current-week counter", async () => {
   const kv = fakeKv();
   const env = { ALLOWED_ORIGIN, WATCH_COUNTS: kv };
-  const request = postRequest({ origin: ALLOWED_ORIGIN, body: { channel: "weddings" } });
+  // "Weddings" (the Channel/display_name), matching what channels.generated.js
+  // actually bakes in — not channels.yaml's lowercase "weddings" source key.
+  const request = postRequest({ origin: ALLOWED_ORIGIN, body: { channel: "Weddings" } });
 
   const response = await worker.fetch(request, env);
 
   assert.equal(response.status, 204);
-  const key = watchCountKey("weddings", new Date());
+  const key = watchCountKey("Weddings", new Date());
   assert.equal(kv.store[key], "1");
 });
 
@@ -197,9 +199,9 @@ test("worker.fetch: repeating a valid POST increments the same week's key again"
   const kv = fakeKv();
   const env = { ALLOWED_ORIGIN, WATCH_COUNTS: kv };
 
-  await worker.fetch(postRequest({ origin: ALLOWED_ORIGIN, body: { channel: "weddings" } }), env);
-  await worker.fetch(postRequest({ origin: ALLOWED_ORIGIN, body: { channel: "weddings" } }), env);
+  await worker.fetch(postRequest({ origin: ALLOWED_ORIGIN, body: { channel: "Weddings" } }), env);
+  await worker.fetch(postRequest({ origin: ALLOWED_ORIGIN, body: { channel: "Weddings" } }), env);
 
-  const key = watchCountKey("weddings", new Date());
+  const key = watchCountKey("Weddings", new Date());
   assert.equal(kv.store[key], "2");
 });

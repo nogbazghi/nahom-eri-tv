@@ -5,12 +5,13 @@
 // real watch. No DOM, no timers, no network — the real setTimeout/fetch
 // glue lives in viewership-ui.js, same split as favorites.js/favorites-ui.js.
 //
-// `tuningId` identifies the current tuning for reset/fire-once bookkeeping
-// only (app.js passes its Channel display name, or null while a Live event
-// or nothing is tuned) — it is never itself sent in a beacon. The channel
-// identifier actually sent to the Worker is resolved separately, from
-// whichever video is playing when the threshold is reached, since a single
-// Channel's lineup can draw from more than one channels.yaml source.
+// `tuningId` is the Channel's display name (app.js's currentChannel), or
+// null while a Live event or nothing is tuned — it both drives the
+// reset/fire-once bookkeeping here AND is the channel identifier sent in
+// the beacon once a watch qualifies. A single Channel's lineup can draw
+// from more than one channels.yaml source, but all of it is one Channel,
+// so there is exactly one identifier to attribute a watch to regardless of
+// which source happens to be playing.
 
 // Loosely ~10-15s per spec; the exact value within that range isn't
 // otherwise specified.

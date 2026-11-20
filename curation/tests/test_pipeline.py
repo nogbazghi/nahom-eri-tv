@@ -377,6 +377,28 @@ def test_load_pending_summaries_missing_dir_returns_empty_list(tmp_path):
     assert pipeline.load_pending_summaries(missing) == []
 
 
+def test_load_channel_display_names_deduplicates_shared_display_names(tmp_path):
+    # fenkil/fenkil_diaspora are two curation sources for one Channel a
+    # viewer sees as a single "Fenkil" row — callers that need to identify
+    # a Channel (the viewership Worker's known-channel list, the weekly
+    # export's grouping) must see "Fenkil" once, not both source keys.
+    config_path = tmp_path / "channels.yaml"
+    config_path.write_text(
+        """
+fenkil:
+  type: search
+  display_name: Fenkil
+fenkil_diaspora:
+  type: search
+  display_name: Fenkil
+kebire:
+  type: channel
+  display_name: Kebire
+"""
+    )
+    assert pipeline.load_channel_display_names(config_path) == ["Fenkil", "Kebire"]
+
+
 def test_matches_text_filter_in_title():
     assert pipeline.matches_text_filter("A trip across #Eritrea", "", "#eritrea") is True
 
