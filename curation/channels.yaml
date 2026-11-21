@@ -851,3 +851,59 @@ music_independence_day:
     - "ናጽነት ኤርትራ"
   view_count_min: 500
   duration_min_sec: 120
+
+# Movies, per issue #132/ticket #136 and ADR-0016. Scoped to standalone,
+# feature-length Eritrean films only — serialized "Part N" dramas/sitcoms
+# are explicitly out of scope (see ADR-0016).
+#
+# duration_min_sec: 4500 (75 min) on both entries below is well above every
+# other channel's 120s floor. Live-tested directly against this search
+# space at implementation time (2026-11-21): the bare query "Eritrean
+# movie" returned ~70% serialized "Part N" dramas/sitcoms (e.g. "Taesa
+# Merawi Part 8", "Nay Dege Part 25", "Daero Sitcom Part 115"), all running
+# 35-51 minutes — comfortably under 4500s — while genuine standalone films
+# in the same results ("Seb Mukan", "Dubai (Full Movie)") ran 1:32-1:48.
+# 4500 is what actually separates the two clusters; the ~2000s gap between
+# the longest Part-N episode and the shortest genuine film observed gives
+# headroom on both sides, matching ADR-0016's tradeoff (a handful of
+# genuinely short or split films excluded along with the dramas).
+#
+# HDMONA NEBARIT's own "HDMONA FULL MOVIES" playlist (185 videos,
+# confirmed live at implementation time, 2026-11-21 — the ticket flagged
+# the exact playlist_id as unconfirmed since it wasn't extractable from a
+# static page fetch during design) — a trusted single source, same
+# view_count_min: 0 precedent as Kebire/Music/News.
+movies_hdmona:
+  type: channel
+  display_name: Movies
+  channel_id: UC6quGHtVt4UW-rJgXMn1LZQ
+  playlist_id: PLhoNwCH2OFpDHmkM9XZ1uFtzzgHsrVKpG  # "HDMONA FULL MOVIES"
+  view_count_min: 0
+  duration_min_sec: 4500  # 75 min — see rationale above
+
+# Shares display_name "Movies" with `movies_hdmona` above — the
+# (display_name, source) scoping from ticket #16 keeps the two rules' runs
+# from clobbering each other, same pattern as Sports/Fenkil/Martyrs Day/
+# Independence Day.
+#
+# Unlike `movies_hdmona` (a trusted single source, view_count_min: 0), this
+# pulls from arbitrary YouTube search results, so it follows Weddings'/
+# Comedy's unvetted-pool precedent with view_count_min: 1000. Live-tested
+# at implementation time (2026-11-21): "Eritrean full movie" (quoted)
+# returned a clean, mostly-uncontaminated page of genuine standalone films
+# (Maedo Maedo, Seltene, TSAMA HIWET, bado) spanning 459-634K views —
+# the one sub-1000-view result sits well below everything else returned,
+# the same shape Weddings' 1000 floor already screens for elsewhere in
+# this file. The bare "Eritrean movie" query is noisier on its own (the
+# ~70% Part-N contamination described above), which is why
+# duration_min_sec does the real relevance filtering here and
+# view_count_min stays at Weddings' baseline rather than being tuned
+# lower for this query specifically.
+movies_search:
+  type: search
+  display_name: Movies
+  queries:
+    - "Eritrean full movie"
+    - "Eritrean movie"
+  view_count_min: 1000
+  duration_min_sec: 4500  # 75 min — see rationale above
