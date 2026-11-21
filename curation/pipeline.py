@@ -252,6 +252,17 @@ def filter_candidates_by_text_filter(candidate_ids, entry, api_key, fetch_fn=fet
     ]
 
 
+def text_filter_call_count(entry, candidate_ids):
+    """Pure. Number of videos.list batches filter_candidates_by_text_filter
+    will actually make for `entry`/`candidate_ids` — mirrors that
+    function's own guard (no text_filter configured, or no candidates, ->
+    it skips the fetch entirely) so a caller can count this call without
+    duplicating filter_candidates_by_text_filter's fetch itself."""
+    if not entry.get("text_filter") or not candidate_ids:
+        return 0
+    return count_batched_calls(len(candidate_ids), 50)
+
+
 def rules_from_config(cfg):
     """Extract the documented validate_record/compute_run rules subset
     (view_count_min, duration_min_sec) from a channels.yaml entry, ignoring
@@ -314,7 +325,10 @@ def compute_run(
        tagged source=channel_key — the channels.yaml key of the rule that
        added it, distinct from display_name (front-end-facing membership)
        and from the record's own "channel" field (creator attribution).
-    3. Return {"final_videos": [...], "additions": [...], "removals": [...]}.
+    3. Return {"final_videos": [...], "additions": [...], "removals": [...],
+       "api_calls": {"videos.list": n}} — api_calls counts the
+       videos.list batches this call actually made (see
+       count_batched_calls), for estimate_api_units to total up later.
 
     `fetch_fn` is injectable for testing (defaults to the real
     fetch_video_metadata); callers in discover.py/kebire_channel.py should
@@ -374,10 +388,15 @@ def compute_run(
             }
         )
 
+    videos_list_calls = count_batched_calls(len(ids_to_refetch), 50) + count_batched_calls(
+        len(new_candidate_ids), 50
+    )
+
     return {
         "final_videos": kept_videos + additions,
         "additions": additions,
         "removals": removals,
+        "api_calls": {"videos.list": videos_list_calls},
     }
 
 
@@ -432,6 +451,114 @@ def load_pending_summaries(pending_dir=PENDING_DIR):
     return summaries
 
 
+# Confirmed against https://developers.google.com/youtube/v3/determine_quota_cost
+# on 2026-11-19. Since the API's 2026-06-01 quota change, search.list draws
+# from its own 100-call/day bucket rather than the shared daily pool every
+# other method here draws from — both cost 1 unit per call today, but
+# estimate_api_units keeps search.list's count out of total_units because
+# it's checked against a different cap.
+API_UNIT_COSTS = {
+    "search.list": 1,
+    "videos.list": 1,
+    "playlistItems.list": 1,
+    "channels.list": 1,
+}
+
+QUOTA_EXCEEDED_REASONS = {"quotaExceeded", "dailyLimitExceeded", "rateLimitExceeded"}
+KEY_INVALID_REASONS = {"keyInvalid", "API_KEY_INVALID"}
+
+
+def print_run_estimate(call_counts):
+    """Print one human-readable line summarizing estimate_api_units(call_counts)
+    for a script's run — shared by discover.py and kebire_channel.py so
+    the message only needs updating in one place."""
+    estimate = estimate_api_units(call_counts)
+    print(
+        f"Estimated API usage this run: {estimate['total_units']} unit(s) "
+        f"from the shared pool, {estimate['search_calls']} search.list call(s)."
+    )
+
+
+def classify_api_error(status_code, error_body):
+    """Pure — no network calls.
+
+    Classifies a YouTube Data API response as "ok" (status_code < 400 or
+    missing — nothing to classify), "quota_exceeded", "key_invalid", or
+    "unknown_error" (a real failure that's neither of those two).
+
+    `error_body` is the parsed JSON response body — either the whole
+    body (with its outer "error" key) or that "error" object already
+    unwrapped; both are accepted so a caller can pass json.load(response)
+    directly. Matches both the legacy error shape (errors: [{"reason",
+    "domain"}]) and the newer Google API error-detail shape (details:
+    [{"reason": "API_KEY_INVALID"}]), falling back to the human-readable
+    message for an invalid key — Google has changed this response's exact
+    shape before (see ticket #69), and the preflight check feeding this
+    needs to keep working across that kind of drift.
+    """
+    if status_code is None or status_code < 400:
+        return "ok"
+
+    error = error_body.get("error", error_body) if error_body else {}
+    reasons = {e.get("reason", "") for e in error.get("errors", [])}
+    reasons |= {d.get("reason", "") for d in error.get("details", [])}
+    message = str(error.get("message", "")).lower()
+
+    if reasons & QUOTA_EXCEEDED_REASONS:
+        return "quota_exceeded"
+    if reasons & KEY_INVALID_REASONS or "api key not valid" in message:
+        return "key_invalid"
+    return "unknown_error"
+
+
+def count_batched_calls(item_count, batch_size):
+    """Pure. Number of batch_size-at-a-time API calls needed to cover
+    item_count items — 0 items needs 0 calls, not 1 (plain ceiling
+    division would give 1). Shared by any call site that batches IDs into
+    one call per `batch_size` items, e.g. fetch_video_metadata's
+    videos.list (50 IDs per call)."""
+    if item_count <= 0:
+        return 0
+    return -(-item_count // batch_size)
+
+
+def merge_call_counts(*call_counts):
+    """Pure. Sum any number of {method: count} dicts into one, adding
+    counts for a method shared across dicts rather than overwriting it.
+    Lets a channel script combine compute_run's api_calls with its own
+    script-specific counts (search.list, channels.list,
+    playlistItems.list, the text_filter step) into one dict for
+    estimate_api_units."""
+    merged = {}
+    for counts in call_counts:
+        for method, count in counts.items():
+            merged[method] = merged.get(method, 0) + count
+    return merged
+
+
+def estimate_api_units(call_counts):
+    """Pure — no network calls.
+
+    `call_counts` maps a YouTube Data API method name (e.g.
+    "videos.list") to how many times a run called it. Returns
+    {"total_units": int, "by_method": {method: units}, "search_calls":
+    int}: total_units is the cost against the shared daily pool
+    (search.list excluded — see API_UNIT_COSTS' comment); search_calls is
+    search.list's own call count, reported separately since it's checked
+    against its own daily cap rather than the shared pool. An
+    unrecognized method name costs 0 rather than raising, so a future
+    call site doesn't have to special-case methods this table doesn't
+    know about yet.
+    """
+    by_method = {method: count * API_UNIT_COSTS.get(method, 0) for method, count in call_counts.items()}
+    total_units = sum(units for method, units in by_method.items() if method != "search.list")
+    return {
+        "total_units": total_units,
+        "by_method": by_method,
+        "search_calls": call_counts.get("search.list", 0),
+    }
+
+
 def has_open_review_pr(prs):
     """True if `prs` — the parsed JSON from `gh pr list --state open
     --json number` against the standing branch — is non-empty, i.e. a
@@ -446,8 +573,11 @@ def has_open_review_pr(prs):
     return bool(prs)
 
 
-def write_run_summary(channel_key, additions, removals, out_dir="curation/.pending"):
-    """Write {out_dir}/{channel_key}.json: {"channel", "additions", "removals"}.
+def write_run_summary(channel_key, additions, removals, api_calls=None, out_dir="curation/.pending"):
+    """Write {out_dir}/{channel_key}.json: {"channel", "additions",
+    "removals"}, plus "api_calls" ({method: count}) when given — ticket
+    #69's per-channel API usage, for estimate_api_units to total up
+    across a run's .pending files (see load_pending_summaries).
 
     This directory is transient hand-off to the GitHub Actions workflow,
     not committed data — see .gitignore.
@@ -455,6 +585,9 @@ def write_run_summary(channel_key, additions, removals, out_dir="curation/.pendi
     target_dir = PENDING_DIR if out_dir == "curation/.pending" else Path(out_dir)
     target_dir.mkdir(parents=True, exist_ok=True)
     path = target_dir / f"{channel_key}.json"
+    summary = {"channel": channel_key, "additions": additions, "removals": removals}
+    if api_calls is not None:
+        summary["api_calls"] = api_calls
     with path.open("w") as f:
-        json.dump({"channel": channel_key, "additions": additions, "removals": removals}, f, indent=2)
+        json.dump(summary, f, indent=2)
         f.write("\n")

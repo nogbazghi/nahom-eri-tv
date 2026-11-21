@@ -89,6 +89,11 @@ in front of these same files, not a database replacing them.
 trigger (weekly schedule, or manual workflow_dispatch)
   │
   ▼
+preflight.py: one cheap API call, classified via pipeline.classify_api_error
+  — fails the run fast with a specific message if the key is invalid or
+    out of quota, before any of jobs.yaml's real (expensive) jobs run
+  │
+  ▼
 for each script listed in jobs.yaml (discover.py, kebire_channel.py):
   for each channel it owns (from channels.yaml):
     ├─ re-validate this channel's already-stored videos
@@ -96,7 +101,8 @@ for each script listed in jobs.yaml (discover.py, kebire_channel.py):
     └─ search/enumerate for new candidates
          (search or playlist walk → validate → added or discarded)
     → write the channel's updated entry into videos.json
-    → write curation/.pending/<channel>.json: {additions, removals}
+    → write curation/.pending/<channel>.json: {additions, removals, api_calls}
+  → log this run's estimated API-unit cost (pipeline.estimate_api_units)
   │
   ▼
 workflow collects all .pending/*.json summaries:

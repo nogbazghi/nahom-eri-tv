@@ -4,6 +4,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from kebire_channel import (
+    channels_list_call_count,
     dedup_preserve_order,
     resolve_playlist_id,
     tag_for,
@@ -61,3 +62,13 @@ def test_dedup_preserve_order_drops_repeats_but_keeps_first_occurrence_order():
 
 def test_dedup_preserve_order_empty_list():
     assert dedup_preserve_order([]) == []
+
+
+def test_channels_list_call_count_zero_when_playlist_id_is_explicit():
+    entry = {"channel_id": "UCz9a7XA9oMmk3CpFnE456bQ", "playlist_id": "PLnotarealplaylist"}
+    assert channels_list_call_count(entry) == 0
+
+
+def test_channels_list_call_count_one_when_deriving_uploads_playlist():
+    entry = {"channel_id": "UCz9a7XA9oMmk3CpFnE456bQ"}
+    assert channels_list_call_count(entry) == 1

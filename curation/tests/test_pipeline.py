@@ -239,7 +239,57 @@ def test_compute_run_failing_new_candidate_is_dropped_silently():
         fetch_fn=fetch_fn,
     )
 
-    assert result == {"final_videos": [], "additions": [], "removals": []}
+    # The videos.list call still happened (one batch, for "bad1") even
+    # though the candidate failed validation — the call cost quota
+    # regardless of the outcome.
+    assert result == {
+        "final_videos": [],
+        "additions": [],
+        "removals": [],
+        "api_calls": {"videos.list": 1},
+    }
+
+
+def test_compute_run_api_calls_counts_both_the_refetch_and_candidate_batches():
+    stored_videos = [{"id": "v1", "title": "Video 1", "channels": ["Weddings"]}]
+
+    def fetch_fn(ids, api_key):
+        return {vid: make_record(title=f"Title {vid}") for vid in ids}
+
+    result = pipeline.compute_run(
+        channel_key="weddings",
+        display_name="Weddings",
+        stored_videos=stored_videos,
+        fresh_candidate_ids=["v2", "v3"],
+        rules=RULES,
+        api_key="key",
+        blocked_ids=set(),
+        fetch_fn=fetch_fn,
+    )
+
+    # One batch call to re-fetch stored ["v1"], one batch call to fetch
+    # new candidates ["v2", "v3"] — both well under the 50-ID batch size.
+    assert result["api_calls"] == {"videos.list": 2}
+
+
+def test_compute_run_api_calls_zero_when_nothing_needs_fetching():
+    stored_videos = [{"id": "blocked1", "title": "Old Video", "channels": ["Weddings"]}]
+
+    def fail_if_called(ids, api_key):
+        raise AssertionError("fetch_fn should not be called")
+
+    result = pipeline.compute_run(
+        channel_key="weddings",
+        display_name="Weddings",
+        stored_videos=stored_videos,
+        fresh_candidate_ids=["blocked1"],
+        rules=RULES,
+        api_key="key",
+        blocked_ids={"blocked1"},
+        fetch_fn=fail_if_called,
+    )
+
+    assert result["api_calls"] == {"videos.list": 0}
 
 
 def test_compute_run_stamps_last_validated_on_every_kept_and_added_record():
@@ -516,6 +566,22 @@ def test_filter_candidates_by_text_filter_skips_fetch_for_empty_candidate_list()
     assert pipeline.filter_candidates_by_text_filter([], entry, "key", fetch_fn=fetch_fn) == []
 
 
+def test_text_filter_call_count_zero_when_no_text_filter_configured():
+    assert pipeline.text_filter_call_count({}, ["a", "b"]) == 0
+
+
+def test_text_filter_call_count_zero_for_empty_candidate_list():
+    assert pipeline.text_filter_call_count({"text_filter": "eritrea"}, []) == 0
+
+
+def test_text_filter_call_count_one_batch_for_a_small_candidate_list():
+    assert pipeline.text_filter_call_count({"text_filter": "eritrea"}, ["a", "b"]) == 1
+
+
+def test_text_filter_call_count_batches_over_fifty_candidates():
+    assert pipeline.text_filter_call_count({"text_filter": "eritrea"}, [str(i) for i in range(55)]) == 2
+
+
 def test_filter_candidates_by_text_filter_drops_non_matching_candidates():
     entry = {"text_filter": "eritrea"}
 
@@ -544,3 +610,117 @@ def test_has_open_review_pr_true_when_prs_list_non_empty():
 
 def test_has_open_review_pr_false_when_prs_list_empty():
     assert pipeline.has_open_review_pr([]) is False
+
+
+def test_count_batched_calls_zero_items_needs_zero_calls():
+    assert pipeline.count_batched_calls(0, 50) == 0
+
+
+def test_count_batched_calls_exact_multiple_of_batch_size():
+    assert pipeline.count_batched_calls(100, 50) == 2
+
+
+def test_count_batched_calls_rounds_up_for_a_remainder():
+    assert pipeline.count_batched_calls(101, 50) == 3
+
+
+def test_count_batched_calls_single_item():
+    assert pipeline.count_batched_calls(1, 50) == 1
+
+
+def test_classify_api_error_ok_when_no_status_code():
+    assert pipeline.classify_api_error(None, {}) == "ok"
+
+
+def test_classify_api_error_ok_for_a_successful_status():
+    assert pipeline.classify_api_error(200, {}) == "ok"
+
+
+def test_classify_api_error_quota_exceeded_legacy_shape():
+    body = {
+        "error": {
+            "code": 403,
+            "message": "The request cannot be completed because you have exceeded your quota.",
+            "errors": [
+                {
+                    "message": "The request cannot be completed because you have exceeded your quota.",
+                    "domain": "youtube.quota",
+                    "reason": "quotaExceeded",
+                }
+            ],
+        }
+    }
+    assert pipeline.classify_api_error(403, body) == "quota_exceeded"
+
+
+def test_classify_api_error_daily_limit_exceeded_is_quota_exceeded():
+    # search.list's own per-day call bucket (see API_UNIT_COSTS) reports
+    # this reason instead of quotaExceeded when it's exhausted.
+    body = {"error": {"errors": [{"reason": "dailyLimitExceeded", "domain": "usageLimits"}]}}
+    assert pipeline.classify_api_error(403, body) == "quota_exceeded"
+
+
+def test_classify_api_error_key_invalid_legacy_reason():
+    body = {"error": {"errors": [{"reason": "keyInvalid", "domain": "usageLimits"}]}}
+    assert pipeline.classify_api_error(400, body) == "key_invalid"
+
+
+def test_classify_api_error_key_invalid_newer_error_detail_shape():
+    body = {
+        "error": {
+            "code": 400,
+            "message": "API key not valid. Please pass a valid API key.",
+            "details": [{"reason": "API_KEY_INVALID", "domain": "googleapis.com"}],
+        }
+    }
+    assert pipeline.classify_api_error(400, body) == "key_invalid"
+
+
+def test_classify_api_error_key_invalid_falls_back_to_message_text():
+    # Neither a recognized reason code nor domain — only the message says
+    # it's a key problem. Google has changed this response's shape before.
+    body = {"error": {"code": 400, "message": "API key not valid. Please pass a valid API key."}}
+    assert pipeline.classify_api_error(400, body) == "key_invalid"
+
+
+def test_classify_api_error_unrecognized_failure_is_unknown_error():
+    body = {"error": {"code": 500, "message": "Internal error encountered."}}
+    assert pipeline.classify_api_error(500, body) == "unknown_error"
+
+
+def test_classify_api_error_accepts_unwrapped_error_object():
+    # A caller may already have unwrapped the outer "error" key.
+    body = {"errors": [{"reason": "quotaExceeded"}]}
+    assert pipeline.classify_api_error(403, body) == "quota_exceeded"
+
+
+def test_estimate_api_units_empty_call_counts():
+    assert pipeline.estimate_api_units({}) == {"total_units": 0, "by_method": {}, "search_calls": 0}
+
+
+def test_estimate_api_units_sums_shared_pool_methods_excluding_search():
+    call_counts = {"videos.list": 3, "channels.list": 1, "playlistItems.list": 2, "search.list": 5}
+    result = pipeline.estimate_api_units(call_counts)
+    assert result == {
+        "total_units": 6,  # 3 + 1 + 2 — search.list excluded, tracked separately below
+        "by_method": {"videos.list": 3, "channels.list": 1, "playlistItems.list": 2, "search.list": 5},
+        "search_calls": 5,
+    }
+
+
+def test_estimate_api_units_unrecognized_method_costs_nothing():
+    result = pipeline.estimate_api_units({"some.future.method": 10})
+    assert result == {"total_units": 0, "by_method": {"some.future.method": 0}, "search_calls": 0}
+
+
+def test_merge_call_counts_adds_shared_keys_across_dicts():
+    merged = pipeline.merge_call_counts({"videos.list": 2}, {"videos.list": 1, "search.list": 3})
+    assert merged == {"videos.list": 3, "search.list": 3}
+
+
+def test_merge_call_counts_no_dicts_is_empty():
+    assert pipeline.merge_call_counts() == {}
+
+
+def test_merge_call_counts_single_dict_is_unchanged():
+    assert pipeline.merge_call_counts({"channels.list": 1}) == {"channels.list": 1}
