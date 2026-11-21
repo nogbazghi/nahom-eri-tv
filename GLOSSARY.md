@@ -8,6 +8,10 @@ A broadcast-style streaming channel for Eritrean/Tigrinya diaspora content, play
 The focusable/selectable unit in the guide — one channel's entire now/next lineup, treated as a single target. Selecting it (by any of its cells) tunes to that channel's live broadcast position; the individual now/+2min/+9min cells within it are informational, not independently selectable. A row for a channel with nothing scheduled is disabled rather than selectable, and excluded from keyboard/focus navigation.
 _Avoid_: Guide cell, grid cell (as a selectable unit — a cell is just a visual slot inside a row, not a thing you can select on its own)
 
+**Focus**:
+The single Channel/Live event row a keyboard or TV-stick-remote user is currently on, tracked and moved by `guideNav` (`nav.js`, see [ADR-0001](./docs/adr/0001-generic-directional-navigation-module.md)) one row at a time via directional input. Focus is a keyboard/remote-only concept — touch has no equivalent "currently focused" row and never feeds `guideNav`; a touch viewer selects a row by tapping it directly, the same way a mouse click does (see [ADR-0017](./docs/adr/0017-touch-scrolls-and-taps-the-guide-directly.md)).
+_Avoid_: Selection (ambiguous with the tap/click/Enter action that activates a row, as opposed to merely landing on it), Highlight (names the visual affordance, not the navigation concept)
+
 **Live broadcast position**:
 The point in a channel's cyclic lineup that corresponds to right now, computed from wall-clock time against the channel's fixed schedule start. Not a stream buffer edge — channels aren't true live streams, so there's nothing to fall behind except this computed position.
 _Avoid_: Live edge (implies a real-time stream buffer, which doesn't exist here), live position
