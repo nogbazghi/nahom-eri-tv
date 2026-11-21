@@ -17,11 +17,8 @@ import {
   WATCH_THRESHOLD_MS,
 } from "./viewership.js";
 
-// Set once the Worker from ticket #114 is actually deployed (see
-// worker/README.md) — until then this points nowhere and every beacon
-// fails silently, which is exactly the required "no effect on playback"
-// behavior anyway.
-const WATCH_BEACON_URL = "https://REPLACE_WITH_DEPLOYED_WORKER_URL";
+// The deployed Worker from ticket #114 (see worker/README.md).
+const WATCH_BEACON_URL = "https://nahom-eri-tv-watch-counter.nogbazghi.workers.dev";
 
 let state = createViewershipState();
 let timer = null;
