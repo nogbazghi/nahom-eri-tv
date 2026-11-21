@@ -1,0 +1,2 @@
+# wrangler's local dev/deploy cache — never commit
+.wrangler/
