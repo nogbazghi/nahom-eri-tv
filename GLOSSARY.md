@@ -56,6 +56,10 @@ _Avoid_: Bookmark (already used elsewhere for the channel-in-URL shareability be
 The guide section listing a viewer's Favorites, positioned below Live event rows but above the full channel list. Hidden entirely until the viewer has favorited at least one channel; a favorited channel still appears in its normal place in the full list as well.
 _Avoid_: Favorites row (it's a section that can hold several rows, not a single row)
 
+**Movie**:
+A standalone, feature-length scripted/fictional work, enforced by a duration floor well above every other channel's spam-filter floor (see [ADR-0016](./docs/adr/0016-movies-channel-scoped-to-standalone-films.md)) rather than any label, since uploaders don't tag the distinction themselves. Not a documentary (History's territory) and not a serialized drama/series released in numbered parts ("Part N") — that content is explicitly out of scope for the Movies channel, not folded in.
+_Avoid_: Film (fine as a casual synonym, but the channel's `display_name` is "Movies"), Drama (ambiguous — covers both standalone films and the excluded serialized dramas)
+
 ### Viewership
 
 **Viewership count**:
