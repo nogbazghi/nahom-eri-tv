@@ -479,6 +479,20 @@ def print_run_estimate(call_counts):
     )
 
 
+def format_total_api_usage_summary(call_counts):
+    """Pure. One human-readable line summarizing estimate_api_units(call_counts)
+    for an entire curate.yml run (every channel script combined) — distinct
+    from print_run_estimate's per-script message. Shared by curate.yml's
+    job-log output and the standing health issue's per-run comment
+    (health_issue.report_run) so the wording only needs updating in one
+    place."""
+    estimate = estimate_api_units(call_counts)
+    return (
+        f"Total estimated API usage this run (all jobs): {estimate['total_units']} unit(s) "
+        f"from the shared pool, {estimate['search_calls']} search.list call(s)."
+    )
+
+
 def classify_api_error(status_code, error_body):
     """Pure — no network calls.
 
