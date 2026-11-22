@@ -19,16 +19,9 @@ class GithubApiError extends Error {
   }
 }
 
-function decodeBase64Content(base64) {
-  const binary = atob(base64.replace(/\n/g, ""));
-  const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
-  return new TextDecoder("utf-8").decode(bytes);
-}
-
-// Inverse of decodeBase64Content — goes through TextEncoder/byte-string
-// rather than a plain btoa(text), the same way decodeBase64Content goes
-// through TextDecoder, so a reason containing non-ASCII text round-trips
-// correctly rather than btoa throwing on it.
+// Goes through TextEncoder/byte-string rather than a plain btoa(text), so a
+// reason containing non-ASCII text round-trips correctly rather than btoa
+// throwing on it.
 function encodeBase64Content(text) {
   const bytes = new TextEncoder().encode(text);
   let binary = "";
@@ -45,7 +38,12 @@ export function createGithubClient(token) {
       body: options.body,
       headers: {
         Authorization: `Bearer ${token}`,
-        Accept: "application/vnd.github+json",
+        // The raw media type returns the file's actual bytes instead of a
+        // JSON-wrapped base64 field, up to 100MB — the default media type's
+        // Contents API wrapper omits `content` entirely (empty string, not
+        // valid base64) once a file exceeds its 1MB inline-content limit,
+        // which JSON.parse(atob(...)) then fails on with "Unexpected EOF".
+        Accept: options.raw ? "application/vnd.github.raw+json" : "application/vnd.github+json",
         "X-GitHub-Api-Version": "2022-11-28",
         ...(options.body ? { "Content-Type": "application/json" } : {}),
       },
@@ -53,7 +51,7 @@ export function createGithubClient(token) {
     if (!response.ok) {
       throw new GithubApiError(response.status, path);
     }
-    return response.json();
+    return options.raw ? response.text() : response.json();
   }
 
   return {
@@ -83,8 +81,7 @@ export function createGithubClient(token) {
     },
 
     async getFileContent(ref, path) {
-      const file = await request(`/contents/${path}?ref=${ref}`);
-      return decodeBase64Content(file.content);
+      return request(`/contents/${path}?ref=${ref}`, { raw: true });
     },
 
     // The Contents API's update endpoint needs the current file's blob
