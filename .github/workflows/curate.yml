@@ -8,6 +8,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  issues: write
 
 env:
   STANDING_BRANCH: curation/weekly-update
@@ -41,10 +42,18 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+      - name: Preflight check (API key valid, quota available)
+        id: preflight
+        working-directory: curation
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: python3 preflight.py
+
       - name: Snapshot original videos.json
         run: cp docs/data/videos.json /tmp/original-videos.json
 
       - name: Run curation jobs
+        id: run_jobs
         working-directory: curation
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
@@ -57,6 +66,22 @@ jobs:
 
       - name: Snapshot final state (post-run, before the removals-only rewrite below)
         run: cp docs/data/videos.json /tmp/final-videos.json
+
+      - name: Report total estimated API usage for this run
+        run: |
+          python3 << 'PYEOF'
+          import sys
+
+          sys.path.insert(0, "curation")
+          from pipeline import estimate_api_units, load_pending_summaries, merge_call_counts
+
+          call_counts = merge_call_counts(*(s.get("api_calls", {}) for s in load_pending_summaries()))
+          estimate = estimate_api_units(call_counts)
+          print(
+              f"Total estimated API usage this run (all jobs): {estimate['total_units']} unit(s) "
+              f"from the shared pool, {estimate['search_calls']} search.list call(s)."
+          )
+          PYEOF
 
       - name: Compute and apply removals to main
         id: removals
@@ -169,3 +194,40 @@ jobs:
             --title "Weekly curation update" \
             --body "$BODY" \
             --reviewer nogbazghi
+
+      - name: Report this run's outcome to the standing health issue (#70)
+        if: always()
+        working-directory: curation
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PREFLIGHT_OUTCOME: ${{ steps.preflight.outcome }}
+          RUN_JOBS_OUTCOME: ${{ steps.run_jobs.outcome }}
+        run: |
+          python3 << 'PYEOF'
+          import os
+
+          from health_issue import report_run
+          from pipeline import estimate_api_units, load_pending_summaries, merge_call_counts
+
+          preflight_ok = os.environ.get("PREFLIGHT_OUTCOME") == "success"
+          jobs_ok = os.environ.get("RUN_JOBS_OUTCOME") == "success"
+          run_succeeded = preflight_ok and jobs_ok
+
+          if not preflight_ok:
+              detail = (
+                  "Preflight check failed — the YOUTUBE_API_KEY is invalid or out "
+                  "of quota, or the check hit an unrecognized error. See this "
+                  "run's job log for the specific classification."
+              )
+          elif not jobs_ok:
+              detail = "One or more curation job scripts failed. See this run's job log for details."
+          else:
+              call_counts = merge_call_counts(*(s.get("api_calls", {}) for s in load_pending_summaries()))
+              estimate = estimate_api_units(call_counts)
+              detail = (
+                  f"Estimated API usage this run: {estimate['total_units']} unit(s) "
+                  f"from the shared pool, {estimate['search_calls']} search.list call(s)."
+              )
+
+          report_run(title="Curation pipeline health", run_succeeded=run_succeeded, detail=detail)
+          PYEOF
