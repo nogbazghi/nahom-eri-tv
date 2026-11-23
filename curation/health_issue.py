@@ -9,9 +9,15 @@ curation-specific orchestration around that decision, talking to GitHub
 through the `gh` CLI the same way the rest of this project's automation
 does (see docs/agents/issue-tracker.md).
 
-Usage (from curate.yml, run with cwd=curation/):
+Usage:
     from health_issue import report_run
     report_run(title="Curation pipeline health", run_succeeded=..., detail=...)
+
+Called from curate.yml (cwd=curation/) for the curation concern (#70),
+and from test.yml's report-main-health job (also cwd=curation/, checked
+out fresh for that job since it isn't part of the curation pipeline) for
+the CI-on-push-to-main concern (#71) — same title/run_succeeded/detail
+contract, a different `title`.
 """
 
 import json
@@ -47,6 +53,20 @@ def decide_health_update(*, currently_labeled_needs_triage, run_succeeded, detai
 
     comment_body = f"{header}\n\n{detail}" if detail else header
     return {"label_action": label_action, "comment_body": comment_body}
+
+
+def summarize_job_results(results, run_url):
+    """Pure. `results` maps a CI job's name to its GitHub Actions `result`
+    string. Returns (run_succeeded, detail): run_succeeded is True only if
+    every job succeeded; detail names the failing jobs (or says all passed)
+    followed by `run_url`, ready to pass as report_run's `detail`."""
+    run_succeeded = all(result == "success" for result in results.values())
+    if run_succeeded:
+        detail = f"All test suites passed on main. {run_url}"
+    else:
+        failed = [name for name, result in results.items() if result != "success"]
+        detail = f"Failed on main: {', '.join(failed)}. {run_url}"
+    return run_succeeded, detail
 
 
 def find_matching_issue(issues, title):

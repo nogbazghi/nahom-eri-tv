@@ -89,6 +89,34 @@ def test_decide_health_update_comment_body_leads_with_pass_fail_header():
     assert failure["comment_body"].startswith("❌")
 
 
+def test_summarize_job_results_all_success_reports_passed_with_url():
+    run_succeeded, detail = health_issue.summarize_job_results(
+        {"node-tests": "success", "python-tests": "success"}, "https://example.com/run/1"
+    )
+    assert run_succeeded is True
+    assert detail == "All test suites passed on main. https://example.com/run/1"
+
+
+def test_summarize_job_results_any_failure_names_the_failing_jobs():
+    run_succeeded, detail = health_issue.summarize_job_results(
+        {"node-tests": "failure", "python-tests": "success"}, "https://example.com/run/2"
+    )
+    assert run_succeeded is False
+    assert detail == "Failed on main: node-tests. https://example.com/run/2"
+
+
+def test_summarize_job_results_treats_non_success_results_as_failures():
+    # A cancelled or skipped job isn't "success" either — it should count
+    # toward run_succeeded=False and be named in the detail, same as a
+    # straightforward "failure".
+    run_succeeded, detail = health_issue.summarize_job_results(
+        {"node-tests": "cancelled", "python-tests": "skipped"}, "https://example.com/run/3"
+    )
+    assert run_succeeded is False
+    assert "node-tests" in detail
+    assert "python-tests" in detail
+
+
 def test_decide_health_update_never_returns_a_close_action():
     # The standing issue is never closed by this automation — there is no
     # "close" value label_action can take.
