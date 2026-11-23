@@ -1,0 +1,102 @@
+{
+  "channel": "news",
+  "additions": [
+    {
+      "id": "ig-tSTGjkc4",
+      "title": "Evening News in Tigrinya for November 21, 2026 - ERi-TV, Eritrea",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-11-21",
+      "duration": 1361,
+      "channels": [
+        "News"
+      ],
+      "source": "news",
+      "notes": "",
+      "lastValidated": "2026-11-22T17:04:23.615082+00:00"
+    },
+    {
+      "id": "wA6uXtlL1z4",
+      "title": "Midday News in Tigrinya for November 21, 2026 - ERi-TV, Eritrea",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-11-21",
+      "duration": 1239,
+      "channels": [
+        "News"
+      ],
+      "source": "news",
+      "notes": "",
+      "lastValidated": "2026-11-22T17:04:23.615082+00:00"
+    },
+    {
+      "id": "zdKBi7RwT_I",
+      "title": "Evening News in Tigrinya for November 20, 2026 - ERi-TV, Eritrea",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-11-20",
+      "duration": 1220,
+      "channels": [
+        "News"
+      ],
+      "source": "news",
+      "notes": "",
+      "lastValidated": "2026-11-22T17:04:23.615082+00:00"
+    },
+    {
+      "id": "ejwHijZOwHk",
+      "title": "Midday News in Tigrinya for November 20, 2026 - ERi-TV, Eritrea",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-11-20",
+      "duration": 1090,
+      "channels": [
+        "News"
+      ],
+      "source": "news",
+      "notes": "",
+      "lastValidated": "2026-11-22T17:04:23.615082+00:00"
+    },
+    {
+      "id": "H6V_lOxozUs",
+      "title": "Evening News in Tigrinya for November 19, 2026 - ERi-TV, Eritrea",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-11-19",
+      "duration": 1172,
+      "channels": [
+        "News"
+      ],
+      "source": "news",
+      "notes": "",
+      "lastValidated": "2026-11-22T17:04:23.615082+00:00"
+    },
+    {
+      "id": "btr3yqrV4L4",
+      "title": "Midday News in Tigrinya for November 19, 2026 - ERi-TV, Eritrea",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [],
+      "published": "2026-11-19",
+      "duration": 953,
+      "channels": [
+        "News"
+      ],
+      "source": "news",
+      "notes": "",
+      "lastValidated": "2026-11-22T17:04:23.615082+00:00"
+    }
+  ],
+  "removals": []
+}
