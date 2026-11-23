@@ -42,33 +42,50 @@ export function groupCandidatesByChannel(additions) {
     .map(([channel, candidates]) => ({ channel, candidates }));
 }
 
+// Identifies a candidate within a run by (id, source) rather than by its
+// bare id — two channel rules can independently discover the same
+// underlying video id (ADR-0019's "Seb Mukan" example: Movies' both
+// movies_hdmona and movies_search), and each such discovery is reviewed as
+// its own independent candidate, not collapsed into one.
+export function candidateKey(candidate) {
+  return `${candidate.id}::${candidate.source}`;
+}
+
 // Decision bookkeeping (ticket #107, part of #105): `decisions` is a plain
-// object keyed by candidate id, each value `{status: "approved"}` or
-// `{status: "rejected", reason}`. Every function here returns a new object
-// rather than mutating, the same immutable-update style as
-// favorites.js's toggleFavorite.
-export function approveCandidate(decisions, candidateId) {
-  return { ...decisions, [candidateId]: { status: "approved" } };
+// object keyed by candidateKey(candidate), each value `{status: "approved"}`,
+// `{status: "rejected", reason}`, or `{status: "duplicate"}`. Every function
+// here returns a new object rather than mutating, the same immutable-update
+// style as favorites.js's toggleFavorite.
+export function approveCandidate(decisions, key) {
+  return { ...decisions, [key]: { status: "approved" } };
 }
 
 // Rejection always carries a reason (spec #105's "Rejection" decision) — the
 // resulting blocklist.yaml entry needs to be as specific and searchable as
 // today's manually-written ones, so an empty/whitespace-only reason is
 // refused rather than silently stored.
-export function rejectCandidate(decisions, candidateId, reason) {
+export function rejectCandidate(decisions, key, reason) {
   const trimmedReason = reason.trim();
   if (!trimmedReason) {
     throw new Error("A rejection reason is required");
   }
-  return { ...decisions, [candidateId]: { status: "rejected", reason: trimmedReason } };
+  return { ...decisions, [key]: { status: "rejected", reason: trimmedReason } };
+}
+
+// Duplicate (ADR-0019): the video itself is fine, only this redundant
+// discovery of it is being dropped from the run — unlike Reject, it carries
+// no reason and (per computeWriteBackPayload/finishReview) never touches
+// blocklist.yaml.
+export function markDuplicate(decisions, key) {
+  return { ...decisions, [key]: { status: "duplicate" } };
 }
 
 // Reverts a decided candidate back to pending (spec #105's "undo a decision"
 // user story) — the candidate simply has no entry in `decisions` again,
 // matching the never-decided starting state.
-export function undoDecision(decisions, candidateId) {
+export function undoDecision(decisions, key) {
   const next = { ...decisions };
-  delete next[candidateId];
+  delete next[key];
   return next;
 }
 
@@ -86,28 +103,33 @@ export function countReviewed(decisions) {
 // stale/unknown id can never make an incomplete run look finished.
 export function isReviewComplete(groups, decisions) {
   return groups.every((group) =>
-    group.candidates.every((candidate) => decisions[candidate.id] !== undefined),
+    group.candidates.every((candidate) => decisions[candidateKey(candidate)] !== undefined),
   );
 }
 
-// Computes which videos stay (approved) vs. which go to the blocklist
-// (rejected, with their reason) for a finished review (spec #105's
-// "Finishing a review" decision) — the date each blocklist entry needs is
-// added by the write-back ticket that actually sends this to GitHub, not
-// here. Undecided candidates (a review in progress) are silently omitted;
-// callers gate on isReviewComplete() before using this for real.
+// Computes which videos stay (approved), which go to the blocklist
+// (rejected, with their reason), and which are merely dropped from this run
+// (duplicates, scoped by (id, source) — see ADR-0019) for a finished review
+// (spec #105's "Finishing a review" decision) — the date each blocklist
+// entry needs is added by the write-back ticket that actually sends this to
+// GitHub, not here. Undecided candidates (a review in progress) are
+// silently omitted; callers gate on isReviewComplete() before using this
+// for real.
 export function computeWriteBackPayload(groups, decisions) {
   const approvedIds = [];
   const rejected = [];
+  const duplicates = [];
   for (const group of groups) {
     for (const candidate of group.candidates) {
-      const decision = decisions[candidate.id];
+      const decision = decisions[candidateKey(candidate)];
       if (decision?.status === "approved") {
         approvedIds.push(candidate.id);
       } else if (decision?.status === "rejected") {
         rejected.push({ id: candidate.id, reason: decision.reason });
+      } else if (decision?.status === "duplicate") {
+        duplicates.push({ id: candidate.id, source: candidate.source });
       }
     }
   }
-  return { approvedIds, rejected };
+  return { approvedIds, rejected, duplicates };
 }

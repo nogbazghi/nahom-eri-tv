@@ -6,16 +6,61 @@ import {
   finishReview,
 } from "./curation-review-writeback.js";
 
-test("removeRejectedFromVideosJson: drops videos whose id is rejected, leaving the rest and other top-level keys untouched", () => {
+test("removeRejectedFromVideosJson: drops videos matching a rejected {id, reason} entry by id, leaving the rest and other top-level keys untouched", () => {
   const videosJson = {
-    videos: [{ id: "a1" }, { id: "b2" }, { id: "c3" }],
+    videos: [{ id: "a1", source: "s" }, { id: "b2", source: "s" }, { id: "c3", source: "s" }],
     schedules: { "Music - Modern": { scheduleStart: "2026-01-01" } },
   };
 
-  assert.deepEqual(removeRejectedFromVideosJson(videosJson, ["b2"]), {
-    videos: [{ id: "a1" }, { id: "c3" }],
+  assert.deepEqual(removeRejectedFromVideosJson(videosJson, [{ id: "b2", reason: "off-topic" }]), {
+    videos: [{ id: "a1", source: "s" }, { id: "c3", source: "s" }],
     schedules: { "Music - Modern": { scheduleStart: "2026-01-01" } },
   });
+});
+
+test("removeRejectedFromVideosJson: a duplicate {id, source} entry removes only the matching-source video, leaving another video sharing its id intact (ADR-0019)", () => {
+  const videosJson = {
+    videos: [
+      { id: "seb-mukan", source: "movies_hdmona" },
+      { id: "seb-mukan", source: "movies_search" },
+    ],
+    schedules: {},
+  };
+
+  assert.deepEqual(
+    removeRejectedFromVideosJson(videosJson, [{ id: "seb-mukan", source: "movies_search" }]),
+    { videos: [{ id: "seb-mukan", source: "movies_hdmona" }], schedules: {} },
+  );
+});
+
+test("removeRejectedFromVideosJson: a rejected entry without a source removes every video sharing its id, matching Reject's existing global-by-id meaning", () => {
+  const videosJson = {
+    videos: [
+      { id: "seb-mukan", source: "movies_hdmona" },
+      { id: "seb-mukan", source: "movies_search" },
+    ],
+    schedules: {},
+  };
+
+  assert.deepEqual(
+    removeRejectedFromVideosJson(videosJson, [{ id: "seb-mukan", reason: "takedown" }]),
+    { videos: [], schedules: {} },
+  );
+});
+
+test("removeRejectedFromVideosJson: combines rejected and duplicate entries in one pass", () => {
+  const videosJson = {
+    videos: [{ id: "a1", source: "s" }, { id: "b2", source: "s" }, { id: "c3", source: "s" }],
+    schedules: {},
+  };
+
+  assert.deepEqual(
+    removeRejectedFromVideosJson(videosJson, [
+      { id: "b2", reason: "off-topic" },
+      { id: "c3", source: "s" },
+    ]),
+    { videos: [{ id: "a1", source: "s" }], schedules: {} },
+  );
 });
 
 test("appendBlocklistEntries: appends one entry per rejected candidate after a blank line, matching blocklist.yaml's hand-written shape", () => {
@@ -104,7 +149,11 @@ test("finishReview: when there are rejections, commits the trimmed videos.json a
     pr,
     videosJson: { videos: [{ id: "a1" }, { id: "b2" }], schedules: {} },
   };
-  const writeBackPayload = { approvedIds: ["a1"], rejected: [{ id: "b2", reason: "off-topic" }] };
+  const writeBackPayload = {
+    approvedIds: ["a1"],
+    rejected: [{ id: "b2", reason: "off-topic" }],
+    duplicates: [],
+  };
 
   await finishReview(client, runData, writeBackPayload, "2026-11-17");
 
@@ -132,14 +181,14 @@ test("finishReview: when there are rejections, commits the trimmed videos.json a
   ]);
 });
 
-test("finishReview: when there are no rejections, skips both file updates and only merges the PR", async () => {
+test("finishReview: when there are no rejections or duplicates, skips both file updates and only merges the PR", async () => {
   const client = createRecordingFakeClient();
   const pr = { number: 7, headRef: "curation/weekly-update", headSha: "sha1" };
   const runData = {
     pr,
     videosJson: { videos: [{ id: "a1" }], schedules: {} },
   };
-  const writeBackPayload = { approvedIds: ["a1"], rejected: [] };
+  const writeBackPayload = { approvedIds: ["a1"], rejected: [], duplicates: [] };
 
   await finishReview(client, runData, writeBackPayload, "2026-11-17");
 
@@ -150,7 +199,11 @@ test("finishReview: builds the blocklist append from the branch's current conten
   const client = createRecordingFakeClient({ currentBlocklistYaml: "a newer entry already landed\n" });
   const pr = { number: 9, headRef: "curation/weekly-update", headSha: "sha1" };
   const runData = { pr, videosJson: { videos: [], schedules: {} } };
-  const writeBackPayload = { approvedIds: [], rejected: [{ id: "c3", reason: "off-topic" }] };
+  const writeBackPayload = {
+    approvedIds: [],
+    rejected: [{ id: "c3", reason: "off-topic" }],
+    duplicates: [],
+  };
 
   await finishReview(client, runData, writeBackPayload, "2026-11-17");
 
@@ -169,7 +222,11 @@ test("finishReview: retrying after a prior attempt's blocklist commit already su
   });
   const pr = { number: 5, headRef: "curation/weekly-update", headSha: "sha1" };
   const runData = { pr, videosJson: { videos: [{ id: "a1" }], schedules: {} } };
-  const writeBackPayload = { approvedIds: ["a1"], rejected: [{ id: "b2", reason: "off-topic" }] };
+  const writeBackPayload = {
+    approvedIds: ["a1"],
+    rejected: [{ id: "b2", reason: "off-topic" }],
+    duplicates: [],
+  };
 
   await finishReview(client, runData, writeBackPayload, "2026-11-17");
 
@@ -177,4 +234,41 @@ test("finishReview: retrying after a prior attempt's blocklist commit already su
   assert.deepEqual(blocklistCalls, [
     { method: "getFileContent", ref: "curation/weekly-update", path: "curation/blocklist.yaml" },
   ]);
+});
+
+test("finishReview: a duplicate-only run removes the duplicate from videos.json but never touches blocklist.yaml", async () => {
+  const client = createRecordingFakeClient();
+  const pr = { number: 11, headRef: "curation/weekly-update", headSha: "sha1" };
+  const runData = {
+    pr,
+    videosJson: {
+      videos: [
+        { id: "seb-mukan", source: "movies_hdmona" },
+        { id: "seb-mukan", source: "movies_search" },
+      ],
+      schedules: {},
+    },
+  };
+  const writeBackPayload = {
+    approvedIds: ["seb-mukan"],
+    rejected: [],
+    duplicates: [{ id: "seb-mukan", source: "movies_search" }],
+  };
+
+  await finishReview(client, runData, writeBackPayload, "2026-11-17");
+
+  assert.deepEqual(client.calls, [
+    { method: "getFileSha", ref: "curation/weekly-update", path: "docs/data/videos.json" },
+    {
+      method: "updateFile",
+      branch: "curation/weekly-update",
+      path: "docs/data/videos.json",
+      content:
+        '{\n  "videos": [\n    {\n      "id": "seb-mukan",\n      "source": "movies_hdmona"\n    }\n  ],\n  "schedules": {}\n}',
+      sha: "videos-sha",
+      hasMessage: true,
+    },
+    { method: "mergePull", number: 11 },
+  ]);
+  assert.ok(!client.calls.some((call) => call.path === "curation/blocklist.yaml"));
 });

@@ -8,8 +8,10 @@ import {
   buildThumbnailUrl,
   buildYoutubeUrl,
   groupCandidatesByChannel,
+  candidateKey,
   approveCandidate,
   rejectCandidate,
+  markDuplicate,
   undoDecision,
   countReviewed,
   countTotalCandidates,
@@ -38,9 +40,11 @@ const finishReviewBtn = document.getElementById("finish-review-btn");
 // curation-review-writeback.js's finishReview without re-fetching.
 let groups = [];
 let decisions = {};
-// Candidate ids whose inline rejection-reason field is currently open —
+// candidateKey()s whose inline rejection-reason field is currently open —
 // local UI presentation state, not a review decision, so it lives here
-// rather than in curation-review.js's pure decisions shape.
+// rather than in curation-review.js's pure decisions shape. Keyed the same
+// way `decisions` is, so two candidates sharing an id but discovered by
+// different rules (ADR-0019) never share one open/closed reason form.
 let openReasonFormIds = new Set();
 let client = null;
 let runData = null;
@@ -95,6 +99,7 @@ function hideReviewControls() {
 // decision itself is only recorded once the reviewer confirms with a
 // non-empty reason via `onConfirmReject`.
 function buildCandidateActions(candidate, decision, reasonFormOpen, handlers) {
+  const key = candidateKey(candidate);
   const actions = document.createElement("div");
   actions.className = "candidate-actions";
 
@@ -104,15 +109,24 @@ function buildCandidateActions(candidate, decision, reasonFormOpen, handlers) {
       approveBtn.type = "button";
       approveBtn.className = "approve-btn";
       approveBtn.textContent = "Approve";
-      approveBtn.addEventListener("click", () => handlers.onApprove(candidate.id));
+      approveBtn.addEventListener("click", () => handlers.onApprove(key));
       actions.appendChild(approveBtn);
 
       const rejectBtn = document.createElement("button");
       rejectBtn.type = "button";
       rejectBtn.className = "reject-btn";
       rejectBtn.textContent = "Reject";
-      rejectBtn.addEventListener("click", () => handlers.onReject(candidate.id));
+      rejectBtn.addEventListener("click", () => handlers.onReject(key));
       actions.appendChild(rejectBtn);
+
+      // No reason-entry UI for Duplicate, unlike Reject — ADR-0019: it
+      // requires no reason, so it acts immediately like Approve.
+      const duplicateBtn = document.createElement("button");
+      duplicateBtn.type = "button";
+      duplicateBtn.className = "duplicate-btn";
+      duplicateBtn.textContent = "Duplicate";
+      duplicateBtn.addEventListener("click", () => handlers.onDuplicate(key));
+      actions.appendChild(duplicateBtn);
       return actions;
     }
 
@@ -140,7 +154,7 @@ function buildCandidateActions(candidate, decision, reasonFormOpen, handlers) {
         error.hidden = false;
         return;
       }
-      handlers.onConfirmReject(candidate.id, reasonInput.value);
+      handlers.onConfirmReject(key, reasonInput.value);
     });
     actions.appendChild(confirmBtn);
 
@@ -148,7 +162,7 @@ function buildCandidateActions(candidate, decision, reasonFormOpen, handlers) {
     cancelBtn.type = "button";
     cancelBtn.className = "cancel-reject-btn";
     cancelBtn.textContent = "Cancel";
-    cancelBtn.addEventListener("click", () => handlers.onCancelReject(candidate.id));
+    cancelBtn.addEventListener("click", () => handlers.onCancelReject(key));
     actions.appendChild(cancelBtn);
     return actions;
   }
@@ -156,14 +170,18 @@ function buildCandidateActions(candidate, decision, reasonFormOpen, handlers) {
   const status = document.createElement("span");
   status.className = "decision-status";
   status.textContent =
-    decision.status === "approved" ? "Approved" : `Rejected — ${decision.reason}`;
+    decision.status === "approved"
+      ? "Approved"
+      : decision.status === "duplicate"
+        ? "Duplicate"
+        : `Rejected — ${decision.reason}`;
   actions.appendChild(status);
 
   const undoBtn = document.createElement("button");
   undoBtn.type = "button";
   undoBtn.className = "undo-btn";
   undoBtn.textContent = "Undo";
-  undoBtn.addEventListener("click", () => handlers.onUndo(candidate.id));
+  undoBtn.addEventListener("click", () => handlers.onUndo(key));
   actions.appendChild(undoBtn);
 
   return actions;
@@ -190,7 +208,7 @@ function buildCandidateRow(candidate, decision, reasonFormOpen, handlers) {
 
   const meta = document.createElement("p");
   meta.className = "candidate-meta";
-  meta.textContent = `${candidate.channel} · ${formatDuration(candidate.duration)}`;
+  meta.textContent = `${candidate.channel} · ${formatDuration(candidate.duration)} · via ${candidate.source}`;
   info.appendChild(meta);
 
   const link = document.createElement("a");
@@ -218,13 +236,9 @@ function renderGroups(handlers) {
     const list = document.createElement("ul");
     list.className = "candidate-list";
     for (const candidate of group.candidates) {
+      const key = candidateKey(candidate);
       list.appendChild(
-        buildCandidateRow(
-          candidate,
-          decisions[candidate.id],
-          openReasonFormIds.has(candidate.id),
-          handlers,
-        ),
+        buildCandidateRow(candidate, decisions[key], openReasonFormIds.has(key), handlers),
       );
     }
     section.appendChild(list);
@@ -241,9 +255,9 @@ function renderFinishButton() {
   finishReviewBtn.disabled = !isReviewComplete(groups, decisions);
 }
 
-function closeReasonForm(candidateId) {
+function closeReasonForm(key) {
   openReasonFormIds = new Set(openReasonFormIds);
-  openReasonFormIds.delete(candidateId);
+  openReasonFormIds.delete(key);
 }
 
 // Single re-render entry point called after every decision/form-state
@@ -252,25 +266,29 @@ function closeReasonForm(candidateId) {
 // sync with the others.
 function rerender() {
   renderGroups({
-    onApprove: (candidateId) => {
-      decisions = approveCandidate(decisions, candidateId);
+    onApprove: (key) => {
+      decisions = approveCandidate(decisions, key);
       rerender();
     },
-    onReject: (candidateId) => {
-      openReasonFormIds = new Set(openReasonFormIds).add(candidateId);
+    onReject: (key) => {
+      openReasonFormIds = new Set(openReasonFormIds).add(key);
       rerender();
     },
-    onConfirmReject: (candidateId, reason) => {
-      decisions = rejectCandidate(decisions, candidateId, reason);
-      closeReasonForm(candidateId);
+    onConfirmReject: (key, reason) => {
+      decisions = rejectCandidate(decisions, key, reason);
+      closeReasonForm(key);
       rerender();
     },
-    onCancelReject: (candidateId) => {
-      closeReasonForm(candidateId);
+    onCancelReject: (key) => {
+      closeReasonForm(key);
       rerender();
     },
-    onUndo: (candidateId) => {
-      decisions = undoDecision(decisions, candidateId);
+    onDuplicate: (key) => {
+      decisions = markDuplicate(decisions, key);
+      rerender();
+    },
+    onUndo: (key) => {
+      decisions = undoDecision(decisions, key);
       rerender();
     },
   });
@@ -368,7 +386,7 @@ finishReviewBtn.addEventListener("click", async () => {
   hideReviewControls();
   candidateGroupsEl.replaceChildren();
   showStatus(
-    `Review published: ${payload.approvedIds.length} approved, ${payload.rejected.length} rejected.`,
+    `Review published: ${payload.approvedIds.length} approved, ${payload.rejected.length} rejected, ${payload.duplicates.length} duplicate.`,
   );
 });
 
