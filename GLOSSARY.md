@@ -8,6 +8,10 @@ A broadcast-style streaming channel for Eritrean/Tigrinya diaspora content, play
 The focusable/selectable unit in the guide — one channel's entire now/next lineup, treated as a single target. Selecting it (by any of its cells) tunes to that channel's live broadcast position; the individual now/+2min/+9min cells within it are informational, not independently selectable. A row for a channel with nothing scheduled is disabled rather than selectable, and excluded from keyboard/focus navigation. A Channel's own identifier is its `display_name` — see Curation source for the different identifier its videos are tagged with internally.
 _Avoid_: Guide cell, grid cell (as a selectable unit — a cell is just a visual slot inside a row, not a thing you can select on its own)
 
+**Focus**:
+The single Channel/Live event row a keyboard or TV-stick-remote user is currently on, tracked and moved by `guideNav` (`nav.js`, see [ADR-0001](./docs/adr/0001-generic-directional-navigation-module.md)) one row at a time via directional input. Focus is a keyboard/remote-only concept — touch has no equivalent "currently focused" row and never feeds `guideNav`; a touch viewer selects a row by tapping it directly, the same way a mouse click does (see [ADR-0017](./docs/adr/0017-touch-scrolls-and-taps-the-guide-directly.md)).
+_Avoid_: Selection (ambiguous with the tap/click/Enter action that activates a row, as opposed to merely landing on it), Highlight (names the visual affordance, not the navigation concept)
+
 **Curation source**:
 One `channels.yaml` entry (its key, e.g. `fenkil_diaspora`) — the unit the curation pipeline discovers and validates against. Several sources can feed one Channel row: `fenkil` and `fenkil_diaspora` are two sources that both display as the single "Fenkil" Channel. Every stored video carries both its Channel(s) (`channels`, by `display_name`) and the one source that found it (`source`, the `channels.yaml` key) — code that needs to identify a *Channel* (grouping videos the way a viewer sees them, e.g. the Worker's known-channel list, the Viewership snapshot) must group by `display_name`, not by source, or a Channel fed by more than one source gets fragmented across its sources instead of counted as one.
 _Avoid_: Channel key, source channel (easily misread as naming a Channel row rather than one of its possibly-several feeders)
@@ -59,6 +63,10 @@ _Avoid_: Bookmark (already used elsewhere for the channel-in-URL shareability be
 **Favorites section**:
 The guide section listing a viewer's Favorites, positioned below Live event rows but above the full channel list. Hidden entirely until the viewer has favorited at least one channel; a favorited channel still appears in its normal place in the full list as well.
 _Avoid_: Favorites row (it's a section that can hold several rows, not a single row)
+
+**Movie**:
+A standalone, feature-length scripted/fictional work, enforced by a duration floor well above every other channel's spam-filter floor (see [ADR-0016](./docs/adr/0016-movies-channel-scoped-to-standalone-films.md)) rather than any label, since uploaders don't tag the distinction themselves. Not a documentary (History's territory) and not a serialized drama/series released in numbered parts ("Part N") — that content is explicitly out of scope for the Movies channel, not folded in.
+_Avoid_: Film (fine as a casual synonym, but the channel's `display_name` is "Movies"), Drama (ambiguous — covers both standalone films and the excluded serialized dramas)
 
 ### Viewership
 
