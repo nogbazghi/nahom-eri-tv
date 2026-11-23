@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { findOpenCurationPr, fetchRunData } from "./curation-review-data.js";
+import { findOpenCurationPr, fetchRunData, computeAdditions } from "./curation-review-data.js";
 
 test("findOpenCurationPr: returns the open PR whose head ref matches the standing branch", async () => {
   const fakeClient = {
@@ -29,23 +29,59 @@ test("findOpenCurationPr: returns null when no open PR targets the standing bran
   assert.equal(pr, null);
 });
 
-test("fetchRunData: reads every .pending/<channel>.json summary, videos.json, and blocklist.yaml off the PR's head sha", async () => {
+test("computeAdditions: a video present only on the branch is an addition", () => {
+  const mainVideosJson = { videos: [] };
+  const branchVideosJson = { videos: [{ id: "abc123", source: "weddings" }] };
+
+  assert.deepEqual(computeAdditions(mainVideosJson, branchVideosJson), [
+    { id: "abc123", source: "weddings" },
+  ]);
+});
+
+test("computeAdditions: a video present in both with the same (id, source) is not an addition", () => {
+  const mainVideosJson = { videos: [{ id: "abc123", source: "weddings" }] };
+  const branchVideosJson = { videos: [{ id: "abc123", source: "weddings" }] };
+
+  assert.deepEqual(computeAdditions(mainVideosJson, branchVideosJson), []);
+});
+
+test("computeAdditions: two entries sharing an id but with different source are both independently detected as additions", () => {
+  const mainVideosJson = { videos: [{ id: "abc123", source: "weddings" }] };
+  const branchVideosJson = {
+    videos: [
+      { id: "abc123", source: "weddings" },
+      { id: "abc123", source: "music_modern" },
+    ],
+  };
+
+  assert.deepEqual(computeAdditions(mainVideosJson, branchVideosJson), [
+    { id: "abc123", source: "music_modern" },
+  ]);
+});
+
+test("computeAdditions: a video present in main but absent from the branch is not treated as a removal", () => {
+  const mainVideosJson = { videos: [{ id: "abc123", source: "weddings" }] };
+  const branchVideosJson = { videos: [] };
+
+  assert.deepEqual(computeAdditions(mainVideosJson, branchVideosJson), []);
+});
+
+test("fetchRunData: diffs videos.json on main against the PR's head sha, and reads blocklist.yaml off the head sha", async () => {
   const requestedPaths = [];
   const fakeClient = {
-    async listDirectory(ref, path) {
-      requestedPaths.push(`listDirectory ${ref} ${path}`);
-      return ["music_modern.json", "weddings.json"];
-    },
     async getFileContent(ref, path) {
       requestedPaths.push(`getFileContent ${ref} ${path}`);
-      if (path === "curation/.pending/music_modern.json") {
-        return JSON.stringify({ channel: "music_modern", additions: [], removals: [] });
+      if (ref === "main" && path === "docs/data/videos.json") {
+        return JSON.stringify({ videos: [{ id: "existing", source: "weddings" }], schedules: {} });
       }
-      if (path === "curation/.pending/weddings.json") {
-        return JSON.stringify({ channel: "weddings", additions: [], removals: [] });
-      }
-      if (path === "docs/data/videos.json") {
-        return JSON.stringify({ videos: [], schedules: {} });
+      if (ref === "sha2" && path === "docs/data/videos.json") {
+        return JSON.stringify({
+          videos: [
+            { id: "existing", source: "weddings" },
+            { id: "new-one", source: "music_modern" },
+          ],
+          schedules: {},
+        });
       }
       if (path === "curation/blocklist.yaml") {
         return "- id: abc123\n  reason: test\n  date: 2026-01-01\n";
@@ -58,17 +94,18 @@ test("fetchRunData: reads every .pending/<channel>.json summary, videos.json, an
   const runData = await fetchRunData(fakeClient, pr);
 
   assert.deepEqual(runData, {
-    pendingSummaries: [
-      { channel: "music_modern", additions: [], removals: [] },
-      { channel: "weddings", additions: [], removals: [] },
-    ],
-    videosJson: { videos: [], schedules: {} },
+    additions: [{ id: "new-one", source: "music_modern" }],
+    videosJson: {
+      videos: [
+        { id: "existing", source: "weddings" },
+        { id: "new-one", source: "music_modern" },
+      ],
+      schedules: {},
+    },
     blocklistYamlText: "- id: abc123\n  reason: test\n  date: 2026-01-01\n",
   });
   assert.deepEqual(requestedPaths, [
-    "listDirectory sha2 curation/.pending",
-    "getFileContent sha2 curation/.pending/music_modern.json",
-    "getFileContent sha2 curation/.pending/weddings.json",
+    "getFileContent main docs/data/videos.json",
     "getFileContent sha2 docs/data/videos.json",
     "getFileContent sha2 curation/blocklist.yaml",
   ]);
