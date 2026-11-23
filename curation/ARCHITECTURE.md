@@ -8,13 +8,17 @@ manually running `discover.py`/`kebire_channel.py` by hand. Built in full
 shipped differently than described here, trust the code and fix this doc,
 not the other way around.
 
-Two follow-ons have since been built on top of this, so they're not
+Three follow-ons have since been built on top of this, so they're not
 described in full below: a per-candidate review dashboard augmenting the
 all-or-nothing PR review in "Why removals bypass PR review but additions
 don't" (issue #105, `docs/curation-review-ui.js` et al.,
 [ADR-0013](../docs/adr/0013-curation-review-dashboard-uses-client-side-pat.md)),
-and a first-party anonymous viewership signal to prioritize curation effort
-(issue #113, [ADR-0014](../docs/adr/0014-first-party-anonymous-viewership-counting-for-curation.md)).
+a first-party anonymous viewership signal to prioritize curation effort
+(issue #113, [ADR-0014](../docs/adr/0014-first-party-anonymous-viewership-counting-for-curation.md)),
+and standing-issue health reporting (issue #70, `curation/health_issue.py`) —
+every run comments its outcome and estimated API-unit cost onto a single,
+never-closed "Curation pipeline health" GitHub issue, adding or removing
+`needs-triage` as appropriate.
 
 ## The three pillars
 
@@ -106,12 +110,19 @@ for each script listed in jobs.yaml (discover.py, kebire_channel.py):
   │
   ▼
 workflow collects all .pending/*.json summaries:
-  ├─ REMOVALS → applied directly to videos.json on `main`, committed
-  │             and pushed immediately, no review gate
+  ├─ REMOVALS → applied directly to videos.json on `main`, committed and
+  │             pushed immediately, no review gate — authenticated via
+  │             ADMIN_PUSH_TOKEN (an admin PAT, not the default
+  │             GITHUB_TOKEN), the only credential that can bypass main's
+  │             required status checks on a direct push (ADR-0009)
   └─ ADDITIONS → committed to a standing branch (curation/weekly-update),
                  a Pull Request opened or updated with a human-readable
                  summary, owner auto-assigned as reviewer
                  (skipped entirely if there are no additions this run)
+  │
+  ▼
+the run's final step always executes, reporting outcome + estimated
+API-unit cost to the standing "Curation pipeline health" issue (#70)
   │
   ▼
 merging the PR publishes it — GitHub Pages deploys straight from `main`
