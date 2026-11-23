@@ -70,6 +70,7 @@ jobs:
     needs: [node-tests, browser-tests, python-tests]
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       issues: write
     steps:
       - name: Checkout
