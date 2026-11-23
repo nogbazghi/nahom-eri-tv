@@ -77,7 +77,7 @@ _Avoid_: Analytics dashboard (there isn't one — the committed file is read dir
 ## Curation review
 
 **Addition**:
-A newly discovered video that passed a channel rule's validation and was proposed to join that channel's lineup — `curation/ARCHITECTURE.md`'s pipeline-level term for the record, stored as `additions` in a channel's `.pending/<channel>.json` summary. Once an Addition is in the Curation review dashboard being individually decided on, call it a Curation candidate instead.
+A newly discovered video that passed a channel rule's validation and was proposed to join that channel's lineup — `curation/ARCHITECTURE.md`'s pipeline-level term for the record. An Addition's data is the same video record that lands in `docs/data/videos.json`; the Curation review dashboard identifies the current run's Additions by diffing the standing branch's `videos.json` against `main`'s, keyed by `(id, source)` — not by reading `curation/.pending/<channel>.json`, which is transient, gitignored, and never committed to any branch. Once an Addition is in the Curation review dashboard being individually decided on, call it a Curation candidate instead.
 _Avoid_: New video, discovered video
 
 **Curation run**:
@@ -89,7 +89,7 @@ An Addition while it belongs to the currently open Curation run, awaiting (or al
 _Avoid_: Addition (within the review flow — see Addition)
 
 **Review decision**:
-The reviewer's recorded disposition for one Curation candidate: Approved, or Rejected with a required reason. A candidate with no Review decision yet is undecided; a decision can be undone, reverting the candidate to undecided, any time before its Curation run is finished.
+The reviewer's recorded disposition for one Curation candidate: Approved; Rejected with a required reason, which blocklists the video's id globally (see `blocklist.yaml`); or Duplicate, which drops just this one candidate from the Curation run without a reason and without touching the blocklist, for when the same video was independently found by two rules sharing a display channel (identified by the `(id, source)` key — see Addition) and only one copy should be kept. A candidate with no Review decision yet is undecided; a decision can be undone, reverting the candidate to undecided, any time before its Curation run is finished.
 _Avoid_: Verdict, judgment
 
 **Curation review dashboard**:
