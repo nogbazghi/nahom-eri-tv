@@ -22,23 +22,20 @@ export function buildYoutubeUrl(videoId) {
   return `https://www.youtube.com/watch?v=${videoId}`;
 }
 
-// Groups every candidate addition across every .pending/<channel>.json
-// summary by its front-end display channel (addition.channels[0]) rather
-// than the summary's own internal pipeline rule key — two rules
-// (independence_day_diaspora, martyrs_day_diaspora) can both feed the same
-// display channel, and candidates from both must land in one group.
-// Removals are never candidates for review (ADR: removals bypass PR review
-// — curation/ARCHITECTURE.md) and are ignored here.
-export function groupCandidatesByChannel(pendingSummaries) {
+// Groups every candidate addition by its front-end display channel
+// (addition.channels[0]) rather than its internal pipeline source rule —
+// two rules (independence_day_diaspora, martyrs_day_diaspora) can both feed
+// the same display channel, and candidates from both must land in one
+// group. Removals are never candidates for review (ADR: removals bypass PR
+// review — curation/ARCHITECTURE.md) and never appear in `additions`.
+export function groupCandidatesByChannel(additions) {
   const byChannel = new Map();
-  for (const summary of pendingSummaries) {
-    for (const candidate of summary.additions) {
-      const channel = candidate.channels[0];
-      if (!byChannel.has(channel)) {
-        byChannel.set(channel, []);
-      }
-      byChannel.get(channel).push(candidate);
+  for (const candidate of additions) {
+    const channel = candidate.channels[0];
+    if (!byChannel.has(channel)) {
+      byChannel.set(channel, []);
     }
+    byChannel.get(channel).push(candidate);
   }
   return [...byChannel.entries()]
     .sort(([a], [b]) => a.localeCompare(b))

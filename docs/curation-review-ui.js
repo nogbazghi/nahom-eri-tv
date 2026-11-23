@@ -321,7 +321,7 @@ async function loadRun(token) {
   }
   runData.pr = pr;
 
-  groups = groupCandidatesByChannel(runData.pendingSummaries);
+  groups = groupCandidatesByChannel(runData.additions);
   if (groups.length === 0) {
     showStatus("The open curation PR has no candidates to review.");
     return;

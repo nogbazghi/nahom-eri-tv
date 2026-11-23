@@ -40,71 +40,72 @@ test("buildYoutubeUrl: constructs a direct watch URL from a video id", () => {
   );
 });
 
-test("groupCandidatesByChannel: one summary's additions group under that candidate's display channel", () => {
-  const summaries = [
-    {
-      channel: "music_modern",
-      additions: [{ id: "abc123", title: "A new song", channels: ["Music - Modern"] }],
-      removals: [],
-    },
+test("groupCandidatesByChannel: additions group under their candidate's display channel", () => {
+  const additions = [
+    { id: "abc123", title: "A new song", channels: ["Music - Modern"], source: "music_modern" },
   ];
 
-  assert.deepEqual(groupCandidatesByChannel(summaries), [
+  assert.deepEqual(groupCandidatesByChannel(additions), [
     {
       channel: "Music - Modern",
-      candidates: [{ id: "abc123", title: "A new song", channels: ["Music - Modern"] }],
+      candidates: [
+        { id: "abc123", title: "A new song", channels: ["Music - Modern"], source: "music_modern" },
+      ],
     },
   ]);
 });
 
-test("groupCandidatesByChannel: two summaries feeding the same display channel merge into one group", () => {
-  const summaries = [
+test("groupCandidatesByChannel: additions from two different sources feeding the same display channel merge into one group", () => {
+  const additions = [
     {
-      channel: "independence_day_diaspora",
-      additions: [{ id: "id1", title: "Independence clip", channels: ["Independence Day"] }],
-      removals: [],
+      id: "id1",
+      title: "Independence clip",
+      channels: ["Independence Day"],
+      source: "independence_day_diaspora",
     },
     {
-      channel: "martyrs_day_diaspora",
-      additions: [{ id: "id2", title: "Martyrs clip", channels: ["Independence Day"] }],
-      removals: [],
+      id: "id2",
+      title: "Martyrs clip",
+      channels: ["Independence Day"],
+      source: "martyrs_day_diaspora",
     },
   ];
 
-  assert.deepEqual(groupCandidatesByChannel(summaries), [
+  assert.deepEqual(groupCandidatesByChannel(additions), [
     {
       channel: "Independence Day",
       candidates: [
-        { id: "id1", title: "Independence clip", channels: ["Independence Day"] },
-        { id: "id2", title: "Martyrs clip", channels: ["Independence Day"] },
+        {
+          id: "id1",
+          title: "Independence clip",
+          channels: ["Independence Day"],
+          source: "independence_day_diaspora",
+        },
+        {
+          id: "id2",
+          title: "Martyrs clip",
+          channels: ["Independence Day"],
+          source: "martyrs_day_diaspora",
+        },
       ],
     },
   ]);
 });
 
 test("groupCandidatesByChannel: groups are sorted alphabetically by channel name", () => {
-  const summaries = [
-    {
-      channel: "weddings",
-      additions: [{ id: "w1", title: "A wedding", channels: ["Weddings"] }],
-      removals: [],
-    },
-    {
-      channel: "music_modern",
-      additions: [{ id: "m1", title: "A song", channels: ["Music - Modern"] }],
-      removals: [],
-    },
+  const additions = [
+    { id: "w1", title: "A wedding", channels: ["Weddings"], source: "weddings" },
+    { id: "m1", title: "A song", channels: ["Music - Modern"], source: "music_modern" },
   ];
 
   assert.deepEqual(
-    groupCandidatesByChannel(summaries).map((group) => group.channel),
+    groupCandidatesByChannel(additions).map((group) => group.channel),
     ["Music - Modern", "Weddings"],
   );
 });
 
-test("groupCandidatesByChannel: a summary with no additions contributes no group", () => {
-  const summaries = [{ channel: "weddings", additions: [], removals: [] }];
-  assert.deepEqual(groupCandidatesByChannel(summaries), []);
+test("groupCandidatesByChannel: no additions contributes no groups", () => {
+  assert.deepEqual(groupCandidatesByChannel([]), []);
 });
 
 test("approveCandidate: records an approved decision for the candidate id, leaving other decisions untouched", () => {
