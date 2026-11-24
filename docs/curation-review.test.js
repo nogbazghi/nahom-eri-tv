@@ -13,6 +13,7 @@ import {
   countReviewed,
   countTotalCandidates,
   countUndecided,
+  countGroupDecisions,
   isReviewComplete,
   computeWriteBackPayload,
 } from "./curation-review.js";
@@ -190,6 +191,73 @@ test("countUndecided: zero once every candidate across every group has a decisio
   const groups = [{ channel: "Music - Modern", candidates: [{ id: "m1", source: "s" }] }];
   const decisions = { "m1::s": { status: "approved" } };
   assert.equal(countUndecided(groups, decisions), 0);
+});
+
+test("countGroupDecisions: all candidates approved", () => {
+  const group = {
+    channel: "Music - Modern",
+    candidates: [{ id: "m1", source: "s" }, { id: "m2", source: "s" }],
+  };
+  const decisions = { "m1::s": { status: "approved" }, "m2::s": { status: "approved" } };
+  assert.deepEqual(countGroupDecisions(group, decisions), {
+    approved: 2,
+    rejected: 0,
+    duplicate: 0,
+    undecided: 0,
+  });
+});
+
+test("countGroupDecisions: all candidates rejected", () => {
+  const group = {
+    channel: "Music - Modern",
+    candidates: [{ id: "m1", source: "s" }, { id: "m2", source: "s" }],
+  };
+  const decisions = {
+    "m1::s": { status: "rejected", reason: "off-topic" },
+    "m2::s": { status: "rejected", reason: "off-topic" },
+  };
+  assert.deepEqual(countGroupDecisions(group, decisions), {
+    approved: 0,
+    rejected: 2,
+    duplicate: 0,
+    undecided: 0,
+  });
+});
+
+test("countGroupDecisions: all candidates undecided", () => {
+  const group = {
+    channel: "Music - Modern",
+    candidates: [{ id: "m1", source: "s" }, { id: "m2", source: "s" }],
+  };
+  assert.deepEqual(countGroupDecisions(group, {}), {
+    approved: 0,
+    rejected: 0,
+    duplicate: 0,
+    undecided: 2,
+  });
+});
+
+test("countGroupDecisions: a mixed group tallies each status independently, including duplicates", () => {
+  const group = {
+    channel: "Music - Modern",
+    candidates: [
+      { id: "m1", source: "s" },
+      { id: "m2", source: "s" },
+      { id: "m3", source: "s" },
+      { id: "m4", source: "s" },
+    ],
+  };
+  const decisions = {
+    "m1::s": { status: "approved" },
+    "m2::s": { status: "rejected", reason: "off-topic" },
+    "m3::s": { status: "duplicate" },
+  };
+  assert.deepEqual(countGroupDecisions(group, decisions), {
+    approved: 1,
+    rejected: 1,
+    duplicate: 1,
+    undecided: 1,
+  });
 });
 
 test("isReviewComplete: false while any candidate across any group is undecided", () => {
