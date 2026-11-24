@@ -116,6 +116,20 @@
   --font-display: "Big Shoulders Display", "Noto Sans Ethiopic", "Arial Narrow", sans-serif;
   --font-body: "IBM Plex Sans", "Noto Sans Ethiopic", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", "Noto Sans Ethiopic", ui-monospace, monospace;
+
+  /* Fluid sizing for the Player overlays (ticket #163, spec #158): below
+     this, their rem-fixed sizes occupied a disproportionate share of the
+     video frame on a phone and obstructed the video. --overlay-floor is the
+     shared legibility floor (today's smallest existing overlay text,
+     .name's 0.68rem) every overlay's font-size clamps down to; it never
+     shrinks further, regardless of viewport. --overlay-mobile-scale is a
+     0..1-ish fraction of how far between the 375px reference floor and the
+     960px desktop ceiling (main's own max-width) the viewport currently
+     is — each property below blends from its own ceiling down to
+     --overlay-floor using this same fraction, so every overlay reaches its
+     ceiling together at 960px+ and its floor together at 375px and below. */
+  --overlay-floor: 0.68rem;
+  --overlay-mobile-scale: calc((100vw - 375px) / 585px);
 }
 
 * {
@@ -282,39 +296,33 @@ main {
   align-items: center;
 }
 
-#unmute {
-  position: absolute;
-  bottom: 0.8rem;
-  right: 0.8rem;
-  z-index: 2;
-  padding: 0.5rem 1rem;
-  background: rgba(0, 0, 0, 0.7);
-  color: var(--fg);
-  border: 1px solid var(--accent);
-  border-radius: 999px;
-  cursor: pointer;
-  font-family: var(--font-body);
-  font-size: 0.85rem;
-}
-
-/* Mirrors #unmute's pill style, bottom-left instead of bottom-right (ticket
-   #55, part of #46). Disabled via the native `disabled` attribute (not
-   hidden) when the current channel has nothing scheduled —
-   isChannelAvailable() is the single source of truth app.js checks before
-   enabling it. */
+/* #go-live mirrors #unmute's pill style, bottom-left instead of
+   bottom-right (ticket #55, part of #46). #go-live is disabled via the
+   native `disabled` attribute (not hidden) when the current channel has
+   nothing scheduled — isChannelAvailable() is the single source of truth
+   app.js checks before enabling it. */
+#unmute,
 #go-live {
   position: absolute;
   bottom: 0.8rem;
-  left: 0.8rem;
   z-index: 2;
-  padding: 0.5rem 1rem;
   background: rgba(0, 0, 0, 0.7);
   color: var(--fg);
   border: 1px solid var(--accent);
   border-radius: 999px;
   cursor: pointer;
   font-family: var(--font-body);
-  font-size: 0.85rem;
+  font-size: clamp(var(--overlay-floor), calc(var(--overlay-floor) + (0.17rem * var(--overlay-mobile-scale))), 0.85rem);
+  padding: clamp(0.3rem, calc(0.3rem + (0.2rem * var(--overlay-mobile-scale))), 0.5rem)
+    clamp(0.65rem, calc(0.65rem + (0.35rem * var(--overlay-mobile-scale))), 1rem);
+}
+
+#unmute {
+  right: 0.8rem;
+}
+
+#go-live {
+  left: 0.8rem;
 }
 
 #go-live:disabled {
@@ -331,7 +339,8 @@ main {
   background: rgba(11, 11, 13, 0.72);
   border: 1px solid var(--border);
   border-radius: 6px;
-  padding: 0.5rem 0.8rem;
+  padding: clamp(0.35rem, calc(0.35rem + (0.15rem * var(--overlay-mobile-scale))), 0.5rem)
+    clamp(0.55rem, calc(0.55rem + (0.25rem * var(--overlay-mobile-scale))), 0.8rem);
   pointer-events: none;
 }
 
@@ -344,14 +353,16 @@ main {
 #corner-badge .num {
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: 1.6rem;
+  font-size: clamp(var(--overlay-floor), calc(var(--overlay-floor) + (0.92rem * var(--overlay-mobile-scale))), 1.6rem);
   color: var(--accent);
   line-height: 1;
 }
 
 #corner-badge .name {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  /* Already at --overlay-floor — this is the smallest existing overlay
+     text today, so there's no further room to shrink on mobile. */
+  font-size: var(--overlay-floor);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--fg);
@@ -359,7 +370,7 @@ main {
 
 #badge-title {
   margin-top: 0.3rem;
-  font-size: 0.82rem;
+  font-size: clamp(var(--overlay-floor), calc(var(--overlay-floor) + (0.14rem * var(--overlay-mobile-scale))), 0.82rem);
   color: var(--muted);
   max-width: 48ch;
   white-space: nowrap;
