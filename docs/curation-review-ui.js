@@ -15,7 +15,7 @@ import {
   undoDecision,
   countReviewed,
   countTotalCandidates,
-  isReviewComplete,
+  countUndecided,
   computeWriteBackPayload,
 } from "./curation-review.js";
 import { findOpenCurationPr, fetchRunData } from "./curation-review-data.js";
@@ -251,8 +251,11 @@ function renderProgress() {
   progressMessageEl.textContent = `${countReviewed(decisions)}/${countTotalCandidates(groups)} reviewed`;
 }
 
+// Finish review is enabled as soon as a run is loaded (ticket #162, part
+// of #159): it no longer gates on every candidate having a decision —
+// leftover undecided candidates are confirmed, not blocked, at click time.
 function renderFinishButton() {
-  finishReviewBtn.disabled = !isReviewComplete(groups, decisions);
+  finishReviewBtn.disabled = false;
 }
 
 function closeReasonForm(key) {
@@ -361,12 +364,26 @@ function hideTokenForm() {
   tokenForm.hidden = true;
 }
 
-// Finishing a review (ticket #108, part of #105): commits the rejected
-// candidates' removal from videos.json and their blocklist.yaml entries to
-// the standing branch, then merges the run's PR — the one moment approved
-// additions actually reach main. Disabled for the duration of the call so
-// a double-click can't send the merge twice.
+// Finishing a review (ticket #108, part of #105, extended by #162): commits
+// the rejected candidates' removal from videos.json and their
+// blocklist.yaml entries, and the deferred (still-undecided) candidates'
+// removal from videos.json with no blocklist entry, to the standing
+// branch, then merges the run's PR — the one moment approved additions
+// actually reach main. With nothing undecided this proceeds straight
+// through exactly as before; with undecided candidates left, a
+// confirmation names how many will be set aside before anything is sent.
+// Disabled for the duration of the call so a double-click can't send the
+// merge twice.
 finishReviewBtn.addEventListener("click", async () => {
+  const undecided = countUndecided(groups, decisions);
+  if (undecided > 0) {
+    const candidateWord = undecided === 1 ? "candidate" : "candidates";
+    const proceed = window.confirm(
+      `${undecided} ${candidateWord} still undecided — finishing will set ${undecided === 1 ? "it" : "them"} aside to resurface on a future run. Continue?`,
+    );
+    if (!proceed) return;
+  }
+
   const payload = computeWriteBackPayload(groups, decisions);
   const today = new Date().toISOString().slice(0, 10);
 

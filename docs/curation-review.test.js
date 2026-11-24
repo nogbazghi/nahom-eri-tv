@@ -12,6 +12,7 @@ import {
   undoDecision,
   countReviewed,
   countTotalCandidates,
+  countUndecided,
   isReviewComplete,
   computeWriteBackPayload,
 } from "./curation-review.js";
@@ -176,6 +177,21 @@ test("countReviewed: counts the number of decided candidates", () => {
   assert.equal(countReviewed(decisions), 2);
 });
 
+test("countUndecided: counts candidates across all groups with no decision yet", () => {
+  const groups = [
+    { channel: "Music - Modern", candidates: [{ id: "m1", source: "s" }, { id: "m2", source: "s" }] },
+    { channel: "Weddings", candidates: [{ id: "w1", source: "s" }] },
+  ];
+  const decisions = { "m1::s": { status: "approved" } };
+  assert.equal(countUndecided(groups, decisions), 2);
+});
+
+test("countUndecided: zero once every candidate across every group has a decision", () => {
+  const groups = [{ channel: "Music - Modern", candidates: [{ id: "m1", source: "s" }] }];
+  const decisions = { "m1::s": { status: "approved" } };
+  assert.equal(countUndecided(groups, decisions), 0);
+});
+
 test("isReviewComplete: false while any candidate across any group is undecided", () => {
   const groups = [
     { channel: "Music - Modern", candidates: [{ id: "m1", source: "s" }, { id: "m2", source: "s" }] },
@@ -212,11 +228,11 @@ test("isReviewComplete: two candidates sharing an id but different source are tr
   assert.equal(isReviewComplete(groups, decisions), false);
 });
 
-test("computeWriteBackPayload: sorts approved candidates into approvedIds and rejected candidates into rejected with their reason, ignoring undecided ones", () => {
+test("computeWriteBackPayload: all-decided sorts approved candidates into approvedIds and rejected candidates into rejected with their reason, with empty duplicates and deferred", () => {
   const groups = [
     {
       channel: "Music - Modern",
-      candidates: [{ id: "m1", source: "s" }, { id: "m2", source: "s" }, { id: "m3", source: "s" }],
+      candidates: [{ id: "m1", source: "s" }, { id: "m2", source: "s" }],
     },
   ];
   const decisions = {
@@ -227,6 +243,25 @@ test("computeWriteBackPayload: sorts approved candidates into approvedIds and re
     approvedIds: ["m1"],
     rejected: [{ id: "m2", reason: "off-topic" }],
     duplicates: [],
+    deferred: [],
+  });
+});
+
+test("computeWriteBackPayload: all-undecided puts every candidate into deferred as {id, source}, with empty approvedIds, rejected, and duplicates", () => {
+  const groups = [
+    {
+      channel: "Music - Modern",
+      candidates: [{ id: "m1", source: "s" }, { id: "m2", source: "s" }],
+    },
+  ];
+  assert.deepEqual(computeWriteBackPayload(groups, {}), {
+    approvedIds: [],
+    rejected: [],
+    duplicates: [],
+    deferred: [
+      { id: "m1", source: "s" },
+      { id: "m2", source: "s" },
+    ],
   });
 });
 
@@ -248,5 +283,33 @@ test("computeWriteBackPayload: sorts duplicate-marked candidates into duplicates
     approvedIds: ["seb-mukan"],
     rejected: [],
     duplicates: [{ id: "seb-mukan", source: "movies_search" }],
+    deferred: [],
+  });
+});
+
+test("computeWriteBackPayload: mixed approved/rejected/duplicate/undecided candidates split four ways", () => {
+  const groups = [
+    {
+      channel: "Music - Modern",
+      candidates: [
+        { id: "m1", source: "s" },
+        { id: "m2", source: "s" },
+        { id: "seb-mukan", source: "movies_hdmona" },
+        { id: "seb-mukan", source: "movies_search" },
+        { id: "m3", source: "s" },
+      ],
+    },
+  ];
+  const decisions = {
+    "m1::s": { status: "approved" },
+    "m2::s": { status: "rejected", reason: "off-topic" },
+    "seb-mukan::movies_hdmona": { status: "approved" },
+    "seb-mukan::movies_search": { status: "duplicate" },
+  };
+  assert.deepEqual(computeWriteBackPayload(groups, decisions), {
+    approvedIds: ["m1", "seb-mukan"],
+    rejected: [{ id: "m2", reason: "off-topic" }],
+    duplicates: [{ id: "seb-mukan", source: "movies_search" }],
+    deferred: [{ id: "m3", source: "s" }],
   });
 });

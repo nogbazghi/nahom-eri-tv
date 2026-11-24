@@ -97,6 +97,17 @@ export function countReviewed(decisions) {
   return Object.keys(decisions).length;
 }
 
+// Counts candidates left undecided (ticket #162, part of #159): "Finish
+// review" no longer gates on this being zero, but still needs the count to
+// name in its confirmation before setting them aside as deferred.
+export function countUndecided(groups, decisions) {
+  return groups.reduce(
+    (total, group) =>
+      total + group.candidates.filter((candidate) => decisions[candidateKey(candidate)] === undefined).length,
+    0,
+  );
+}
+
 // "Finish review" stays disabled until every candidate in the run has a
 // decision (spec #105's "Finishing a review" decision) — checked per
 // candidate rather than by comparing counts, so a decision keyed under a
@@ -108,17 +119,23 @@ export function isReviewComplete(groups, decisions) {
 }
 
 // Computes which videos stay (approved), which go to the blocklist
-// (rejected, with their reason), and which are merely dropped from this run
-// (duplicates, scoped by (id, source) — see ADR-0019) for a finished review
-// (spec #105's "Finishing a review" decision) — the date each blocklist
-// entry needs is added by the write-back ticket that actually sends this to
-// GitHub, not here. Undecided candidates (a review in progress) are
-// silently omitted; callers gate on isReviewComplete() before using this
-// for real.
+// (rejected, with their reason), which are merely dropped from this run
+// (duplicates, scoped by (id, source) — see ADR-0019), and which are set
+// aside to resurface on a future run (deferred, also scoped by (id,
+// source) for the same reason duplicates are — an undecided candidate must
+// never drag out an already-approved copy that happens to share its bare
+// id) for a finished review (spec #105's "Finishing a review" decision,
+// extended by ticket #162/#159 to no longer require every candidate be
+// decided first) — the date each blocklist entry needs is added by the
+// write-back ticket that actually sends this to GitHub, not here. A
+// candidate with no decision is deferred, not silently omitted —
+// finishReview still has to remove it from videos.json so it can resurface
+// as a fresh candidate later.
 export function computeWriteBackPayload(groups, decisions) {
   const approvedIds = [];
   const rejected = [];
   const duplicates = [];
+  const deferred = [];
   for (const group of groups) {
     for (const candidate of group.candidates) {
       const decision = decisions[candidateKey(candidate)];
@@ -128,8 +145,10 @@ export function computeWriteBackPayload(groups, decisions) {
         rejected.push({ id: candidate.id, reason: decision.reason });
       } else if (decision?.status === "duplicate") {
         duplicates.push({ id: candidate.id, source: candidate.source });
+      } else {
+        deferred.push({ id: candidate.id, source: candidate.source });
       }
     }
   }
-  return { approvedIds, rejected, duplicates };
+  return { approvedIds, rejected, duplicates, deferred };
 }

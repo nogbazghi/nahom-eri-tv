@@ -10,13 +10,14 @@
 import { VIDEOS_JSON_PATH, BLOCKLIST_YAML_PATH } from "./curation-review-data.js";
 
 // Removes every video matching a `{id}` (rejected) or `{id, source}`
-// (duplicate) entry in `toRemove`. A missing `source` matches any source for
-// that id — Reject's existing meaning is unchanged: a rejected video is
-// excluded globally, by id alone, so any other candidate in this same run
-// sharing that id (another discovery of the same actual video) goes with
-// it. A present `source` matches exactly — Duplicate (ADR-0019) must drop
-// only the one redundant discovery, never a co-candidate that shares its id
-// but was independently approved.
+// (duplicate, or deferred — ticket #162/#159) entry in `toRemove`. A
+// missing `source` matches any source for that id — Reject's existing
+// meaning is unchanged: a rejected video is excluded globally, by id
+// alone, so any other candidate in this same run sharing that id (another
+// discovery of the same actual video) goes with it. A present `source`
+// matches exactly — both Duplicate (ADR-0019) and Deferred must drop only
+// the one candidate discovery, never a co-candidate that shares its id but
+// was independently approved or is still undecided.
 export function removeRejectedFromVideosJson(videosJson, toRemove) {
   return {
     ...videosJson,
@@ -52,19 +53,21 @@ export function appendBlocklistEntries(blocklistYamlText, rejected, today) {
   return `${base}\n${entries}`;
 }
 
-// Finishing a review (spec #105's "Finishing a review" decision, extended by
-// ADR-0019's Duplicate disposition): rewrites the standing branch — removes
-// rejected and duplicate candidates from that branch's videos.json in one
-// pass, appends blocklist.yaml entries only for the rejected ones (a
-// Duplicate never touches the blocklist — the video itself is fine) — then
-// merges the PR. Only the merge actually publishes anything to main; when
-// there's nothing to remove, the branch's videos.json is already correct
-// as-is (ticket #106's automated run wrote the candidates straight into
-// it), so no commit is needed before merging.
+// Finishing a review (spec #105's "Finishing a review" decision, extended
+// by ADR-0019's Duplicate disposition and ticket #162/#159's undecided
+// candidates): rewrites the standing branch — removes rejected, duplicate,
+// and deferred candidates from that branch's videos.json in one pass,
+// appends blocklist.yaml entries only for the rejected ones (neither
+// Duplicate nor Deferred ever touches the blocklist — the video itself is
+// fine, or simply hasn't been judged yet) — then merges the PR. Only the
+// merge actually publishes anything to main; when there's nothing to
+// remove, the branch's videos.json is already correct as-is (ticket #106's
+// automated run wrote the candidates straight into it), so no commit is
+// needed before merging.
 export async function finishReview(client, runData, writeBackPayload, today) {
   const { pr, videosJson } = runData;
-  const { rejected, duplicates } = writeBackPayload;
-  const toRemove = [...rejected, ...duplicates];
+  const { rejected, duplicates, deferred } = writeBackPayload;
+  const toRemove = [...rejected, ...duplicates, ...deferred];
 
   if (toRemove.length > 0) {
     const newVideosJson = removeRejectedFromVideosJson(videosJson, toRemove);
@@ -74,7 +77,7 @@ export async function finishReview(client, runData, writeBackPayload, today) {
       VIDEOS_JSON_PATH,
       JSON.stringify(newVideosJson, null, 2),
       videosSha,
-      "Remove rejected and duplicate curation candidates",
+      "Remove rejected, duplicate, and deferred curation candidates",
     );
   }
 
