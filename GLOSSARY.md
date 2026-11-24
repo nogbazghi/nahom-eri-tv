@@ -24,6 +24,18 @@ _Avoid_: Live edge (implies a real-time stream buffer, which doesn't exist here)
 A player control that jumps back to "what's happening right now" and resumes playback, offered as a one-tap shortcut from the player itself. For a channel, that means re-tuning to its computed live broadcast position (the same outcome as reselecting the channel's row in the guide). For a Live event, it means an actual live-edge jump on the real stream, since there a viewer genuinely can fall behind. Same control and label in both contexts; the mechanism underneath differs by what's playing.
 _Avoid_: Live button (ambiguous with a stream's live edge)
 
+**Corner badge**:
+The channel-identity block pinned to the player's top-left corner — channel number, channel name, and the current video's title — layered on top of the video itself.
+_Avoid_: Channel badge (ambiguous — doesn't convey its fixed corner position over the video)
+
+**Overlay control**:
+Collective term for the tappable pill buttons drawn on top of the player: the unmute pill and the Go to Live control. Distinguished from the Corner badge, which is informational rather than tappable.
+_Avoid_: Player button, overlay button
+
+**Player overlay**:
+Umbrella term for anything drawn on top of the embedded video frame itself — the Corner badge plus every Overlay control — as distinct from the toolbar/guide rendered below the player, which sits outside the video frame entirely.
+_Avoid_: Player chrome (implies native player controls, not this app's own additions), HUD
+
 **Language toggle**:
 A two-state header control, next to About, that switches the app's chrome text between English and Tigrinya; the choice persists across visits and defaults to English.
 _Avoid_: Language switcher, translation button
