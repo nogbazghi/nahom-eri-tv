@@ -108,6 +108,33 @@ export function countUndecided(groups, decisions) {
   );
 }
 
+// Per-group decision breakdown (ticket #161, part of #159): a collapsed
+// channel group's header still needs to show whether it has anything left to
+// review, so this mirrors computeWriteBackPayload's per-candidate status
+// switch but tallies counts instead of building a write-back payload. Keyed
+// by candidateKey() like every other decision lookup (ADR-0019) — two
+// candidates sharing a bare id but discovered by different rules must be
+// tallied independently, not conflated into one count.
+export function countGroupDecisions(group, decisions) {
+  let approved = 0;
+  let rejected = 0;
+  let duplicate = 0;
+  let undecided = 0;
+  for (const candidate of group.candidates) {
+    const status = decisions[candidateKey(candidate)]?.status;
+    if (status === "approved") {
+      approved++;
+    } else if (status === "rejected") {
+      rejected++;
+    } else if (status === "duplicate") {
+      duplicate++;
+    } else {
+      undecided++;
+    }
+  }
+  return { approved, rejected, duplicate, undecided };
+}
+
 // "Finish review" stays disabled until every candidate in the run has a
 // decision (spec #105's "Finishing a review" decision) — checked per
 // candidate rather than by comparing counts, so a decision keyed under a

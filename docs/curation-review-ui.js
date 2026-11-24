@@ -16,6 +16,7 @@ import {
   countReviewed,
   countTotalCandidates,
   countUndecided,
+  countGroupDecisions,
   computeWriteBackPayload,
 } from "./curation-review.js";
 import { findOpenCurationPr, fetchRunData } from "./curation-review-data.js";
@@ -23,6 +24,7 @@ import { createGithubClient } from "./curation-review-github-client.js";
 import { finishReview } from "./curation-review-writeback.js";
 
 const STORAGE_KEY = "eriTvCurationReviewPat";
+const COLLAPSED_CHANNELS_STORAGE_KEY = "eriTvCurationReviewCollapsedChannels";
 const STANDING_BRANCH = "curation/weekly-update";
 
 const tokenForm = document.getElementById("pat-form");
@@ -30,6 +32,7 @@ const tokenInput = document.getElementById("pat-input");
 const statusMessage = document.getElementById("status-message");
 const candidateGroupsEl = document.getElementById("candidate-groups");
 const progressMessageEl = document.getElementById("progress-message");
+const collapseAllBtn = document.getElementById("collapse-all-toggle");
 const finishReviewBtn = document.getElementById("finish-review-btn");
 
 // Review-run state (tickets #107/#108, part of #105): `groups` is set once
@@ -48,6 +51,76 @@ let decisions = {};
 let openReasonFormIds = new Set();
 let client = null;
 let runData = null;
+
+// Collapse/expand state (ticket #161, part of #159): keyed by channel
+// display name rather than by run, so it survives across Curation runs —
+// unlike `decisions`/`openReasonFormIds` above, this is seeded once from
+// localStorage at module load instead of being reset in loadRun(). A
+// channel absent from the stored set has never been collapsed, so it starts
+// expanded by default.
+let collapsedChannels = new Set(readStoredCollapsedChannels());
+
+function readStoredCollapsedChannels() {
+  try {
+    const stored = localStorage.getItem(COLLAPSED_CHANNELS_STORAGE_KEY);
+    if (!stored) return [];
+    const parsed = JSON.parse(stored);
+    // A value that parses but isn't an array (corrupted/hand-edited storage,
+    // or a future format change) must still fail safe here rather than
+    // throwing when `collapsedChannels` is built from this below — a
+    // storage problem must never break the whole page, only the
+    // remembered preference.
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    // Private browsing / storage disabled, or a corrupt stored value: fail
+    // safe to no collapsed channels rather than throwing.
+    return [];
+  }
+}
+
+function persistCollapsedChannels(channels) {
+  try {
+    localStorage.setItem(COLLAPSED_CHANNELS_STORAGE_KEY, JSON.stringify(channels));
+  } catch {
+    // Nothing more we can do if storage is unavailable; collapse/expand
+    // still works for this page view, it just won't be remembered next
+    // visit.
+  }
+}
+
+function isChannelCollapsed(channel) {
+  return collapsedChannels.has(channel);
+}
+
+function setChannelCollapsed(channel, collapsed) {
+  collapsedChannels = new Set(collapsedChannels);
+  if (collapsed) {
+    collapsedChannels.add(channel);
+  } else {
+    collapsedChannels.delete(channel);
+  }
+  persistCollapsedChannels([...collapsedChannels]);
+}
+
+function areAllGroupsCollapsed() {
+  return groups.length > 0 && groups.every((group) => isChannelCollapsed(group.channel));
+}
+
+function collapseAllGroups() {
+  collapsedChannels = new Set(collapsedChannels);
+  for (const group of groups) {
+    collapsedChannels.add(group.channel);
+  }
+  persistCollapsedChannels([...collapsedChannels]);
+}
+
+function expandAllGroups() {
+  collapsedChannels = new Set(collapsedChannels);
+  for (const group of groups) {
+    collapsedChannels.delete(group.channel);
+  }
+  persistCollapsedChannels([...collapsedChannels]);
+}
 
 function readStoredToken() {
   try {
@@ -86,11 +159,13 @@ function hideStatus() {
 
 function showReviewControls() {
   progressMessageEl.hidden = false;
+  collapseAllBtn.hidden = false;
   finishReviewBtn.hidden = false;
 }
 
 function hideReviewControls() {
   progressMessageEl.hidden = true;
+  collapseAllBtn.hidden = true;
   finishReviewBtn.hidden = true;
 }
 
@@ -223,18 +298,56 @@ function buildCandidateRow(candidate, decision, reasonFormOpen, handlers) {
   return li;
 }
 
+// A collapsed group still needs to show whether it has anything left to
+// review, so its header carries a badge of non-zero decision counts
+// (acceptance criterion on ticket #161) built from the pure
+// countGroupDecisions() helper.
+function buildGroupCountsBadge(group) {
+  const counts = countGroupDecisions(group, decisions);
+  const parts = [];
+  if (counts.approved > 0) parts.push(`${counts.approved} approved`);
+  if (counts.rejected > 0) parts.push(`${counts.rejected} rejected`);
+  if (counts.duplicate > 0) parts.push(`${counts.duplicate} duplicate`);
+  if (counts.undecided > 0) parts.push(`${counts.undecided} undecided`);
+  if (parts.length === 0) return null;
+
+  const badge = document.createElement("span");
+  badge.className = "channel-group-counts";
+  badge.textContent = parts.join(", ");
+  return badge;
+}
+
 function renderGroups(handlers) {
   candidateGroupsEl.replaceChildren();
   for (const group of groups) {
+    const collapsed = isChannelCollapsed(group.channel);
+
     const section = document.createElement("section");
     section.className = "channel-group";
 
+    const header = document.createElement("div");
+    header.className = "channel-group-header";
+
     const heading = document.createElement("h2");
-    heading.textContent = group.channel;
-    section.appendChild(heading);
+    const toggle = document.createElement("button");
+    toggle.type = "button";
+    toggle.className = "channel-group-toggle";
+    toggle.setAttribute("aria-expanded", String(!collapsed));
+    toggle.textContent = group.channel;
+    toggle.addEventListener("click", () => handlers.onToggleGroup(group.channel));
+    heading.appendChild(toggle);
+    header.appendChild(heading);
+
+    if (collapsed) {
+      const badge = buildGroupCountsBadge(group);
+      if (badge) header.appendChild(badge);
+    }
+
+    section.appendChild(header);
 
     const list = document.createElement("ul");
     list.className = "candidate-list";
+    list.hidden = collapsed;
     for (const candidate of group.candidates) {
       const key = candidateKey(candidate);
       list.appendChild(
@@ -249,6 +362,10 @@ function renderGroups(handlers) {
 
 function renderProgress() {
   progressMessageEl.textContent = `${countReviewed(decisions)}/${countTotalCandidates(groups)} reviewed`;
+}
+
+function renderCollapseAllButton() {
+  collapseAllBtn.textContent = areAllGroupsCollapsed() ? "Expand all" : "Collapse all";
 }
 
 // Finish review is enabled as soon as a run is loaded (ticket #162, part
@@ -294,8 +411,13 @@ function rerender() {
       decisions = undoDecision(decisions, key);
       rerender();
     },
+    onToggleGroup: (channel) => {
+      setChannelCollapsed(channel, !isChannelCollapsed(channel));
+      rerender();
+    },
   });
   renderProgress();
+  renderCollapseAllButton();
   renderFinishButton();
 }
 
@@ -405,6 +527,15 @@ finishReviewBtn.addEventListener("click", async () => {
   showStatus(
     `Review published: ${payload.approvedIds.length} approved, ${payload.rejected.length} rejected, ${payload.duplicates.length} duplicate.`,
   );
+});
+
+collapseAllBtn.addEventListener("click", () => {
+  if (areAllGroupsCollapsed()) {
+    expandAllGroups();
+  } else {
+    collapseAllGroups();
+  }
+  rerender();
 });
 
 tokenForm.addEventListener("submit", (event) => {
