@@ -10,6 +10,7 @@ import {
   undoDecision,
   countReviewed,
   countTotalCandidates,
+  countUndecided,
   isReviewComplete,
   computeWriteBackPayload,
 } from "./curation-review.js";
@@ -152,6 +153,21 @@ test("countReviewed: counts the number of decided candidates", () => {
   assert.equal(countReviewed(decisions), 2);
 });
 
+test("countUndecided: counts candidates across all groups with no decision yet", () => {
+  const groups = [
+    { channel: "Music - Modern", candidates: [{ id: "m1" }, { id: "m2" }] },
+    { channel: "Weddings", candidates: [{ id: "w1" }] },
+  ];
+  const decisions = { m1: { status: "approved" } };
+  assert.equal(countUndecided(groups, decisions), 2);
+});
+
+test("countUndecided: zero once every candidate across every group has a decision", () => {
+  const groups = [{ channel: "Music - Modern", candidates: [{ id: "m1" }] }];
+  const decisions = { m1: { status: "approved" } };
+  assert.equal(countUndecided(groups, decisions), 0);
+});
+
 test("isReviewComplete: false while any candidate across any group is undecided", () => {
   const groups = [
     { channel: "Music - Modern", candidates: [{ id: "m1" }, { id: "m2" }] },
@@ -174,7 +190,39 @@ test("isReviewComplete: true once every candidate across every group has a decis
   assert.equal(isReviewComplete(groups, decisions), true);
 });
 
-test("computeWriteBackPayload: sorts approved candidates into approvedIds and rejected candidates into rejected with their reason, ignoring undecided ones", () => {
+test("computeWriteBackPayload: all-decided sorts approved candidates into approvedIds and rejected candidates into rejected with their reason, with an empty deferredIds", () => {
+  const groups = [
+    {
+      channel: "Music - Modern",
+      candidates: [{ id: "m1" }, { id: "m2" }],
+    },
+  ];
+  const decisions = {
+    m1: { status: "approved" },
+    m2: { status: "rejected", reason: "off-topic" },
+  };
+  assert.deepEqual(computeWriteBackPayload(groups, decisions), {
+    approvedIds: ["m1"],
+    rejected: [{ id: "m2", reason: "off-topic" }],
+    deferredIds: [],
+  });
+});
+
+test("computeWriteBackPayload: all-undecided puts every candidate id into deferredIds, with empty approvedIds and rejected", () => {
+  const groups = [
+    {
+      channel: "Music - Modern",
+      candidates: [{ id: "m1" }, { id: "m2" }],
+    },
+  ];
+  assert.deepEqual(computeWriteBackPayload(groups, {}), {
+    approvedIds: [],
+    rejected: [],
+    deferredIds: ["m1", "m2"],
+  });
+});
+
+test("computeWriteBackPayload: mixed decided/undecided candidates split three ways", () => {
   const groups = [
     {
       channel: "Music - Modern",
@@ -188,5 +236,6 @@ test("computeWriteBackPayload: sorts approved candidates into approvedIds and re
   assert.deepEqual(computeWriteBackPayload(groups, decisions), {
     approvedIds: ["m1"],
     rejected: [{ id: "m2", reason: "off-topic" }],
+    deferredIds: ["m3"],
   });
 });

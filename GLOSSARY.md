@@ -89,9 +89,9 @@ An Addition while it belongs to the currently open Curation run, awaiting (or al
 _Avoid_: Addition (within the review flow — see Addition)
 
 **Review decision**:
-The reviewer's recorded disposition for one Curation candidate: Approved, or Rejected with a required reason. A candidate with no Review decision yet is undecided; a decision can be undone, reverting the candidate to undecided, any time before its Curation run is finished.
+The reviewer's recorded disposition for one Curation candidate: Approved, or Rejected with a required reason. A candidate with no Review decision yet is undecided; a decision can be undone, reverting the candidate to undecided, any time before its Curation run is finished. Finishing a Curation run doesn't require every candidate to have a Review decision — any candidate still undecided when the owner finishes is left out of that run (not approved, not blocklisted) and resurfaces as a fresh candidate on a future Curation run. It's still just "undecided," both before and after finishing — there's no separate status for this.
 _Avoid_: Verdict, judgment
 
 **Curation review dashboard**:
-The page on the existing GitHub Pages site where the owner reviews one Curation run, recording a Review decision on each Curation candidate individually before finishing — which merges the PR and is the only action that publishes approved additions to `main`.
+The page on the existing GitHub Pages site where the owner reviews one Curation run, recording a Review decision on Curation candidates before finishing — which merges the PR and is the only action that publishes approved additions to `main`. Finishing no longer requires a decision on every candidate; finishing with some still undecided shows a confirmation naming how many will be left out of the run this way.
 _Avoid_: Review tool, admin panel

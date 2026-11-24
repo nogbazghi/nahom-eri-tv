@@ -9,10 +9,15 @@
 
 import { VIDEOS_JSON_PATH, BLOCKLIST_YAML_PATH } from "./curation-review-data.js";
 
-export function removeRejectedFromVideosJson(videosJson, rejectedIds) {
+// Generalized (ticket #162, part of #159) from a rejected-only helper to
+// take any list of candidate ids to drop — finishReview now also uses this
+// for the deferred bucket, so an undecided candidate's video is removed
+// from the standing branch exactly the same way a rejected one is, just
+// without the blocklist entry that only rejection gets.
+export function removeIdsFromVideosJson(videosJson, ids) {
   return {
     ...videosJson,
-    videos: videosJson.videos.filter((video) => !rejectedIds.includes(video.id)),
+    videos: videosJson.videos.filter((video) => !ids.includes(video.id)),
   };
 }
 
@@ -39,36 +44,42 @@ export function appendBlocklistEntries(blocklistYamlText, rejected, today) {
   return `${base}\n${entries}`;
 }
 
-// Finishing a review (spec #105's "Finishing a review" decision): rewrites
-// the standing branch — removes rejected candidates from that branch's
-// videos.json, appends their blocklist entries — then merges the PR. Only
-// the merge actually publishes anything to main; when there's nothing to
-// reject, the branch's videos.json is already correct as-is (ticket #106's
-// automated run wrote the candidates straight into it), so no commit is
-// needed before merging.
+// Finishing a review (spec #105's "Finishing a review" decision, extended
+// by ticket #162/#159 to allow undecided candidates through): rewrites the
+// standing branch — removes both rejected and deferred candidates from
+// that branch's videos.json in one commit, appends only the rejected
+// ones' blocklist entries — then merges the PR. Deferred candidates are
+// never blocklisted: they're meant to resurface as fresh candidates on a
+// future run, not be excluded permanently. Only the merge actually
+// publishes anything to main; when nothing is rejected or deferred, the
+// branch's videos.json is already correct as-is (ticket #106's automated
+// run wrote the candidates straight into it), so no commit is needed
+// before merging.
 export async function finishReview(client, runData, writeBackPayload, today) {
   const { pr, videosJson } = runData;
+  const { rejected, deferredIds } = writeBackPayload;
+  const idsToRemove = [...rejected.map((candidate) => candidate.id), ...deferredIds];
 
-  if (writeBackPayload.rejected.length > 0) {
-    const rejectedIds = writeBackPayload.rejected.map((candidate) => candidate.id);
-
-    const newVideosJson = removeRejectedFromVideosJson(videosJson, rejectedIds);
+  if (idsToRemove.length > 0) {
+    const newVideosJson = removeIdsFromVideosJson(videosJson, idsToRemove);
     const videosSha = await client.getFileSha(pr.headRef, VIDEOS_JSON_PATH);
     await client.updateFile(
       pr.headRef,
       VIDEOS_JSON_PATH,
       JSON.stringify(newVideosJson, null, 2),
       videosSha,
-      "Remove rejected curation candidates",
+      "Remove rejected and deferred curation candidates",
     );
+  }
 
+  if (rejected.length > 0) {
     // Read the branch's current blocklist.yaml fresh here, rather than
     // trusting whatever runData's load-time snapshot held — if a prior
     // finish attempt already committed this append but failed on a later
     // step (the merge, say), appendBlocklistEntries' already-present
     // check converges instead of duplicating it on retry.
     const currentBlocklistYaml = await client.getFileContent(pr.headRef, BLOCKLIST_YAML_PATH);
-    const newBlocklistYaml = appendBlocklistEntries(currentBlocklistYaml, writeBackPayload.rejected, today);
+    const newBlocklistYaml = appendBlocklistEntries(currentBlocklistYaml, rejected, today);
     if (newBlocklistYaml !== currentBlocklistYaml) {
       const blocklistSha = await client.getFileSha(pr.headRef, BLOCKLIST_YAML_PATH);
       await client.updateFile(

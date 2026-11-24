@@ -83,6 +83,17 @@ export function countReviewed(decisions) {
   return Object.keys(decisions).length;
 }
 
+// Counts candidates left undecided (ticket #162, part of #159): "Finish
+// review" no longer gates on this being zero, but still needs the count to
+// name in its confirmation before setting them aside as deferred.
+export function countUndecided(groups, decisions) {
+  return groups.reduce(
+    (total, group) =>
+      total + group.candidates.filter((candidate) => decisions[candidate.id] === undefined).length,
+    0,
+  );
+}
+
 // "Finish review" stays disabled until every candidate in the run has a
 // decision (spec #105's "Finishing a review" decision) — checked per
 // candidate rather than by comparing counts, so a decision keyed under a
@@ -93,15 +104,19 @@ export function isReviewComplete(groups, decisions) {
   );
 }
 
-// Computes which videos stay (approved) vs. which go to the blocklist
-// (rejected, with their reason) for a finished review (spec #105's
-// "Finishing a review" decision) — the date each blocklist entry needs is
+// Computes which videos stay (approved), which go to the blocklist
+// (rejected, with their reason), and which are set aside to resurface on a
+// future run (deferred) for a finished review (spec #105's "Finishing a
+// review" decision, extended by ticket #162/#159 to no longer require every
+// candidate be decided first) — the date each blocklist entry needs is
 // added by the write-back ticket that actually sends this to GitHub, not
-// here. Undecided candidates (a review in progress) are silently omitted;
-// callers gate on isReviewComplete() before using this for real.
+// here. A candidate with no decision is deferred, not silently omitted —
+// finishReview still has to remove it from videos.json so it can resurface
+// as a fresh candidate later.
 export function computeWriteBackPayload(groups, decisions) {
   const approvedIds = [];
   const rejected = [];
+  const deferredIds = [];
   for (const group of groups) {
     for (const candidate of group.candidates) {
       const decision = decisions[candidate.id];
@@ -109,8 +124,10 @@ export function computeWriteBackPayload(groups, decisions) {
         approvedIds.push(candidate.id);
       } else if (decision?.status === "rejected") {
         rejected.push({ id: candidate.id, reason: decision.reason });
+      } else {
+        deferredIds.push(candidate.id);
       }
     }
   }
-  return { approvedIds, rejected };
+  return { approvedIds, rejected, deferredIds };
 }
