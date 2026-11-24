@@ -77,6 +77,27 @@
     <p><a href="about.html">About</a></p>
   </footer>
 
+  <script>
+    // The IFrame API script below is a classic, non-deferred script: it runs
+    // during HTML parsing, strictly before app.js's deferred module has had
+    // a chance to run. Its own loader checks, once, whether
+    // window.onYouTubeIframeAPIReady is already a function at the moment
+    // its (separately, asynchronously loaded) widget script finishes — and
+    // never retries if it isn't (ticket #164). Defining the callback here,
+    // synchronously, before that script tag, guarantees it always exists in
+    // time. window.ytIframeApiState is the only channel a classic script
+    // and a deferred module have in common, so some global is unavoidable;
+    // it only records readiness, as one bundled handoff point rather than
+    // two separate flags — app.js decides what "ready" means, whichever of
+    // "API ready" and "app.js has run" happens second.
+    window.ytIframeApiState = { ready: false, onReady: null };
+    window.onYouTubeIframeAPIReady = function () {
+      window.ytIframeApiState.ready = true;
+      if (window.ytIframeApiState.onReady) {
+        window.ytIframeApiState.onReady();
+      }
+    };
+  </script>
   <script src="https://www.youtube.com/iframe_api"></script>
   <script type="module" src="app.js"></script>
   <script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
