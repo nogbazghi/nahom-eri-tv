@@ -5,8 +5,10 @@ import {
   buildThumbnailUrl,
   buildYoutubeUrl,
   groupCandidatesByChannel,
+  candidateKey,
   approveCandidate,
   rejectCandidate,
+  markDuplicate,
   undoDecision,
   countReviewed,
   countTotalCandidates,
@@ -41,98 +43,120 @@ test("buildYoutubeUrl: constructs a direct watch URL from a video id", () => {
   );
 });
 
-test("groupCandidatesByChannel: one summary's additions group under that candidate's display channel", () => {
-  const summaries = [
-    {
-      channel: "music_modern",
-      additions: [{ id: "abc123", title: "A new song", channels: ["Music - Modern"] }],
-      removals: [],
-    },
+test("groupCandidatesByChannel: additions group under their candidate's display channel", () => {
+  const additions = [
+    { id: "abc123", title: "A new song", channels: ["Music - Modern"], source: "music_modern" },
   ];
 
-  assert.deepEqual(groupCandidatesByChannel(summaries), [
+  assert.deepEqual(groupCandidatesByChannel(additions), [
     {
       channel: "Music - Modern",
-      candidates: [{ id: "abc123", title: "A new song", channels: ["Music - Modern"] }],
+      candidates: [
+        { id: "abc123", title: "A new song", channels: ["Music - Modern"], source: "music_modern" },
+      ],
     },
   ]);
 });
 
-test("groupCandidatesByChannel: two summaries feeding the same display channel merge into one group", () => {
-  const summaries = [
+test("groupCandidatesByChannel: additions from two different sources feeding the same display channel merge into one group", () => {
+  const additions = [
     {
-      channel: "independence_day_diaspora",
-      additions: [{ id: "id1", title: "Independence clip", channels: ["Independence Day"] }],
-      removals: [],
+      id: "id1",
+      title: "Independence clip",
+      channels: ["Independence Day"],
+      source: "independence_day_diaspora",
     },
     {
-      channel: "martyrs_day_diaspora",
-      additions: [{ id: "id2", title: "Martyrs clip", channels: ["Independence Day"] }],
-      removals: [],
+      id: "id2",
+      title: "Martyrs clip",
+      channels: ["Independence Day"],
+      source: "martyrs_day_diaspora",
     },
   ];
 
-  assert.deepEqual(groupCandidatesByChannel(summaries), [
+  assert.deepEqual(groupCandidatesByChannel(additions), [
     {
       channel: "Independence Day",
       candidates: [
-        { id: "id1", title: "Independence clip", channels: ["Independence Day"] },
-        { id: "id2", title: "Martyrs clip", channels: ["Independence Day"] },
+        {
+          id: "id1",
+          title: "Independence clip",
+          channels: ["Independence Day"],
+          source: "independence_day_diaspora",
+        },
+        {
+          id: "id2",
+          title: "Martyrs clip",
+          channels: ["Independence Day"],
+          source: "martyrs_day_diaspora",
+        },
       ],
     },
   ]);
 });
 
 test("groupCandidatesByChannel: groups are sorted alphabetically by channel name", () => {
-  const summaries = [
-    {
-      channel: "weddings",
-      additions: [{ id: "w1", title: "A wedding", channels: ["Weddings"] }],
-      removals: [],
-    },
-    {
-      channel: "music_modern",
-      additions: [{ id: "m1", title: "A song", channels: ["Music - Modern"] }],
-      removals: [],
-    },
+  const additions = [
+    { id: "w1", title: "A wedding", channels: ["Weddings"], source: "weddings" },
+    { id: "m1", title: "A song", channels: ["Music - Modern"], source: "music_modern" },
   ];
 
   assert.deepEqual(
-    groupCandidatesByChannel(summaries).map((group) => group.channel),
+    groupCandidatesByChannel(additions).map((group) => group.channel),
     ["Music - Modern", "Weddings"],
   );
 });
 
-test("groupCandidatesByChannel: a summary with no additions contributes no group", () => {
-  const summaries = [{ channel: "weddings", additions: [], removals: [] }];
-  assert.deepEqual(groupCandidatesByChannel(summaries), []);
+test("groupCandidatesByChannel: no additions contributes no groups", () => {
+  assert.deepEqual(groupCandidatesByChannel([]), []);
 });
 
-test("approveCandidate: records an approved decision for the candidate id, leaving other decisions untouched", () => {
+test("candidateKey: combines id and source", () => {
+  assert.equal(candidateKey({ id: "abc123", source: "movies_hdmona" }), "abc123::movies_hdmona");
+});
+
+test("candidateKey: two candidates sharing an id but with different sources produce different keys", () => {
+  const a = { id: "abc123", source: "movies_hdmona" };
+  const b = { id: "abc123", source: "movies_search" };
+  assert.notEqual(candidateKey(a), candidateKey(b));
+});
+
+test("approveCandidate: records an approved decision for the candidate key, leaving other decisions untouched", () => {
   const decisions = { other1: { status: "approved" } };
-  assert.deepEqual(approveCandidate(decisions, "abc123"), {
+  assert.deepEqual(approveCandidate(decisions, "abc123::movies_hdmona"), {
     other1: { status: "approved" },
-    abc123: { status: "approved" },
+    "abc123::movies_hdmona": { status: "approved" },
   });
 });
 
 test("rejectCandidate: records a rejected decision with the trimmed reason", () => {
-  assert.deepEqual(rejectCandidate({}, "abc123", "  off-topic, Burmese-language news  "), {
-    abc123: { status: "rejected", reason: "off-topic, Burmese-language news" },
-  });
+  assert.deepEqual(
+    rejectCandidate({}, "abc123::movies_hdmona", "  off-topic, Burmese-language news  "),
+    {
+      "abc123::movies_hdmona": { status: "rejected", reason: "off-topic, Burmese-language news" },
+    },
+  );
 });
 
 test("rejectCandidate: throws when the reason is empty or all whitespace", () => {
-  assert.throws(() => rejectCandidate({}, "abc123", ""));
-  assert.throws(() => rejectCandidate({}, "abc123", "   "));
+  assert.throws(() => rejectCandidate({}, "abc123::movies_hdmona", ""));
+  assert.throws(() => rejectCandidate({}, "abc123::movies_hdmona", "   "));
+});
+
+test("markDuplicate: records a duplicate decision for the candidate key, with no reason, leaving other decisions untouched", () => {
+  const decisions = { other1: { status: "approved" } };
+  assert.deepEqual(markDuplicate(decisions, "abc123::movies_search"), {
+    other1: { status: "approved" },
+    "abc123::movies_search": { status: "duplicate" },
+  });
 });
 
 test("undoDecision: removes the candidate's decision, reverting it to pending, leaving other decisions untouched", () => {
   const decisions = {
-    abc123: { status: "approved" },
+    "abc123::movies_hdmona": { status: "approved" },
     other1: { status: "rejected", reason: "off-topic" },
   };
-  assert.deepEqual(undoDecision(decisions, "abc123"), {
+  assert.deepEqual(undoDecision(decisions, "abc123::movies_hdmona"), {
     other1: { status: "rejected", reason: "off-topic" },
   });
 });
@@ -155,87 +179,137 @@ test("countReviewed: counts the number of decided candidates", () => {
 
 test("countUndecided: counts candidates across all groups with no decision yet", () => {
   const groups = [
-    { channel: "Music - Modern", candidates: [{ id: "m1" }, { id: "m2" }] },
-    { channel: "Weddings", candidates: [{ id: "w1" }] },
+    { channel: "Music - Modern", candidates: [{ id: "m1", source: "s" }, { id: "m2", source: "s" }] },
+    { channel: "Weddings", candidates: [{ id: "w1", source: "s" }] },
   ];
-  const decisions = { m1: { status: "approved" } };
+  const decisions = { "m1::s": { status: "approved" } };
   assert.equal(countUndecided(groups, decisions), 2);
 });
 
 test("countUndecided: zero once every candidate across every group has a decision", () => {
-  const groups = [{ channel: "Music - Modern", candidates: [{ id: "m1" }] }];
-  const decisions = { m1: { status: "approved" } };
+  const groups = [{ channel: "Music - Modern", candidates: [{ id: "m1", source: "s" }] }];
+  const decisions = { "m1::s": { status: "approved" } };
   assert.equal(countUndecided(groups, decisions), 0);
 });
 
 test("isReviewComplete: false while any candidate across any group is undecided", () => {
   const groups = [
-    { channel: "Music - Modern", candidates: [{ id: "m1" }, { id: "m2" }] },
-    { channel: "Weddings", candidates: [{ id: "w1" }] },
+    { channel: "Music - Modern", candidates: [{ id: "m1", source: "s" }, { id: "m2", source: "s" }] },
+    { channel: "Weddings", candidates: [{ id: "w1", source: "s" }] },
   ];
-  const decisions = { m1: { status: "approved" }, w1: { status: "approved" } };
+  const decisions = { "m1::s": { status: "approved" }, "w1::s": { status: "approved" } };
   assert.equal(isReviewComplete(groups, decisions), false);
 });
 
 test("isReviewComplete: true once every candidate across every group has a decision", () => {
   const groups = [
-    { channel: "Music - Modern", candidates: [{ id: "m1" }, { id: "m2" }] },
-    { channel: "Weddings", candidates: [{ id: "w1" }] },
+    { channel: "Music - Modern", candidates: [{ id: "m1", source: "s" }, { id: "m2", source: "s" }] },
+    { channel: "Weddings", candidates: [{ id: "w1", source: "s" }] },
   ];
   const decisions = {
-    m1: { status: "approved" },
-    m2: { status: "rejected", reason: "off-topic" },
-    w1: { status: "approved" },
+    "m1::s": { status: "approved" },
+    "m2::s": { status: "rejected", reason: "off-topic" },
+    "w1::s": { status: "approved" },
   };
   assert.equal(isReviewComplete(groups, decisions), true);
 });
 
-test("computeWriteBackPayload: all-decided sorts approved candidates into approvedIds and rejected candidates into rejected with their reason, with an empty deferredIds", () => {
+test("isReviewComplete: two candidates sharing an id but different source are tracked as independent decisions", () => {
+  const groups = [
+    {
+      channel: "Movies",
+      candidates: [
+        { id: "seb-mukan", source: "movies_hdmona" },
+        { id: "seb-mukan", source: "movies_search" },
+      ],
+    },
+  ];
+  const decisions = { "seb-mukan::movies_hdmona": { status: "approved" } };
+  assert.equal(isReviewComplete(groups, decisions), false);
+});
+
+test("computeWriteBackPayload: all-decided sorts approved candidates into approvedIds and rejected candidates into rejected with their reason, with empty duplicates and deferred", () => {
   const groups = [
     {
       channel: "Music - Modern",
-      candidates: [{ id: "m1" }, { id: "m2" }],
+      candidates: [{ id: "m1", source: "s" }, { id: "m2", source: "s" }],
     },
   ];
   const decisions = {
-    m1: { status: "approved" },
-    m2: { status: "rejected", reason: "off-topic" },
+    "m1::s": { status: "approved" },
+    "m2::s": { status: "rejected", reason: "off-topic" },
   };
   assert.deepEqual(computeWriteBackPayload(groups, decisions), {
     approvedIds: ["m1"],
     rejected: [{ id: "m2", reason: "off-topic" }],
-    deferredIds: [],
+    duplicates: [],
+    deferred: [],
   });
 });
 
-test("computeWriteBackPayload: all-undecided puts every candidate id into deferredIds, with empty approvedIds and rejected", () => {
+test("computeWriteBackPayload: all-undecided puts every candidate into deferred as {id, source}, with empty approvedIds, rejected, and duplicates", () => {
   const groups = [
     {
       channel: "Music - Modern",
-      candidates: [{ id: "m1" }, { id: "m2" }],
+      candidates: [{ id: "m1", source: "s" }, { id: "m2", source: "s" }],
     },
   ];
   assert.deepEqual(computeWriteBackPayload(groups, {}), {
     approvedIds: [],
     rejected: [],
-    deferredIds: ["m1", "m2"],
+    duplicates: [],
+    deferred: [
+      { id: "m1", source: "s" },
+      { id: "m2", source: "s" },
+    ],
   });
 });
 
-test("computeWriteBackPayload: mixed decided/undecided candidates split three ways", () => {
+test("computeWriteBackPayload: sorts duplicate-marked candidates into duplicates as {id, source}, with no reason field", () => {
   const groups = [
     {
-      channel: "Music - Modern",
-      candidates: [{ id: "m1" }, { id: "m2" }, { id: "m3" }],
+      channel: "Movies",
+      candidates: [
+        { id: "seb-mukan", source: "movies_hdmona" },
+        { id: "seb-mukan", source: "movies_search" },
+      ],
     },
   ];
   const decisions = {
-    m1: { status: "approved" },
-    m2: { status: "rejected", reason: "off-topic" },
+    "seb-mukan::movies_hdmona": { status: "approved" },
+    "seb-mukan::movies_search": { status: "duplicate" },
   };
   assert.deepEqual(computeWriteBackPayload(groups, decisions), {
-    approvedIds: ["m1"],
+    approvedIds: ["seb-mukan"],
+    rejected: [],
+    duplicates: [{ id: "seb-mukan", source: "movies_search" }],
+    deferred: [],
+  });
+});
+
+test("computeWriteBackPayload: mixed approved/rejected/duplicate/undecided candidates split four ways", () => {
+  const groups = [
+    {
+      channel: "Music - Modern",
+      candidates: [
+        { id: "m1", source: "s" },
+        { id: "m2", source: "s" },
+        { id: "seb-mukan", source: "movies_hdmona" },
+        { id: "seb-mukan", source: "movies_search" },
+        { id: "m3", source: "s" },
+      ],
+    },
+  ];
+  const decisions = {
+    "m1::s": { status: "approved" },
+    "m2::s": { status: "rejected", reason: "off-topic" },
+    "seb-mukan::movies_hdmona": { status: "approved" },
+    "seb-mukan::movies_search": { status: "duplicate" },
+  };
+  assert.deepEqual(computeWriteBackPayload(groups, decisions), {
+    approvedIds: ["m1", "seb-mukan"],
     rejected: [{ id: "m2", reason: "off-topic" }],
-    deferredIds: ["m3"],
+    duplicates: [{ id: "seb-mukan", source: "movies_search" }],
+    deferred: [{ id: "m3", source: "s" }],
   });
 });

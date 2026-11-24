@@ -822,6 +822,34 @@ window.onYouTubeIframeAPIReady = function () {
   });
 };
 
+// Safari/WebKit blocks forced playback of the cross-origin YouTube iframe
+// above without a real user gesture (ADR-0018) — nothing in playerVars can
+// override it, and it isn't a regression: a zero-app-code bare YT.Player
+// embed stalls the same way. The unlock only counts when playVideo() runs
+// synchronously inside a real, currently-firing gesture's own handler, with
+// the player already constructed at that moment — a gesture recorded
+// earlier and acted on later from an unrelated callback does not work
+// (confirmed by test). So this stays attached across every gesture, not
+// just the first one ever, until one lands after the player exists: on
+// Chrome/Firefox that's already true by the first gesture (so this is a
+// no-op there); on Safari/WebKit it may take one extra gesture if the very
+// first one arrives before the player's finished constructing.
+const AUTOPLAY_GESTURE_EVENTS = ["click", "touchstart", "keydown"];
+
+function nudgePlaybackOnGesture() {
+  if (!player) return; // not constructed yet; leave listeners armed for the next gesture
+  if (player.getPlayerState() !== YT.PlayerState.PLAYING) {
+    player.playVideo();
+  }
+  AUTOPLAY_GESTURE_EVENTS.forEach((type) =>
+    document.removeEventListener(type, nudgePlaybackOnGesture)
+  );
+}
+
+AUTOPLAY_GESTURE_EVENTS.forEach((type) =>
+  document.addEventListener(type, nudgePlaybackOnGesture)
+);
+
 // Auto-recovery: when connectivity returns, reload the schedule with no
 // manual refresh required (ticket #9). navigator.onLine false->true is what
 // fires "online"; selectLineupMessage() re-evaluates from the fresh result.

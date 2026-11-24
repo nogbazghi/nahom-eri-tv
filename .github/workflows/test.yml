@@ -59,3 +59,48 @@ jobs:
 
       - name: Run pytest suite
         run: pytest curation/tests/
+
+  report-main-health:
+    # Only a direct push to main can land a CI failure that branch
+    # protection's required check can't block (ADR-0009) — so this never
+    # touches the issue for pull_request runs, only push-to-main ones.
+    # (The trigger above already scopes `push` to main, so checking
+    # event_name alone is enough.)
+    if: always() && github.event_name == 'push'
+    needs: [node-tests, browser-tests, python-tests]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Report this run's outcome to the standing health issue (#71)
+        working-directory: curation
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NODE_TESTS_RESULT: ${{ needs.node-tests.result }}
+          BROWSER_TESTS_RESULT: ${{ needs.browser-tests.result }}
+          PYTHON_TESTS_RESULT: ${{ needs.python-tests.result }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          python3 << 'PYEOF'
+          import os
+
+          from health_issue import report_run, summarize_job_results
+
+          results = {
+              "node-tests": os.environ["NODE_TESTS_RESULT"],
+              "browser-tests": os.environ["BROWSER_TESTS_RESULT"],
+              "python-tests": os.environ["PYTHON_TESTS_RESULT"],
+          }
+          run_succeeded, detail = summarize_job_results(results, os.environ["RUN_URL"])
+
+          report_run(title="CI health on main", run_succeeded=run_succeeded, detail=detail)
+          PYEOF

@@ -724,3 +724,20 @@ def test_merge_call_counts_no_dicts_is_empty():
 
 def test_merge_call_counts_single_dict_is_unchanged():
     assert pipeline.merge_call_counts({"channels.list": 1}) == {"channels.list": 1}
+
+
+def test_format_total_api_usage_summary_reports_units_and_search_calls():
+    summary = pipeline.format_total_api_usage_summary({"videos.list": 3, "search.list": 2})
+    assert summary == (
+        "Total estimated API usage this run (all jobs): 3 unit(s) from the "
+        "shared pool, 2 search.list call(s)."
+    )
+
+
+def test_format_total_api_usage_summary_handles_no_calls():
+    # curate.yml's health-report step calls this even when preflight failed
+    # and no .pending summaries exist at all.
+    assert pipeline.format_total_api_usage_summary({}) == (
+        "Total estimated API usage this run (all jobs): 0 unit(s) from the "
+        "shared pool, 0 search.list call(s)."
+    )

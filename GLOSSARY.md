@@ -5,8 +5,12 @@ A broadcast-style streaming channel for Eritrean/Tigrinya diaspora content, play
 ## Language
 
 **Channel row**:
-The focusable/selectable unit in the guide — one channel's entire now/next lineup, treated as a single target. Selecting it (by any of its cells) tunes to that channel's live broadcast position; the individual now/+2min/+9min cells within it are informational, not independently selectable. A row for a channel with nothing scheduled is disabled rather than selectable, and excluded from keyboard/focus navigation.
+The focusable/selectable unit in the guide — one channel's entire now/next lineup, treated as a single target. Selecting it (by any of its cells) tunes to that channel's live broadcast position; the individual now/+2min/+9min cells within it are informational, not independently selectable. A row for a channel with nothing scheduled is disabled rather than selectable, and excluded from keyboard/focus navigation. A Channel's own identifier is its `display_name` — see Curation source for the different identifier its videos are tagged with internally.
 _Avoid_: Guide cell, grid cell (as a selectable unit — a cell is just a visual slot inside a row, not a thing you can select on its own)
+
+**Curation source**:
+One `channels.yaml` entry (its key, e.g. `fenkil_diaspora`) — the unit the curation pipeline discovers and validates against. Several sources can feed one Channel row: `fenkil` and `fenkil_diaspora` are two sources that both display as the single "Fenkil" Channel. Every stored video carries both its Channel(s) (`channels`, by `display_name`) and the one source that found it (`source`, the `channels.yaml` key) — code that needs to identify a *Channel* (grouping videos the way a viewer sees them, e.g. the Worker's known-channel list, the Viewership snapshot) must group by `display_name`, not by source, or a Channel fed by more than one source gets fragmented across its sources instead of counted as one.
+_Avoid_: Channel key, source channel (easily misread as naming a Channel row rather than one of its possibly-several feeders)
 
 **Focus**:
 The single Channel/Live event row a keyboard or TV-stick-remote user is currently on, tracked and moved by `guideNav` (`nav.js`, see [ADR-0001](./docs/adr/0001-generic-directional-navigation-module.md)) one row at a time via directional input. Focus is a keyboard/remote-only concept — touch has no equivalent "currently focused" row and never feeds `guideNav`; a touch viewer selects a row by tapping it directly, the same way a mouse click does (see [ADR-0017](./docs/adr/0017-touch-scrolls-and-taps-the-guide-directly.md)).
@@ -77,7 +81,7 @@ _Avoid_: Analytics dashboard (there isn't one — the committed file is read dir
 ## Curation review
 
 **Addition**:
-A newly discovered video that passed a channel rule's validation and was proposed to join that channel's lineup — `curation/ARCHITECTURE.md`'s pipeline-level term for the record, stored as `additions` in a channel's `.pending/<channel>.json` summary. Once an Addition is in the Curation review dashboard being individually decided on, call it a Curation candidate instead.
+A newly discovered video that passed a channel rule's validation and was proposed to join that channel's lineup — `curation/ARCHITECTURE.md`'s pipeline-level term for the record. An Addition's data is the same video record that lands in `docs/data/videos.json`; the Curation review dashboard identifies the current run's Additions by diffing the standing branch's `videos.json` against `main`'s, keyed by `(id, source)` — not by reading `curation/.pending/<channel>.json`, which is transient, gitignored, and never committed to any branch. Once an Addition is in the Curation review dashboard being individually decided on, call it a Curation candidate instead.
 _Avoid_: New video, discovered video
 
 **Curation run**:
@@ -89,7 +93,7 @@ An Addition while it belongs to the currently open Curation run, awaiting (or al
 _Avoid_: Addition (within the review flow — see Addition)
 
 **Review decision**:
-The reviewer's recorded disposition for one Curation candidate: Approved, or Rejected with a required reason. A candidate with no Review decision yet is undecided; a decision can be undone, reverting the candidate to undecided, any time before its Curation run is finished. Finishing a Curation run doesn't require every candidate to have a Review decision — any candidate still undecided when the owner finishes is left out of that run (not approved, not blocklisted) and resurfaces as a fresh candidate on a future Curation run. It's still just "undecided," both before and after finishing — there's no separate status for this.
+The reviewer's recorded disposition for one Curation candidate: Approved; Rejected with a required reason, which blocklists the video's id globally (see `blocklist.yaml`); or Duplicate, which drops just this one candidate from the Curation run without a reason and without touching the blocklist, for when the same video was independently found by two rules sharing a display channel (identified by the `(id, source)` key — see Addition) and only one copy should be kept. A candidate with no Review decision yet is undecided; a decision can be undone, reverting the candidate to undecided, any time before its Curation run is finished. Finishing a Curation run doesn't require every candidate to have a Review decision — any candidate still undecided when the owner finishes is left out of that run (not approved, not blocklisted), the same `(id, source)`-scoped removal Duplicate uses, and resurfaces as a fresh candidate on a future Curation run. It's still just "undecided," both before and after finishing — there's no separate status for this.
 _Avoid_: Verdict, judgment
 
 **Curation review dashboard**:

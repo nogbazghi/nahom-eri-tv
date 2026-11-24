@@ -9,15 +9,24 @@
 
 import { VIDEOS_JSON_PATH, BLOCKLIST_YAML_PATH } from "./curation-review-data.js";
 
-// Generalized (ticket #162, part of #159) from a rejected-only helper to
-// take any list of candidate ids to drop — finishReview now also uses this
-// for the deferred bucket, so an undecided candidate's video is removed
-// from the standing branch exactly the same way a rejected one is, just
-// without the blocklist entry that only rejection gets.
-export function removeIdsFromVideosJson(videosJson, ids) {
+// Removes every video matching a `{id}` (rejected) or `{id, source}`
+// (duplicate, or deferred — ticket #162/#159) entry in `toRemove`. A
+// missing `source` matches any source for that id — Reject's existing
+// meaning is unchanged: a rejected video is excluded globally, by id
+// alone, so any other candidate in this same run sharing that id (another
+// discovery of the same actual video) goes with it. A present `source`
+// matches exactly — both Duplicate (ADR-0019) and Deferred must drop only
+// the one candidate discovery, never a co-candidate that shares its id but
+// was independently approved or is still undecided.
+export function removeRejectedFromVideosJson(videosJson, toRemove) {
   return {
     ...videosJson,
-    videos: videosJson.videos.filter((video) => !ids.includes(video.id)),
+    videos: videosJson.videos.filter(
+      (video) =>
+        !toRemove.some(
+          (item) => video.id === item.id && (item.source === undefined || video.source === item.source),
+        ),
+    ),
   };
 }
 
@@ -45,30 +54,30 @@ export function appendBlocklistEntries(blocklistYamlText, rejected, today) {
 }
 
 // Finishing a review (spec #105's "Finishing a review" decision, extended
-// by ticket #162/#159 to allow undecided candidates through): rewrites the
-// standing branch — removes both rejected and deferred candidates from
-// that branch's videos.json in one commit, appends only the rejected
-// ones' blocklist entries — then merges the PR. Deferred candidates are
-// never blocklisted: they're meant to resurface as fresh candidates on a
-// future run, not be excluded permanently. Only the merge actually
-// publishes anything to main; when nothing is rejected or deferred, the
-// branch's videos.json is already correct as-is (ticket #106's automated
-// run wrote the candidates straight into it), so no commit is needed
-// before merging.
+// by ADR-0019's Duplicate disposition and ticket #162/#159's undecided
+// candidates): rewrites the standing branch — removes rejected, duplicate,
+// and deferred candidates from that branch's videos.json in one pass,
+// appends blocklist.yaml entries only for the rejected ones (neither
+// Duplicate nor Deferred ever touches the blocklist — the video itself is
+// fine, or simply hasn't been judged yet) — then merges the PR. Only the
+// merge actually publishes anything to main; when there's nothing to
+// remove, the branch's videos.json is already correct as-is (ticket #106's
+// automated run wrote the candidates straight into it), so no commit is
+// needed before merging.
 export async function finishReview(client, runData, writeBackPayload, today) {
   const { pr, videosJson } = runData;
-  const { rejected, deferredIds } = writeBackPayload;
-  const idsToRemove = [...rejected.map((candidate) => candidate.id), ...deferredIds];
+  const { rejected, duplicates, deferred } = writeBackPayload;
+  const toRemove = [...rejected, ...duplicates, ...deferred];
 
-  if (idsToRemove.length > 0) {
-    const newVideosJson = removeIdsFromVideosJson(videosJson, idsToRemove);
+  if (toRemove.length > 0) {
+    const newVideosJson = removeRejectedFromVideosJson(videosJson, toRemove);
     const videosSha = await client.getFileSha(pr.headRef, VIDEOS_JSON_PATH);
     await client.updateFile(
       pr.headRef,
       VIDEOS_JSON_PATH,
       JSON.stringify(newVideosJson, null, 2),
       videosSha,
-      "Remove rejected and deferred curation candidates",
+      "Remove rejected, duplicate, and deferred curation candidates",
     );
   }
 
