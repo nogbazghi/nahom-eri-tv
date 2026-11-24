@@ -1,0 +1,24 @@
+{
+  "channel": "history_eritv",
+  "additions": [
+    {
+      "id": "ibmjXPLfw8E",
+      "title": "\"ትም ምባል ስለ ዝመረጸ!\"- እዋናዊት ሰነዳዊት ፊልም (5ይ ክፋል) | ERi-TV Documentary (Part 5) - ERi-TV",
+      "channel": "Eri-TV, Eritrea (Official)",
+      "language": "",
+      "city": "",
+      "tags": [
+        "documentary"
+      ],
+      "published": "2026-11-22",
+      "duration": 2350,
+      "channels": [
+        "History"
+      ],
+      "source": "history_eritv",
+      "notes": "",
+      "lastValidated": "2026-11-22T17:08:04.050724+00:00"
+    }
+  ],
+  "removals": []
+}
