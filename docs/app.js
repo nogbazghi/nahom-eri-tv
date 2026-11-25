@@ -804,7 +804,7 @@ document.addEventListener("keydown", (event) => {
 // cross-origin YouTube iframe API script has itself loaded, which (unlike
 // the same-origin lineup fetch) requires the real network and never fires
 // at all when opening the app fully offline.
-window.onYouTubeIframeAPIReady = function () {
+function constructPlayer() {
   player = new YT.Player("player", {
     height: "100%",
     width: "100%",
@@ -820,7 +820,18 @@ window.onYouTubeIframeAPIReady = function () {
       onError: onPlayerError,
     },
   });
-};
+}
+
+// window.ytIframeApiState (set up synchronously in index.html, before this
+// deferred module can run) and this module's own execution race each other
+// — whichever finishes second is what should construct the player, exactly
+// once (ticket #164: the YouTube API's own readiness can, and often does,
+// arrive before this module has even started).
+if (window.ytIframeApiState.ready) {
+  constructPlayer();
+} else {
+  window.ytIframeApiState.onReady = constructPlayer;
+}
 
 // Safari/WebKit blocks forced playback of the cross-origin YouTube iframe
 // above without a real user gesture (ADR-0018) — nothing in playerVars can
